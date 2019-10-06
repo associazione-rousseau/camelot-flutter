@@ -18,7 +18,7 @@ We are relying on the current backend used by the webapp (single page applicatio
 The backend is a graphql API written in rails, that exposes only one endpoint for all the queries: https://api.rousseau.movimento5stelle.it/graphql. Queries are provided in this codebase.
 
 ## Finding something to work on
-In the [project canvas](https://github.com/orgs/associazione-rousseau/projects/1) there is a list of open issues to work on and discussions to contribute. It also includes UX/Design tasks that won't require any programming skills. Everyone is free to grab an issue and solve it, to file new issues and to propose new features or improvements of the existing ones.
+In the [project canvas](https://github.com/orgs/associazione-rousseau/projects/1) there is a list of open issues to work on and discussions to contribute. It also includes UX/Design tasks that won't require any programming skills. Everyone is free to grab an issue and solve it, to file new issues and to propose new features or improvements of the existing ones. This project and codebase are public and all the information and history are available to everyone.
 
 
 ## Submitting your PR
