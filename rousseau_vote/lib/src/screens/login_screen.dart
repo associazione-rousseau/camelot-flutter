@@ -1,17 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:rousseau_vote/src/widgets/rousseau_scaffold.dart';
+import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return RousseauLoggedScaffold(
-        body: Column(
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Login Screen',
-            )
+            Text('Login Screen')
           ],
         ),
+      ),
     );
   }
 }
