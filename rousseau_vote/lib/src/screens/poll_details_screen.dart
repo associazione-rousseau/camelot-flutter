@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
 
 class PollDetailsScreen extends StatelessWidget {
   static const routeName = '/polls';
@@ -8,12 +9,14 @@ class PollDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Text(
-          'Poll details Screen',
-        )
-      ],
+    return RousseauLoggedScaffold(
+      Column(
+        children: <Widget>[
+          Text(
+            'Poll details: $pollId',
+          )
+        ],
+      ),
     );
   }
 }

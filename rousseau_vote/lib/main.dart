@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rousseau_vote/src/providers/login.dart';
 
 import 'src/screens/login_screen.dart';
 import 'src/screens/poll_details_screen.dart';
@@ -11,20 +13,28 @@ class RousseauVoteApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Rousseau Vote',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      routes: {
-        PollsScreen.routeName: (context) => PollsScreen(),
-        LoginScreen.routeName: (context) => LoginScreen(),
-        RegisterScreen.routeName: (context) => RegisterScreen(),
-        PollDetailsScreen.routeName: (context) {
-          String pollId = ModalRoute.of(context).settings.arguments as String;
-          return PollDetailsScreen(pollId);
-        },
-      },
+    return Provider<Login>(
+        builder: (context) => Login(),
+        dispose: (context, value) => value.dispose(),
+        child: MaterialApp(
+            title: 'Rousseau Vote',
+            theme: ThemeData(
+              primarySwatch: Colors.red,
+            ),
+            routes: {
+              PollsScreen.routeName: (context) => PollsScreen(),
+              LoginScreen.routeName: (context) => LoginScreen(),
+              RegisterScreen.routeName: (context) => RegisterScreen(),
+              PollDetailsScreen.routeName: (context) {
+                String pollId =
+                ModalRoute
+                    .of(context)
+                    .settings
+                    .arguments as String;
+                return PollDetailsScreen(pollId);
+              },
+            }
+           )
     );
   }
 }
