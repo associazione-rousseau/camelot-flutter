@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 class PollDetailsScreen extends StatelessWidget {
+  static const routeName = '/polls';
+
   final String pollId;
   const PollDetailsScreen(this.pollId);
 
