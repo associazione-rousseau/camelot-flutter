@@ -22,4 +22,4 @@ In the [project canvas](https://github.com/associazione-rousseau/camelot-flutter
 
 
 ## Submitting your PR
-For the PR flow we are referring to [this flow](https://gist.github.com/Chaser324/ce0505fbed06b947d962). In order to be considered, PR have to be written in english, pass all the tests and pass all the lint checks. In order to be merged, they have to be approved by an owner.
+For the PR flow we are referring to [this flow](https://gist.github.com/Chaser324/ce0505fbed06b947d962). In order to be considered, PR have to be written in english, pass all the tests and pass all the lint checks. For substantial UI changes you should add a screenshot to the PR. In order to be merged, they have to be approved by an owner.
