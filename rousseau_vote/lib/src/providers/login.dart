@@ -15,4 +15,8 @@ class Login with ChangeNotifier {
   bool isLoggedIn() {
     return true;
   }
+
+  bool isLoading() {
+    return false;
+  }
 }
