@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
 
 class PollDetailsScreen extends StatelessWidget {
+  static const routeName = '/polls';
+
   final String pollId;
   const PollDetailsScreen(this.pollId);
 

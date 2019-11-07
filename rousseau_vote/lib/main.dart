@@ -22,10 +22,10 @@ class RousseauVoteApp extends StatelessWidget {
               primarySwatch: Colors.red,
             ),
             routes: {
-              '/': (context) => PollsScreen(),
-              '/login': (context) => LoginScreen(),
-              '/register': (context) => RegisterScreen(),
-              '/polls': (context) {
+              PollsScreen.routeName: (context) => PollsScreen(),
+              LoginScreen.routeName: (context) => LoginScreen(),
+              RegisterScreen.routeName: (context) => RegisterScreen(),
+              PollDetailsScreen.routeName: (context) {
                 String pollId =
                 ModalRoute
                     .of(context)
