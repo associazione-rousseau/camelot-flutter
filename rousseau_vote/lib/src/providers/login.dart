@@ -13,7 +13,7 @@ class Login with ChangeNotifier {
   }
 
   bool isLoggedIn() {
-    return true;
+    return false;
   }
 
   bool isLoading() {

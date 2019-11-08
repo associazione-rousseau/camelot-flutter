@@ -22,6 +22,7 @@ class RousseauVoteApp extends StatelessWidget {
           title: 'Rousseau Vote',
           theme: ThemeData(
             primarySwatch: Colors.red,
+            primaryColor: Color(0xFFD11F25)
           ),
           localizationsDelegates: [
             RousseauLocalizations.delegate,
