@@ -13,8 +13,8 @@ Get-Content .\config.psvars | Where-Object {$_.length -gt 0} | Where-Object {!$_
 }
 
 #variables
-$github_upstream_repo 	= "https:$github_url/$github_upstream_org/$github_project"
-$github_origin_repo		= "https:$github_url/$github_username/$github_project"
+$github_upstream_repo 	= "https://$github_url/$github_upstream_org/$github_project"
+$github_origin_repo		= "https://$github_url/$github_username/$github_project"
 $local_repo 			= "$local_source_root\$github_username"
 
 #create the root folder for the local repo
@@ -85,4 +85,5 @@ if (!$?) {
 	git clone $github_origin_repo
 }
 cd "$local_repo\$github_project"
+git remote add upstream $github_upstream_repo
 
