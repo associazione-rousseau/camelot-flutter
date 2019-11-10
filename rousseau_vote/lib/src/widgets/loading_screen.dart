@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 
 /// A screen to display that a loading is in progress.
 /// Can have a custom 'message' (defaults to 'Loading')
 class LoadingScreen extends StatelessWidget {
-  final String message;
+  final String messageKey;
 
-  LoadingScreen({this.message = 'Loading'});
+  LoadingScreen({this.messageKey = 'genericLoading'});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class LoadingScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(top: 16),
               child: Text(
-                this.message,
+                RousseauLocalizations.of(context).text(this.messageKey),
                 style: TextStyle(fontSize: 32),
               ),
             ),
