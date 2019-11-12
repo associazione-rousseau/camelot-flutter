@@ -21,7 +21,7 @@ class LoadingScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(top: 16),
               child: Text(
-                RousseauLocalizations.of(context).text(this.messageKey),
+                RousseauLocalizations.getText(context, this.messageKey),
                 style: TextStyle(fontSize: 32),
               ),
             ),

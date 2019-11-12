@@ -37,6 +37,10 @@ class RousseauLocalizations {
         context, RousseauLocalizations);
   }
 
+  static String getText(BuildContext context, String messageKey) {
+    return RousseauLocalizations.of(context).text(messageKey);
+  }
+
   static Future<RousseauLocalizations> load(Locale locale) async {
     RousseauLocalizations rousseauLocalizations = RousseauLocalizations(locale);
     String jsonContent = await rootBundle
