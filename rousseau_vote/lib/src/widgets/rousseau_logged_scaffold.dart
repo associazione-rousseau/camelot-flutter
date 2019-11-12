@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import '../config/app_constants.dart' as AppConstants;
 import 'logged_screen.dart';
