@@ -19,7 +19,7 @@ class LoggedScreen extends StatelessWidget {
 
     if (loginContext.isLoading()) {
       return LoadingScreen(
-        message: 'Logging In',
+        messageKey: 'loginLoading',
       );
     }
 
