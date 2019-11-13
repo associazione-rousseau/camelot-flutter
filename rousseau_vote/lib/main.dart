@@ -21,7 +21,7 @@ class RousseauVoteApp extends StatelessWidget {
       ],
       //builder: (context) => Login(),
       child: MaterialApp(
-          title: 'Rousseau Vote',
+          title: 'Rousseau vote',
           theme: ThemeData(
             primarySwatch: Colors.red,
             primaryColor: Color(0xFFD11F25)

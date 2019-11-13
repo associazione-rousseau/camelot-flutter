@@ -4,8 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/screens/login_screen.dart';
 
-import './loading_screen.dart';
-
 // Widget to use for loggedin screens. It checks if the user is logged in. If
 // not it redirects to the login screen.
 class LoggedScreen extends StatelessWidget {

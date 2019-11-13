@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
 import 'package:rousseau_vote/src/widgets/rounded_text_field.dart';
@@ -21,12 +22,12 @@ class NativeLoginScreen extends StatelessWidget {
                   builder: (context, login, _) =>
                   Column(
                     children: <Widget>[
-                      RoundedTextField(hintText: "Email", enabled: !login.isLoading()),
+                      RoundedTextField(hintText: RousseauLocalizations.getText(context, 'email'), enabled: !login.isLoading()),
                       SizedBox(height: 15.0),
-                      RoundedTextField(hintText: "Password", obscureText: true, enabled: !login.isLoading()),
+                      RoundedTextField(hintText: RousseauLocalizations.getText(context, 'password'), obscureText: true, enabled: !login.isLoading()),
                       SizedBox(height: 15.0),
                       RoundedButton(
-                        text: "Entra",
+                        text: RousseauLocalizations.getText(context, 'loginButton'),
                         loading: login.isLoading(),
                         onPressed: () {
                           login.login();
@@ -37,7 +38,7 @@ class NativeLoginScreen extends StatelessWidget {
               ),
               SizedBox(height: 25.0),
               Text(
-                'Hai dimenticato la password?',
+                RousseauLocalizations.getText(context, 'forgotPassword'),
                 style: TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
               ),
               SizedBox(height: 25.0),
@@ -45,7 +46,7 @@ class NativeLoginScreen extends StatelessWidget {
               Row(children: [
                 Expanded(child: Divider(thickness: 2)),
                 Expanded(
-                    child: Text('OPPURE',
+                    child: Text(RousseauLocalizations.getText(context, 'orUpperCase'),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: 'Roboto',
@@ -56,7 +57,7 @@ class NativeLoginScreen extends StatelessWidget {
               SizedBox(height: 25.0),
               FlatButton(
                 child: Text(
-                  "REGISTRATI",
+                  RousseauLocalizations.getText(context, 'register'),
                   style: TextStyle(
                     fontFamily: 'Roboto',
                     fontSize: 20.0,

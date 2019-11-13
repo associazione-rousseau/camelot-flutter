@@ -1,4 +1,13 @@
 {
+  "appTitle": "Rousseau Vote",
+
   "genericLoading": "Caricamento",
-  "loginLoading": "Accesso in corso"
+  "loginLoading": "Accesso in corso",
+
+  "email": "Email",
+  "password": "Password",
+  "loginButton": "Entra",
+  "forgotPassword": "Hai dimenticato la password?",
+  "orUpperCase": "OPPURE",
+  "register": "REGISTRATI"
 }
