@@ -17,12 +17,6 @@ class LoggedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final loginContext = Provider.of<Login>(context);
 
-    if (loginContext.isLoading()) {
-      return LoadingScreen(
-        messageKey: 'loginLoading',
-      );
-    }
-
     if (!loginContext.isLoggedIn()) {
       return LoginScreen();
     }

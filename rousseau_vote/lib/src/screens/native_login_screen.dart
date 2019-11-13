@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
 import 'package:rousseau_vote/src/widgets/rounded_text_field.dart';
 
 class NativeLoginScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,11 +17,24 @@ class NativeLoginScreen extends StatelessWidget {
             children: <Widget>[
               Image(image: AssetImage('assets/images/rousseau_red.png')),
               SizedBox(height: 60.0),
-              RoundedTextField(hintText: "Email"),
-              SizedBox(height: 15.0),
-              RoundedTextField(hintText: "Password", obscureText: true),
-              SizedBox(height: 15.0),
-              RoundedButton(text: "Entra"),
+              Consumer<Login>(
+                  builder: (context, login, _) =>
+                  Column(
+                    children: <Widget>[
+                      RoundedTextField(hintText: "Email", enabled: !login.isLoading()),
+                      SizedBox(height: 15.0),
+                      RoundedTextField(hintText: "Password", obscureText: true, enabled: !login.isLoading()),
+                      SizedBox(height: 15.0),
+                      RoundedButton(
+                        text: "Entra",
+                        loading: login.isLoading(),
+                        onPressed: () {
+                          login.login();
+                        },
+                      ),
+                    ],
+                  )
+              ),
               SizedBox(height: 25.0),
               Text(
                 'Hai dimenticato la password?',

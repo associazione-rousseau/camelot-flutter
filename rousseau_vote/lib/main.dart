@@ -15,8 +15,11 @@ class RousseauVoteApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<Login>(
-      builder: (context) => Login(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (_) => Login()),
+      ],
+      //builder: (context) => Login(),
       child: MaterialApp(
           title: 'Rousseau Vote',
           theme: ThemeData(

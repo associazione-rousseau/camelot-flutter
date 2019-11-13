@@ -1,22 +1,37 @@
-
+import 'dart:ffi';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
 class Login with ChangeNotifier {
+  var _isLoading = false;
+  var _isLogged = false;
 
-  void logout() {
+  Future<bool> login() {
+    _isLoading = true;
+    notifyListeners();
 
+    return _doLogin();
   }
 
-  void onLogout() {
-
+  Future<bool> _doLogin() async {
+    return Future.delayed(Duration(seconds: 4), () {
+      _isLoading = false;
+      _isLogged = true;
+      notifyListeners();
+      return true;
+    });
   }
+
+  void logout() {}
+
+  void onLogout() {}
 
   bool isLoggedIn() {
-    return false;
+    return _isLogged;
   }
 
   bool isLoading() {
-    return false;
+    return _isLoading;
   }
 }

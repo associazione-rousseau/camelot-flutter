@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class RoundedButton extends StatelessWidget {
   final text;
   final onPressed;
+  final loading;
 
-  RoundedButton({this.text, this.onPressed});
+  RoundedButton({this.text, this.onPressed, this.loading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -14,18 +15,32 @@ class RoundedButton extends StatelessWidget {
       color: Theme.of(context).primaryColor,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: onPressed,
-        child: Text(
-          text,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 20.0,
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-          ),
-        ),
+        padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        onPressed: loading ? null : onPressed,
+        child: loading ? _loadingWidget() : _buttonTextWidget(text),
+      ),
+    );
+  }
+
+  static Widget _buttonTextWidget(String text) {
+    return Text(
+      text,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 20.0,
+          color: Colors.white,
+          fontWeight: FontWeight.bold
+      ),
+    );
+  }
+
+  static Widget _loadingWidget() {
+    return Container(
+      height: 25,
+      width: 25,
+      child: CircularProgressIndicator(
+        backgroundColor: Colors.white,
       ),
     );
   }
