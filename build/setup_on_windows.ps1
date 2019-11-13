@@ -38,7 +38,7 @@ choco feature enable -n allowGlobalConfirmation
 refreshenv
 
 # install git, hub, vscode, gitlens, jre, jdk, 
-# android-sdk, androidstudio, dart, flutter
+# android-sdk, androidstudio, gradle, dart, flutter
 choco install git.install
 choco install git-credential-manager-for-windows
 choco install hub
@@ -53,6 +53,7 @@ $Env:ANDROID_HOME = "C:\Android\android-sdk"
 refreshenv
 cd $local_repo
 choco install androidstudio
+choco install gradle
 choco install dart-sdk --pre 
 choco install flutter
 refreshenv
@@ -84,6 +85,19 @@ git -C "$local_repo\$github_project" rev-parse
 if (!$?) { 
 	git clone $github_origin_repo
 }
+# TODO: make the rest of the script idempotent
 cd "$local_repo\$github_project"
 git remote add upstream $github_upstream_repo
 
+# create an android virtual device
+"y`r`n" * 10 | & $Env:ANDROID_HOME\tools\bin\sdkmanager.bat "system-images;android-29;google_apis;x86_64"
+"n`r`n" | advdmanager create avd --name AndroidDevice01 --package "system-images;android-29;google_apis;x86_64"
+
+# run the android virtual device
+emulator -avd AndroidDevice01
+
+# run the doctor to confirm everything is ale and sunshine
+flutter doctor
+
+#run the application
+flutter run --verbose
