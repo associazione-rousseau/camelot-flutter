@@ -1,3 +1,5 @@
+import 'package:rousseau_vote/src/models/poll_option.dart';
+
 class Poll {
 
   String id;
@@ -7,6 +9,8 @@ class Poll {
   bool alreadyVoted;
   DateTime voteStartinDate;
   DateTime voteEndingDate;
+
+  List<PollOption> options;
 
 }
 
