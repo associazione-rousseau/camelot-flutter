@@ -1,7 +1,9 @@
 import 'package:flutter/widgets.dart';
+
 import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
 
 class PollsScreen extends StatelessWidget {
+  
   static const routeName = '/';
 
   @override
@@ -16,4 +18,5 @@ class PollsScreen extends StatelessWidget {
       ),
     );
   }
+
 }

@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rousseau_vote/src/screens/native_login_screen.dart';
 import 'package:rousseau_vote/src/screens/web_login_screen.dart';
 
-import '../config/app_constants.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login';
