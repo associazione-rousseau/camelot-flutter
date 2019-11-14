@@ -6,7 +6,7 @@ import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 class LoadingScreen extends StatelessWidget {
   final String messageKey;
 
-  LoadingScreen({this.messageKey = 'genericLoading'});
+  LoadingScreen({this.messageKey = 'loading'});
 
   @override
   Widget build(BuildContext context) {

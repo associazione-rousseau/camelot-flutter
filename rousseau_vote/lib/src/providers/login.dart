@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class Login with ChangeNotifier {
+  
   var _isLoading = false;
   var _isLogged = false;
 
@@ -31,4 +32,5 @@ class Login with ChangeNotifier {
   bool isLoading() {
     return _isLoading;
   }
+  
 }
