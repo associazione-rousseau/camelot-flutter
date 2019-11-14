@@ -16,6 +16,7 @@ jobs:
       with:
         flutter-version: '1.7.x' # you can use 1.7
         channel: 'dev' # optional, default to: 'stable'
+    - run: cd rousseau_vote
     - run: flutter pub get
     - run: flutter test
     - run: flutter build apk
