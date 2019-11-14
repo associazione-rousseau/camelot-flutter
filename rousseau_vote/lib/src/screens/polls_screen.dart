@@ -18,4 +18,5 @@ class PollsScreen extends StatelessWidget {
       ),
     );
   }
+
 }
