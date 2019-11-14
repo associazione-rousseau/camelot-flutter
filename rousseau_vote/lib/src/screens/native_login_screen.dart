@@ -27,7 +27,7 @@ class NativeLoginScreen extends StatelessWidget {
                       RoundedTextField(hintText: RousseauLocalizations.getText(context, 'password'), obscureText: true, enabled: !login.isLoading()),
                       SizedBox(height: 15.0),
                       RoundedButton(
-                        text: RousseauLocalizations.getText(context, 'loginButton'),
+                        text: RousseauLocalizations.getText(context, 'login-button'),
                         loading: login.isLoading(),
                         onPressed: () {
                           login.login();
@@ -38,7 +38,7 @@ class NativeLoginScreen extends StatelessWidget {
               ),
               SizedBox(height: 25.0),
               Text(
-                RousseauLocalizations.getText(context, 'forgotPassword'),
+                RousseauLocalizations.getText(context, 'password-forgot'),
                 style: TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
               ),
               SizedBox(height: 25.0),
@@ -46,7 +46,7 @@ class NativeLoginScreen extends StatelessWidget {
               Row(children: [
                 Expanded(child: Divider(thickness: 2)),
                 Expanded(
-                    child: Text(RousseauLocalizations.getText(context, 'orUpperCase'),
+                    child: Text(RousseauLocalizations.getText(context, 'or').toUpperCase(),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: 'Roboto',
@@ -57,7 +57,7 @@ class NativeLoginScreen extends StatelessWidget {
               SizedBox(height: 25.0),
               FlatButton(
                 child: Text(
-                  RousseauLocalizations.getText(context, 'register'),
+                  RousseauLocalizations.getText(context, 'register-button').toUpperCase(),
                   style: TextStyle(
                     fontFamily: 'Roboto',
                     fontSize: 20.0,
