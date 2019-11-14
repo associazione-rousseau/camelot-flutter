@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 
-import 'src/config/app_constants.dart';
-import 'src/l10n/rousseau_localizations.dart';
-import 'src/screens/login_screen.dart';
-import 'src/screens/poll_details_screen.dart';
-import 'src/screens/polls_screen.dart';
-import 'src/screens/register_screen.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+import 'package:rousseau_vote/src/screens/login_screen.dart';
+import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
+import 'package:rousseau_vote/src/screens/polls_screen.dart';
+import 'package:rousseau_vote/src/screens/register_screen.dart';
 
 void main() => runApp(RousseauVoteApp());
 
