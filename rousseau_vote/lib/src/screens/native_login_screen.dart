@@ -64,7 +64,8 @@ class NativeLoginScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).primaryColor,
                   ),
-                ),
+                ), 
+                onPressed: () {},
               )
             ],
           ),
