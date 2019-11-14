@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - working-directory: rousseau_vote
     - uses: actions/checkout@v1
     - uses: actions/setup-java@v1
       with:
@@ -17,7 +16,9 @@ jobs:
       with:
         flutter-version: '1.7.x' # you can use 1.7
         channel: 'dev' # optional, default to: 'stable'
-    - run: flutter pub get
+    - name: Installing dependencies
+      working-directory: ./rousseau_vote
+      run: flutter pub get
     - run: flutter test
     - run: flutter build apk
 
