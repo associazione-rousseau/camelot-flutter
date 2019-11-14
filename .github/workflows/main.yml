@@ -19,6 +19,9 @@ jobs:
     - name: Installing dependencies
       working-directory: ./rousseau_vote
       run: flutter pub get
-    - run: flutter test
-    - run: flutter build apk
-
+    - name: Testing
+      working-directory: ./rousseau_vote
+      run: flutter test
+    - name: Building apk
+      working-directory: ./rousseau_vote
+      run: flutter build apk
