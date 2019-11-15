@@ -8,12 +8,18 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:rousseau_vote/main.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+ testWidgets('Is the app findable by type', (WidgetTester tester) async {
     await tester.pumpWidget(RousseauVoteApp());
-
     expect(find.byType(RousseauVoteApp), findsOneWidget);
+ });
+
+  testWidgets('Is the app findable by widget', (WidgetTester tester) async {
+    var app = RousseauVoteApp();
+    await tester.pumpWidget(app);
+    expect(find.byWidget(app), findsOneWidget);
   });
 }
