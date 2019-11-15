@@ -14,7 +14,7 @@ jobs:
         java-version: '12.x'
     - uses: subosito/flutter-action@v1
       with:
-        flutter-version: '2.2.x'
+        flutter-version: 'v1.9.1+hotfix.6'
         channel: 'dev' # optional, default to: 'stable'
     - name: Installing dependencies
       working-directory: ./rousseau_vote
