@@ -3,9 +3,14 @@ name: CI
 on: [push]
 
 jobs:
-  build:
+  integrate:
 
-    runs-on: ubuntu-latest
+    name: Integrate on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
 
     steps:
     - uses: actions/checkout@v1
