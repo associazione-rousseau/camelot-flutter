@@ -14,7 +14,7 @@ jobs:
         java-version: '12.x'
     - uses: subosito/flutter-action@v1
       with:
-        flutter-version: '1.7.x' # you can use 1.7
+        flutter-version: '1.8.x' # you can use 1.7
         channel: 'dev'
     - name: Installing dependencies
       working-directory: ./rousseau_vote
