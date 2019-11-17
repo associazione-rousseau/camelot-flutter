@@ -30,6 +30,7 @@ jobs:
       working-directory: ./rousseau_vote
       run: flutter test --coverage
     #- name: Report CodeCov
+      #if:  startsWith(matrix.os, 'ubuntu')
       #uses: codecov/codecov-action@v1.0.3
       #with:
         #token: ${{secrets.CodeCov}}
