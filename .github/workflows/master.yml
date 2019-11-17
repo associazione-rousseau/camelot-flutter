@@ -29,6 +29,11 @@ jobs:
     - name: Testing and coverage
       working-directory: ./rousseau_vote
       run: flutter test --coverage
+    #- name: Report CodeCov
+      #uses: codecov/codecov-action@v1.0.3
+      #with:
+        #token: ${{secrets.CodeCov}}
+        #flags: unittests
     - name: Building apk
       if:  startsWith(matrix.os, 'ubuntu')
       working-directory: ./rousseau_vote
