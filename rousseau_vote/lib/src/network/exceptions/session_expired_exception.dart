@@ -1,0 +1,2 @@
+
+class SessionExpiredException implements Exception {}

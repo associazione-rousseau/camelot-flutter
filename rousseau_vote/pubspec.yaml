@@ -29,9 +29,20 @@ dependencies:
     sdk: flutter
   flutter_cupertino_localizations: ^1.0.1
 
+  # Network libraries
+  dio: ^3.0.4
+  dio_cookie_manager: ^1.0.0
+  cookie_jar: ^1.0.1
+  retrofit: ^1.0.1+1
+  json_serializable: ^3.2.3
+  uuid: ^2.0.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  retrofit_generator: ^1.0.2+2
+  build_runner: ^1.7.1
 
 
 # For information on the generic Dart part of this file, see the

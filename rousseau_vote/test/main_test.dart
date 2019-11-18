@@ -8,7 +8,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:rousseau_vote/main.dart';
-import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 
 
 void main() {
