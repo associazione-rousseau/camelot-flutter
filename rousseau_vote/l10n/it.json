@@ -6,5 +6,8 @@
     "password-forgot": "Hai dimenticato la password?",
     "login-button": "Entra",
     "register-button": "Registrati",
-    "or": "oppure"
+    "or": "oppure",
+
+    "error-network": "Ops! C'è stato un problema. Riprovare più tardi",
+    "error-credentials": "Ops. Email o password errati"
 }

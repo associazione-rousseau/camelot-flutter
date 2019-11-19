@@ -9,7 +9,7 @@ part of 'login_rest_client.dart';
 class _LoginRestClient implements LoginRestClient {
   _LoginRestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??= 'http://localhost:8081/auth/realms/rousseau';
+    this.baseUrl ??= 'http://10.0.2.2:8081/auth/realms/rousseau';
   }
 
   final Dio _dio;

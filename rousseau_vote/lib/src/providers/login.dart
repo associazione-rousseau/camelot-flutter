@@ -1,36 +1,64 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:rousseau_vote/src/network/exceptions/wrong_credentials_exception.dart';
+import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 
 class Login with ChangeNotifier {
-  
-  var _isLoading = false;
-  var _isLogged = false;
+  final LoginNetworkHandler _loginNetworkHandler;
+  LoginState _currentState;
 
-  Future<bool> login() {
-    _isLoading = true;
+  Login(this._loginNetworkHandler) {
+    _currentState = _loadInitialState();
+  }
+
+  LoginState _loadInitialState() {
+    // TODO implement persistent login
+    return LoginState.LOGGED_OUT;
+  }
+
+  Future<bool> login(String email, String password) async {
+    _moveToState(LoginState.LOADING);
     notifyListeners();
 
-    return _doLogin();
+    try {
+      final loginSession =
+          await _loginNetworkHandler.credentialsLogin(email, password);
+      assert(loginSession != null);
+      _moveToState(LoginState.LOGGED_IN);
+    } on WrongCredentialsException {
+      _moveToState(LoginState.CREDENTIALS_ERROR);
+    } on DioError catch(e) {
+      _moveToState(LoginState.NETWORK_ERROR);
+    }
+    return isLoggedIn();
   }
 
-  Future<bool> _doLogin() async {
-    return Future.delayed(Duration(seconds: 4), () {
-      _isLoading = false;
-      _isLogged = true;
+  void _moveToState(LoginState newState, {bool shouldNotifyListeners = true}) {
+    this._currentState = newState;
+    if (shouldNotifyListeners) {
       notifyListeners();
-      return true;
-    });
+    }
   }
 
-  void logout() {}
+  bool isLoggedIn() => this._currentState == LoginState.LOGGED_IN;
 
-  void onLogout() {}
+  bool isLoading() => this._currentState == LoginState.LOADING;
 
-  bool isLoggedIn() {
-    return _isLogged;
-  }
+  bool isLastLoginFailed() =>
+      this._currentState == LoginState.CREDENTIALS_ERROR;
 
-  bool isLoading() {
-    return _isLoading;
-  }
-  
+  bool hasNetworkError() => this._currentState == LoginState.NETWORK_ERROR;
+
+  void resetErrors({shouldNotifyListeners = false}) =>
+      _moveToState(LoginState.LOGGED_OUT,
+          shouldNotifyListeners: shouldNotifyListeners);
+}
+
+enum LoginState {
+  LOGGED_OUT,
+  LOADING,
+  NETWORK_ERROR,
+  CREDENTIALS_ERROR,
+  GENERIC_ERROR,
+  LOGGED_IN
 }

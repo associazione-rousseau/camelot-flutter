@@ -32,7 +32,7 @@ class LoginNetworkHandler {
         loginSession.tabId,
         body);
     if (credentialsLoginResponse.hasErrors()) {
-      print(credentialsLoginResponse.errors.first);
+      // TODO check all the possible errors
       throw WrongCredentialsException();
     }
     this._loginSession = LoginSession.fromLoginResponse(credentialsLoginResponse);

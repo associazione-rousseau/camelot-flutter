@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 
 import 'package:rousseau_vote/src/config/app_constants.dart';
@@ -18,7 +20,8 @@ class RousseauVoteApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (_) => Login()),
+        // TODO refactor using dependency injection (probably manually implemented)
+        ChangeNotifierProvider(builder: (_) => Login(LoginNetworkHandler(Dio()))),
       ],
       child: MaterialApp(
         title: APP_NAME,
