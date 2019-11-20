@@ -60,7 +60,8 @@ class Login with ChangeNotifier {
   bool isLastLoginFailed() => this._errorState == _ErrorState.CREDENTIALS_ERROR;
 
   bool isCredentialsAuthenticated() =>
-      this._loginState == _LoginState.CREDENTIALS_AUTHENTICATED;
+      this._loginState == _LoginState.CREDENTIALS_AUTHENTICATED ||
+          this._loginState == _LoginState.CODE_LOADING;
 
   bool hasNetworkError() => this._errorState == _ErrorState.NETWORK_ERROR;
 

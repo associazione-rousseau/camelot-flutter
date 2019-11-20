@@ -9,5 +9,6 @@
     "or": "oppure",
 
     "error-network": "Ops! C'è stato un problema. Riprovare più tardi",
-    "error-credentials": "Ops. Email o password errati. Riprova!"
+    "error-credentials": "Ops. Email o password errati. Riprova!",
+    "error-code": "Ops. Codice sbagliato. Riprova o richiedi un nuovo codice"
 }
