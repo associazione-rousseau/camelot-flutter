@@ -5,64 +5,76 @@ import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 
 class Login with ChangeNotifier {
   final LoginNetworkHandler _loginNetworkHandler;
-  LoginState _currentState;
+  _LoginState _loginState;
+  _ErrorState _errorState;
 
   Login(this._loginNetworkHandler) {
-    _currentState = _loadInitialState();
+    _loginState = _loadInitialState();
+    _errorState = _ErrorState.NO_ERRORS;
   }
 
-  LoginState _loadInitialState() {
+  _LoginState _loadInitialState() {
     // TODO implement persistent login
-    return LoginState.LOGGED_OUT;
+    return _LoginState.LOGGED_OUT;
   }
 
   Future<bool> login(String email, String password) async {
-    _moveToState(LoginState.LOADING);
-    notifyListeners();
+    _moveToState(loginState: _LoginState.CREDENTIALS_LOADING);
 
     try {
       final loginSession =
           await _loginNetworkHandler.credentialsLogin(email, password);
       assert(loginSession != null);
-      _moveToState(LoginState.CREDENTIALS_AUTHENTICATED);
+      _moveToState(loginState: _LoginState.CREDENTIALS_AUTHENTICATED);
     } on WrongCredentialsException {
-      _moveToState(LoginState.CREDENTIALS_ERROR);
+      _moveToState(
+          loginState: _LoginState.LOGGED_OUT,
+          errorState: _ErrorState.CREDENTIALS_ERROR);
     } on DioError {
-      _moveToState(LoginState.NETWORK_ERROR);
+      _moveToState(
+          loginState: _LoginState.LOGGED_OUT,
+          errorState: _ErrorState.NETWORK_ERROR);
     }
-    return isLoggedIn();
+    return isCredentialsAuthenticated();
   }
 
-  void _moveToState(LoginState newState, {bool shouldNotifyListeners = true}) {
-    print(newState);
-    this._currentState = newState;
+  void _moveToState(
+      {_LoginState loginState,
+      _ErrorState errorState,
+      bool shouldNotifyListeners = true}) {
+    if (loginState != null) {
+      this._loginState = loginState;
+    }
+    if (errorState != null) {
+      this._errorState = errorState;
+    }
     if (shouldNotifyListeners) {
       notifyListeners();
     }
   }
 
-  bool isLoggedIn() => this._currentState == LoginState.LOGGED_IN;
+  bool isLoggedIn() => this._loginState == _LoginState.LOGGED_IN;
 
-  bool isLoading() => this._currentState == LoginState.LOADING;
+  bool isLoading() => this._loginState == _LoginState.CREDENTIALS_LOADING;
 
-  bool isLastLoginFailed() =>
-      this._currentState == LoginState.CREDENTIALS_ERROR;
+  bool isLastLoginFailed() => this._errorState == _ErrorState.CREDENTIALS_ERROR;
 
-  bool isCredentialsAuthenticated() => this._currentState == LoginState.CREDENTIALS_AUTHENTICATED;
+  bool isCredentialsAuthenticated() =>
+      this._loginState == _LoginState.CREDENTIALS_AUTHENTICATED;
 
-  bool hasNetworkError() => this._currentState == LoginState.NETWORK_ERROR;
+  bool hasNetworkError() => this._errorState == _ErrorState.NETWORK_ERROR;
 
-  void resetErrors({shouldNotifyListeners = false}) =>
-      _moveToState(LoginState.LOGGED_OUT,
-          shouldNotifyListeners: shouldNotifyListeners);
+  void resetErrors({shouldNotifyListeners = false}) => _moveToState(
+      errorState: _ErrorState.NO_ERRORS,
+      shouldNotifyListeners: shouldNotifyListeners);
 }
 
-enum LoginState {
+enum _ErrorState { NO_ERRORS, CREDENTIALS_ERROR, GENERIC_ERROR, NETWORK_ERROR }
+
+enum _LoginState {
   LOGGED_OUT,
-  LOADING,
-  NETWORK_ERROR,
-  CREDENTIALS_ERROR,
-  GENERIC_ERROR,
+  CREDENTIALS_LOADING,
   CREDENTIALS_AUTHENTICATED,
+  CODE_LOADING,
   LOGGED_IN
 }
