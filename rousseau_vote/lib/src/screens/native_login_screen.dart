@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
 import 'package:rousseau_vote/src/widgets/rounded_text_field.dart';
 
@@ -112,10 +113,6 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
   }
 
   void _showErrorMessage(BuildContext context, String errorMessage) {
-    final snackBar = SnackBar(
-      content: new Text(RousseauLocalizations.getText(context, errorMessage)),
-      duration: new Duration(seconds: 5),
-    );
-    _scaffoldState.currentState.showSnackBar(snackBar);
+    UiUtil.showRousseauSnackbar(context, _scaffoldState, errorMessage);
   }
 }
