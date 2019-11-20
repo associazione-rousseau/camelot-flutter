@@ -6,6 +6,7 @@ import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
 import 'package:rousseau_vote/src/widgets/rounded_text_field.dart';
+import 'package:rousseau_vote/src/widgets/rousseau_logo_header.dart';
 
 class NativeLoginScreen extends StatefulWidget {
   @override
@@ -33,9 +34,7 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 50.0),
-                  Image(image: AssetImage('assets/images/rousseau_red.png')),
-                  SizedBox(height: 60.0),
+                  RousseauLogoHeader(),
                   Consumer<Login>(
                       builder: (context, login, _) =>
                       Column(
@@ -67,7 +66,6 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
                     style: TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
                   ),
                   SizedBox(height: 25.0),
-                  //Row(children: [Divider(height: 5,),Text('OPPURE'), Divider()]),
                   Row(children: [
                     Expanded(child: Divider(thickness: 2)),
                     Expanded(
