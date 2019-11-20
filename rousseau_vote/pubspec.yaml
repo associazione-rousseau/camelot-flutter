@@ -24,6 +24,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   provider: ^2.0.0+1
+  injectorio: ^1.0.3
   # Localization dependencies
   flutter_localizations:
     sdk: flutter

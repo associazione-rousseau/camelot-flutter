@@ -24,16 +24,17 @@ class Login with ChangeNotifier {
       final loginSession =
           await _loginNetworkHandler.credentialsLogin(email, password);
       assert(loginSession != null);
-      _moveToState(LoginState.LOGGED_IN);
+      _moveToState(LoginState.CREDENTIALS_AUTHENTICATED);
     } on WrongCredentialsException {
       _moveToState(LoginState.CREDENTIALS_ERROR);
-    } on DioError catch(e) {
+    } on DioError {
       _moveToState(LoginState.NETWORK_ERROR);
     }
     return isLoggedIn();
   }
 
   void _moveToState(LoginState newState, {bool shouldNotifyListeners = true}) {
+    print(newState);
     this._currentState = newState;
     if (shouldNotifyListeners) {
       notifyListeners();
@@ -46,6 +47,8 @@ class Login with ChangeNotifier {
 
   bool isLastLoginFailed() =>
       this._currentState == LoginState.CREDENTIALS_ERROR;
+
+  bool isCredentialsAuthenticated() => this._currentState == LoginState.CREDENTIALS_AUTHENTICATED;
 
   bool hasNetworkError() => this._currentState == LoginState.NETWORK_ERROR;
 
@@ -60,5 +63,6 @@ enum LoginState {
   NETWORK_ERROR,
   CREDENTIALS_ERROR,
   GENERIC_ERROR,
+  CREDENTIALS_AUTHENTICATED,
   LOGGED_IN
 }

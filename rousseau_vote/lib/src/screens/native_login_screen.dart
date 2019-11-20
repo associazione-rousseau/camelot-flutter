@@ -18,15 +18,7 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final login = Provider.of<Login>(context, listen: false);
-    if (login.hasNetworkError()) {
-      final snackBar = SnackBar(
-        content: new Text(RousseauLocalizations.getText(context, 'error-network')),
-        duration: new Duration(seconds: 5),
-      );
-      _scaffoldState.currentState.showSnackBar(snackBar);
-      login.resetErrors();
-    }
+    _maybeShowErrorMessage(context);
     return Scaffold(
       key: _scaffoldState,
       body: SingleChildScrollView(
@@ -106,5 +98,24 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
         ),
       ),
     );
+  }
+
+  void _maybeShowErrorMessage(BuildContext context) {
+    final login = Provider.of<Login>(context, listen: false);
+    if (login.hasNetworkError()) {
+      _showErrorMessage(context, 'error-network');
+      login.resetErrors();
+    } else if (login.isLastLoginFailed()) {
+      _showErrorMessage(context, 'error-credentials');
+      login.resetErrors();
+    }
+  }
+
+  void _showErrorMessage(BuildContext context, String errorMessage) {
+    final snackBar = SnackBar(
+      content: new Text(RousseauLocalizations.getText(context, errorMessage)),
+      duration: new Duration(seconds: 5),
+    );
+    _scaffoldState.currentState.showSnackBar(snackBar);
   }
 }
