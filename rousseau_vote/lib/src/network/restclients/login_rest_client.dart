@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/network/response/credentials_login_response.dart';
 import 'package:rousseau_vote/src/network/response/init_login_response.dart';
+import 'package:rousseau_vote/src/network/response/token_response.dart';
 
 part 'login_rest_client.g.dart';
 
@@ -36,4 +37,8 @@ abstract class LoginRestClient {
       @Query('tab_id') String tabId,
       @Body() Map<String, String> body,
       {@Query('client_id') String clientId = KEYCLOAK_CLIENT_ID});
+
+  @POST('/protocol/openid-connect/token')
+  @FormUrlEncoded()
+  Future<TokenResponse> getToken(@Body() Map<String, String> body);
 }

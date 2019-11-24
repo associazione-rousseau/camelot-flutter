@@ -23,7 +23,7 @@ class DependencyInjector {
     dio.interceptors.add(get<CookieManager>());
     dio.interceptors.add(InterceptorsWrapper(
         onResponse:(Response response) async {
-          if (response.data != null) {
+          if (response.data != null && response.data is String) {
             Map<String, dynamic> decodedData = jsonDecode(response.data);
             response.data = decodedData;
           }

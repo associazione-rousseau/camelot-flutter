@@ -7,8 +7,13 @@
     "login-button": "Entra",
     "register-button": "Registrati",
     "or": "oppure",
+    "voice-call": "Chiamata vocale",
+    "re-send-sms": "Nuovo codice",
+    "cancel": "Annulla",
 
     "error-network": "Ops! C'è stato un problema. Riprovare più tardi",
     "error-credentials": "Ops. Email o password errati. Riprova!",
-    "error-code": "Ops. Codice sbagliato. Riprova o richiedi un nuovo codice"
+    "error-code": "Ops. Codice sbagliato. Riprova o richiedi un nuovo codice",
+    "error-generic": "Ops! C'è stato un problema. Riprovare più tardi",
+    "error-too-many-attempts": "Codice sbagliato per troppe volte. Riprova tra 15 minuti"
 }

@@ -108,4 +108,25 @@ class _LoginRestClient implements LoginRestClient {
     final value = CredentialsLoginResponse.fromJson(_result.data);
     return Future.value(value);
   }
+
+  @override
+  getToken(body) async {
+    ArgumentError.checkNotNull(body, 'body');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body ?? <String, dynamic>{});
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/protocol/openid-connect/token',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            contentType: 'application/x-www-form-urlencoded',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = TokenResponse.fromJson(_result.data);
+    return Future.value(value);
+  }
 }

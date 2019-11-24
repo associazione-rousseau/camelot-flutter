@@ -48,7 +48,7 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
                             context, 'login-button'),
                         loading: login.isLoading(),
                         onPressed: () {
-                          login.login(_emailTextController.text,
+                          login.credentialsLogin(_emailTextController.text,
                               _passwordTextController.text);
                         },
                       ),
