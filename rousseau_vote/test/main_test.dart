@@ -9,7 +9,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:rousseau_vote/main.dart';
 
-
 void main() {
  testWidgets('Is the app findable by type', (WidgetTester tester) async {
     await tester.pumpWidget(RousseauVoteApp());

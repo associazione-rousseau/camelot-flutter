@@ -1,0 +1,44 @@
+name: CI  
+on:
+  push:
+    branches-ignore:
+    - release 
+jobs:
+  integrate:
+    name: ${{ matrix.configuration }}-${{ matrix.os }} integration
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        configuration: [debug]
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-java@v1	
+      with:	
+        java-version: '12.x'
+    - uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '1.9.x'
+        channel: 'stable'
+    - name: Installing dependencies
+      working-directory: ./rousseau_vote
+      run: flutter pub get
+    - name: Lint
+      working-directory: ./rousseau_vote
+      run: flutter analyze
+    - name: Testing and coverage
+      working-directory: ./rousseau_vote
+      run: flutter test --coverage
+    - name: Building apk
+      if:  startsWith(matrix.os, 'ubuntu')
+      working-directory: ./rousseau_vote
+      run: flutter build apk --${{ matrix.configuration }} --split-per-abi --track-widget-creation # targets android-arm and android-arm64
+    - name: Building apk on MacOs # targets android-arm, remove this after we can target ios
+      if:  startsWith(matrix.os, 'macos')
+      working-directory: ./rousseau_vote
+      run: flutter build apk --${{ matrix.configuration }}
+    #- name: Building ios
+      #if:  startsWith(matrix.os, 'macos')  
+      #run: flutter build ios --${{ matrix.configuration }}
+      #working-directory: ./rousseau_vote
+      #run: flutter build ios --${{ matrix.configuration }}
