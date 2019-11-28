@@ -1,0 +1,2 @@
+
+class TooManyAttemptsException implements Exception {}

@@ -1,0 +1,2 @@
+
+class WrongCredentialsException implements Exception {}

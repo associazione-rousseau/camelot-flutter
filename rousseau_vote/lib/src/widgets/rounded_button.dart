@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 
 class RoundedButton extends StatelessWidget {
   final text;
@@ -17,7 +18,7 @@ class RoundedButton extends StatelessWidget {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         onPressed: loading ? null : onPressed,
-        child: loading ? _loadingWidget() : _buttonTextWidget(text),
+        child: loading ? LoadingIndicator(Colors.white) : _buttonTextWidget(text),
       ),
     );
   }
@@ -31,16 +32,6 @@ class RoundedButton extends StatelessWidget {
           fontSize: 20.0,
           color: Colors.white,
           fontWeight: FontWeight.bold
-      ),
-    );
-  }
-
-  static Widget _loadingWidget() {
-    return Container(
-      height: 25,
-      width: 25,
-      child: CircularProgressIndicator(
-        backgroundColor: Colors.white,
       ),
     );
   }
