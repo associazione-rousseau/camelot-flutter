@@ -7,19 +7,18 @@ part of 'token_response.dart';
 // **************************************************************************
 
 TokenResponse _$TokenResponseFromJson(Map<String, dynamic> json) {
-  return TokenResponse(
-    accessToken: json['access_token'] as String,
-    error: json['error'] as String,
-    errorDescription: json['error_description'] as String,
-  )
+  return TokenResponse()
     ..errors = (json['errors'] as List)?.map((e) => e as String)?.toList()
+    ..accessToken = json['access_token'] as String
     ..expiresIn = json['expires_in'] as int
     ..refreshExpiresIn = json['refresh_expires_in'] as int
     ..refreshToken = json['refresh_token'] as String
     ..tokenType = json['token_type'] as String
     ..notBeforePolicy = json['not-before-policy'] as int
     ..sessionState = json['session_state'] as String
-    ..scope = json['scope'] as String;
+    ..scope = json['scope'] as String
+    ..error = json['error'] as String
+    ..errorDescription = json['error_description'] as String;
 }
 
 Map<String, dynamic> _$TokenResponseToJson(TokenResponse instance) =>

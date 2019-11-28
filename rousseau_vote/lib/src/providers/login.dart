@@ -5,14 +5,16 @@ import 'package:rousseau_vote/src/network/exceptions/too_many_attempts_exception
 import 'package:rousseau_vote/src/network/exceptions/wrong_credentials_exception.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/network/response/token_response.dart';
+import 'package:rousseau_vote/src/storage/secure_storage.dart';
 
 class Login with ChangeNotifier {
   final LoginNetworkHandler _loginNetworkHandler;
+  final SecureStorage _secureStorage;
   _LoginState _loginState;
   _ErrorState _errorState;
   Token _token;
 
-  Login(this._loginNetworkHandler) {
+  Login(this._loginNetworkHandler, this._secureStorage) {
     _loadInitialState();
   }
 
@@ -67,6 +69,7 @@ class Login with ChangeNotifier {
         return false;
       }
       this._token = Token.fromTokenResponse(tokenResponse);
+      this._secureStorage.storeToken(this._token);
       _moveToState(
           loginState: _LoginState.LOGGED_IN,
           errorState: _ErrorState.NO_ERRORS);

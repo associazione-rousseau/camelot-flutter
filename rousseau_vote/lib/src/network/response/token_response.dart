@@ -18,7 +18,7 @@ class TokenResponse with ErrorResponse {
   String error;
   String errorDescription;
 
-  TokenResponse({this.accessToken, this.error, this.errorDescription});
+  TokenResponse();
 
   bool hasErrors() {
     return error != null;

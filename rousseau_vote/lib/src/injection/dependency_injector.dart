@@ -7,6 +7,7 @@ import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:injectorio/injectorio.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
+import 'package:rousseau_vote/src/storage/secure_storage.dart';
 
 class DependencyInjector {
   static initInjector() {
@@ -15,6 +16,7 @@ class DependencyInjector {
         .single(_cookieManager())
         .single<DioForNative>(_dio())
         .single(_loginNetworkHandler())
+        .single(_secureStorage())
         .single(_login());
   }
 
@@ -42,7 +44,11 @@ class DependencyInjector {
   }
 
   static _login() {
-    return Login(get());
+    return Login(get(), get());
+  }
+
+  static _secureStorage() {
+    return SecureStorage(get());
   }
 
   static _loginNetworkHandler() {

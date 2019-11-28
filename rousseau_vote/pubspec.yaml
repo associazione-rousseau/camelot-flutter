@@ -44,6 +44,9 @@ dependencies:
   json_serializable: ^3.2.3
   uuid: ^2.0.4
 
+  # Storage
+  flutter_secure_storage: ^3.3.1+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
