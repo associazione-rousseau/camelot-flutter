@@ -1,5 +1,5 @@
 # camelot-flutter
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code-of-conduct.md)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code-of-conduct.md)  
 Cross platform Flutter application to subscribe and vote on [Rousseau](https://www.washingtonpost.com/world/europe/with-online-poll-italy-moves-closer-to-formation-of-a-new-government/2019/09/03/2e6f50de-ce6a-11e9-a620-0a91656d7db6_story.html). Rousseau is the e-voting platform of the 5 Stars MoVement, one of the main Italian Parties. Given its social impact, this app will be implemented in crowdsourcing allowing everyone to contribute. This is also a social experiment: trying to build something so relevant and impactful only with voluntary contributions.
 
 ## Scope
