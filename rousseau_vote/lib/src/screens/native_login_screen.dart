@@ -93,11 +93,29 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
 
   void _maybeShowErrorMessage(BuildContext context) {
     final login = Provider.of<Login>(context, listen: false);
-    if (login.hasNetworkError()) {
-      _showErrorMessage(context, 'error-network');
-      login.resetErrors();
-    } else if (login.isLastLoginFailed()) {
-      _showErrorMessage(context, 'error-credentials');
+    if (login.hasError()) {
+      String errorMessage;
+      switch(login.errorState) {
+        case ErrorState.CREDENTIALS_ERROR:
+          errorMessage = 'error-credentials';
+          break;
+        case ErrorState.TOO_MANY_ATTEMPTS:
+          errorMessage = 'error-too-many-attempts';
+          break;
+        case ErrorState.GENERIC_ERROR:
+          errorMessage = 'error-generic';
+          break;
+        case ErrorState.NETWORK_ERROR:
+          errorMessage = 'error-network';
+          break;
+        case ErrorState.INVALID_TOKEN:
+          errorMessage = 'error-invalid-token';
+          break;
+        default:
+          errorMessage = 'error-generic';
+      }
+
+      _showErrorMessage(context, errorMessage);
       login.resetErrors();
     }
   }

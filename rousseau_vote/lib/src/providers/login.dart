@@ -10,8 +10,8 @@ import 'package:rousseau_vote/src/store/token_store.dart';
 class Login with ChangeNotifier {
   final LoginNetworkHandler _loginNetworkHandler;
   final TokenStore _tokenStore;
-  _LoginState _loginState;
-  _ErrorState _errorState;
+  LoginState _loginState;
+  ErrorState _errorState;
 
   Login(this._loginNetworkHandler, this._tokenStore) {
     _loadInitialState();
@@ -20,13 +20,13 @@ class Login with ChangeNotifier {
   void _loadInitialState() {
     // TODO implement persistent login
     _moveToState(
-        loginState: _LoginState.LOGGED_OUT,
-        errorState: _ErrorState.NO_ERRORS);
+        loginState: LoginState.LOGGED_OUT,
+        errorState: ErrorState.NO_ERRORS);
   }
 
   void _moveToState(
-      {_LoginState loginState,
-        _ErrorState errorState,
+      {LoginState loginState,
+        ErrorState errorState,
         bool shouldNotifyListeners = true}) {
     if (loginState != null) {
       this._loginState = loginState;
@@ -40,27 +40,27 @@ class Login with ChangeNotifier {
   }
 
   Future<bool> credentialsLogin(String email, String password) async {
-    _moveToState(loginState: _LoginState.CREDENTIALS_LOADING);
+    _moveToState(loginState: LoginState.CREDENTIALS_LOADING);
 
     try {
       final loginSession =
           await _loginNetworkHandler.credentialsLogin(email, password);
       assert(loginSession != null);
-      _moveToState(loginState: _LoginState.CREDENTIALS_AUTHENTICATED);
+      _moveToState(loginState: LoginState.CREDENTIALS_AUTHENTICATED);
     } on WrongCredentialsException {
       _moveToState(
-          loginState: _LoginState.LOGGED_OUT,
-          errorState: _ErrorState.CREDENTIALS_ERROR);
+          loginState: LoginState.LOGGED_OUT,
+          errorState: ErrorState.CREDENTIALS_ERROR);
     } on DioError {
       _moveToState(
-          loginState: _LoginState.LOGGED_OUT,
-          errorState: _ErrorState.NETWORK_ERROR);
+          loginState: LoginState.LOGGED_OUT,
+          errorState: ErrorState.NETWORK_ERROR);
     }
     return isCredentialsAuthenticated();
   }
 
   Future<bool> submitCode(String code) async {
-    _moveToState(loginState: _LoginState.CODE_LOADING);
+    _moveToState(loginState: LoginState.CODE_LOADING);
     try {
       final TokenResponse tokenResponse = await _loginNetworkHandler
           .submitTwoFactorCode(code);
@@ -71,83 +71,85 @@ class Login with ChangeNotifier {
       this._tokenStore.onTokenFetched(token);
       if (this._tokenStore.hasValidToken()) {
         _moveToState(
-            loginState: _LoginState.LOGGED_IN,
-            errorState: _ErrorState.NO_ERRORS);
+            loginState: LoginState.LOGGED_IN,
+            errorState: ErrorState.NO_ERRORS);
       } else {
         _moveToState(
-          loginState: _LoginState.CREDENTIALS_AUTHENTICATED,
-          errorState: _ErrorState.INVALID_TOKEN);
+          loginState: LoginState.CREDENTIALS_AUTHENTICATED,
+          errorState: ErrorState.INVALID_TOKEN);
       }
       return true;
     } on WrongCredentialsException {
       _moveToState(
-          loginState: _LoginState.CREDENTIALS_AUTHENTICATED,
-          errorState: _ErrorState.CREDENTIALS_ERROR);
+          loginState: LoginState.CREDENTIALS_AUTHENTICATED,
+          errorState: ErrorState.CREDENTIALS_ERROR);
       return false;
     }  on TooManyAttemptsException {
       _moveToState(
-          loginState: _LoginState.CREDENTIALS_AUTHENTICATED,
-          errorState: _ErrorState.TOO_MANY_ATTEMPTS);
+          loginState: LoginState.CREDENTIALS_AUTHENTICATED,
+          errorState: ErrorState.TOO_MANY_ATTEMPTS);
       return false;
     } on DioError catch (e) {
       _moveToState(
-          loginState: _LoginState.CREDENTIALS_AUTHENTICATED,
-          errorState: _ErrorState.NETWORK_ERROR);
+          loginState: LoginState.CREDENTIALS_AUTHENTICATED,
+          errorState: ErrorState.NETWORK_ERROR);
       return false;
     }
   }
 
   Future<bool> resendCode() async {
-    _moveToState(loginState: _LoginState.CODE_RESEND_LOADING);
+    _moveToState(loginState: LoginState.CODE_RESEND_LOADING);
     return true;
   }
 
   Future<bool> voiceCall() async {
-    _moveToState(loginState: _LoginState.CODE_VOICE_CALL_LOADING);
+    _moveToState(loginState: LoginState.CODE_VOICE_CALL_LOADING);
     return true;
   }
 
   void cancelCode() {
-    _moveToState(loginState: _LoginState.LOGGED_OUT);
+    _moveToState(loginState: LoginState.LOGGED_OUT);
   }
 
-  bool isWaitingForVoiceCall() => this._loginState == _LoginState.CODE_VOICE_CALL_LOADING;
+  bool isWaitingForVoiceCall() => this._loginState == LoginState.CODE_VOICE_CALL_LOADING;
 
-  bool isWaitingResendCode() => this._loginState == _LoginState.CODE_RESEND_LOADING;
+  bool isWaitingResendCode() => this._loginState == LoginState.CODE_RESEND_LOADING;
 
-  bool isLoggedIn() => this._loginState == _LoginState.LOGGED_IN;
+  bool isLoggedIn() => this._loginState == LoginState.LOGGED_IN;
 
-  bool isLoading() => this._loginState == _LoginState.CREDENTIALS_LOADING;
+  bool isLoading() => this._loginState == LoginState.CREDENTIALS_LOADING;
 
-  bool isLoadingCode() => this._loginState == _LoginState.CODE_LOADING;
+  bool isLoadingCode() => this._loginState == LoginState.CODE_LOADING;
 
-  bool isLastLoginFailed() => this._errorState == _ErrorState.CREDENTIALS_ERROR;
+  bool isLastLoginFailed() => this._errorState == ErrorState.CREDENTIALS_ERROR;
 
-  bool isLastTokenInvalid() => this._errorState == _ErrorState.INVALID_TOKEN;
+  bool isLastTokenInvalid() => this._errorState == ErrorState.INVALID_TOKEN;
 
-  bool isLastCodeSubmissionFailed() => this._errorState == _ErrorState.CREDENTIALS_ERROR;
+  bool isLastCodeSubmissionFailed() => this._errorState == ErrorState.CREDENTIALS_ERROR;
 
-  bool hasTooManyAttempts() => this._errorState == _ErrorState.TOO_MANY_ATTEMPTS;
+  bool hasTooManyAttempts() => this._errorState == ErrorState.TOO_MANY_ATTEMPTS;
 
-  bool hasGenericError() => this._errorState == _ErrorState.GENERIC_ERROR;
+  bool hasGenericError() => this._errorState == ErrorState.GENERIC_ERROR;
 
   bool isCredentialsAuthenticated() =>
       this._loginState != null &&
-      this._loginState != _LoginState.LOGGED_OUT &&
-          this._loginState != _LoginState.CREDENTIALS_LOADING;
+      this._loginState != LoginState.LOGGED_OUT &&
+          this._loginState != LoginState.CREDENTIALS_LOADING;
 
-  bool hasNetworkError() => this._errorState == _ErrorState.NETWORK_ERROR;
+  bool hasNetworkError() => this._errorState == ErrorState.NETWORK_ERROR;
 
-  bool hasError() => this._errorState != _ErrorState.NO_ERRORS;
+  bool hasError() => this._errorState != ErrorState.NO_ERRORS;
+
+  ErrorState get errorState => _errorState;
 
   void resetErrors({shouldNotifyListeners = false}) => _moveToState(
-      errorState: _ErrorState.NO_ERRORS,
+      errorState: ErrorState.NO_ERRORS,
       shouldNotifyListeners: shouldNotifyListeners);
 }
 
-enum _ErrorState { NO_ERRORS, CREDENTIALS_ERROR, TOO_MANY_ATTEMPTS, GENERIC_ERROR, NETWORK_ERROR, INVALID_TOKEN }
+enum ErrorState { NO_ERRORS, CREDENTIALS_ERROR, TOO_MANY_ATTEMPTS, GENERIC_ERROR, NETWORK_ERROR, INVALID_TOKEN }
 
-enum _LoginState {
+enum LoginState {
   LOGGED_OUT,
   CREDENTIALS_LOADING,
   CREDENTIALS_AUTHENTICATED,
