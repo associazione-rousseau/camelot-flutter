@@ -5,16 +5,15 @@ import 'package:rousseau_vote/src/network/exceptions/too_many_attempts_exception
 import 'package:rousseau_vote/src/network/exceptions/wrong_credentials_exception.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/network/response/token_response.dart';
-import 'package:rousseau_vote/src/storage/secure_storage.dart';
+import 'package:rousseau_vote/src/store/token_store.dart';
 
 class Login with ChangeNotifier {
   final LoginNetworkHandler _loginNetworkHandler;
-  final SecureStorage _secureStorage;
+  final TokenStore _tokenStore;
   _LoginState _loginState;
   _ErrorState _errorState;
-  Token _token;
 
-  Login(this._loginNetworkHandler, this._secureStorage) {
+  Login(this._loginNetworkHandler, this._tokenStore) {
     _loadInitialState();
   }
 
@@ -68,11 +67,17 @@ class Login with ChangeNotifier {
       if(tokenResponse.hasErrors()) {
         return false;
       }
-      this._token = Token.fromTokenResponse(tokenResponse);
-      this._secureStorage.storeToken(this._token);
-      _moveToState(
-          loginState: _LoginState.LOGGED_IN,
-          errorState: _ErrorState.NO_ERRORS);
+      final Token token = Token.fromTokenResponse(tokenResponse);
+      this._tokenStore.onTokenFetched(token);
+      if (this._tokenStore.hasValidToken()) {
+        _moveToState(
+            loginState: _LoginState.LOGGED_IN,
+            errorState: _ErrorState.NO_ERRORS);
+      } else {
+        _moveToState(
+          loginState: _LoginState.CREDENTIALS_AUTHENTICATED,
+          errorState: _ErrorState.INVALID_TOKEN);
+      }
       return true;
     } on WrongCredentialsException {
       _moveToState(
@@ -118,6 +123,8 @@ class Login with ChangeNotifier {
 
   bool isLastLoginFailed() => this._errorState == _ErrorState.CREDENTIALS_ERROR;
 
+  bool isLastTokenInvalid() => this._errorState == _ErrorState.INVALID_TOKEN;
+
   bool isLastCodeSubmissionFailed() => this._errorState == _ErrorState.CREDENTIALS_ERROR;
 
   bool hasTooManyAttempts() => this._errorState == _ErrorState.TOO_MANY_ATTEMPTS;
@@ -131,12 +138,14 @@ class Login with ChangeNotifier {
 
   bool hasNetworkError() => this._errorState == _ErrorState.NETWORK_ERROR;
 
+  bool hasError() => this._errorState != _ErrorState.NO_ERRORS;
+
   void resetErrors({shouldNotifyListeners = false}) => _moveToState(
       errorState: _ErrorState.NO_ERRORS,
       shouldNotifyListeners: shouldNotifyListeners);
 }
 
-enum _ErrorState { NO_ERRORS, CREDENTIALS_ERROR, TOO_MANY_ATTEMPTS, GENERIC_ERROR, NETWORK_ERROR }
+enum _ErrorState { NO_ERRORS, CREDENTIALS_ERROR, TOO_MANY_ATTEMPTS, GENERIC_ERROR, NETWORK_ERROR, INVALID_TOKEN }
 
 enum _LoginState {
   LOGGED_OUT,

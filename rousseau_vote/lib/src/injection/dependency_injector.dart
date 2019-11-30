@@ -4,10 +4,12 @@ import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/native_imp.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectorio/injectorio.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
+import 'package:rousseau_vote/src/store/token_store.dart';
 
 class DependencyInjector {
   static initInjector() {
@@ -16,7 +18,9 @@ class DependencyInjector {
         .single(_cookieManager())
         .single<DioForNative>(_dio())
         .single(_loginNetworkHandler())
+        .single(_flutterSecureStorage())
         .single(_secureStorage())
+        .single(_tokenStore())
         .single(_login());
   }
 
@@ -47,8 +51,16 @@ class DependencyInjector {
     return Login(get(), get());
   }
 
+  static _tokenStore() {
+    return TokenStore(get());
+  }
+
   static _secureStorage() {
     return SecureStorage(get());
+  }
+
+  static _flutterSecureStorage() {
+    return FlutterSecureStorage();
   }
 
   static _loginNetworkHandler() {

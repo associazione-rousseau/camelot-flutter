@@ -16,6 +16,20 @@ class Token {
 
   Token();
 
+  bool isValid() {
+    return _isValidSignature() && !isExpired();
+  }
+
+  bool isExpired() {
+    // TODO implement
+    return false;
+  }
+
+  bool _isValidSignature() {
+    // TODO implement
+    return true;
+  }
+
   factory Token.fromTokenResponse(TokenResponse tokenResponse) {
     return Token()
         ..accessToken = tokenResponse.accessToken
