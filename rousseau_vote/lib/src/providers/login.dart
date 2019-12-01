@@ -8,10 +8,7 @@ import 'package:rousseau_vote/src/network/response/token_response.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 
 class Login with ChangeNotifier {
-
-  Login(this._loginNetworkHandler, this._tokenStore) {
-    _loadInitialState();
-  }
+  Login(this._loginNetworkHandler, this._tokenStore);
 
   final LoginNetworkHandler _loginNetworkHandler;
   final TokenStore _tokenStore;
@@ -19,16 +16,16 @@ class Login with ChangeNotifier {
   ErrorState _errorState;
 
   void _loadInitialState() {
-    // TODO implement persistent login
-    _moveToState(
-        loginState: LoginState.LOGGED_OUT,
-        errorState: ErrorState.NO_ERRORS);
+    final LoginState loginState = _tokenStore.hasValidToken()
+        ? LoginState.LOGGED_IN
+        : LoginState.LOGGED_OUT;
+    _moveToState(loginState: loginState, errorState: ErrorState.NO_ERRORS);
   }
 
   void _moveToState(
       {LoginState loginState,
-        ErrorState errorState,
-        bool shouldNotifyListeners = true}) {
+      ErrorState errorState,
+      bool shouldNotifyListeners = true}) {
     if (loginState != null) {
       _loginState = loginState;
     }
@@ -63,21 +60,20 @@ class Login with ChangeNotifier {
   Future<bool> submitCode(String code) async {
     _moveToState(loginState: LoginState.CODE_LOADING);
     try {
-      final TokenResponse tokenResponse = await _loginNetworkHandler
-          .submitTwoFactorCode(code);
-      if(tokenResponse.hasErrors()) {
+      final TokenResponse tokenResponse =
+          await _loginNetworkHandler.submitTwoFactorCode(code);
+      if (tokenResponse.hasErrors()) {
         return false;
       }
       final Token token = Token.fromTokenResponse(tokenResponse);
       _tokenStore.onTokenFetched(token);
       if (_tokenStore.hasValidToken()) {
         _moveToState(
-            loginState: LoginState.LOGGED_IN,
-            errorState: ErrorState.NO_ERRORS);
+            loginState: LoginState.LOGGED_IN, errorState: ErrorState.NO_ERRORS);
       } else {
         _moveToState(
-          loginState: LoginState.CREDENTIALS_AUTHENTICATED,
-          errorState: ErrorState.INVALID_TOKEN);
+            loginState: LoginState.CREDENTIALS_AUTHENTICATED,
+            errorState: ErrorState.INVALID_TOKEN);
       }
       return true;
     } on WrongCredentialsException {
@@ -85,7 +81,7 @@ class Login with ChangeNotifier {
           loginState: LoginState.CREDENTIALS_AUTHENTICATED,
           errorState: ErrorState.CREDENTIALS_ERROR);
       return false;
-    }  on TooManyAttemptsException {
+    } on TooManyAttemptsException {
       _moveToState(
           loginState: LoginState.CREDENTIALS_AUTHENTICATED,
           errorState: ErrorState.TOO_MANY_ATTEMPTS);
@@ -112,11 +108,17 @@ class Login with ChangeNotifier {
     _moveToState(loginState: LoginState.LOGGED_OUT);
   }
 
-  bool isWaitingForVoiceCall() => _loginState == LoginState.CODE_VOICE_CALL_LOADING;
+  bool isWaitingForVoiceCall() =>
+      _loginState == LoginState.CODE_VOICE_CALL_LOADING;
 
   bool isWaitingResendCode() => _loginState == LoginState.CODE_RESEND_LOADING;
 
-  bool isLoggedIn() => _loginState == LoginState.LOGGED_IN;
+  bool isLoggedIn() {
+    if(_loginState == null) {
+      _loadInitialState();
+    }
+    return _loginState == LoginState.LOGGED_IN;
+  }
 
   bool isLoading() => _loginState == LoginState.CREDENTIALS_LOADING;
 
@@ -126,7 +128,8 @@ class Login with ChangeNotifier {
 
   bool isLastTokenInvalid() => _errorState == ErrorState.INVALID_TOKEN;
 
-  bool isLastCodeSubmissionFailed() => _errorState == ErrorState.CREDENTIALS_ERROR;
+  bool isLastCodeSubmissionFailed() =>
+      _errorState == ErrorState.CREDENTIALS_ERROR;
 
   bool hasTooManyAttempts() => _errorState == ErrorState.TOO_MANY_ATTEMPTS;
 
@@ -135,7 +138,7 @@ class Login with ChangeNotifier {
   bool isCredentialsAuthenticated() =>
       _loginState != null &&
       _loginState != LoginState.LOGGED_OUT &&
-          _loginState != LoginState.CREDENTIALS_LOADING;
+      _loginState != LoginState.CREDENTIALS_LOADING;
 
   bool hasNetworkError() => _errorState == ErrorState.NETWORK_ERROR;
 
@@ -148,7 +151,14 @@ class Login with ChangeNotifier {
       shouldNotifyListeners: shouldNotifyListeners);
 }
 
-enum ErrorState { NO_ERRORS, CREDENTIALS_ERROR, TOO_MANY_ATTEMPTS, GENERIC_ERROR, NETWORK_ERROR, INVALID_TOKEN }
+enum ErrorState {
+  NO_ERRORS,
+  CREDENTIALS_ERROR,
+  TOO_MANY_ATTEMPTS,
+  GENERIC_ERROR,
+  NETWORK_ERROR,
+  INVALID_TOKEN
+}
 
 enum LoginState {
   LOGGED_OUT,

@@ -67,7 +67,7 @@ class DependencyInjector {
 
   static List<InitializeOnStartup> _needInitOnStartup() {
     return <InitializeOnStartup>[
-      MockInitializer(3),
+      MockInitializer(3), // hack to show the splash screen for at least 3 seconds
       get<TokenStore>(),
     ];
   }
