@@ -8,15 +8,14 @@ part of 'credentials_login_response.dart';
 
 CredentialsLoginResponse _$CredentialsLoginResponseFromJson(
     Map<String, dynamic> json) {
-  return CredentialsLoginResponse(
-    loginUrl: json['loginUrl'] as String,
-    errors: (json['errors'] as List)?.map((e) => e as String)?.toList(),
-  );
+  return CredentialsLoginResponse()
+    ..errors = (json['errors'] as List)?.map((e) => e as String)?.toList()
+    ..loginUrl = json['loginUrl'] as String;
 }
 
 Map<String, dynamic> _$CredentialsLoginResponseToJson(
         CredentialsLoginResponse instance) =>
     <String, dynamic>{
-      'loginUrl': instance.loginUrl,
       'errors': instance.errors,
+      'loginUrl': instance.loginUrl,
     };

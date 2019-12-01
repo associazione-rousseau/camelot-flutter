@@ -8,17 +8,17 @@ part of 'init_login_response.dart';
 
 InitLoginResponse _$InitLoginResponseFromJson(Map<String, dynamic> json) {
   return InitLoginResponse(
-    loginUrl: json['loginUrl'] as String,
     registerUrl: json['registerUrl'] as String,
     forgotPasswordUrl: json['forgotPasswordUrl'] as String,
-    errors: (json['errors'] as List)?.map((e) => e as String)?.toList(),
-  );
+  )
+    ..errors = (json['errors'] as List)?.map((e) => e as String)?.toList()
+    ..loginUrl = json['loginUrl'] as String;
 }
 
 Map<String, dynamic> _$InitLoginResponseToJson(InitLoginResponse instance) =>
     <String, dynamic>{
+      'errors': instance.errors,
+      'loginUrl': instance.loginUrl,
       'registerUrl': instance.registerUrl,
       'forgotPasswordUrl': instance.forgotPasswordUrl,
-      'loginUrl': instance.loginUrl,
-      'errors': instance.errors,
     };

@@ -4,6 +4,6 @@ class WebLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Web login screen");
+    return const Text('Web login screen');
   }
 }

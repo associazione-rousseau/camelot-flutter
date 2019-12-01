@@ -15,9 +15,9 @@ class NativeLoginScreen extends StatefulWidget {
 }
 
 class _NativeLoginScreenState extends State<NativeLoginScreen> {
-  final _emailTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
-  final _scaffoldState = new GlobalKey<ScaffoldState>();
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final GlobalKey _scaffoldState = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,24 +25,24 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
     return Scaffold(
       key: _scaffoldState,
       body: VerticalScrollView(
-        children: [
+        children: <Widget>[
           RousseauLogoHeader(),
           Consumer<Login>(
-              builder: (context, login, _) => Column(
+              builder: (BuildContext context, Login login, _) => Column(
                     children: <Widget>[
                       RoundedTextField(
                           hintText:
                               RousseauLocalizations.getText(context, 'email'),
                           enabled: !login.isLoading(),
                           controller: _emailTextController),
-                      SizedBox(height: 15.0),
+                      const SizedBox(height: 15.0),
                       RoundedTextField(
                           hintText: RousseauLocalizations.getText(
                               context, 'password'),
                           obscureText: true,
                           enabled: !login.isLoading(),
                           controller: _passwordTextController),
-                      SizedBox(height: 15.0),
+                      const SizedBox(height: 15.0),
                       RoundedButton(
                         text: RousseauLocalizations.getText(
                             context, 'login-button'),
@@ -54,14 +54,14 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
                       ),
                     ],
                   )),
-          SizedBox(height: 25.0),
+          const SizedBox(height: 25.0),
           Text(
             RousseauLocalizations.getText(context, 'password-forgot'),
             style: TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
           ),
-          SizedBox(height: 25.0),
-          Row(children: [
-            Expanded(child: Divider(thickness: 2)),
+          const SizedBox(height: 25.0),
+          Row(children: <Widget>[
+            const Expanded(child: Divider(thickness: 2)),
             Expanded(
                 child: Text(
                     RousseauLocalizations.getText(context, 'or').toUpperCase(),
@@ -70,9 +70,9 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
                         fontFamily: 'Roboto',
                         fontSize: 16.0,
                         color: Colors.grey))),
-            Expanded(child: Divider(thickness: 2)),
+            const Expanded(child: Divider(thickness: 2)),
           ]),
-          SizedBox(height: 25.0),
+          const SizedBox(height: 25.0),
           FlatButton(
             child: Text(
               RousseauLocalizations.getText(context, 'register-button')
@@ -92,7 +92,7 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
   }
 
   void _maybeShowErrorMessage(BuildContext context) {
-    final login = Provider.of<Login>(context, listen: false);
+    final Login login = Provider.of<Login>(context, listen: false);
     if (login.hasError()) {
       String errorMessage;
       switch(login.errorState) {

@@ -16,41 +16,42 @@ class Native2FaScreen extends StatefulWidget {
 }
 
 class _Native2FaScreenState extends State<Native2FaScreen> {
-  final _scaffoldState = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     _maybeShowErrorMessage(context);
     return Scaffold(
         key: _scaffoldState,
-        body: VerticalScrollView(children: [
+        body: VerticalScrollView(children: <Widget>[
           RousseauLogoHeader(),
           Consumer<Login>(
-              builder: (context, login, _) => Column(children: <Widget>[
+              builder: (BuildContext context, Login login, _) => Column(children: <Widget>[
+                    // ignore: prefer_if_elements_to_conditional_expressions
                     login.isLoadingCode()
                         ? LoadingIndicator(Colors.red)
                         : PinPut(
                             fieldsCount: 5,
-                            onClear: (code) => {},
-                            onSubmit: (code) {
+                            onClear: (String code) => () {},
+                            onSubmit: (String code) {
                               login.submitCode(code);
                             },
                           ),
-                    SizedBox(height: 15.0),
+                    const SizedBox(height: 15.0),
                     RoundedButton(
                       text:
                           RousseauLocalizations.getText(context, 'voice-call'),
                       //onPressed: { login.voiceCall() },
                       loading: login.isWaitingForVoiceCall(),
                     ),
-                    SizedBox(height: 15.0),
+                    const SizedBox(height: 15.0),
                     RoundedButton(
                       text:
                           RousseauLocalizations.getText(context, 're-send-sms'),
                       //onPressed: { login.resendCode() },
                       loading: login.isWaitingResendCode(),
                     ),
-                    SizedBox(height: 15.0),
+                    const SizedBox(height: 15.0),
                     FlatButton(
                       onPressed: () { login.cancelCode(); },
                       child: Text(
@@ -69,7 +70,7 @@ class _Native2FaScreenState extends State<Native2FaScreen> {
   }
 
   void _maybeShowErrorMessage(BuildContext context) {
-    final login = Provider.of<Login>(context, listen: false);
+    final Login login = Provider.of<Login>(context, listen: false);
     if (login.hasError()) {
       String errorMessage;
       switch(login.errorState) {

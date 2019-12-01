@@ -12,7 +12,7 @@ import 'package:rousseau_vote/src/storage/secure_storage.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 
 class DependencyInjector {
-  static initInjector() {
+  static void initInjector() {
     InjectorIO.start(mode: InjectorMode.PRODUCTION)
         .single<CookieJar>(_cookieJar())
         .single(_cookieManager())
@@ -25,18 +25,19 @@ class DependencyInjector {
   }
 
   static Dio _dio() {
-    final dio = Dio();
+    final DioForNative dio = Dio();
     dio.interceptors.add(get<CookieManager>());
     dio.interceptors.add(InterceptorsWrapper(
-        onResponse:(Response response) async {
+        // ignore: always_specify_types
+        onResponse: (Response response) {
           if (response.data != null && response.data is String) {
-            Map<String, dynamic> decodedData = jsonDecode(response.data);
+            final Map<String, dynamic> decodedData = jsonDecode(response.data);
             response.data = decodedData;
           }
           return response;
         }
     ));
-    return dio as DioForNative;
+    return dio;
   }
 
   static CookieManager _cookieManager() {
@@ -47,23 +48,23 @@ class DependencyInjector {
     return CookieJar();
   }
 
-  static _login() {
+  static Login _login() {
     return Login(get(), get());
   }
 
-  static _tokenStore() {
+  static TokenStore _tokenStore() {
     return TokenStore(get());
   }
 
-  static _secureStorage() {
+  static SecureStorage _secureStorage() {
     return SecureStorage(get());
   }
 
-  static _flutterSecureStorage() {
-    return FlutterSecureStorage();
+  static FlutterSecureStorage _flutterSecureStorage() {
+    return const FlutterSecureStorage();
   }
 
-  static _loginNetworkHandler() {
+  static LoginNetworkHandler _loginNetworkHandler() {
     return LoginNetworkHandler(get<DioForNative>());
   }
 

@@ -23,31 +23,32 @@ class RousseauVoteApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        // TODO refactor using dependency injection (probably manually implemented)
+      providers: <SingleChildCloneableWidget>[
+        // ignore: always_specify_types
         ChangeNotifierProvider(builder: (_) => get<Login>()),
       ],
       child: MaterialApp(
         title: APP_NAME,
         theme: ThemeData(
           primarySwatch: Colors.red,
-          primaryColor: Color(0xFFE30613)
+          primaryColor: const Color(0xFFE30613)
         ),
-        localizationsDelegates: [
+        localizationsDelegates: <LocalizationsDelegate<dynamic>>[
           RousseauLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: [
+        // ignore: prefer_const_literals_to_create_immutables
+        supportedLocales: <Locale>[
           const Locale('it'),
         ],
-        routes: {
-          PollsScreen.routeName: (context) => PollsScreen(),
-          LoginScreen.routeName: (context) => LoginScreen(),
-          RegisterScreen.routeName: (context) => RegisterScreen(),
-          PollDetailsScreen.routeName: (context) {
-            String pollId = ModalRoute.of(context).settings.arguments as String;
+        routes: <String, WidgetBuilder>{
+          PollsScreen.ROUTE_NAME: (BuildContext context) => PollsScreen(),
+          LoginScreen.ROUTE_NAME: (BuildContext context) => LoginScreen(),
+          RegisterScreen.ROUTE_NAME: (BuildContext context) => RegisterScreen(),
+          PollDetailsScreen.ROUTE_NAME: (BuildContext context) {
+            final String pollId = ModalRoute.of(context).settings.arguments;
             return PollDetailsScreen(pollId);
           },
         }

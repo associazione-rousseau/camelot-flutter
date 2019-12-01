@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 class RoundedTextField extends StatelessWidget {
-  final hintText;
-  final obscureText;
-  final enabled;
-  final controller;
 
-  RoundedTextField(
+  const RoundedTextField(
       {this.hintText,
-      this.obscureText = false,
-      this.enabled = true,
-      this.controller});
+        this.obscureText = false,
+        this.enabled = true,
+        this.controller});
+
+  final String hintText;
+  final bool obscureText;
+  final bool enabled;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class RoundedTextField extends StatelessWidget {
       controller: controller,
       style: TextStyle(fontFamily: 'Roboto', fontSize: 20.0),
       decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: hintText,
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),

@@ -5,6 +5,22 @@ part 'token.g.dart';
 
 @JsonSerializable()
 class Token {
+
+  Token();
+
+  factory Token.fromTokenResponse(TokenResponse tokenResponse) {
+    return Token()
+      ..accessToken = tokenResponse.accessToken
+      ..expiresIn = tokenResponse.expiresIn
+      ..refreshExpiresIn = tokenResponse.refreshExpiresIn
+      ..tokenType = tokenResponse.tokenType
+      ..notBeforePolicy = tokenResponse.notBeforePolicy
+      ..sessionState = tokenResponse.sessionState
+      ..scope = tokenResponse.scope;
+  }
+  factory Token.fromJson(Map<String, dynamic> json) => _$TokenFromJson(json);
+  Map<String, dynamic> toJson() => _$TokenToJson(this);
+
   String accessToken;
   int expiresIn;
   int refreshExpiresIn;
@@ -13,8 +29,6 @@ class Token {
   int notBeforePolicy;
   String sessionState;
   String scope;
-
-  Token();
 
   bool isValid() {
     return _isValidSignature() && !isExpired();
@@ -29,18 +43,4 @@ class Token {
     // TODO implement
     return true;
   }
-
-  factory Token.fromTokenResponse(TokenResponse tokenResponse) {
-    return Token()
-        ..accessToken = tokenResponse.accessToken
-      ..expiresIn = tokenResponse.expiresIn
-      ..refreshExpiresIn = tokenResponse.refreshExpiresIn
-      ..tokenType = tokenResponse.tokenType
-      ..notBeforePolicy = tokenResponse.notBeforePolicy
-      ..sessionState = tokenResponse.sessionState
-      ..scope = tokenResponse.scope;
-  }
-
-  factory Token.fromJson(Map<String, dynamic> json) => _$TokenFromJson(json);
-  Map<String, dynamic> toJson() => _$TokenToJson(this);
 }

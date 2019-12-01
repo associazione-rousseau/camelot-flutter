@@ -6,13 +6,15 @@ part 'init_login_response.g.dart';
 
 @JsonSerializable(nullable: true)
 class InitLoginResponse with ErrorResponse, HasLoginUrl {
-  String registerUrl;
-  String forgotPasswordUrl;
-  String loginUrl;
-  List<String> errors;
 
-  InitLoginResponse({this.loginUrl, this.registerUrl, this.forgotPasswordUrl, this.errors});
+  InitLoginResponse({String responseLoginUrl, this.registerUrl, this.forgotPasswordUrl, List<String> responseErrors}) {
+    loginUrl = responseLoginUrl;
+    errors = responseErrors;
+  }
 
   factory InitLoginResponse.fromJson(Map<String, dynamic> json) => _$InitLoginResponseFromJson(json);
   Map<String, dynamic> toJson() => _$InitLoginResponseToJson(this);
+
+  String registerUrl;
+  String forgotPasswordUrl;
 }

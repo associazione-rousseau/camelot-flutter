@@ -6,13 +6,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class _RousseauLocalizationsDelegate extends LocalizationsDelegate<RousseauLocalizations> {
-  
-  final Locale newLocale;
+
   const _RousseauLocalizationsDelegate({this.newLocale});
+
+  static const List<String> _SUPPORTED_LANGUAGES = <String>['it'];
+
+  final Locale newLocale;
 
   @override
   bool isSupported(Locale locale) {
-    return ["it"].contains(locale.languageCode);
+    return _SUPPORTED_LANGUAGES.contains(locale.languageCode);
   }
 
   @override
@@ -28,6 +31,10 @@ class _RousseauLocalizationsDelegate extends LocalizationsDelegate<RousseauLocal
 }
 
 class RousseauLocalizations {
+
+  RousseauLocalizations(this.locale) {
+    _localisedValues = <dynamic, dynamic>{};
+  }
   
   Locale locale;
   
@@ -43,20 +50,16 @@ class RousseauLocalizations {
   }
 
   static Future<RousseauLocalizations> load(Locale locale) async {
-    RousseauLocalizations rousseauLocalizations = RousseauLocalizations(locale);
-    String jsonContent = await rootBundle.loadString("l10n/${locale.languageCode}.json");
+    final RousseauLocalizations rousseauLocalizations = RousseauLocalizations(locale);
+    final String jsonContent = await rootBundle.loadString('l10n/${locale.languageCode}.json');
     _localisedValues = json.decode(jsonContent);
     return rousseauLocalizations;
   }
 
   static const LocalizationsDelegate<RousseauLocalizations> delegate = _RousseauLocalizationsDelegate();
 
-  RousseauLocalizations(Locale locale) {
-    this.locale = locale;
-    _localisedValues = {};
-  }
 
-  get currentLanguage => locale.languageCode;
+  String get currentLanguage => locale.languageCode;
 
   String text(String key) {
     return _localisedValues[key] ?? "'$key' not found";

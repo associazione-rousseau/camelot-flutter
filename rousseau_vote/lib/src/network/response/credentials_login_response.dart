@@ -6,10 +6,11 @@ part 'credentials_login_response.g.dart';
 
 @JsonSerializable(nullable: true)
 class CredentialsLoginResponse with ErrorResponse, HasLoginUrl {
-  String loginUrl;
-  List<String> errors;
 
-  CredentialsLoginResponse({this.loginUrl, this.errors});
+  CredentialsLoginResponse({String responseLoginUrl, List<String> responseErrors}) {
+    loginUrl = responseLoginUrl;
+    errors = responseErrors;
+  }
 
   factory CredentialsLoginResponse.fromJson(Map<String, dynamic> json) => _$CredentialsLoginResponseFromJson(json);
   Map<String, dynamic> toJson() => _$CredentialsLoginResponseToJson(this);

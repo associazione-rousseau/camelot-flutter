@@ -6,6 +6,6 @@ mixin ErrorResponse {
   }
 
   bool hasErrors() {
-    return errors != null && errors.length > 0;
+    return errors != null && errors.isNotEmpty;
   }
 }

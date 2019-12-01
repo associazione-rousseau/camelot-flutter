@@ -6,9 +6,9 @@ class RousseauLogoHeader extends StatelessWidget {
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          SizedBox(height: 50.0),
-          Image(image: AssetImage('assets/images/rousseau_red.png')),
-          SizedBox(height: 60.0)
+          const SizedBox(height: 50.0),
+          Image(image: const AssetImage('assets/images/rousseau_red.png')),
+          const SizedBox(height: 60.0)
         ]);
   }
 }

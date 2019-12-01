@@ -9,7 +9,7 @@ import 'package:rousseau_vote/src/screens/web_login_screen.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 
 class LoginScreen extends StatelessWidget {
-  static const routeName = '/login';
+  static const String ROUTE_NAME = '/login';
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _nativeLoginScreen(BuildContext context) {
-    final login = Provider.of<Login>(context);
+    final Login login = Provider.of<Login>(context);
     return login.isCredentialsAuthenticated() ? Native2FaScreen() : NativeLoginScreen();
   }
 }

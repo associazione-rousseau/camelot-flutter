@@ -16,7 +16,7 @@ void main() {
  });
 
   testWidgets('Is the app findable by widget', (WidgetTester tester) async {
-    var app = RousseauVoteApp();
+    final RousseauVoteApp app = RousseauVoteApp();
     await tester.pumpWidget(app);
     expect(find.byWidget(app), findsOneWidget);
   });

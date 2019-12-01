@@ -1,8 +1,10 @@
 
 class LoginException implements Exception {
+
+  LoginException([this.message = '']);
+
   final String message;
 
-  LoginException([this.message = ""]);
-
-  String toString() => "LoginException: $message";
+  @override
+  String toString() => 'LoginException: $message';
 }

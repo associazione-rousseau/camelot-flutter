@@ -4,31 +4,34 @@ import 'package:rousseau_vote/src/network/exceptions/login_exception.dart';
 import 'package:rousseau_vote/src/network/exceptions/no_session_exception.dart';
 import 'package:rousseau_vote/src/network/exceptions/too_many_attempts_exception.dart';
 import 'package:rousseau_vote/src/network/exceptions/wrong_credentials_exception.dart';
+import 'package:rousseau_vote/src/network/response/credentials_login_response.dart';
 import 'package:rousseau_vote/src/network/response/has_login_response.dart';
+import 'package:rousseau_vote/src/network/response/init_login_response.dart';
 import 'package:rousseau_vote/src/network/response/token_response.dart';
 import 'package:rousseau_vote/src/network/restclients/login_rest_client.dart';
 import 'package:uuid/uuid.dart';
 
 class LoginNetworkHandler {
-  final LoginRestClient _loginRestClient;
-  LoginSession _loginSession;
 
   LoginNetworkHandler(Dio dio) : _loginRestClient = LoginRestClient(dio);
 
-  Future<LoginSession> credentialsLogin(String username, String password) async {
-    final nonce = Uuid().v4();
-    final state = Uuid().v4();
+  final LoginRestClient _loginRestClient;
+  LoginSession _loginSession;
 
-    final initLoginResponse = await _loginRestClient.initLogin(nonce, state);
+  Future<LoginSession> credentialsLogin(String username, String password) async {
+    final String nonce = Uuid().v4();
+    final String state = Uuid().v4();
+
+    final InitLoginResponse initLoginResponse = await _loginRestClient.initLogin(nonce, state);
     if (initLoginResponse.hasErrors()) {
       throw LoginException(initLoginResponse.errors.first);
     }
-    LoginSession loginSession = LoginSession.fromLoginResponse(initLoginResponse);
-    final Map<String, String> body = {
+    final LoginSession loginSession = LoginSession.fromLoginResponse(initLoginResponse);
+    final Map<String, String> body = <String, String> {
       'username': username,
       'password': password,
       'rememberMe': 'on'};
-    final credentialsLoginResponse = await _loginRestClient.login(
+    final CredentialsLoginResponse credentialsLoginResponse = await _loginRestClient.login(
         loginSession.sessionCode,
         loginSession.execution,
         loginSession.tabId,
@@ -37,12 +40,12 @@ class LoginNetworkHandler {
       // TODO check all the possible errors
       throw WrongCredentialsException();
     }
-    this._loginSession = LoginSession.fromLoginResponse(credentialsLoginResponse);
+    _loginSession = LoginSession.fromLoginResponse(credentialsLoginResponse);
     return _loginSession;
   }
 
   Future<TokenResponse> submitTwoFactorCode(String smsCode) async {
-    if (this._loginSession == null) {
+    if (_loginSession == null) {
       throw NoSessionException();
     }
 
@@ -51,16 +54,16 @@ class LoginNetworkHandler {
   }
 
   Future<String> _getAccessCode(String smsCode) async {
-    final Map<String, String> body = { 'smsCode': smsCode };
+    final Map<String, String> body = <String, String>{ 'smsCode': smsCode };
 
     try {
-      final submitTwoFactorCodeResponse = await _loginRestClient
+      final CredentialsLoginResponse submitTwoFactorCodeResponse = await _loginRestClient
           .submitTwoFactorCode(
-          this._loginSession.sessionCode,
-          this._loginSession.execution,
-          this._loginSession.tabId,
+          _loginSession.sessionCode,
+          _loginSession.execution,
+          _loginSession.tabId,
           body);
-      this._loginSession = LoginSession.fromLoginResponse(submitTwoFactorCodeResponse);
+      _loginSession = LoginSession.fromLoginResponse(submitTwoFactorCodeResponse);
       if (submitTwoFactorCodeResponse.hasErrors()) {
         // TODO check all the possible errors
         if (submitTwoFactorCodeResponse.errors.first == 'phone-two-factor.err.too-many-code-attempts') {
@@ -74,7 +77,7 @@ class LoginNetworkHandler {
         final String redirectUrl = e.response.headers.value('Location');
         return _extractAccessCode(redirectUrl);
       }
-      throw e;
+      rethrow;
     }
     throw AssertionError('Unexpected server response');
   }
@@ -86,12 +89,12 @@ class LoginNetworkHandler {
 
   String _extractAccessCode(String redirectUrl) {
     final String firstChunk = redirectUrl.substring(redirectUrl.indexOf('code=') + 5);
-    final int endIndex = firstChunk.indexOf('&') != -1 ? firstChunk.indexOf('&') : firstChunk.length;
+    final int endIndex = firstChunk.contains('&') ? firstChunk.indexOf('&') : firstChunk.length;
     return firstChunk.substring(0, endIndex);
   }
 
   Map<String, String> _getTokenRequestBody(String accessCode) {
-    return {
+    return <String, String>{
       'code': accessCode,
       'client_id': KEYCLOAK_CLIENT_ID,
       'redirect_uri': KEYCLOAK_REDIRECT_URI,
@@ -102,18 +105,19 @@ class LoginNetworkHandler {
 
 
 class LoginSession {
-  final String sessionCode;
-  final String execution;
-  final String tabId;
 
   LoginSession(this.sessionCode, this.execution, this.tabId);
 
   factory LoginSession._fromLoginUrl(String url) {
-    final params = Uri.parse(url.replaceAll(RegExp(r'&amp;'), '&')).queryParameters;
+    final Map<String, String> params = Uri.parse(url.replaceAll(RegExp(r'&amp;'), '&')).queryParameters;
     return LoginSession(params['session_code'], params['execution'], params['tab_id']);
   }
 
   factory LoginSession.fromLoginResponse(HasLoginUrl response) {
     return LoginSession._fromLoginUrl(response.loginUrl);
   }
+
+  final String sessionCode;
+  final String execution;
+  final String tabId;
 }

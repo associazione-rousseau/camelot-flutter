@@ -8,14 +8,15 @@ import 'package:rousseau_vote/src/network/response/token_response.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 
 class Login with ChangeNotifier {
-  final LoginNetworkHandler _loginNetworkHandler;
-  final TokenStore _tokenStore;
-  LoginState _loginState;
-  ErrorState _errorState;
 
   Login(this._loginNetworkHandler, this._tokenStore) {
     _loadInitialState();
   }
+
+  final LoginNetworkHandler _loginNetworkHandler;
+  final TokenStore _tokenStore;
+  LoginState _loginState;
+  ErrorState _errorState;
 
   void _loadInitialState() {
     // TODO implement persistent login
@@ -29,10 +30,10 @@ class Login with ChangeNotifier {
         ErrorState errorState,
         bool shouldNotifyListeners = true}) {
     if (loginState != null) {
-      this._loginState = loginState;
+      _loginState = loginState;
     }
     if (errorState != null) {
-      this._errorState = errorState;
+      _errorState = errorState;
     }
     if (shouldNotifyListeners) {
       notifyListeners();
@@ -43,7 +44,7 @@ class Login with ChangeNotifier {
     _moveToState(loginState: LoginState.CREDENTIALS_LOADING);
 
     try {
-      final loginSession =
+      final LoginSession loginSession =
           await _loginNetworkHandler.credentialsLogin(email, password);
       assert(loginSession != null);
       _moveToState(loginState: LoginState.CREDENTIALS_AUTHENTICATED);
@@ -68,8 +69,8 @@ class Login with ChangeNotifier {
         return false;
       }
       final Token token = Token.fromTokenResponse(tokenResponse);
-      this._tokenStore.onTokenFetched(token);
-      if (this._tokenStore.hasValidToken()) {
+      _tokenStore.onTokenFetched(token);
+      if (_tokenStore.hasValidToken()) {
         _moveToState(
             loginState: LoginState.LOGGED_IN,
             errorState: ErrorState.NO_ERRORS);
@@ -89,7 +90,7 @@ class Login with ChangeNotifier {
           loginState: LoginState.CREDENTIALS_AUTHENTICATED,
           errorState: ErrorState.TOO_MANY_ATTEMPTS);
       return false;
-    } on DioError catch (e) {
+    } on DioError {
       _moveToState(
           loginState: LoginState.CREDENTIALS_AUTHENTICATED,
           errorState: ErrorState.NETWORK_ERROR);
@@ -111,38 +112,38 @@ class Login with ChangeNotifier {
     _moveToState(loginState: LoginState.LOGGED_OUT);
   }
 
-  bool isWaitingForVoiceCall() => this._loginState == LoginState.CODE_VOICE_CALL_LOADING;
+  bool isWaitingForVoiceCall() => _loginState == LoginState.CODE_VOICE_CALL_LOADING;
 
-  bool isWaitingResendCode() => this._loginState == LoginState.CODE_RESEND_LOADING;
+  bool isWaitingResendCode() => _loginState == LoginState.CODE_RESEND_LOADING;
 
-  bool isLoggedIn() => this._loginState == LoginState.LOGGED_IN;
+  bool isLoggedIn() => _loginState == LoginState.LOGGED_IN;
 
-  bool isLoading() => this._loginState == LoginState.CREDENTIALS_LOADING;
+  bool isLoading() => _loginState == LoginState.CREDENTIALS_LOADING;
 
-  bool isLoadingCode() => this._loginState == LoginState.CODE_LOADING;
+  bool isLoadingCode() => _loginState == LoginState.CODE_LOADING;
 
-  bool isLastLoginFailed() => this._errorState == ErrorState.CREDENTIALS_ERROR;
+  bool isLastLoginFailed() => _errorState == ErrorState.CREDENTIALS_ERROR;
 
-  bool isLastTokenInvalid() => this._errorState == ErrorState.INVALID_TOKEN;
+  bool isLastTokenInvalid() => _errorState == ErrorState.INVALID_TOKEN;
 
-  bool isLastCodeSubmissionFailed() => this._errorState == ErrorState.CREDENTIALS_ERROR;
+  bool isLastCodeSubmissionFailed() => _errorState == ErrorState.CREDENTIALS_ERROR;
 
-  bool hasTooManyAttempts() => this._errorState == ErrorState.TOO_MANY_ATTEMPTS;
+  bool hasTooManyAttempts() => _errorState == ErrorState.TOO_MANY_ATTEMPTS;
 
-  bool hasGenericError() => this._errorState == ErrorState.GENERIC_ERROR;
+  bool hasGenericError() => _errorState == ErrorState.GENERIC_ERROR;
 
   bool isCredentialsAuthenticated() =>
-      this._loginState != null &&
-      this._loginState != LoginState.LOGGED_OUT &&
-          this._loginState != LoginState.CREDENTIALS_LOADING;
+      _loginState != null &&
+      _loginState != LoginState.LOGGED_OUT &&
+          _loginState != LoginState.CREDENTIALS_LOADING;
 
-  bool hasNetworkError() => this._errorState == ErrorState.NETWORK_ERROR;
+  bool hasNetworkError() => _errorState == ErrorState.NETWORK_ERROR;
 
-  bool hasError() => this._errorState != ErrorState.NO_ERRORS;
+  bool hasError() => _errorState != ErrorState.NO_ERRORS;
 
   ErrorState get errorState => _errorState;
 
-  void resetErrors({shouldNotifyListeners = false}) => _moveToState(
+  void resetErrors({bool shouldNotifyListeners = false}) => _moveToState(
       errorState: ErrorState.NO_ERRORS,
       shouldNotifyListeners: shouldNotifyListeners);
 }

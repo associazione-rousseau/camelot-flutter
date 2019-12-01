@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class LoadingIndicator extends StatelessWidget {
-  final Color _color;
 
-  LoadingIndicator(this._color);
+  const LoadingIndicator(this._color);
+
+  final Color _color;
 
   @override
   Widget build(BuildContext context) {

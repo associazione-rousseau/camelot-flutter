@@ -5,6 +5,12 @@ part 'token_response.g.dart';
 
 @JsonSerializable(nullable: true, fieldRename: FieldRename.snake)
 class TokenResponse with ErrorResponse {
+
+  TokenResponse();
+
+  factory TokenResponse.fromJson(Map<String, dynamic> json) => _$TokenResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TokenResponseToJson(this);
+
   String accessToken;
   int expiresIn;
   int refreshExpiresIn;
@@ -18,12 +24,8 @@ class TokenResponse with ErrorResponse {
   String error;
   String errorDescription;
 
-  TokenResponse();
-
+  @override
   bool hasErrors() {
     return error != null;
   }
-
-  factory TokenResponse.fromJson(Map<String, dynamic> json) => _$TokenResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$TokenResponseToJson(this);
 }

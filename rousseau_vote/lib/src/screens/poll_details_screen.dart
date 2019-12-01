@@ -2,10 +2,11 @@ import 'package:flutter/widgets.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
 
 class PollDetailsScreen extends StatelessWidget {
-  static const routeName = '/polls';
+  const PollDetailsScreen(this.pollId);
+
+  static const String ROUTE_NAME = '/polls';
 
   final String pollId;
-  const PollDetailsScreen(this.pollId);
 
   @override
   Widget build(BuildContext context) {

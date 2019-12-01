@@ -1,20 +1,21 @@
 import 'package:flutter/cupertino.dart';
 
 class VerticalScrollView extends StatelessWidget {
-  final List<Widget> children;
 
   const VerticalScrollView({this.children = const <Widget>[]});
+
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               minHeight: 500,
             ),
             child: Center(
                 child: Padding(
-                    padding: EdgeInsets.all(40.0),
+                    padding: const EdgeInsets.all(40.0),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: children)))));
