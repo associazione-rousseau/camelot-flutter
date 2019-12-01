@@ -1,22 +1,32 @@
 
+import 'dart:convert';
+
+import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
 import 'package:rousseau_vote/src/models/token.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
 
-class TokenStore {
+class TokenStore with InitializeOnStartup {
 
-  TokenStore(this._secureStorage) {
-    _secureStorage.readToken();
-  }
+  TokenStore(this._secureStorage);
 
-  Token token;
+  Token _token;
   final SecureStorage _secureStorage;
 
   Future<void> onTokenFetched(Token token) {
-    this.token = token;
+    _token = token;
     return _secureStorage.storeToken(token);
   }
 
   bool hasValidToken() {
-    return token != null && token.isValid();
+    return _token != null && _token.isValid();
+  }
+
+  @override
+  Future<void> doInitialize() {
+   return _secureStorage.readToken().then((String serializedToken){
+     if (serializedToken != null) {
+       _token = Token.fromJson(jsonDecode(serializedToken));
+     }
+   });
   }
 }

@@ -6,12 +6,16 @@ import 'package:dio/native_imp.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectorio/injectorio.dart';
+import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
+import 'package:rousseau_vote/src/init/mock_initializer.dart';
+import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 
 class DependencyInjector {
+
   static void initInjector() {
     InjectorIO.start(mode: InjectorMode.PRODUCTION)
         .single<CookieJar>(_cookieJar())
@@ -21,6 +25,7 @@ class DependencyInjector {
         .single(_flutterSecureStorage())
         .single(_secureStorage())
         .single(_tokenStore())
+        .single(_startupInitializer())
         .single(_login());
   }
 
@@ -58,6 +63,17 @@ class DependencyInjector {
 
   static SecureStorage _secureStorage() {
     return SecureStorage(get());
+  }
+
+  static List<InitializeOnStartup> _needInitOnStartup() {
+    return <InitializeOnStartup>[
+      MockInitializer(3),
+      get<TokenStore>(),
+    ];
+  }
+
+  static StartupInitializer _startupInitializer() {
+    return StartupInitializer(_needInitOnStartup());
   }
 
   static FlutterSecureStorage _flutterSecureStorage() {

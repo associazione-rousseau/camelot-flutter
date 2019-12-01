@@ -16,7 +16,7 @@ class SecureStorage {
     return _flutterSecureStorage.write(key: _KEY_TOKEN, value: jsonEncode(token));
   }
 
-  Future<void>  readToken() {
+  Future<String>  readToken() {
     return _flutterSecureStorage.read(key: _KEY_TOKEN);
   }
 }
