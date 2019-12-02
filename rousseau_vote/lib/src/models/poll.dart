@@ -1,5 +1,7 @@
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/models/poll_option.dart';
 
+@JsonSerializable()
 class Poll {
 
   String id;
@@ -7,7 +9,13 @@ class Poll {
   String title;
   PollStatus status;
   bool alreadyVoted;
-  DateTime voteStartinDate;
+  String description;
+  String optionType;
+  String resultsLink;
+  String announcementLink;
+  List<Alert> alerts;
+  DateTime showStartingDate;
+  DateTime voteStartingDate;
   DateTime voteEndingDate;
 
   List<PollOption> options;

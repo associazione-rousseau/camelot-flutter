@@ -4,9 +4,9 @@ import 'package:flutter/widgets.dart';
 
 class LoadingIndicator extends StatelessWidget {
 
-  const LoadingIndicator(this._color);
+  const LoadingIndicator({this.color});
 
-  final Color _color;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,8 @@ class LoadingIndicator extends StatelessWidget {
       height: 25,
       width: 25,
       child: CircularProgressIndicator(
-        backgroundColor: _color,
+        backgroundColor: Colors.transparent,
+        valueColor: AlwaysStoppedAnimation<Color>(color),
       ),
     );
   }

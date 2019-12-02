@@ -29,7 +29,7 @@ class _Native2FaScreenState extends State<Native2FaScreen> {
               builder: (BuildContext context, Login login, _) => Column(children: <Widget>[
                     // ignore: prefer_if_elements_to_conditional_expressions
                     login.isLoadingCode()
-                        ? LoadingIndicator(Colors.red)
+                        ? const LoadingIndicator()
                         : PinPut(
                             fieldsCount: 5,
                             onClear: (String code) => () {},

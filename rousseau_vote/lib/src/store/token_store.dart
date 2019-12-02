@@ -21,12 +21,19 @@ class TokenStore with InitializeOnStartup {
     return _token != null && _token.isValid();
   }
 
+  Future<String> getAccessToken() {
+    // TODO refresh token if expired
+    return Future<String>.value(_token?.accessToken);
+  }
+
   @override
-  Future<void> doInitialize() {
-   return _secureStorage.readToken().then((String serializedToken){
-     if (serializedToken != null) {
-       _token = Token.fromJson(jsonDecode(serializedToken));
-     }
-   });
+  Future<void> doInitialize() async {
+    final String serializedToken = await _secureStorage.readToken();
+    if(serializedToken != null) {
+      _token = Token.fromJson(jsonDecode(serializedToken));
+      if(_token.isExpired()) {
+        // TODO refresh token
+      }
+    }
   }
 }
