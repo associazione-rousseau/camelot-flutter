@@ -9,7 +9,10 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(image: const AssetImage('assets/images/rousseau_white.png')),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Image(image: const AssetImage('assets/images/rousseau_white.png')),
+            ),
           ],
         ));
   }
