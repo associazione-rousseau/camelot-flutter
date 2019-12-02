@@ -25,6 +25,19 @@ class Poll {
   DateTime showStartingDate;
   DateTime voteStartingDate;
   DateTime voteEndingDate;
+
+  bool isOpen() {
+    final DateTime now = DateTime.now();
+    return now.isAfter(voteStartingDate) && now.isBefore(voteEndingDate);
+  }
+
+  bool userCanVote() {
+    return userHasVotingRights() && isOpen();
+  }
+
+  bool userHasVotingRights() {
+    return alerts == null || alerts.isEmpty;
+  }
 }
 
 enum PollStatus { PREVIEW, PUBLISHED, OPEN, CLOSED }
