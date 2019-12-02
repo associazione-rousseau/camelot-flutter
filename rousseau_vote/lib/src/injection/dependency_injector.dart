@@ -83,5 +83,4 @@ class DependencyInjector {
   static LoginNetworkHandler _loginNetworkHandler() {
     return LoginNetworkHandler(get<DioForNative>());
   }
-
 }

@@ -1,17 +1,19 @@
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_configuration.dart';
+import 'package:rousseau_vote/src/network/graphql/parser/query_response_parser.dart';
+import 'package:rousseau_vote/src/network/graphql/parser/query_response_parsers.dart';
 
 // callback function called to render a widget in case of query error
 typedef GraphqlErrorWidgetBuilder = Widget Function(List<GraphQLError> errors);
 
 // callback function called to render a widget in case of query success
-typedef GraphqlSuccessWidgetBuilder = Widget Function(dynamic data);
+typedef GraphqlSuccessWidgetBuilder<T> = Widget Function(T data);
 
 // callback function called to render a widget while a graphql query is loading
 typedef GraphqlLoadingWidgetBuilder = Widget Function();
 
-class GraphqlQueryWidget extends StatelessWidget {
+class GraphqlQueryWidget<T> extends StatelessWidget {
   GraphqlQueryWidget(
       {@required this.query,
       @required this.builderSuccess,
@@ -26,7 +28,7 @@ class GraphqlQueryWidget extends StatelessWidget {
   final ValueNotifier<GraphQLClient> client;
   final String query;
   final Map<String, dynamic> variables;
-  final GraphqlSuccessWidgetBuilder builderSuccess;
+  final GraphqlSuccessWidgetBuilder<T> builderSuccess;
   final GraphqlErrorWidgetBuilder builderError;
   final GraphqlLoadingWidgetBuilder builderLoading;
 
@@ -47,7 +49,8 @@ class GraphqlQueryWidget extends StatelessWidget {
               return builderLoading();
             }
 
-            return builderSuccess(result.data);
+            final QueryResponseParser<T> parser = getParser();
+            return builderSuccess(parser.parse(result));
           },
         ),
       ),

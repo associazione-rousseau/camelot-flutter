@@ -1,8 +1,16 @@
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:rousseau_vote/src/models/poll_option.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+import 'alert.dart';
+
+part 'poll.g.dart';
 
 @JsonSerializable()
 class Poll {
+
+  Poll();
+
+  factory Poll.fromJson(Map<String, dynamic> json) => _$PollFromJson(json);
+  Map<String, dynamic> toJson() => _$PollToJson(this);
 
   String id;
   String slug;
@@ -17,9 +25,6 @@ class Poll {
   DateTime showStartingDate;
   DateTime voteStartingDate;
   DateTime voteEndingDate;
-
-  List<PollOption> options;
-
 }
 
 enum PollStatus { PREVIEW, PUBLISHED, OPEN, CLOSED }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:rousseau_vote/src/models/poll_list.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
@@ -14,11 +15,10 @@ class PollsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RousseauLoggedScaffold(
-      GraphqlQueryWidget(
+      GraphqlQueryWidget<PollList>(
         query: listPolls,
-        builderSuccess: (dynamic data) {
-          final LazyCacheMap lazyCacheMap = data;
-          return Text(lazyCacheMap.data.toString());
+        builderSuccess: (PollList pollList) {
+          return Text(pollList.polls[0].title);
         },
         builderLoading: () {
           return const LoadingIndicator();
