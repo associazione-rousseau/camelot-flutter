@@ -7,7 +7,7 @@ import 'package:rousseau_vote/src/store/token_store.dart';
 
 class GraphQLConfiguration {
   static HttpLink httpLink = HttpLink(
-    uri: GRAPHQL_URL_LOCAL,
+    uri: GRAPHQL_URL,
   );
 
   static AuthLink authLink = AuthLink(
