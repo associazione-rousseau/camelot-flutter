@@ -7,10 +7,12 @@ import 'package:rousseau_vote/src/providers/login.dart';
 
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 import 'package:rousseau_vote/src/screens/login_screen.dart';
 import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/register_screen.dart';
+import 'package:rousseau_vote/src/widgets/model/browser_arguments.dart';
 
 void main() {
   DependencyInjector.initInjector();
@@ -50,6 +52,10 @@ class RousseauVoteApp extends StatelessWidget {
           PollDetailsScreen.ROUTE_NAME: (BuildContext context) {
             final String pollId = ModalRoute.of(context).settings.arguments;
             return PollDetailsScreen(pollId);
+          },
+          InAppBrowser.ROUTE_NAME: (BuildContext context) {
+            final BrowserArguments arguments = ModalRoute.of(context).settings.arguments;
+            return InAppBrowser(arguments);
           },
         }
       ),

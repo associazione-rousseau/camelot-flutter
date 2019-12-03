@@ -15,3 +15,5 @@ const String KEYCLOAK_URL = KEYCLOAK_URL_PRODUCTION;
 const String GRAPHQL_URL_LOCAL = 'http://10.0.2.2:3000/graphql';
 const String GRAPHQL_URL_PRODUCTION = 'https://api.rousseau.movimento5stelle.it/graphql';
 const String GRAPHQL_URL = GRAPHQL_URL_PRODUCTION;
+
+const String IN_APP_BROWSER_USER_AGENT = 'camelot-flutter';

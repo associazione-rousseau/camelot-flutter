@@ -5,6 +5,8 @@ import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 
+import 'link_flat_button.dart';
+
 class PollCard extends StatelessWidget {
   const PollCard(this._poll);
 
@@ -53,17 +55,17 @@ class PollCard extends StatelessWidget {
             child: ButtonBar(
               children: <Widget>[
                 _poll.announcementLink != null
-                    ? FlatButton(
-                        child: Text(
-                            RousseauLocalizations.getText(context, 'cta-info')),
-                        onPressed: () {/* ... */},
+                    ? LinkFlatButton(
+                          color: statusColor,
+                          textKey: 'cta-info',
+                          url: _poll.announcementLink
                       )
                     : null,
                 _poll.resultsLink != null
-                    ? FlatButton(
-                        child: Text(RousseauLocalizations.getText(
-                            context, 'cta-results')),
-                        onPressed: () {/* ... */},
+                    ? LinkFlatButton(
+                        color: statusColor,
+                        textKey: 'cta-results',
+                        url: _poll.resultsLink
                       )
                     : null,
                  _poll.userCanVote()
