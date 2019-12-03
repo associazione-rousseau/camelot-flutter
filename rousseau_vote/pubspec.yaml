@@ -35,6 +35,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_cupertino_localizations: ^1.0.1
+  intl: ^0.15.8
 
   # Network libraries
   dio: ^3.0.4

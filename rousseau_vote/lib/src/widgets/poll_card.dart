@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
 
 class PollCard extends StatelessWidget {
   const PollCard(this._poll);
@@ -42,8 +44,8 @@ class PollCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const SizedBox(height: 10),
-                Text('Inizio: ${_poll.voteStartingDate}'),
-                Text('Fine: ${_poll.voteEndingDate}'),
+                Text('Inizio: ${UiUtil.formatDate(_poll.voteStartingDate)}'),
+                Text('Fine: ${UiUtil.formatDate(_poll.voteEndingDate)}'),
               ],
             ),
           ),

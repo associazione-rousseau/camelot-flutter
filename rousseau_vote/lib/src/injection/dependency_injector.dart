@@ -6,6 +6,7 @@ import 'package:dio/native_imp.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectorio/injectorio.dart';
+import 'package:intl/intl.dart';
 import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
 import 'package:rousseau_vote/src/init/mock_initializer.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
@@ -17,6 +18,8 @@ import 'package:rousseau_vote/src/store/token_store.dart';
 class DependencyInjector {
 
   static void initInjector() {
+    Intl.defaultLocale = 'it';
+
     InjectorIO.start(mode: InjectorMode.PRODUCTION)
         .single<CookieJar>(_cookieJar())
         .single(_cookieManager())

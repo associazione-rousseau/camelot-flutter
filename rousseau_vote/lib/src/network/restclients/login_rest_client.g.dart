@@ -10,7 +10,7 @@ class _LoginRestClient implements LoginRestClient {
   _LoginRestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
     this.baseUrl ??=
-        'https://sso.rousseau.movimento5stelle.it//auth/realms/rousseau';
+        'https://sso.rousseau.movimento5stelle.it/auth/realms/rousseau';
   }
 
   final Dio _dio;

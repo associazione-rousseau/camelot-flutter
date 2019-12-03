@@ -17,7 +17,6 @@ class PollsScreen extends StatelessWidget {
     return RousseauLoggedScaffold(GraphqlQueryWidget<PollList>(
       query: listPolls,
       builderSuccess: (PollList pollList) {
-//          return Text(pollList.polls[0].title);
         return ListView.separated(
             padding: const EdgeInsets.all(30.0),
             separatorBuilder: (BuildContext context, int index) =>
