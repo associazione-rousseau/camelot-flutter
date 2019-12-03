@@ -20,32 +20,7 @@ class RousseauLoggedScaffold extends StatelessWidget {
         startupInitializer: get<StartupInitializer>(),
         showAfterInit: LoggedScreen(
           Scaffold(
-            body: NestedScrollView(
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  SliverAppBar(
-                    expandedHeight: 250.0,
-                    floating: false,
-                    pinned: true,
-                    snap: false,
-                    flexibleSpace: FlexibleSpaceBar(
-                        title: Padding(
-                          padding: const EdgeInsets.only(top: 30.0),
-                          child: Image(
-                              image: const AssetImage('assets/images/rousseau_white.png'),
-                              width: 200,
-                          ),
-                        ),
-                        centerTitle: true,
-                    ),
-                  ),
-                ];
-              },
-              body: Center(
-                child: body,
-              ),
-            ),
+            body: body,
           ),
         ));
   }

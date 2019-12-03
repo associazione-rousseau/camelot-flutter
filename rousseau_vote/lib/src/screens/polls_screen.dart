@@ -8,29 +8,32 @@ import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/poll_card.dart';
 
 import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
+import 'package:rousseau_vote/src/widgets/rousseau_sliver_app_bar.dart';
 
 class PollsScreen extends StatelessWidget {
   static const String ROUTE_NAME = '/';
 
   @override
   Widget build(BuildContext context) {
-    return RousseauLoggedScaffold(GraphqlQueryWidget<PollList>(
-      query: listPolls,
-      builderSuccess: (PollList pollList) {
-        return ListView.separated(
-            padding: const EdgeInsets.all(30.0),
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(height: 30.0),
-            itemCount: pollList.polls.length,
-            itemBuilder: (BuildContext context, int index) =>
-                PollCard(pollList.polls[index]));
-      },
-      builderLoading: () {
-        return const LoadingIndicator();
-      },
-      builderError: (List<GraphQLError> error) {
-        return Text(error.toString());
-      },
+    return RousseauLoggedScaffold(RousseauSliverAppBar(
+      body: GraphqlQueryWidget<PollList>(
+        query: listPolls,
+        builderSuccess: (PollList pollList) {
+          return ListView.separated(
+              padding: const EdgeInsets.all(30.0),
+              separatorBuilder: (BuildContext context, int index) =>
+                  const SizedBox(height: 30.0),
+              itemCount: pollList.polls.length,
+              itemBuilder: (BuildContext context, int index) =>
+                  PollCard(pollList.polls[index]));
+        },
+        builderLoading: () {
+          return const LoadingIndicator();
+        },
+        builderError: (List<GraphQLError> error) {
+          return Text(error.toString());
+        },
+      ),
     ));
   }
 }
