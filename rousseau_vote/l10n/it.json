@@ -16,5 +16,10 @@
     "error-code": "Ops. Codice sbagliato. Riprova o richiedi un nuovo codice",
     "error-generic": "Ops! C'è stato un problema. Riprovare più tardi",
     "error-too-many-attempts": "Codice sbagliato per troppe volte. Riprova tra 15 minuti",
-    "error-invalid-token": "Ops! Token non valido. Riprovare più tardi"
+    "error-invalid-token": "Ops! Token non valido. Riprovare più tardi",
+
+    "cta-info": "INFO",
+    "cta-results": "RISULTATI",
+    "cta-vote": "VOTA",
+    "cta-visualize": "VISUALIZZA"
 }

@@ -15,7 +15,7 @@ class Poll {
   String id;
   String slug;
   String title;
-  PollStatus status;
+  String status;
   bool alreadyVoted;
   String description;
   String optionType;
@@ -31,6 +31,11 @@ class Poll {
     return now.isAfter(voteStartingDate) && now.isBefore(voteEndingDate);
   }
 
+  bool isScheduled() {
+    final DateTime now = DateTime.now();
+    return now.isBefore(voteStartingDate);
+  }
+
   bool userCanVote() {
     return userHasVotingRights() && isOpen();
   }
@@ -38,6 +43,16 @@ class Poll {
   bool userHasVotingRights() {
     return alerts == null || alerts.isEmpty;
   }
+
+  PollStatus calculatePollStatus() {
+    if (isScheduled()) {
+      return PollStatus.SCHEDULED;
+    }
+    if (isOpen()) {
+      return PollStatus.OPEN;
+    }
+    return PollStatus.CLOSED;
+  }
 }
 
-enum PollStatus { PREVIEW, PUBLISHED, OPEN, CLOSED }
+enum PollStatus { SCHEDULED, OPEN, CLOSED }
