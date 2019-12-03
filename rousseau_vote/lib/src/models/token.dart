@@ -31,7 +31,7 @@ class Token {
   String scope;
 
   bool isValid() {
-    return _isValidSignature() && !isExpired();
+    return _isValidSignature();
   }
 
   bool isExpired() {

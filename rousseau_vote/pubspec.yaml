@@ -44,6 +44,7 @@ dependencies:
   json_serializable: ^3.2.3
   uuid: ^2.0.4
   graphql_flutter: ^2.1.0
+  jaguar_jwt: ^2.1.6
 
   # Storage
   flutter_secure_storage: ^3.3.1+1
