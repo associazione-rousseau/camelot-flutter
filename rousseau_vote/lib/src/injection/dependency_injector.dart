@@ -58,7 +58,7 @@ class DependencyInjector {
   }
 
   static TokenStore _tokenStore() {
-    return TokenStore(get());
+    return TokenStore(get(), get());
   }
 
   static SecureStorage _secureStorage() {

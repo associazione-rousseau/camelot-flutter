@@ -53,6 +53,10 @@ class LoginNetworkHandler {
     return await _getToken(accessCode);
   }
 
+  Future<TokenResponse> refreshToken(String refreshToken) async {
+    return await _refreshToken(refreshToken);
+  }
+
   Future<String> _getAccessCode(String smsCode) async {
     final Map<String, String> body = <String, String>{ 'smsCode': smsCode };
 
@@ -83,7 +87,12 @@ class LoginNetworkHandler {
   }
 
   Future<TokenResponse> _getToken(String accessCode) async {
-    final Map<String, String> body = _getTokenRequestBody(accessCode);
+    final Map<String, String> body = _getTokenRequestBody(accessCode: accessCode);
+    return _loginRestClient.getToken(body);
+  }
+
+  Future<TokenResponse> _refreshToken(String refreshToken) async {
+    final Map<String, String> body = _getTokenRequestBody(refreshToken: refreshToken, refresh:  true);
     return _loginRestClient.getToken(body);
   }
 
@@ -93,12 +102,13 @@ class LoginNetworkHandler {
     return firstChunk.substring(0, endIndex);
   }
 
-  Map<String, String> _getTokenRequestBody(String accessCode) {
+  Map<String, String> _getTokenRequestBody({String refreshToken, String accessCode, bool refresh = false} ) {
     return <String, String>{
       'code': accessCode,
+      'refresh_token': refreshToken,
       'client_id': KEYCLOAK_CLIENT_ID,
       'redirect_uri': KEYCLOAK_REDIRECT_URI,
-      'grant_type': 'authorization_code',
+      'grant_type': refresh ? 'refresh_token' : 'authorization_code',
     };
   }
 }

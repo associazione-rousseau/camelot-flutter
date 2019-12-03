@@ -13,6 +13,7 @@ class Token {
       ..accessToken = tokenResponse.accessToken
       ..expiresIn = tokenResponse.expiresIn
       ..refreshExpiresIn = tokenResponse.refreshExpiresIn
+      ..refreshToken = tokenResponse.refreshToken
       ..tokenType = tokenResponse.tokenType
       ..notBeforePolicy = tokenResponse.notBeforePolicy
       ..sessionState = tokenResponse.sessionState
