@@ -22,7 +22,7 @@ class LoadingScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16),
               child: Text(
                 RousseauLocalizations.getText(context, messageKey),
-                style: TextStyle(fontSize: 32),
+                style: const TextStyle(fontSize: 32),
               ),
             ),
           ],

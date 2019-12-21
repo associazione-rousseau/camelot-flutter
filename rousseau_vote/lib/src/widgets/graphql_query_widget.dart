@@ -41,8 +41,8 @@ class GraphqlQueryWidget<T> extends StatelessWidget {
           options: QueryOptions(document: query, variables: variables),
           builder: (QueryResult result,
               {VoidCallback refetch, FetchMore fetchMore}) {
-            if (result.errors != null) {
-              return builderError(result.errors);
+            if (result.exception != null) {
+              return builderError(result.exception.graphqlErrors);
             }
 
             if (result.loading) {

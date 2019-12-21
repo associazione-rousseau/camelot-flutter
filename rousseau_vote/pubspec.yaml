@@ -36,7 +36,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_cupertino_localizations: ^1.0.1
-  intl: ^0.15.8
 
   # Network libraries
   dio: ^3.0.4
@@ -45,7 +44,7 @@ dependencies:
   retrofit: ^1.0.1+1
   json_serializable: ^3.2.3
   uuid: ^2.0.4
-  graphql_flutter: ^2.1.0
+  graphql_flutter: 2.1.1-beta.5
   jaguar_jwt: ^2.1.6
 
   # Storage
@@ -56,7 +55,7 @@ dev_dependencies:
     sdk: flutter
 
   retrofit_generator: ^1.0.2+2
-  build_runner: ^1.7.1
+  build_runner: ^1.7.2
 
 
 # For information on the generic Dart part of this file, see the

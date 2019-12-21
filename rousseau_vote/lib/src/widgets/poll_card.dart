@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
@@ -37,7 +36,7 @@ class PollCard extends StatelessWidget {
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(15))),
               //color: statusColor,
-              child: ListTile()),
+              child: const ListTile()),
           ListTile(
             contentPadding: const EdgeInsets.only(top: 15.0, left: 15.0),
             leading: _getBadge(pollStatus),
