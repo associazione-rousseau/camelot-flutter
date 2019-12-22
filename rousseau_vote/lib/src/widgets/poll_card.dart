@@ -10,9 +10,9 @@ class PollCard extends StatelessWidget {
   const PollCard(this._poll);
 
   static const Map<PollStatus, Color> COLOR_MAPPING = <PollStatus, Color>{
-    PollStatus.SCHEDULED: Colors.orange,
-    PollStatus.OPEN: Colors.green,
-    PollStatus.CLOSED: Colors.red,
+    PollStatus.PUBLISHED: Color(0xFFE78853),
+    PollStatus.OPEN: Color(0xFF46B29C),
+    PollStatus.CLOSED: Color(0xdFFF5D4B),
   };
 
   final Poll _poll;
@@ -76,7 +76,7 @@ class PollCard extends StatelessWidget {
                         onPressed: () {/* ... */},
                       )
                     : null,
-                pollStatus == PollStatus.SCHEDULED
+                pollStatus == PollStatus.PUBLISHED
                     ? FlatButton(
                         child: Text(
                             RousseauLocalizations.getText(
@@ -98,7 +98,7 @@ class PollCard extends StatelessWidget {
     if (_poll.alreadyVoted) {
       return Icon(Icons.check_circle, color: color);
     }
-    if (pollStatus == PollStatus.SCHEDULED) {
+    if (pollStatus == PollStatus.PUBLISHED) {
       return Icon(Icons.event, color: color);
     }
     if (pollStatus == PollStatus.OPEN) {
