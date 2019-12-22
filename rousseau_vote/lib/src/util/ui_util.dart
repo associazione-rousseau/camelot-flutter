@@ -9,7 +9,7 @@ class UiUtil {
       GlobalKey<ScaffoldState> scaffoldState, String errorMessage) {
     final SnackBar snackBar = SnackBar(
       content: Text(RousseauLocalizations.getText(context, errorMessage)),
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
     );
     scaffoldState.currentState.showSnackBar(snackBar);
   }

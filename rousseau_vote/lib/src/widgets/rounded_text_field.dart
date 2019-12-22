@@ -19,7 +19,7 @@ class RoundedTextField extends StatelessWidget {
       obscureText: obscureText,
       enabled: enabled,
       controller: controller,
-      style: TextStyle(fontFamily: 'Roboto', fontSize: 20.0),
+      style: const TextStyle(fontFamily: 'Roboto', fontSize: 20.0),
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: hintText,

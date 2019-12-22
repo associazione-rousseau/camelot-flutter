@@ -50,7 +50,8 @@ class PollCard extends StatelessWidget {
               ],
             ),
           ),
-          ButtonTheme.bar(
+          ButtonBarTheme(
+            data: const ButtonBarThemeData(alignment: MainAxisAlignment.end),
             child: ButtonBar(
               children: <Widget>[
                 _poll.announcementLink != null
@@ -84,10 +85,9 @@ class PollCard extends StatelessWidget {
                         onPressed: () {/* ... */},
                       )
                     : null,
-                //const SizedBox(width: 10.0)
               ],
             ),
-          ),
+          )
         ],
       ),
     );

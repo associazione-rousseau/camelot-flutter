@@ -57,7 +57,7 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
           const SizedBox(height: 25.0),
           Text(
             RousseauLocalizations.getText(context, 'password-forgot'),
-            style: TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
+            style: const TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
           ),
           const SizedBox(height: 25.0),
           Row(children: <Widget>[
