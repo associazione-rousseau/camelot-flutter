@@ -10,18 +10,17 @@ import 'link_flat_button.dart';
 class PollCard extends StatelessWidget {
   const PollCard(this._poll);
 
-  static const Map<PollStatus, Color> COLOR_MAPPING = <PollStatus, Color>{
-    PollStatus.PUBLISHED: PUBLISHED_ORANGE,
-    PollStatus.OPEN: OPEN_GREEN,
-    PollStatus.CLOSED: CLOSED_RED
+  static const Map<String, Color> COLOR_MAPPING = <String, Color>{
+    PUBLISHED: PUBLISHED_ORANGE,
+    OPEN: OPEN_GREEN,
+    CLOSED: CLOSED_RED
   };
 
   final Poll _poll;
 
   @override
   Widget build(BuildContext context) {
-    final PollStatus pollStatus = _poll.calculatePollStatus();
-    final Color statusColor = COLOR_MAPPING[pollStatus];
+    final Color statusColor = COLOR_MAPPING[_poll.status];
     return Card(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
@@ -40,7 +39,7 @@ class PollCard extends StatelessWidget {
               child: const ListTile()),
           ListTile(
             contentPadding: const EdgeInsets.only(top: 15.0, left: 15.0),
-            leading: _getBadge(pollStatus),
+            leading: _getBadge(_poll.status),
             title: Text(_poll.title),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +76,7 @@ class PollCard extends StatelessWidget {
                         onPressed: () {/* ... */},
                       )
                     : null,
-                pollStatus == PollStatus.PUBLISHED
+                _poll.status == PUBLISHED
                     ? FlatButton(
                         child: Text(
                             RousseauLocalizations.getText(
@@ -94,15 +93,15 @@ class PollCard extends StatelessWidget {
     );
   }
 
-  Widget _getBadge(PollStatus pollStatus) {
+  Widget _getBadge(String pollStatus) {
     final Color color = COLOR_MAPPING[pollStatus];
     if (_poll.alreadyVoted) {
       return Icon(Icons.check_circle, color: color);
     }
-    if (pollStatus == PollStatus.PUBLISHED) {
+    if (pollStatus == PUBLISHED) {
       return Icon(Icons.event, color: color);
     }
-    if (pollStatus == PollStatus.OPEN) {
+    if (pollStatus == OPEN) {
       return Icon(Icons.offline_bolt, color: Colors.green);
     }
     return Icon(Icons.error_outline, color: color);

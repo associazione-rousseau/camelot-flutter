@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
 
 import 'alert.dart';
 
@@ -27,11 +28,7 @@ class Poll {
   DateTime voteEndingDate;
 
   bool isOpen() {
-    return status == 'OPEN';
-  }
-
-  bool isScheduled() {
-    return status == 'PUBLISHED';
+    return status == OPEN;
   }
 
   bool userCanVote() {
@@ -42,15 +39,4 @@ class Poll {
     return alerts == null || alerts.isEmpty;
   }
 
-  PollStatus calculatePollStatus() {
-    if (isScheduled()) {
-      return PollStatus.PUBLISHED;
-    }
-    if (isOpen()) {
-      return PollStatus.OPEN;
-    }
-    return PollStatus.CLOSED;
-  }
 }
-
-enum PollStatus { PUBLISHED, OPEN, CLOSED }
