@@ -23,6 +23,7 @@ const String IN_APP_BROWSER_USER_AGENT = 'camelot-flutter';
 //colors
 const Color PRIMARY_RED = Color(0xFFE30613);
 const Color SECONDARY_YELLOW = Color(0xFFFFD600);
+const Color BACKGROUND_GREY = Color(0xFFECEFF1);
 
 const Color PUBLISHED_ORANGE = Color(0xFFE78853);
 const Color OPEN_GREEN = Color(0xFF46B29C);
@@ -30,3 +31,8 @@ const Color CLOSED_RED = Color(0xdFFF5D4B);
 
 //images
 const AssetImage WHITE_LOGO = AssetImage('assets/images/rousseau_white.png');
+
+//status
+const String PUBLISHED = 'PUBLISHED';
+const String OPEN = 'OPEN';
+const String CLOSED = 'CLOSED';

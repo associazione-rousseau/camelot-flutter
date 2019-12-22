@@ -11,8 +11,7 @@ class LoadingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 25,
-      width: 25,
+      alignment: Alignment.center,
       child: CircularProgressIndicator(
         backgroundColor: Colors.transparent,
         valueColor: AlwaysStoppedAnimation<Color>(color),

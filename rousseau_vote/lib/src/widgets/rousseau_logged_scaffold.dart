@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:injectorio/injectorio.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
 
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/widgets/wait_for_init_widget.dart';
@@ -27,6 +28,7 @@ class RousseauLoggedScaffold extends StatelessWidget {
         Scaffold(
           appBar: appBar,
           body: body,
+          backgroundColor: BACKGROUND_GREY,
         ),
       )
     );
