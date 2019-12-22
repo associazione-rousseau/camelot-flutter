@@ -11,18 +11,24 @@ import 'logged_screen.dart';
 // toolbar
 class RousseauLoggedScaffold extends StatelessWidget {
   
-  const RousseauLoggedScaffold(this.body);
+  const RousseauLoggedScaffold({
+    @required this.appBar, 
+    @required this.body
+  });
 
   final Widget body;
+  final Widget appBar;
 
   @override
   Widget build(BuildContext context) {
     return WaitForStartupInitWidget(
-        startupInitializer: get<StartupInitializer>(),
-        showAfterInit: LoggedScreen(
-          Scaffold(
-            body: body,
-          ),
-        ));
+      startupInitializer: get<StartupInitializer>(),
+      showAfterInit: LoggedScreen(
+        Scaffold(
+          appBar: appBar,
+          body: body,
+        ),
+      )
+    );
   }
 }
