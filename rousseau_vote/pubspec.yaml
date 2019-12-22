@@ -14,7 +14,7 @@ description: Rousseau Voting App
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.6.0-dev.8.0 <3.0.0"
 
 dependencies:
   flutter:
