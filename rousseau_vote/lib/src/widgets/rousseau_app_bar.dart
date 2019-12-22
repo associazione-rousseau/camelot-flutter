@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
 
 class RousseauAppBar extends StatelessWidget implements PreferredSizeWidget {
 
@@ -8,7 +9,7 @@ class RousseauAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: const Image(
-        image: AssetImage('assets/images/rousseau_white.png'),
+        image: WHITE_LOGO,
         height: 50,
       )
     );
