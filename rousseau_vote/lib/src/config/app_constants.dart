@@ -1,5 +1,7 @@
 library constants;
 
+import 'package:flutter/material.dart';
+
 const String APP_NAME = 'Rousseau Vote';
 const String TOOLBAR_TITLE = APP_NAME;
 const bool USE_NATIVE_LOGIN = true;
@@ -17,3 +19,14 @@ const String GRAPHQL_URL_PRODUCTION = 'https://api.rousseau.movimento5stelle.it/
 const String GRAPHQL_URL = GRAPHQL_URL_PRODUCTION;
 
 const String IN_APP_BROWSER_USER_AGENT = 'camelot-flutter';
+
+//colors
+const Color PRIMARY_RED = Color(0xFFE30613);
+const Color SECONDARY_YELLOW = Color(0xFFFFD600);
+
+const Color PUBLISHED_ORANGE = Color(0xFFE78853);
+const Color OPEN_GREEN = Color(0xFF46B29C);
+const Color CLOSED_RED = Color(0xdFFF5D4B);
+
+//images
+const AssetImage WHITE_LOGO = AssetImage('assets/images/rousseau_white.png');

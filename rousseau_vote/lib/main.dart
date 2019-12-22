@@ -34,7 +34,7 @@ class RousseauVoteApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Poppins',
           primarySwatch: Colors.red,
-          primaryColor: const Color(0xFFE30613)
+          primaryColor: PRIMARY_RED
         ),
         localizationsDelegates: <LocalizationsDelegate<dynamic>>[
           RousseauLocalizations.delegate,

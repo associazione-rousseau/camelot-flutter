@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
@@ -10,9 +11,9 @@ class PollCard extends StatelessWidget {
   const PollCard(this._poll);
 
   static const Map<PollStatus, Color> COLOR_MAPPING = <PollStatus, Color>{
-    PollStatus.PUBLISHED: Color(0xFFE78853),
-    PollStatus.OPEN: Color(0xFF46B29C),
-    PollStatus.CLOSED: Color(0xdFFF5D4B),
+    PollStatus.PUBLISHED: PUBLISHED_ORANGE,
+    PollStatus.OPEN: OPEN_GREEN,
+    PollStatus.CLOSED: CLOSED_RED
   };
 
   final Poll _poll;
