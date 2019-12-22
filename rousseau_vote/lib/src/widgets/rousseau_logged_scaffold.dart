@@ -10,6 +10,7 @@ import 'logged_screen.dart';
 // not it redirects to the login screen. It also provide the default rousseau
 // toolbar
 class RousseauLoggedScaffold extends StatelessWidget {
+  
   const RousseauLoggedScaffold(this.body);
 
   final Widget body;

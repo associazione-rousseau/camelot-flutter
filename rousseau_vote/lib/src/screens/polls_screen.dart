@@ -15,25 +15,27 @@ class PollsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RousseauLoggedScaffold(RousseauSliverAppBar(
-      body: GraphqlQueryWidget<PollList>(
-        query: listPolls,
-        builderSuccess: (PollList pollList) {
-          return ListView.separated(
-              padding: const EdgeInsets.all(30.0),
-              separatorBuilder: (BuildContext context, int index) =>
-                  const SizedBox(height: 30.0),
-              itemCount: pollList.polls.length,
-              itemBuilder: (BuildContext context, int index) =>
-                  PollCard(pollList.polls[index]));
-        },
-        builderLoading: () {
-          return const LoadingIndicator();
-        },
-        builderError: (List<GraphQLError> error) {
-          return Text(error.toString());
-        },
-      ),
-    ));
+    return RousseauLoggedScaffold(
+      RousseauSliverAppBar(
+        body: GraphqlQueryWidget<PollList>(
+          query: listPolls,
+          builderSuccess: (PollList pollList) {
+            return ListView.separated(
+                padding: const EdgeInsets.all(30.0),
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox(height: 30.0),
+                itemCount: pollList.polls.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    PollCard(pollList.polls[index]));
+          },
+          builderLoading: () {
+            return const LoadingIndicator();
+          },
+          builderError: (List<GraphQLError> error) {
+            return Text(error.toString());
+          },
+        ),
+      )
+    );
   }
 }

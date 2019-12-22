@@ -32,6 +32,7 @@ class RousseauVoteApp extends StatelessWidget {
       child: MaterialApp(
         title: APP_NAME,
         theme: ThemeData(
+          fontFamily: 'Poppins',
           primarySwatch: Colors.red,
           primaryColor: const Color(0xFFE30613)
         ),

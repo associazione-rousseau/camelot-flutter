@@ -10,25 +10,15 @@ class RousseauSliverAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return NestedScrollView(
       headerSliverBuilder:
           (BuildContext context, bool innerBoxIsScrolled) {
         return <Widget>[
           const SliverAppBar(
-            expandedHeight: 250.0,
-            floating: false,
             pinned: true,
-            snap: false,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Padding(
-                padding: EdgeInsets.only(top: 30.0),
-                child: Image(
-                  image: AssetImage('assets/images/rousseau_white.png'),
-                  width: 200,
-                ),
-              ),
-              centerTitle: true,
+            title: Image(
+              image: AssetImage('assets/images/rousseau_white.png'),
+              height: 50,
             ),
           ),
         ];
