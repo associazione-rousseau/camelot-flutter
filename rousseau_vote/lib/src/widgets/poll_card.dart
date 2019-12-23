@@ -24,23 +24,15 @@ class PollCard extends StatelessWidget {
     final Color statusColor = COLOR_MAPPING[pollStatus];
     return Card(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-          side: BorderSide(width: 0.5, color: statusColor)),
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       elevation: 5,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(
-            height: 30,
-              decoration: BoxDecoration(
-                color: statusColor,
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(15))),
-              //color: statusColor,
-              child: const ListTile()),
           ListTile(
             contentPadding: const EdgeInsets.only(top: 15.0, left: 15.0),
-            leading: _getBadge(pollStatus),
+            leading: Icon(Icons.adjust, color: statusColor, size: 50),//_getBadge(pollStatus),
             title: Text(_poll.title),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
