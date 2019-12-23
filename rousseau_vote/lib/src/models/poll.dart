@@ -28,7 +28,13 @@ class Poll {
   DateTime voteEndingDate;
 
   bool isOpen() {
-    return status == OPEN;
+    final DateTime now = DateTime.now();
+    return now.isAfter(voteStartingDate) && now.isBefore(voteEndingDate);
+  }
+
+  bool isScheduled() {
+    final DateTime now = DateTime.now();
+    return now.isBefore(voteStartingDate);
   }
 
   bool userCanVote() {
@@ -38,5 +44,18 @@ class Poll {
   bool userHasVotingRights() {
     return alerts == null || alerts.isEmpty;
   }
+
+  PollStatus calculatePollStatus() {
+    if (isScheduled()) {
+      return PollStatus.PUBLISHED;
+    }
+    if (isOpen()) {
+      return PollStatus.OPEN;
+    }
+    return PollStatus.CLOSED;
+  }
+}
+
+enum PollStatus { PUBLISHED, OPEN, CLOSED }
 
 }

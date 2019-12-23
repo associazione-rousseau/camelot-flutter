@@ -31,8 +31,3 @@ const Color CLOSED_RED = Color(0xdFFF5D4B);
 
 //images
 const AssetImage WHITE_LOGO = AssetImage('assets/images/rousseau_white.png');
-
-//status
-const String PUBLISHED = 'PUBLISHED';
-const String OPEN = 'OPEN';
-const String CLOSED = 'CLOSED';
