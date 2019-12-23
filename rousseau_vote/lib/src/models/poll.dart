@@ -57,5 +57,3 @@ class Poll {
 }
 
 enum PollStatus { PUBLISHED, OPEN, CLOSED }
-
-}
