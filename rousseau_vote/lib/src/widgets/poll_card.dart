@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 
@@ -66,7 +67,7 @@ class PollCard extends StatelessWidget {
                   borderSide: BorderSide(color: statusColor),
                   textColor: statusColor,
                   icon: Icon(Icons.info_outline),
-                  onPressed: () => null,
+                  onPressed: () => UiUtil.openLink(context, BrowserArguments(url: _poll.announcementLink)),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),
@@ -121,4 +122,5 @@ class PollCard extends StatelessWidget {
       
     );
   }
+
 }
