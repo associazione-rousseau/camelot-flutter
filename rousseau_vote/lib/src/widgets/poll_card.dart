@@ -27,76 +27,86 @@ class PollCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15.0),
       ),
       elevation: 5,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTile(
-            contentPadding: const EdgeInsets.only(top: 15.0, left: 15.0),
-            leading: Icon(Icons.adjust, color: statusColor, size: 50),//_getBadge(pollStatus),
-            title: Text(_poll.title),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const SizedBox(height: 10),
-                Text('Inizio: ${UiUtil.formatDate(_poll.voteStartingDate)}'),
-                Text('Fine: ${UiUtil.formatDate(_poll.voteEndingDate)}'),
-              ],
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.adjust, color: statusColor, size: 50),
+              title: Text(
+                _poll.title,
+                textAlign: TextAlign.center,
+              ),
+              subtitle: Column(
+                children: <Widget>[
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(RousseauLocalizations.getText(context, 'poll-start')),
+                      Text(
+                        '${UiUtil.formatDate( _poll.voteStartingDate)}',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(RousseauLocalizations.getText(context, 'poll-end')),
+                      Text(
+                        '${UiUtil.formatDate(_poll.voteEndingDate)}',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-          ButtonBarTheme(
-            data: const ButtonBarThemeData(alignment: MainAxisAlignment.end),
-            child: ButtonBar(
-              children: <Widget>[
-                _poll.announcementLink != null
-                    ? LinkFlatButton(
-                          color: statusColor,
-                          textKey: 'cta-info',
-                          url: _poll.announcementLink
-                      )
-                    : null,
-                _poll.resultsLink != null
-                    ? LinkFlatButton(
-                        color: statusColor,
-                        textKey: 'cta-results',
-                        url: _poll.resultsLink
-                      )
-                    : null,
-                 _poll.userCanVote()
-                    ? FlatButton(
-                        child: Text(
-                            RousseauLocalizations.getText(context, 'cta-vote'),
-                            style: TextStyle(fontWeight: FontWeight.bold, color: statusColor)),
-                        onPressed: () {/* ... */},
-                      )
-                    : null,
-                pollStatus == PollStatus.PUBLISHED
-                    ? FlatButton(
-                        child: Text(
-                            RousseauLocalizations.getText(
-                                context, 'cta-visualize'),
-                            style: TextStyle(fontWeight: FontWeight.bold, color: statusColor)),
-                        onPressed: () {/* ... */},
-                      )
-                    : null,
-              ],
-            ),
-          )
-        ],
-      ),
+          ]
+        )
+      )
+          // ButtonBarTheme(
+          //   data: const ButtonBarThemeData(alignment: MainAxisAlignment.end),
+          //   child: ButtonBar(
+          //     children: <Widget>[
+          //       _poll.announcementLink != null
+          //           ? LinkFlatButton(
+          //                 color: statusColor,
+          //                 textKey: 'cta-info',
+          //                 url: _poll.announcementLink
+          //             )
+          //           : null,
+          //       _poll.resultsLink != null
+          //           ? LinkFlatButton(
+          //               color: statusColor,
+          //               textKey: 'cta-results',
+          //               url: _poll.resultsLink
+          //             )
+          //           : null,
+          //        _poll.userCanVote()
+          //           ? FlatButton(
+          //               child: Text(
+          //                   RousseauLocalizations.getText(context, 'cta-vote'),
+          //                   style: TextStyle(fontWeight: FontWeight.bold, color: statusColor)),
+          //               onPressed: () {/* ... */},
+          //             )
+          //           : null,
+          //       pollStatus == PollStatus.PUBLISHED
+          //           ? FlatButton(
+          //               child: Text(
+          //                   RousseauLocalizations.getText(
+          //                       context, 'cta-visualize'),
+          //                   style: TextStyle(fontWeight: FontWeight.bold, color: statusColor)),
+          //               onPressed: () {/* ... */},
+          //             )
+          //           : null,
+          //     ],
+          //   ),
+          // )
+        // ],
+      // ),
+      
     );
-  }
-
-  Widget _getBadge(PollStatus pollStatus) {
-    final Color color = COLOR_MAPPING[pollStatus];
-    if (_poll.alreadyVoted) {
-      return Icon(Icons.check_circle, color: color);
-    }
-    if (pollStatus == PollStatus.PUBLISHED) {
-      return Icon(Icons.event, color: color);
-    }
-    if (pollStatus == PollStatus.OPEN) {
-      return Icon(Icons.offline_bolt, color: Colors.green);
-    }
-    return Icon(Icons.error_outline, color: color);
   }
 }

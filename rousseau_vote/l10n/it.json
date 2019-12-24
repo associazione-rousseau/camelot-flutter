@@ -21,5 +21,8 @@
     "cta-info": "INFO",
     "cta-results": "RISULTATI",
     "cta-vote": "VOTA",
-    "cta-visualize": "VISUALIZZA"
+    "cta-visualize": "VISUALIZZA",
+
+    "poll-start": "Inizio  ",
+    "poll-end": "Fine    ",
 }

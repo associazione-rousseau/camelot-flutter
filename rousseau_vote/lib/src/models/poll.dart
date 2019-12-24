@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rousseau_vote/src/config/app_constants.dart';
 
 import 'alert.dart';
 

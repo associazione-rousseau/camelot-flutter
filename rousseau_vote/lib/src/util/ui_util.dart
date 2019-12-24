@@ -15,7 +15,7 @@ class UiUtil {
   }
 
   static String formatDate(DateTime dateTime) {
-    return DateFormat.yMMMMEEEEd().add_jm().format(dateTime);
+    return DateFormat.yMMMMd().addPattern(" '-' ").add_jm().format(dateTime);
   }
 
   static void openLink(BuildContext context, BrowserArguments arguments) {
