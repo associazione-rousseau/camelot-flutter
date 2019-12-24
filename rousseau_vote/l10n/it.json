@@ -18,11 +18,8 @@
     "error-too-many-attempts": "Codice sbagliato per troppe volte. Riprova tra 15 minuti",
     "error-invalid-token": "Ops! Token non valido. Riprovare più tardi",
 
-    "cta-info": "INFO",
-    "cta-results": "RISULTATI",
-    "cta-vote": "VOTA",
-    "cta-visualize": "VISUALIZZA",
-
     "poll-start": "Inizio  ",
     "poll-end": "Fine    ",
+    "poll-info": "Approfondisci"
+
 }
