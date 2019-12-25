@@ -27,7 +27,7 @@ class PollCard extends StatelessWidget {
       child: InkWell(
         customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: <Widget>[
               ListTile(
@@ -62,65 +62,71 @@ class PollCard extends StatelessWidget {
                   ],
                 ),
               ),
-              _poll.announcementLink != null
-              ? OutlineButton.icon(
-                  borderSide: BorderSide(color: statusColor),
-                  textColor: statusColor,
-                  icon: Icon(Icons.info_outline),
-                  onPressed: () => UiUtil.openLink(context, BrowserArguments(url: _poll.announcementLink)),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  label: Text(RousseauLocalizations.getText(context, 'poll-info')),
-                )
-              : Container()
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  getAnnouncementButton(context, statusColor),
+                  Text(
+                    RousseauLocalizations.getText(context, getActionText(pollStatus)),
+                    style: TextStyle(color: statusColor),
+                  )
+                ],
+              )
             ]
           )
         ),
-        onTap: () => null,
+        onTap: () => doAction(context, pollStatus),
       )
-          // ButtonBarTheme(
-          //   data: const ButtonBarThemeData(alignment: MainAxisAlignment.end),
-          //   child: ButtonBar(
-          //     children: <Widget>[
-          //       _poll.announcementLink != null
-          //           ? LinkFlatButton(
-          //                 color: statusColor,
-          //                 textKey: 'cta-info',
-          //                 url: _poll.announcementLink
-          //             )
-          //           : null,
-          //       _poll.resultsLink != null
-          //           ? LinkFlatButton(
-          //               color: statusColor,
-          //               textKey: 'cta-results',
-          //               url: _poll.resultsLink
-          //             )
-          //           : null,
-          //        _poll.userCanVote()
-          //           ? FlatButton(
-          //               child: Text(
-          //                   RousseauLocalizations.getText(context, 'cta-vote'),
-          //                   style: TextStyle(fontWeight: FontWeight.bold, color: statusColor)),
-          //               onPressed: () {/* ... */},
-          //             )
-          //           : null,
-          //       pollStatus == PollStatus.PUBLISHED
-          //           ? FlatButton(
-          //               child: Text(
-          //                   RousseauLocalizations.getText(
-          //                       context, 'cta-visualize'),
-          //                   style: TextStyle(fontWeight: FontWeight.bold, color: statusColor)),
-          //               onPressed: () {/* ... */},
-          //             )
-          //           : null,
-          //     ],
-          //   ),
-          // )
-        // ],
-      // ),
-      
     );
+  }
+
+  void doAction(BuildContext context, PollStatus status) {
+    if (status == PollStatus.PUBLISHED) {
+      
+    } else if (status == PollStatus.OPEN) {
+
+    } else if (_poll.resultsLink != null) {
+      UiUtil.openLink(context, BrowserArguments(url: _poll.resultsLink));
+    } else {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(RousseauLocalizations.getText(context, 'poll-no-result')),
+          action: SnackBarAction(
+            label: RousseauLocalizations.getText(context, 'close'),
+            onPressed: () => Scaffold.of(context).hideCurrentSnackBar()
+          ),
+        )
+      );
+    }
+  }
+
+  String getActionText(PollStatus status) {
+    if (status == PollStatus.PUBLISHED) {
+      return 'poll-published';
+    } else if (status == PollStatus.OPEN) {
+      return 'poll-open';
+    } else if (_poll.resultsLink != null) {
+      return 'poll-result';
+    } else {
+      return 'poll-closed';
+    }
+  }
+
+  Widget getAnnouncementButton(BuildContext context, Color color) {
+    if (_poll.announcementLink != null) {
+      return OutlineButton.icon(
+        borderSide: BorderSide(color: color),
+        textColor: color,
+        icon: Icon(Icons.info_outline),
+        onPressed: () => UiUtil.openLink(context, BrowserArguments(url: _poll.announcementLink)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        label: Text(RousseauLocalizations.getText(context, 'poll-info')),
+      );
+    } else {
+      return Container();
+    }
   }
 
 }

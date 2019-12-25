@@ -10,6 +10,7 @@
     "voice-call": "Chiamata vocale",
     "re-send-sms": "Nuovo codice",
     "cancel": "Annulla",
+    "close": "Chiudi",
 
     "error-network": "Ops! C'è stato un problema. Riprovare più tardi",
     "error-credentials": "Ops. Email o password errati. Riprova!",
@@ -20,6 +21,11 @@
 
     "poll-start": "Inizio  ",
     "poll-end": "Fine    ",
-    "poll-info": "Approfondisci"
+    "poll-info": "Approfondisci",
+    "poll-published": "Anteprima",
+    "poll-open": "Votazione aperta",
+    "poll-closed": "Votazione terminata",
+    "poll-result": "Risultati disponibili",
+    "poll-no-result": "Risultati non ancora disponibili"
 
 }
