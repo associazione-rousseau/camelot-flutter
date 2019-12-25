@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_list.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
@@ -20,9 +21,10 @@ class PollsScreen extends StatelessWidget {
       body: GraphqlQueryWidget<PollList>(
         query: listPolls,
         builderSuccess: (PollList pollList) {
+          final List<Poll> polls = sortedPolls(pollList);
           return ListView.builder(
-            itemCount: pollList.polls.length,
-            itemBuilder: (BuildContext context, int index) => PollCard(pollList.polls[index])
+            itemCount: polls.length,
+            itemBuilder: (BuildContext context, int index) => PollCard(polls[index])
           );
         },
         builderLoading: () {
@@ -34,4 +36,13 @@ class PollsScreen extends StatelessWidget {
       )
     );
   }
+
+  List<Poll> sortedPolls(PollList list) {
+    final List<Poll> result = <Poll>[];
+    result.addAll(list.polls.where((Poll p) => p.calculatePollStatus() == PollStatus.OPEN));
+    result.addAll(list.polls.where((Poll p) => p.calculatePollStatus() == PollStatus.PUBLISHED));
+    result.addAll(list.polls.where((Poll p) => p.calculatePollStatus() == PollStatus.CLOSED));
+    return result;
+  }
+
 }
