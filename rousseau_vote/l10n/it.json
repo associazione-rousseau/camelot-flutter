@@ -26,6 +26,7 @@
     "poll-open": "Votazione aperta",
     "poll-closed": "Votazione terminata",
     "poll-result": "Risultati disponibili",
-    "poll-no-result": "Risultati non ancora disponibili"
+    "poll-no-result": "Risultati non ancora disponibili",
+    "poll-voted": "Hai Votato!"
 
 }

@@ -28,6 +28,7 @@ const Color BACKGROUND_GREY = Color(0xFFECEFF1);
 const Color PUBLISHED_ORANGE = Color(0xFFE78853);
 const Color OPEN_GREEN = Color(0xFF46B29C);
 const Color CLOSED_RED = Color(0xFFDF5D4B);
+const Color VOTED_BLUE = Color(0xFF2AA2DA);
 
 //images
 const AssetImage WHITE_LOGO = AssetImage('assets/images/rousseau_white.png');
