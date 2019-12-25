@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rousseau_vote/src/injection/dependency_injector.dart';
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
+import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 
 import 'package:rousseau_vote/src/config/app_constants.dart';
@@ -51,8 +52,8 @@ class RousseauVoteApp extends StatelessWidget {
           LoginScreen.ROUTE_NAME: (BuildContext context) => LoginScreen(),
           RegisterScreen.ROUTE_NAME: (BuildContext context) => RegisterScreen(),
           PollDetailsScreen.ROUTE_NAME: (BuildContext context) {
-            final String pollId = ModalRoute.of(context).settings.arguments;
-            return PollDetailsScreen(pollId);
+            final PollDetailArguments arguments = ModalRoute.of(context).settings.arguments;
+            return PollDetailsScreen(arguments);
           },
           InAppBrowser.ROUTE_NAME: (BuildContext context) {
             final BrowserArguments arguments = ModalRoute.of(context).settings.arguments;
