@@ -4,6 +4,7 @@ import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
+import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 
 class PollCard extends StatelessWidget {
@@ -81,10 +82,8 @@ class PollCard extends StatelessWidget {
   }
 
   void doAction(BuildContext context, PollStatus status) {
-    if (status == PollStatus.PUBLISHED) {
-      
-    } else if (status == PollStatus.OPEN) {
-
+    if (status == PollStatus.PUBLISHED || status == PollStatus.OPEN) {
+      UiUtil.openRoute(context, PollDetailsScreen.ROUTE_NAME, _poll.slug);
     } else if (_poll.resultsLink != null) {
       UiUtil.openLink(context, BrowserArguments(url: _poll.resultsLink));
     } else {

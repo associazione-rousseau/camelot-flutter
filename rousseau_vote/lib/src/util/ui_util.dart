@@ -28,4 +28,8 @@ class UiUtil {
   static void openLink(BuildContext context, BrowserArguments arguments) {
     Navigator.of(context).pushNamed(InAppBrowser.ROUTE_NAME, arguments: arguments);
   }
+
+  static void openRoute(BuildContext context, String route, Object arguments) {
+    Navigator.of(context).pushNamed(route, arguments: arguments);
+  }
 }
