@@ -11,6 +11,7 @@
     "re-send-sms": "Nuovo codice",
     "cancel": "Annulla",
     "close": "Chiudi",
+    "confirm": "Conferma",
 
     "error-network": "Ops! C'è stato un problema. Riprovare più tardi",
     "error-credentials": "Ops. Email o password errati. Riprova!",
@@ -32,6 +33,11 @@
 
     "vote-button": "Vota",
     "vote-already-done": "Grazie per aver votato!",
-    "vote-published": "Si vota prossimamente"
+    "vote-published": "Si vota prossimamente",
+    "vote-confirm": "Conferma Voto",
+
+    "vote-content-1s": "Stai per votare la seguente opzione:",
+    "vote-content-1p": "Stai per votare le seguenti opzioni:",
+    "vote-content-2": "Vuoi confermare?"
 
 }

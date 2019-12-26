@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/widgets/poll_entity_detail.dart';
@@ -12,8 +14,6 @@ class PollDetailsBodyContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PollStatus pollStatus = _poll.calculatePollStatus();
-    final Color statusColor = Poll.getStatusColor[pollStatus];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -35,26 +35,52 @@ class PollDetailsBodyContent extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        Expanded(
-          child: ListView(children: getOptions())),
-        Text(
-          'Votazione in corso',
-          style: TextStyle(color: statusColor, fontSize: 20),
-          textAlign: TextAlign.center,
+        const Divider(),
+        Expanded(child: ListView(children: getOptions())),
+        const Divider(),
+        // TODO CL show button only for multiple polls
+        Padding(
+          padding: const EdgeInsets.all(15),
+          child: RaisedButton(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Text(
+                RousseauLocalizations.getText(context, 'vote-button').toUpperCase(),
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+              )
+            ),
+            color: PRIMARY_RED,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            onPressed: () => null,
+          )
         ),
+        getBottomText(context),
         const SizedBox(height: 20)
       ],
     );
   }
 
-  // Widget getOption(int index) {
-  //   final Option option = _poll.options[index];
-  //   if (_poll.optionType == 'ENTITY') {
-  //     return ListTile(title: PollTextDetail(option));
-  //   } else {
-  //     return ListTile(title: PollEntityDetail(option));
-  //   }
-  // }
+  Text getBottomText(BuildContext context) {
+    final PollStatus pollStatus = _poll.calculatePollStatus();
+    final Color statusColor = Poll.getStatusColor[pollStatus];
+    Color color = statusColor;
+    String text;
+    if (_poll.alreadyVoted) {
+      color = VOTED_BLUE;
+      text = 'vote-already-done';
+    } else if (pollStatus == PollStatus.OPEN) {
+      text = 'poll-open';
+    } else if (pollStatus == PollStatus.PUBLISHED) {
+      text = 'vote-published';
+    }
+    return Text(
+      RousseauLocalizations.getText(context, text),
+      style: TextStyle(color: color, fontSize: 20),
+      textAlign: TextAlign.center,
+    );
+  }
 
   List<Widget> getOptions() {
     final List<Option> options = _poll.options;

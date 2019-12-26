@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/models/option.dart';
+import 'package:rousseau_vote/src/widgets/vote_dialog.dart';
 
 class PollTextDetail extends StatelessWidget {
 
@@ -25,8 +26,17 @@ class PollTextDetail extends StatelessWidget {
             ),
           )
         ),
-        onTap: () => debugPrint(_option.id),
+        onTap: () => doAction(context),
       ),
+    );
+  }
+
+  void doAction(BuildContext context) {
+    showDialog<AlertDialog>(
+      context: context,
+      builder: (BuildContext context) {
+        return VoteDialog(<Option>[_option]);
+      }
     );
   }
 
