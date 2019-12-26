@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/models/alert.dart';
 import 'package:rousseau_vote/src/models/option.dart';
 
@@ -12,6 +14,12 @@ class Poll {
   factory Poll.fromJson(Map<String, dynamic> json) => _$PollFromJson(json);
   Map<String, dynamic> toJson() => _$PollToJson(this);
 
+  static const Map<PollStatus, Color> getStatusColor = <PollStatus, Color>{
+    PollStatus.PUBLISHED: PUBLISHED_ORANGE,
+    PollStatus.OPEN: OPEN_GREEN,
+    PollStatus.CLOSED: CLOSED_RED
+  };
+
   String id;
   String slug;
   String title;
@@ -24,6 +32,7 @@ class Poll {
   DateTime showStartingDate;
   DateTime voteStartingDate;
   DateTime voteEndingDate;
+  int maxSelectableOptionsNumber;
   List<Alert> alerts;
   List<Option> options;
 

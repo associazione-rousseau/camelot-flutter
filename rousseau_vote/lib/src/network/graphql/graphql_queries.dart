@@ -33,6 +33,7 @@ String pollDetail = '''
       alerts {
         message
       }
+      maxSelectableOptionsNumber
       options {
         id
         ...on TextOption {

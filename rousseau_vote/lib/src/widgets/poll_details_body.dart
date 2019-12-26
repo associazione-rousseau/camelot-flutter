@@ -6,6 +6,7 @@ import 'package:rousseau_vote/src/models/poll_detail.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
+import 'package:rousseau_vote/src/widgets/poll_details_body_content.dart';
 
 class PollDetailsBody extends StatelessWidget {
   
@@ -21,7 +22,7 @@ class PollDetailsBody extends StatelessWidget {
       query: pollDetail,
       variables: map,
       builderSuccess: (PollDetail data) {
-        return Text(data.poll.title);
+        return PollDetailsBodyContent(data.poll);
       },
       builderLoading: () {
           return const LoadingIndicator();

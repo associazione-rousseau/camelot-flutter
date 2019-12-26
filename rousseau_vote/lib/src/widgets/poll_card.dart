@@ -11,18 +11,12 @@ import 'package:rousseau_vote/src/util/ui_util.dart';
 class PollCard extends StatelessWidget {
   const PollCard(this._poll);
 
-  static const Map<PollStatus, Color> COLOR_MAPPING = <PollStatus, Color>{
-    PollStatus.PUBLISHED: PUBLISHED_ORANGE,
-    PollStatus.OPEN: OPEN_GREEN,
-    PollStatus.CLOSED: CLOSED_RED
-  };
-
   final Poll _poll;
 
   @override
   Widget build(BuildContext context) {
     final PollStatus pollStatus = _poll.calculatePollStatus();
-    final Color statusColor = COLOR_MAPPING[pollStatus];
+    final Color statusColor = Poll.getStatusColor[pollStatus];
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       elevation: 5,

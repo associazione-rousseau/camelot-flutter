@@ -26,6 +26,7 @@ Poll _$PollFromJson(Map<String, dynamic> json) {
     ..voteEndingDate = json['voteEndingDate'] == null
         ? null
         : DateTime.parse(json['voteEndingDate'] as String)
+    ..maxSelectableOptionsNumber = json['maxSelectableOptionsNumber'] as int
     ..alerts = (json['alerts'] as List)
         ?.map(
             (e) => e == null ? null : Alert.fromJson(e as Map<String, dynamic>))
@@ -49,6 +50,7 @@ Map<String, dynamic> _$PollToJson(Poll instance) => <String, dynamic>{
       'showStartingDate': instance.showStartingDate?.toIso8601String(),
       'voteStartingDate': instance.voteStartingDate?.toIso8601String(),
       'voteEndingDate': instance.voteEndingDate?.toIso8601String(),
+      'maxSelectableOptionsNumber': instance.maxSelectableOptionsNumber,
       'alerts': instance.alerts,
       'options': instance.options,
     };
