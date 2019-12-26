@@ -11,6 +11,9 @@ String listPolls = '''
       voteEndingDate
       announcementLink
       resultsLink
+      alerts {
+        message
+      }
     }
   }
 ''';
@@ -30,9 +33,6 @@ String pollDetail = '''
       announcementLink
       resultsLink
       optionType
-      alerts {
-        message
-      }
       maxSelectableOptionsNumber
       options {
         id

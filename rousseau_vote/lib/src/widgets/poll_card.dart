@@ -81,7 +81,17 @@ class PollCard extends StatelessWidget {
   }
 
   void doAction(BuildContext context, PollStatus status) {
-    if (status == PollStatus.PUBLISHED || status == PollStatus.OPEN) {
+    if (_poll.alerts != null && _poll.alerts.isNotEmpty) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(RousseauLocalizations.getText(context, 'poll-alert')),
+          action: SnackBarAction(
+            label: RousseauLocalizations.getText(context, 'close'),
+            onPressed: () => Scaffold.of(context).hideCurrentSnackBar()
+          ),
+        )
+      );
+    } else if (status == PollStatus.PUBLISHED || status == PollStatus.OPEN) {
       UiUtil.openRoute(
         context, 
         PollDetailsScreen.ROUTE_NAME, 
