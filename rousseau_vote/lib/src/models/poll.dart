@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-
-import 'alert.dart';
+import 'package:rousseau_vote/src/models/alert.dart';
 
 part 'poll.g.dart';
 
@@ -15,16 +14,15 @@ class Poll {
   String id;
   String slug;
   String title;
+  String description;
   String status;
   bool alreadyVoted;
-  String description;
-  String optionType;
   String resultsLink;
   String announcementLink;
-  List<Alert> alerts;
   DateTime showStartingDate;
   DateTime voteStartingDate;
   DateTime voteEndingDate;
+  List<Alert> alerts;
 
   bool isOpen() {
     final DateTime now = DateTime.now();
@@ -34,14 +32,6 @@ class Poll {
   bool isScheduled() {
     final DateTime now = DateTime.now();
     return now.isBefore(voteStartingDate);
-  }
-
-  bool userCanVote() {
-    return userHasVotingRights() && isOpen();
-  }
-
-  bool userHasVotingRights() {
-    return alerts == null || alerts.isEmpty;
   }
 
   PollStatus calculatePollStatus() {
