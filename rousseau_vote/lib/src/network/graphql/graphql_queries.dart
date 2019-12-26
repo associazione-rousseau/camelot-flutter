@@ -29,8 +29,23 @@ String pollDetail = '''
       voteEndingDate
       announcementLink
       resultsLink
+      optionType
       alerts {
         message
+      }
+      options {
+        id
+        ...on TextOption {
+          text
+        }
+        ...on EntityOption {
+          entity {
+            ...on User {
+              id
+              slug
+            }
+          }
+        }
       }
     }
   }

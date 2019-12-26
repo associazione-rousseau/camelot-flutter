@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rousseau_vote/src/models/alert.dart';
+import 'package:rousseau_vote/src/models/option.dart';
 
 part 'poll.g.dart';
 
@@ -18,11 +19,13 @@ class Poll {
   String status;
   bool alreadyVoted;
   String resultsLink;
+  String optionType;
   String announcementLink;
   DateTime showStartingDate;
   DateTime voteStartingDate;
   DateTime voteEndingDate;
   List<Alert> alerts;
+  List<Option> options;
 
   bool isOpen() {
     final DateTime now = DateTime.now();

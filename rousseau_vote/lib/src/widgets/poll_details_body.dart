@@ -21,7 +21,7 @@ class PollDetailsBody extends StatelessWidget {
       query: pollDetail,
       variables: map,
       builderSuccess: (PollDetail data) {
-        return Text(data.poll.toJson().toString());
+        return Text(data.poll.title);
       },
       builderLoading: () {
           return const LoadingIndicator();
