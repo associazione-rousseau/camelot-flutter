@@ -4,8 +4,9 @@ import 'package:rousseau_vote/src/models/option.dart';
 
 class VoteDialog extends StatelessWidget {
 
-  const VoteDialog(this._options);
+  const VoteDialog(this._options, this._pollId);
 
+  final String _pollId;
   final List<Option> _options;
 
   @override

@@ -39,8 +39,7 @@ class GraphqlQueryWidget<T> extends StatelessWidget {
       child: CacheProvider(
         child: Query(
           options: QueryOptions(documentNode: gql(query), variables: variables),
-          builder: (QueryResult result,
-              {Refetch refetch, FetchMore fetchMore}) {
+          builder: (QueryResult result, {Refetch refetch, FetchMore fetchMore}) {
             if (result.exception != null) {
               return builderError(result.exception.graphqlErrors);
             }

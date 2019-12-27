@@ -4,8 +4,9 @@ import 'package:rousseau_vote/src/models/option.dart';
 
 class PollEntityDetail extends StatelessWidget {
 
-  const PollEntityDetail(this._option);
+  const PollEntityDetail(this._option, this._pollId);
 
+  final String _pollId;
   final Option _option;
 
   @override

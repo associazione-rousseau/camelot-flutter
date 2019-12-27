@@ -5,8 +5,9 @@ import 'package:rousseau_vote/src/widgets/vote_dialog.dart';
 
 class PollTextDetail extends StatelessWidget {
 
-  const PollTextDetail(this._option);
+  const PollTextDetail(this._option, this._pollId);
 
+  final String _pollId;
   final Option _option;
 
   @override
@@ -35,7 +36,7 @@ class PollTextDetail extends StatelessWidget {
     showDialog<AlertDialog>(
       context: context,
       builder: (BuildContext context) {
-        return VoteDialog(<Option>[_option]);
+        return VoteDialog(<Option>[_option], _pollId);
       }
     );
   }

@@ -39,23 +39,23 @@ class PollDetailsBodyContent extends StatelessWidget {
         Expanded(child: ListView(children: getOptions())),
         const Divider(),
         // TODO CL show button only for multiple polls
-        Padding(
-          padding: const EdgeInsets.all(15),
-          child: RaisedButton(
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Text(
-                RousseauLocalizations.getText(context, 'vote-button').toUpperCase(),
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-              )
-            ),
-            color: PRIMARY_RED,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-            onPressed: () => null,
-          )
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.all(15),
+        //   child: RaisedButton(
+        //     child: Padding(
+        //       padding: const EdgeInsets.all(15),
+        //       child: Text(
+        //         RousseauLocalizations.getText(context, 'vote-button').toUpperCase(),
+        //         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+        //       )
+        //     ),
+        //     color: PRIMARY_RED,
+        //     shape: RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.circular(30.0),
+        //     ),
+        //     onPressed: () => null,
+        //   )
+        // ),
         getBottomText(context),
         const SizedBox(height: 20)
       ],
@@ -85,9 +85,9 @@ class PollDetailsBodyContent extends StatelessWidget {
   List<Widget> getOptions() {
     final List<Option> options = _poll.options;
     if (_poll.optionType == 'ENTITY') {
-      return options.map((Option o) => PollEntityDetail(o)).toList();
+      return options.map((Option o) => PollEntityDetail(o, _poll.slug)).toList();
     } else {
-      return options.map((Option o) => PollTextDetail(o)).toList();
+      return options.map((Option o) => PollTextDetail(o, _poll.slug)).toList();
     }
   }
 

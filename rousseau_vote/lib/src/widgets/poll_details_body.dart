@@ -16,20 +16,20 @@ class PollDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> map = HashMap<String, dynamic>();
-    map.putIfAbsent('pollId', () => pollId);
+    final Map<String, dynamic> variables = HashMap<String, dynamic>();
+    variables.putIfAbsent('pollId', () => pollId);
     return GraphqlQueryWidget<PollDetail>(
       query: pollDetail,
-      variables: map,
+      variables: variables,
       builderSuccess: (PollDetail data) {
         return PollDetailsBodyContent(data.poll);
       },
       builderLoading: () {
-          return const LoadingIndicator();
-        },
-        builderError: (List<GraphQLError> error) {
-          return Text(error.toString());
-        },
+        return const LoadingIndicator();
+      },
+      builderError: (List<GraphQLError> error) {
+        return Text(error.toString());
+      },
     );
   }
 }
