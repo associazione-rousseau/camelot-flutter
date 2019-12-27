@@ -85,9 +85,9 @@ class PollDetailsBodyContent extends StatelessWidget {
   List<Widget> getOptions() {
     final List<Option> options = _poll.options;
     if (_poll.optionType == 'ENTITY') {
-      return options.map((Option o) => PollEntityDetail(o, _poll.slug)).toList();
+      return options.map((Option o) => PollEntityDetail(o, _poll.slug, _poll.alreadyVoted)).toList();
     } else {
-      return options.map((Option o) => PollTextDetail(o, _poll.slug)).toList();
+      return options.map((Option o) => PollTextDetail(o, _poll.slug, _poll.alreadyVoted)).toList();
     }
   }
 

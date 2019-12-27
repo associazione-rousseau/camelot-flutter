@@ -5,10 +5,11 @@ import 'package:rousseau_vote/src/widgets/vote_dialog.dart';
 
 class PollTextDetail extends StatelessWidget {
 
-  const PollTextDetail(this._option, this._pollId);
+  const PollTextDetail(this._option, this._pollId, this._disabled);
 
   final String _pollId;
   final Option _option;
+  final bool _disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,8 @@ class PollTextDetail extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       elevation: 5,
       child: InkWell(
+        highlightColor: _disabled ? Colors.transparent : null,
+        splashColor: _disabled ? Colors.transparent : null,
         customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         child: Padding(
           padding: const EdgeInsets.all(15),
@@ -27,7 +30,7 @@ class PollTextDetail extends StatelessWidget {
             ),
           )
         ),
-        onTap: () => doAction(context),
+        onTap: () => _disabled ? null : doAction(context),
       ),
     );
   }
