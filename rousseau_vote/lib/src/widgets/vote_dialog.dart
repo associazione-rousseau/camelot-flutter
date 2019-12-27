@@ -1,6 +1,11 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
+import 'package:rousseau_vote/src/network/graphql/graphql_configuration.dart';
+import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
 
 class VoteDialog extends StatelessWidget {
 
@@ -11,6 +16,9 @@ class VoteDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> variables = HashMap<String, dynamic>();
+    variables.putIfAbsent('pollId', () => _pollId);
+    variables.putIfAbsent('optionIds', () => _options.map((Option o) => o.id).toList());
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       title: Text(
@@ -29,13 +37,21 @@ class VoteDialog extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
           onPressed: () => Navigator.of(context, rootNavigator: true).pop()
         ),
-        FlatButton(
-          child: Text(
-            RousseauLocalizations.getText(context, 'confirm'),
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        GraphQLProvider(
+          client: GraphQLConfiguration().client,
+          child: Mutation(
+            options: MutationOptions(documentNode: gql(pollAnswerSubmit),),
+            builder: (RunMutation runMutation, QueryResult result) {
+              return FlatButton(
+                child: Text(
+                  RousseauLocalizations.getText(context, 'confirm'),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                onPressed: () => runMutation(variables)
+              );
+            },
           ),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-          onPressed: () => null
         ),
         Container()
       ],
