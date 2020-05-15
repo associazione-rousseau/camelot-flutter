@@ -36,6 +36,7 @@ class _LoginRestClient implements LoginRestClient {
       'response_type': responseType,
       'scope': scope
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
         '/protocol/openid-connect/auth',
@@ -64,6 +65,7 @@ class _LoginRestClient implements LoginRestClient {
       'tab_id': tabId,
       'client_id': clientId
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(body ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
@@ -94,6 +96,7 @@ class _LoginRestClient implements LoginRestClient {
       'tab_id': tabId,
       'client_id': clientId
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(body ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectorio/injectorio.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
+import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 
 
@@ -12,7 +13,7 @@ class GraphQLConfiguration {
 
   static AuthLink authLink = AuthLink(
     getToken: () async {
-      final TokenStore tokenStore = get<TokenStore>();
+      final TokenStore tokenStore = getIt<TokenStore>();
       final String accessToken = await tokenStore.getAccessToken();
       return 'Bearer $accessToken';
     }

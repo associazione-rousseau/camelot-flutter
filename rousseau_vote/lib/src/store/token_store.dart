@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
 import 'package:rousseau_vote/src/models/access_token_info.dart';
 import 'package:rousseau_vote/src/models/token.dart';
@@ -8,6 +9,7 @@ import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/network/response/token_response.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
 
+@singleton
 class TokenStore with InitializeOnStartup {
 
   TokenStore(this._secureStorage, this._loginNetworkHandler);

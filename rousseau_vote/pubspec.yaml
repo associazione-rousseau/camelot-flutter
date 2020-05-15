@@ -23,6 +23,8 @@ dependencies:
   # Core
   provider: ^2.0.0+1
   injectorio: ^1.0.3
+  injectable: ^0.3.0
+  get_it: ^4.0.2
 
   # UI
   pinput: ^0.1.10
@@ -56,6 +58,8 @@ dev_dependencies:
 
   retrofit_generator: ^1.0.2+2
   build_runner: ^1.7.2
+
+  injectable_generator: ^0.3.5
 
 
 # For information on the generic Dart part of this file, see the

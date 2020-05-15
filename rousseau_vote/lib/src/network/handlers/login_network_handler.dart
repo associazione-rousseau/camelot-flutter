@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/network/exceptions/login_exception.dart';
 import 'package:rousseau_vote/src/network/exceptions/no_session_exception.dart';
@@ -11,6 +12,7 @@ import 'package:rousseau_vote/src/network/response/token_response.dart';
 import 'package:rousseau_vote/src/network/restclients/login_rest_client.dart';
 import 'package:uuid/uuid.dart';
 
+@singleton
 class LoginNetworkHandler {
 
   LoginNetworkHandler(Dio dio) : _loginRestClient = LoginRestClient(dio);

@@ -1,8 +1,8 @@
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:injectorio/injectorio.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:rousseau_vote/src/injection/dependency_injector.dart';
+import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
@@ -16,7 +16,7 @@ import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/register_screen.dart';
 
 void main() {
-  DependencyInjector.initInjector();
+  configure();
 
   runApp(RousseauVoteApp());
 }
@@ -28,7 +28,7 @@ class RousseauVoteApp extends StatelessWidget {
     return MultiProvider(
       providers: <SingleChildCloneableWidget>[
         // ignore: always_specify_types
-        ChangeNotifierProvider(builder: (_) => get<Login>()),
+        ChangeNotifierProvider(builder: (_) => getIt<Login>()),
       ],
       child: MaterialApp(
         title: APP_NAME,
