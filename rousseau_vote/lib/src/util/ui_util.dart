@@ -21,8 +21,8 @@ class UiUtil {
   
   }
 
-  static String formatDate(DateTime dateTime) {
-    return DateFormat.yMMMMd().addPattern(" '-' ").add_jm().format(dateTime);
+  static String formatDate(BuildContext context, DateTime dateTime) {
+    return DateFormat.yMMMd(RousseauLocalizations.of(context).currentLanguage).addPattern(" '-' ").add_jm().format(dateTime);
   }
 
   static void openLink(BuildContext context, BrowserArguments arguments) {

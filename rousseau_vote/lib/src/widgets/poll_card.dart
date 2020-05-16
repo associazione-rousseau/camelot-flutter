@@ -40,7 +40,7 @@ class PollCard extends StatelessWidget {
                       children: <Widget>[
                         Text(RousseauLocalizations.getText(context, 'poll-start')),
                         Text(
-                          '${UiUtil.formatDate( _poll.voteStartingDate)}',
+                          '${UiUtil.formatDate(context,  _poll.voteStartingDate)}',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         )
                       ],
@@ -50,7 +50,7 @@ class PollCard extends StatelessWidget {
                       children: <Widget>[
                         Text(RousseauLocalizations.getText(context, 'poll-end')),
                         Text(
-                          '${UiUtil.formatDate(_poll.voteEndingDate)}',
+                          '${UiUtil.formatDate(context, _poll.voteEndingDate)}',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         )
                       ],
