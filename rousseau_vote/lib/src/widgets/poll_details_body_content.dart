@@ -6,11 +6,16 @@ import 'package:rousseau_vote/src/models/option.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/widgets/poll_entity_detail.dart';
 import 'package:rousseau_vote/src/widgets/poll_text_detail.dart';
+import 'package:rousseau_vote/src/widgets/vote_dialog.dart';
+
+import '../models/option.dart';
 
 class PollDetailsBodyContent extends StatelessWidget {
-  const PollDetailsBodyContent(this._poll);
+  
+  PollDetailsBodyContent(this._poll);
 
   final Poll _poll;
+  final List<Option> _selected = <Option>[];
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +103,7 @@ class PollDetailsBodyContent extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
-        onPressed: () => null,
+        onPressed: () => doAction(context),
       )
     );
   }
@@ -108,8 +113,17 @@ class PollDetailsBodyContent extends StatelessWidget {
     if (_poll.optionType == 'ENTITY') {
       return options.map((Option o) => PollEntityDetail(o, _poll.slug, _poll.alreadyVoted)).toList();
     } else {
-      return options.map((Option o) => PollTextDetail(o, _poll.slug, _poll.alreadyVoted)).toList();
+      return options.map((Option o) => PollTextDetail(o, _poll.alreadyVoted, _selected)).toList();
     }
+  }
+
+  void doAction(BuildContext context) {
+    showDialog<AlertDialog>(
+      context: context,
+      builder: (BuildContext context) {
+        return VoteDialog(_selected, _poll.slug);
+      }
+    );
   }
 
 }

@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/models/option.dart';
-import 'package:rousseau_vote/src/widgets/vote_dialog.dart';
 
 class PollTextDetail extends StatelessWidget {
 
-  const PollTextDetail(this._option, this._pollId, this._disabled);
+  const PollTextDetail(this._option, this._disabled, this._selected);
 
-  final String _pollId;
   final Option _option;
   final bool _disabled;
+  final List<Option> _selected;
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +29,17 @@ class PollTextDetail extends StatelessWidget {
             ),
           )
         ),
-        onTap: () => _disabled ? null : doAction(context),
+        onTap: () => _disabled ? null : doSelect(),
       ),
     );
   }
 
-  void doAction(BuildContext context) {
-    showDialog<AlertDialog>(
-      context: context,
-      builder: (BuildContext context) {
-        return VoteDialog(<Option>[_option], _pollId);
-      }
-    );
+  void doSelect() {
+    if (_selected.contains(_option)) {
+      _selected.remove(_option);
+    } else {
+      _selected.add(_option);
+    }
   }
 
 }
