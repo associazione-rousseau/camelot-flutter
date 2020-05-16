@@ -21,7 +21,7 @@ class PollDetailsBodyContent extends StatelessWidget {
           padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
           child: Text(
             _poll.title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             textAlign: TextAlign.center,
           ),
         ),

@@ -15,7 +15,7 @@ import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
-  final registerModule = _$RegisterModule();
+  final _$RegisterModule registerModule = _$RegisterModule();
   g.registerFactory<StartupInitializer>(
       () => registerModule.startupInitializer);
 
@@ -32,5 +32,5 @@ void $initGetIt(GetIt g, {String environment}) {
 
 class _$RegisterModule extends RegisterModule {
   @override
-  FlutterSecureStorage get flutterSecureStorage => FlutterSecureStorage();
+  FlutterSecureStorage get flutterSecureStorage => const FlutterSecureStorage();
 }

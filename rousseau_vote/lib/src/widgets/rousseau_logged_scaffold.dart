@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:injectorio/injectorio.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
