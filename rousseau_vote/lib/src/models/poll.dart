@@ -37,13 +37,11 @@ class Poll {
   List<Option> options;
 
   bool isOpen() {
-    final DateTime now = DateTime.now();
-    return now.isAfter(voteStartingDate) && now.isBefore(voteEndingDate);
+    return status == 'OPEN';
   }
 
   bool isScheduled() {
-    final DateTime now = DateTime.now();
-    return now.isBefore(voteStartingDate);
+    return status == 'PUBLISHED';
   }
 
   PollStatus calculatePollStatus() {
