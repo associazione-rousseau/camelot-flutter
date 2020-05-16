@@ -21,7 +21,7 @@ class PollDetailsBodyContent extends StatelessWidget {
           padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
           child: Text(
             _poll.title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             textAlign: TextAlign.center,
           ),
         ),
@@ -30,35 +30,33 @@ class PollDetailsBodyContent extends StatelessWidget {
           padding: const EdgeInsets.only(left: 15, right: 15),
           child: Text(
             _poll.description,
-            style: const TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 16),
             textAlign: TextAlign.justify,
           ),
         ),
         const SizedBox(height: 10),
-        const Divider(),
         Expanded(child: ListView(children: getOptions())),
-        const Divider(),
-        // TODO CL show button only for multiple polls
-        // Padding(
-        //   padding: const EdgeInsets.all(15),
-        //   child: RaisedButton(
-        //     child: Padding(
-        //       padding: const EdgeInsets.all(15),
-        //       child: Text(
-        //         RousseauLocalizations.getText(context, 'vote-button').toUpperCase(),
-        //         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-        //       )
-        //     ),
-        //     color: PRIMARY_RED,
-        //     shape: RoundedRectangleBorder(
-        //       borderRadius: BorderRadius.circular(30.0),
-        //     ),
-        //     onPressed: () => null,
-        //   )
-        // ),
+        const SizedBox(height: 10),
         getBottomText(context),
-        const SizedBox(height: 20)
+        _poll.alreadyVoted ? Container() : getPreferencesText(context),
+        getVoteButton(context),
+        const SizedBox(height: 10),
       ],
+    );
+  }
+
+  Text getPreferencesText(BuildContext context) {
+    String text = RousseauLocalizations.getText(context, 'vote-preferences-1') + _poll.maxSelectableOptionsNumber.toString();
+    if (_poll.maxSelectableOptionsNumber == 1) {
+      text += RousseauLocalizations.getText(context, 'vote-preferences-2s');
+    } else {
+      text += RousseauLocalizations.getText(context, 'vote-preferences-2p');
+    }
+
+    return Text(
+      text,
+      style: const TextStyle(fontSize: 12, color: Colors.redAccent),
+      textAlign: TextAlign.center,
     );
   }
 
@@ -77,8 +75,31 @@ class PollDetailsBodyContent extends StatelessWidget {
     }
     return Text(
       RousseauLocalizations.getText(context, text),
-      style: TextStyle(color: color, fontSize: 20),
+      style: TextStyle(color: color, fontSize: 14),
       textAlign: TextAlign.center,
+    );
+  }
+
+  Widget getVoteButton(BuildContext context) {
+    if (!_poll.isOpen() || _poll.alreadyVoted) {
+      return Container();
+    }
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: RaisedButton(
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Text(
+            RousseauLocalizations.getText(context, 'vote-button').toUpperCase(),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+          )
+        ),
+        color: PRIMARY_RED,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        onPressed: () => null,
+      )
     );
   }
 

@@ -25,7 +25,7 @@ class PollTextDetail extends StatelessWidget {
           child: ListTile(
             title: Text(
               _option.text,
-              style: const TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 14),
               textAlign: TextAlign.justify
             ),
           )

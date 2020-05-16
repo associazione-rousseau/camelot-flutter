@@ -36,6 +36,10 @@
     "vote-published": "Si vota prossimamente",
     "vote-confirm": "Conferma Voto",
 
+    "vote-preferences-1": "Hai ",
+    "vote-preferences-2s": " preferenza a disposizione",
+    "vote-preferences-2p": " preferenze a disposizione",
+
     "vote-content-1s": "Stai per votare la seguente opzione:",
     "vote-content-1p": "Stai per votare le seguenti opzioni:",
     "vote-content-2": "Vuoi confermare?"
