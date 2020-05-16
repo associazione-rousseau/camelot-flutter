@@ -20,8 +20,8 @@
     "error-too-many-attempts": "Codice sbagliato per troppe volte. Riprova tra 15 minuti",
     "error-invalid-token": "Ops! Token non valido. Riprovare più tardi",
 
-    "poll-start": "Inizio  ",
-    "poll-end": "Fine    ",
+    "poll-start": "Inizio",
+    "poll-end": "Fine",
     "poll-info": "Approfondisci",
     "poll-published": "Anteprima",
     "poll-open": "Votazione in corso",

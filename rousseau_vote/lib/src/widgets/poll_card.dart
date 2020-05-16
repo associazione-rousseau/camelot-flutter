@@ -26,38 +26,39 @@ class PollCard extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.adjust, color: statusColor, size: 50),
-                title: Text(
-                  _poll.title,
-                  textAlign: TextAlign.center,
+              Text(
+                _poll.title, 
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
                 ),
-                subtitle: Column(
+              ),
+              ListTile(
+                leading: Icon(Icons.adjust, color: statusColor, size: 40),
+                title: Column(
                   children: <Widget>[
-                    const SizedBox(height: 10),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(RousseauLocalizations.getText(context, 'poll-start')),
-                        Text(
-                          '${UiUtil.formatDate( _poll.voteStartingDate)}',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(RousseauLocalizations.getText(context, 'poll-end')),
-                        Text(
-                          '${UiUtil.formatDate(_poll.voteEndingDate)}',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        Column(
+                          children: <Widget>[
+                            Text(RousseauLocalizations.getText(context, 'poll-start')),
+                            Text(RousseauLocalizations.getText(context, 'poll-end')),
+                          ],
+                        ),
+                        const SizedBox(width: 10),
+                        Column(
+                          children: <Widget>[
+                            Text('${UiUtil.formatDate(context,  _poll.voteStartingDate)}'),
+                            Text('${UiUtil.formatDate(context, _poll.voteEndingDate)}')
+                          ],
                         )
                       ],
                     )
                   ],
                 ),
               ),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
