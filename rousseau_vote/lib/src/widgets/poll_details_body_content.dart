@@ -127,8 +127,22 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
     if (_poll.optionType == 'ENTITY') {
       return options.map((Option o) => const PollEntityDetail()).toList();
     } else {
-      return options.map((Option o) => PollTextDetail(o, _poll.alreadyVoted, selected, _poll.maxSelectableOptionsNumber)).toList();
+      return options.map((Option o) => PollTextDetail(
+        o, 
+        _poll.alreadyVoted || selected.length >= _poll.maxSelectableOptionsNumber, 
+        _toggle
+      )).toList();
     }
+  }
+
+  void _toggle(Option option) {
+    final List<Option> result = selected;
+    if (result.contains(option)) {
+      result.remove(option);
+    } else {
+      result.add(option);
+    }
+    setState(() { selected = result; });
   }
 
   void showMessage(BuildContext context) {

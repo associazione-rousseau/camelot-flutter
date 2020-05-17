@@ -3,31 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/models/option.dart';
 
 import '../config/app_constants.dart';
+import '../models/option.dart';
 
 class PollTextDetail extends StatefulWidget {
   
-  const PollTextDetail(this._option, this._disabled, this._selected, this._number);
+  const PollTextDetail(this._option, this._disabled, this._toggle);
 
   final Option _option;
   final bool _disabled;
-  final List<Option> _selected;
-  final int _number;
+  final Function _toggle;
 
   @override
   State<StatefulWidget> createState() {
-    return _PollTextDetailState(_option, _disabled, _selected, _number);
+    return _PollTextDetailState(_option, _disabled, _toggle);
   }
 
 }
 
 class _PollTextDetailState extends State<PollTextDetail> {
   
-  _PollTextDetailState(this._option, this._disabled, this._selected, this._number);
+  _PollTextDetailState(this._option, this._disabled, this._toggle);
 
   final Option _option;
   final bool _disabled;
-  final List<Option> _selected;
-  final int _number;
+  final Function _toggle;
 
   bool active = false;
 
@@ -38,8 +37,8 @@ class _PollTextDetailState extends State<PollTextDetail> {
       elevation: 5,
       color: active ? ACCENT_RED : Colors.white,
       child: InkWell(
-        highlightColor: isDisabled() ? Colors.transparent : null,
-        splashColor: isDisabled() ? Colors.transparent : null,
+        highlightColor: _isDisabled() ? Colors.transparent : null,
+        splashColor: _isDisabled() ? Colors.transparent : null,
         customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         child: Padding(
           padding: const EdgeInsets.all(15),
@@ -54,22 +53,18 @@ class _PollTextDetailState extends State<PollTextDetail> {
             ),
           )
         ),
-        onTap: () => isDisabled() ? null : doSelect(),
+        onTap: () => _isDisabled() ? null : doSelect(),
       ),
     );
   }
 
-  bool isDisabled() {
-    return _disabled || _selected.length >= _number && !active;
+  bool _isDisabled() {
+    return _disabled && !active;
   }
 
   void doSelect() {
     setState(() { active = !active; });
-    if (active) {
-      _selected.add(_option);
-    } else {
-      _selected.remove(_option);
-    }
+    _toggle(_option);
   }
 
 }
