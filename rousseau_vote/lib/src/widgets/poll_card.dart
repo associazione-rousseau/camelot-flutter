@@ -71,7 +71,7 @@ class PollCard extends StatelessWidget {
               ),
               _poll.alreadyVoted ? Text(
                 RousseauLocalizations.getText(context, 'poll-voted'),
-                style: TextStyle(color: VOTED_BLUE),
+                style: const TextStyle(color: VOTED_BLUE),
               ) : Container()
             ]
           )

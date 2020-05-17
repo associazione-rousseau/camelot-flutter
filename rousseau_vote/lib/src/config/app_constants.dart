@@ -25,6 +25,7 @@ const Color PRIMARY_RED = Color(0xFFE30613);
 const Color ACCENT_RED = Color(0xFFFF7A82);
 const Color SECONDARY_YELLOW = Color(0xFFFFD600);
 const Color BACKGROUND_GREY = Color(0xFFECEFF1);
+const Color DISABLED_GREY = Color(0xFFD3D3D3);
 
 const Color OPEN_GREEN = Color(0xFF46B29C);
 const Color CLOSED_RED = Color(0xFFDF5D4B);

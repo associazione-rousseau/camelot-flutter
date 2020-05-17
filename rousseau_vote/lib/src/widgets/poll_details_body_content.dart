@@ -8,14 +8,28 @@ import 'package:rousseau_vote/src/widgets/poll_entity_detail.dart';
 import 'package:rousseau_vote/src/widgets/poll_text_detail.dart';
 import 'package:rousseau_vote/src/widgets/vote_dialog.dart';
 
+import '../config/app_constants.dart';
 import '../models/option.dart';
 
-class PollDetailsBodyContent extends StatelessWidget {
+class PollDetailsBodyContent extends StatefulWidget {
   
-  PollDetailsBodyContent(this._poll);
+  const PollDetailsBodyContent(this._poll);
 
   final Poll _poll;
-  final List<Option> _selected = <Option>[];
+
+  @override
+  State<StatefulWidget> createState() {
+    return _PollDetailsBodyContentState(_poll);
+  }
+
+}
+
+class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
+
+  _PollDetailsBodyContentState(this._poll);
+
+  final Poll _poll;
+  List<Option> selected = <Option>[];
 
   @override
   Widget build(BuildContext context) {
@@ -99,11 +113,11 @@ class PollDetailsBodyContent extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
           )
         ),
-        color: PRIMARY_RED,
+        color: selected.isEmpty ? DISABLED_GREY : PRIMARY_RED,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
-        onPressed: () => doAction(context),
+        onPressed: () => selected.isEmpty ? showMessage(context) : doAction(context),
       )
     );
   }
@@ -111,17 +125,29 @@ class PollDetailsBodyContent extends StatelessWidget {
   List<Widget> getOptions() {
     final List<Option> options = _poll.options;
     if (_poll.optionType == 'ENTITY') {
-      return options.map((Option o) => PollEntityDetail(o, _poll.slug, _poll.alreadyVoted)).toList();
+      return options.map((Option o) => const PollEntityDetail()).toList();
     } else {
-      return options.map((Option o) => PollTextDetail(o, _poll.alreadyVoted, _selected, _poll.maxSelectableOptionsNumber)).toList();
+      return options.map((Option o) => PollTextDetail(o, _poll.alreadyVoted, selected, _poll.maxSelectableOptionsNumber)).toList();
     }
+  }
+
+  void showMessage(BuildContext context) {
+    Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(RousseauLocalizations.getText(context, 'vote-pick-one')),
+          action: SnackBarAction(
+            label: RousseauLocalizations.getText(context, 'close'),
+            onPressed: () => Scaffold.of(context).hideCurrentSnackBar()
+          ),
+        )
+      );
   }
 
   void doAction(BuildContext context) {
     showDialog<AlertDialog>(
       context: context,
       builder: (BuildContext context) {
-        return VoteDialog(_selected, _poll.slug);
+        return VoteDialog(selected, _poll.slug);
       }
     );
   }
