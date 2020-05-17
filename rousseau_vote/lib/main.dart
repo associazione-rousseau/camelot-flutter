@@ -1,14 +1,15 @@
-import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'dart:developer' as developer;
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
+import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
-
-import 'package:rousseau_vote/src/config/app_constants.dart';
-import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 import 'package:rousseau_vote/src/screens/login_screen.dart';
 import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
@@ -16,19 +17,23 @@ import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/register_screen.dart';
 
 void main() {
+
   configure();
 
   runApp(RousseauVoteApp());
 }
 
 class RousseauVoteApp extends StatelessWidget {
+  static const String CATEGORY = 'rousseau.widget.main';
 
   @override
   Widget build(BuildContext context) {
+    developer.log('buildwidget', name: CATEGORY);
+
     return MultiProvider(
       providers: <SingleChildCloneableWidget>[
-        // ignore: always_specify_types
-        ChangeNotifierProvider(builder: (_) => getIt<Login>()),
+        ChangeNotifierProvider<Login>(builder: (_) => getIt<Login>()),
+        ChangeNotifierProvider<ExternalPreselection>(builder: (_) => getIt<ExternalPreselection>()),
       ],
       child: MaterialApp(
         title: APP_NAME,

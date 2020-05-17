@@ -25,6 +25,7 @@ dependencies:
   injectorio: ^1.0.3
   injectable: ^0.3.0
   get_it: ^4.0.2
+  uni_links: ^0.4.0
 
   # UI
   pinput: ^0.1.10
