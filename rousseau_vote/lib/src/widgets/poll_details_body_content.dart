@@ -113,7 +113,7 @@ class PollDetailsBodyContent extends StatelessWidget {
     if (_poll.optionType == 'ENTITY') {
       return options.map((Option o) => PollEntityDetail(o, _poll.slug, _poll.alreadyVoted)).toList();
     } else {
-      return options.map((Option o) => PollTextDetail(o, _poll.alreadyVoted, _selected)).toList();
+      return options.map((Option o) => PollTextDetail(o, _poll.alreadyVoted, _selected, _poll.maxSelectableOptionsNumber)).toList();
     }
   }
 
