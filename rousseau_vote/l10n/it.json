@@ -36,6 +36,8 @@
     "vote-published": "Si vota prossimamente",
     "vote-confirm": "Conferma Voto",
     "vote-pick-one": "Seleziona almeno una opzione",
+    "vote-alredy": "Hai già espresso il tuo voto",
+    "vote-limit": "Hai già selezionato il numero massimo di opzioni consentite per questa votazione",
 
     "vote-preferences-1": "Hai ",
     "vote-preferences-2s": " preferenza a disposizione",

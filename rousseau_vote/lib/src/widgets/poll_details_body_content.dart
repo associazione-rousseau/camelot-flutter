@@ -8,9 +8,6 @@ import 'package:rousseau_vote/src/widgets/poll_entity_detail.dart';
 import 'package:rousseau_vote/src/widgets/poll_text_detail.dart';
 import 'package:rousseau_vote/src/widgets/vote_dialog.dart';
 
-import '../config/app_constants.dart';
-import '../models/option.dart';
-
 class PollDetailsBodyContent extends StatefulWidget {
   
   const PollDetailsBodyContent(this._poll);
@@ -54,7 +51,14 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
           ),
         ),
         const SizedBox(height: 10),
-        Expanded(child: ListView(children: getOptions())),
+        Expanded(
+          child: ListView.builder(
+            itemCount: _poll.options.length,
+            itemBuilder: (BuildContext context, int position) {
+              return getOption(position);
+            },
+          )
+        ),
         const SizedBox(height: 10),
         getBottomText(context),
         _poll.alreadyVoted ? Container() : getPreferencesText(context),
@@ -122,16 +126,17 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
     );
   }
 
-  List<Widget> getOptions() {
-    final List<Option> options = _poll.options;
+  Widget getOption(int index) {
     if (_poll.optionType == 'ENTITY') {
-      return options.map((Option o) => const PollEntityDetail()).toList();
+      return const PollEntityDetail();
     } else {
-      return options.map((Option o) => PollTextDetail(
-        o, 
+      return PollTextDetail(
+        _poll.options[index],
         _poll.alreadyVoted || selected.length >= _poll.maxSelectableOptionsNumber, 
-        _toggle
-      )).toList();
+        _toggle,
+        selected,
+        _poll.maxSelectableOptionsNumber
+      );
     }
   }
 
