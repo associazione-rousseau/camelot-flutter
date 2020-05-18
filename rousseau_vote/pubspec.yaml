@@ -22,9 +22,9 @@ dependencies:
 
   # Core
   provider: ^2.0.0+1
-  injectorio: ^1.0.3
   injectable: ^0.3.0
   get_it: ^4.0.2
+  graphql_flutter: ^3.0.0
 
   # UI
   pinput: ^0.1.10
@@ -46,7 +46,6 @@ dependencies:
   retrofit: ^1.0.1+1
   json_serializable: ^3.2.3
   uuid: ^2.0.4
-  graphql_flutter: 2.1.1-beta.5
   jaguar_jwt: ^2.1.6
 
   # Storage
