@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
@@ -21,46 +22,50 @@ void main() {
 }
 
 class RousseauVoteApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: <SingleChildCloneableWidget>[
-        // ignore: always_specify_types
-        ChangeNotifierProvider(builder: (_) => getIt<Login>()),
-      ],
-      child: MaterialApp(
-        title: APP_NAME,
-        theme: ThemeData(
-          fontFamily: 'Poppins',
-          primarySwatch: Colors.red,
-          primaryColor: PRIMARY_RED
-        ),
-        localizationsDelegates: <LocalizationsDelegate<dynamic>>[
-          RousseauLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
+        providers: <SingleChildCloneableWidget>[
+          // ignore: always_specify_types
+          ChangeNotifierProvider(builder: (_) => getIt<Login>()),
         ],
-        // ignore: prefer_const_literals_to_create_immutables
-        supportedLocales: <Locale>[
-          const Locale('it'),
-        ],
-        routes: <String, WidgetBuilder>{
-          PollsScreen.ROUTE_NAME: (BuildContext context) => PollsScreen(),
-          LoginScreen.ROUTE_NAME: (BuildContext context) => LoginScreen(),
-          RegisterScreen.ROUTE_NAME: (BuildContext context) => RegisterScreen(),
-          PollDetailsScreen.ROUTE_NAME: (BuildContext context) {
-            final PollDetailArguments arguments = ModalRoute.of(context).settings.arguments;
-            return PollDetailsScreen(arguments);
-          },
-          InAppBrowser.ROUTE_NAME: (BuildContext context) {
-            final BrowserArguments arguments = ModalRoute.of(context).settings.arguments;
-            return InAppBrowser(arguments);
-          },
-        }
-      ),
-    );
+        child: GraphQLProvider(
+            client: getIt(),
+            child: CacheProvider(
+              child: MaterialApp(
+                  title: APP_NAME,
+                  theme: ThemeData(
+                      fontFamily: 'Poppins',
+                      primarySwatch: Colors.red,
+                      primaryColor: PRIMARY_RED),
+                  localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                    RousseauLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  // ignore: prefer_const_literals_to_create_immutables
+                  supportedLocales: <Locale>[
+                    const Locale('it'),
+                  ],
+                  routes: <String, WidgetBuilder>{
+                    PollsScreen.ROUTE_NAME: (BuildContext context) =>
+                        PollsScreen(),
+                    LoginScreen.ROUTE_NAME: (BuildContext context) =>
+                        LoginScreen(),
+                    RegisterScreen.ROUTE_NAME: (BuildContext context) =>
+                        RegisterScreen(),
+                    PollDetailsScreen.ROUTE_NAME: (BuildContext context) {
+                      final PollDetailArguments arguments =
+                          ModalRoute.of(context).settings.arguments;
+                      return PollDetailsScreen(arguments);
+                    },
+                    InAppBrowser.ROUTE_NAME: (BuildContext context) {
+                      final BrowserArguments arguments =
+                          ModalRoute.of(context).settings.arguments;
+                      return InAppBrowser(arguments);
+                    },
+                  }),
+            )));
   }
-  
 }

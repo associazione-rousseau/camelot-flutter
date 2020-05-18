@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/network/exceptions/login_exception.dart';
 import 'package:rousseau_vote/src/network/exceptions/no_session_exception.dart';
+import 'package:rousseau_vote/src/network/exceptions/session_expired_exception.dart';
 import 'package:rousseau_vote/src/network/exceptions/too_many_attempts_exception.dart';
 import 'package:rousseau_vote/src/network/exceptions/wrong_credentials_exception.dart';
 import 'package:rousseau_vote/src/network/response/credentials_login_response.dart';
@@ -56,7 +57,14 @@ class LoginNetworkHandler {
   }
 
   Future<TokenResponse> refreshToken(String refreshToken) async {
-    return await _refreshToken(refreshToken);
+    try {
+      return await _refreshToken(refreshToken);
+    } catch (e) {
+      if (e.response.data['error'] == 'invalid_grant') {
+        throw SessionExpiredException();
+      }
+      rethrow;
+    }
   }
 
   Future<String> _getAccessCode(String smsCode) async {
