@@ -4,6 +4,8 @@ import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
+import 'package:rousseau_vote/src/widgets/done_dialog.dart';
+import 'package:rousseau_vote/src/widgets/error_dialog.dart';
 import 'package:rousseau_vote/src/widgets/poll_entity_detail.dart';
 import 'package:rousseau_vote/src/widgets/poll_text_detail.dart';
 import 'package:rousseau_vote/src/widgets/vote_dialog.dart';
@@ -61,7 +63,7 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
         ),
         const SizedBox(height: 10),
         getBottomText(context),
-        _poll.alreadyVoted ? Container() : getPreferencesText(context),
+        _poll.alreadyVoted || _poll.calculatePollStatus() == PollStatus.CLOSED  ? Container() : getPreferencesText(context),
         getVoteButton(context),
         const SizedBox(height: 10),
       ],
@@ -95,6 +97,8 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
       text = 'poll-open';
     } else if (pollStatus == PollStatus.PUBLISHED) {
       text = 'vote-published';
+    } else if (pollStatus == PollStatus.CLOSED) {
+      text = 'vote-closed';
     }
     return Text(
       RousseauLocalizations.getText(context, text),
@@ -121,7 +125,7 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
-        onPressed: () => selected.isEmpty ? showMessage(context) : doAction(context),
+        onPressed: () => selected.isEmpty ? showMessage(context) : showAction(context),
       )
     );
   }
@@ -162,11 +166,34 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
       );
   }
 
-  void doAction(BuildContext context) {
+  void showAction(BuildContext context) {
     showDialog<AlertDialog>(
       context: context,
       builder: (BuildContext context) {
-        return VoteDialog(selected, _poll.slug);
+        return VoteDialog(
+          selected, 
+          _poll.slug,
+          showError,
+          showDone
+        );
+      }
+    );
+  }
+
+  void showDone(BuildContext context) {
+    showDialog<AlertDialog>(
+      context: context,
+      builder: (BuildContext context) {
+        return DoneDialog();
+      }
+    );
+  }
+
+  void showError(BuildContext context) {
+    showDialog<AlertDialog>(
+      context: context,
+      builder: (BuildContext context) {
+        return ErrorDialog(RousseauLocalizations.getText(context, 'error-vote'));
       }
     );
   }

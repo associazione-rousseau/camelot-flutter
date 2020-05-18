@@ -9,10 +9,12 @@ import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
 
 class VoteDialog extends StatelessWidget {
 
-  const VoteDialog(this._options, this._pollId);
+  const VoteDialog(this._options, this._pollId, this._error, this._done);
 
   final String _pollId;
   final List<Option> _options;
+  final Function _error;
+  final Function _done;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,18 @@ class VoteDialog extends StatelessWidget {
         GraphQLProvider(
           client: GraphQLConfiguration().client,
           child: Mutation(
-            options: MutationOptions(documentNode: gql(pollAnswerSubmit),),
+            options: MutationOptions(
+              documentNode: gql(pollAnswerSubmit),
+              update: (Cache cache, QueryResult result) {
+                if (result.hasException) {
+                  _error(context);
+                } 
+                final Map<String, Object> user = (result.data as Map<String, Object>)['user'] as Map<String, Object>;
+                final LazyCacheMap map = user.values.first;
+                final List<Object> errors = map.values.first;
+                errors == null || errors.isEmpty ? _done(context) : _error(context);
+              },
+            ),
             builder: (RunMutation runMutation, QueryResult result) {
               return FlatButton(
                 child: Text(
