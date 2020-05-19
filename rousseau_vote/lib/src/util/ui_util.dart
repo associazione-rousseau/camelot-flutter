@@ -43,7 +43,7 @@ Function openLinkAction(BuildContext context, BrowserArguments arguments) {
 }
 
 void openRoute(BuildContext context, String route, {Object arguments, bool replace}) {
-  if (replace) {
+  if (replace != null && replace) {
     Navigator.of(context).pushReplacementNamed(route, arguments: arguments);
   } else {
     Navigator.of(context).pushNamed(route, arguments: arguments);

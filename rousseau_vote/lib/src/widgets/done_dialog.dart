@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
+
 import 'package:rousseau_vote/src/util/ui_util.dart';
 
 class DoneDialog extends StatelessWidget {
@@ -33,10 +34,9 @@ class DoneDialog extends StatelessWidget {
   }
 
   void goPolls(BuildContext context) {
-    UiUtil.openRoute(
-        context, 
-        PollsScreen.ROUTE_NAME, 
-        null
+    openRoute(
+      context, 
+      PollsScreen.ROUTE_NAME,
     );
   }
 

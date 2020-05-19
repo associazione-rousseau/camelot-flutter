@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
-import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
@@ -96,7 +95,7 @@ class PollCard extends StatelessWidget {
       openRoute(
         context, 
         PollDetailsScreen.ROUTE_NAME,
-        arguments: PollDetailArguments( _poll.slug, true)
+        arguments: PollDetailArguments( _poll.slug, false),
       );
     } else if (_poll.resultsLink != null) {
       openUrlInternal(context, _poll.resultsLink);
