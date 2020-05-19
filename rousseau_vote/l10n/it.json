@@ -38,6 +38,14 @@
 
     "vote-content-1s": "Stai per votare la seguente opzione:",
     "vote-content-1p": "Stai per votare le seguenti opzioni:",
-    "vote-content-2": "Vuoi confermare?"
+    "vote-content-2": "Vuoi confermare?",
 
+    "drawer-vote": "Vota",
+    "drawer-edit-account": "Modifica account",
+    "drawer-support": "Supportaci",
+    "drawer-other-functionalities": "Altre funzionalità",
+    "drawer-blog": "Il Blog Delle Stelle",
+    "drawer-feedback": "Invia un feedback",
+    "drawer-privacy": "Privacy",
+    "drawer-logout": "Logout"
 }

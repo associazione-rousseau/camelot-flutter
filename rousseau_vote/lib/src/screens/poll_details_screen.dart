@@ -10,7 +10,7 @@ class PollDetailsScreen extends StatelessWidget {
   
   const PollDetailsScreen(this.arguments);
 
-  static const String ROUTE_NAME = '/polls';
+  static const String ROUTE_NAME = '/poll_details';
 
   final PollDetailArguments arguments;
 

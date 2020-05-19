@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 
-import 'package:rousseau_vote/src/init/startup_initializer.dart';
-import 'package:rousseau_vote/src/injection/injector_config.dart';
-import 'package:rousseau_vote/src/widgets/wait_for_init_widget.dart';
+import 'package:rousseau_vote/src/widgets/drawer/rousseau_drawer.dart';
 
 import 'logged_screen.dart';
 
@@ -22,15 +20,13 @@ class RousseauLoggedScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WaitForStartupInitWidget(
-      startupInitializer: getIt<StartupInitializer>(),
-      showAfterInit: LoggedScreen(
+    return LoggedScreen(
         Scaffold(
           appBar: appBar,
+          drawer: RousseauDrawer(),
           body: body,
           backgroundColor: BACKGROUND_GREY,
         ),
-      )
     );
   }
 }

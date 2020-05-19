@@ -99,6 +99,6 @@ class _Native2FaScreenState extends State<Native2FaScreen> {
   }
 
   void _showErrorMessage(BuildContext context, String errorMessage) {
-    UiUtil.showRousseauSnackbar(context, _scaffoldState, errorMessage);
+    showRousseauSnackbar(context, _scaffoldState, errorMessage);
   }
 }

@@ -110,6 +110,14 @@ class Login with ChangeNotifier {
     _moveToState(loginState: LoginState.LOGGED_OUT);
   }
 
+  void sessionExpired() {
+    _moveToState(loginState: LoginState.LOGGED_OUT);
+  }
+
+  void unableToRefreshToken() {
+    _moveToState(loginState: LoginState.LOGGED_OUT);
+  }
+
   bool isWaitingForVoiceCall() =>
       _loginState == LoginState.CODE_VOICE_CALL_LOADING;
 

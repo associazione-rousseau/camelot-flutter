@@ -8,17 +8,26 @@ import 'package:dio/dio.dart';
 import 'package:rousseau_vote/src/injection/register_module.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:graphql/client.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
+import 'package:rousseau_vote/src/network/graphql/smart_cache.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
+import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
-  final _$RegisterModule registerModule = _$RegisterModule();
+  final registerModule = _$RegisterModule();
+  g.registerFactoryParam<GraphQLClient, BuildContext, dynamic>(
+      (buildContext, _) => registerModule.getGraphQLClient(buildContext));
   g.registerFactory<StartupInitializer>(
       () => registerModule.startupInitializer);
+  g.registerFactoryParam<ValueNotifier<GraphQLClient>, BuildContext, dynamic>(
+      (buildContext, _) =>
+          registerModule.getGraphqlClientNotifier(buildContext));
 
   //Eager singletons must be registered in the right order
   g.registerSingleton<Dio>(registerModule.dioForNative());
@@ -28,6 +37,7 @@ void $initGetIt(GetIt g, {String environment}) {
       registerModule.flutterSecureStorage);
   g.registerSingleton<LoginNetworkHandler>(LoginNetworkHandler(g<Dio>()));
   g.registerSingleton<SecureStorage>(SecureStorage(g<FlutterSecureStorage>()));
+  g.registerSingleton<SmartCache>(registerModule.smartCache);
   g.registerSingleton<TokenStore>(
       TokenStore(g<SecureStorage>(), g<LoginNetworkHandler>()));
   g.registerSingleton<Login>(Login(g<LoginNetworkHandler>(), g<TokenStore>()));
@@ -35,5 +45,5 @@ void $initGetIt(GetIt g, {String environment}) {
 
 class _$RegisterModule extends RegisterModule {
   @override
-  FlutterSecureStorage get flutterSecureStorage => const FlutterSecureStorage();
+  FlutterSecureStorage get flutterSecureStorage => FlutterSecureStorage();
 }
