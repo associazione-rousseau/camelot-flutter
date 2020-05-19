@@ -20,7 +20,7 @@ class RousseauDrawer extends StatelessWidget {
           DrawerItem(
             textKey: 'drawer-vote',
             iconData: Icons.account_balance,
-            onTap: openRouteAction(context, PollsScreen.ROUTE_NAME),
+            onTap: openRouteAction(context, PollsScreen.ROUTE_NAME, replace: true),
           ),
           DrawerItem(
             textKey: 'drawer-edit-account',

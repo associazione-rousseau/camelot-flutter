@@ -42,12 +42,16 @@ Function openLinkAction(BuildContext context, BrowserArguments arguments) {
   };
 }
 
-void openRoute(BuildContext context, String route, {Object arguments}) {
-  Navigator.of(context).pushNamed(route, arguments: arguments);
+void openRoute(BuildContext context, String route, {Object arguments, bool replace}) {
+  if (replace) {
+    Navigator.of(context).pushReplacementNamed(route, arguments: arguments);
+  } else {
+    Navigator.of(context).pushNamed(route, arguments: arguments);
+  }
 }
 
-Function openRouteAction(BuildContext context, String route, {Object arguments}) {
+Function openRouteAction(BuildContext context, String route, {Object arguments, bool replace}) {
   return () {
-    openRoute(context, route, arguments: arguments);
+    openRoute(context, route, arguments: arguments, replace: replace);
   };
 }
