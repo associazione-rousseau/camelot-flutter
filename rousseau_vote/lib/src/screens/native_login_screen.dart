@@ -121,6 +121,6 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
   }
 
   void _showErrorMessage(BuildContext context, String errorMessage) {
-    UiUtil.showRousseauSnackbar(context, _scaffoldState, errorMessage);
+    showRousseauSnackbar(context, _scaffoldState, errorMessage);
   }
 }
