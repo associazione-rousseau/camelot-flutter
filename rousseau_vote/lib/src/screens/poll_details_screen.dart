@@ -16,17 +16,10 @@ class PollDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (arguments.routing) {
-      return Scaffold(
-        appBar: RousseauAppBar(),
-        body: PollDetailsBody(arguments.pollId),
-        backgroundColor: BACKGROUND_GREY,
-      );
-    } else {
-      return RousseauLoggedScaffold(
-        appBar: RousseauAppBar(),
-        body: PollDetailsBody(arguments.pollId)
-      );
-    }
+    return Scaffold(
+      appBar: RousseauAppBar(),
+      body: PollDetailsBody(arguments.pollId),
+      backgroundColor: BACKGROUND_GREY,
+    );
   }
 }
