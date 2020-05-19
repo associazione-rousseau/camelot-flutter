@@ -2,9 +2,9 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
-import 'package:rousseau_vote/src/network/graphql/graphql_configuration.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
 
 class VoteDialog extends StatelessWidget {
@@ -40,7 +40,7 @@ class VoteDialog extends StatelessWidget {
           onPressed: () => Navigator.of(context, rootNavigator: true).pop()
         ),
         GraphQLProvider(
-          client: GraphQLConfiguration().client,
+          client: getIt<ValueNotifier<GraphQLClient>>(),
           child: Mutation(
             options: MutationOptions(
               documentNode: gql(pollAnswerSubmit),

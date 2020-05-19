@@ -49,8 +49,8 @@ class PollCard extends StatelessWidget {
                         const SizedBox(width: 10),
                         Column(
                           children: <Widget>[
-                            Text('${UiUtil.formatDate(context,  _poll.voteStartingDate)}'),
-                            Text('${UiUtil.formatDate(context, _poll.voteEndingDate)}')
+                            Text('${formatDate(context,  _poll.voteStartingDate)}'),
+                            Text('${formatDate(context, _poll.voteEndingDate)}')
                           ],
                         )
                       ],
@@ -93,13 +93,13 @@ class PollCard extends StatelessWidget {
         )
       );
     } else if (status == PollStatus.PUBLISHED || status == PollStatus.OPEN) {
-      UiUtil.openRoute(
+      openRoute(
         context, 
-        PollDetailsScreen.ROUTE_NAME, 
-        PollDetailArguments( _poll.slug, true)
+        PollDetailsScreen.ROUTE_NAME,
+        arguments: PollDetailArguments( _poll.slug, true)
       );
     } else if (_poll.resultsLink != null) {
-      UiUtil.openLink(context, BrowserArguments(url: _poll.resultsLink));
+      openUrlInternal(context, _poll.resultsLink);
     } else {
       Scaffold.of(context).showSnackBar(
         SnackBar(
@@ -131,7 +131,7 @@ class PollCard extends StatelessWidget {
         borderSide: BorderSide(color: color),
         textColor: color,
         icon: Icon(Icons.info_outline),
-        onPressed: () => UiUtil.openLink(context, BrowserArguments(url: _poll.announcementLink)),
+        onPressed: () => openUrlInternal(context,  _poll.announcementLink),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),

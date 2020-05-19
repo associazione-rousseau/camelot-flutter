@@ -24,6 +24,11 @@ class TokenStore with InitializeOnStartup {
     return _secureStorage.storeToken(token);
   }
 
+  void deleteToken() {
+    _token = null;
+    _secureStorage.deleteToken();
+  }
+
   void setToken(Token token) {
     _token = token;
     _accessTokenInfo = AccessTokenInfo.fromAccessToken(token.accessToken);

@@ -14,6 +14,10 @@ class SecureStorage {
 
   final FlutterSecureStorage _flutterSecureStorage;
 
+  Future<void> deleteToken() {
+    return _flutterSecureStorage.delete(key: _KEY_TOKEN);
+  }
+
   Future<void> storeToken(Token token) {
     return _flutterSecureStorage.write(key: _KEY_TOKEN, value: jsonEncode(token));
   }
