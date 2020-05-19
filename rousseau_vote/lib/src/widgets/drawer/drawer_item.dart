@@ -24,8 +24,8 @@ class DrawerItem extends StatelessWidget {
         style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400),
       ),
       onTap: () {
-        onTap();
         Navigator.pop(context);
+        onTap();
       });
     }
 }

@@ -25,11 +25,29 @@ void openUrlInternal(BuildContext context, String url) {
   openLink(context, BrowserArguments(url: url));
 }
 
+Function openUrlInternalAction(BuildContext context, String url) {
+  return () {
+    openUrlInternal(context, url);
+  };
+}
+
 void openLink(BuildContext context, BrowserArguments arguments) {
   Navigator.of(context)
       .pushNamed(InAppBrowser.ROUTE_NAME, arguments: arguments);
 }
 
+Function openLinkAction(BuildContext context, BrowserArguments arguments) {
+  return () {
+    openLink(context, arguments);
+  };
+}
+
 void openRoute(BuildContext context, String route, {Object arguments}) {
   Navigator.of(context).pushNamed(route, arguments: arguments);
+}
+
+Function openRouteAction(BuildContext context, String route, {Object arguments}) {
+  return () {
+    openRoute(context, route, arguments: arguments);
+  };
 }
