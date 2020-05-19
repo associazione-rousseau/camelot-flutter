@@ -8,10 +8,7 @@ class RousseauDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DrawerHeader(
-      child: CurrentUserCard(),
-      decoration: BoxDecoration(
-        color: PRIMARY_RED,
-      ),
+      child: CurrentUserCard()
     );
   }
 }

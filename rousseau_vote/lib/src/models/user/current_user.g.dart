@@ -11,6 +11,7 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..id = json['id'] as String
     ..fullName = json['fullName'] as String
     ..statusColor = json['statusColor'] as String
+    ..slug = json['slug'] as String
     ..createdAt = json['createdAt'] == null
         ? null
         : DateTime.parse(json['createdAt'] as String)
@@ -27,6 +28,7 @@ Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
       'id': instance.id,
       'fullName': instance.fullName,
       'statusColor': instance.statusColor,
+      'slug': instance.slug,
       'createdAt': instance.createdAt?.toIso8601String(),
       'voteRightStartingCountDate':
           instance.voteRightStartingCountDate?.toIso8601String(),

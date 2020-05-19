@@ -14,7 +14,15 @@ class CurrentUser {
   String id;
   String fullName;
   String statusColor;
+  String slug;
   DateTime createdAt;
   DateTime voteRightStartingCountDate;
   Profile profile;
+
+  String getProfilePictureUrl() {
+    if(profile == null || profile.picture == null) {
+      return null;
+    }
+    return profile.picture.originalUrl;
+  }
 }
