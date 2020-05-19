@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:rousseau_vote/src/config/app_constants.dart';
+import 'package:rousseau_vote/src/widgets/drawer/drawer_item.dart';
 import 'package:rousseau_vote/src/widgets/drawer/rousseau_drawer_header.dart';
 
 class RousseauDrawer extends StatelessWidget {
@@ -12,22 +12,58 @@ class RousseauDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           RousseauDrawerHeader(),
-          ListTile(
-            title: Text('Item 1'),
+          DrawerItem(
+            textKey: 'drawer-vote',
+            iconData: Icons.account_balance,
+            onTap: () {},
+          ),
+          DrawerItem(
+            textKey: 'drawer-edit-account',
+            iconData: Icons.person,
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
+
             },
           ),
-          ListTile(
-            title: Text('Item 2'),
+          DrawerItem(
+            textKey: 'drawer-feedback',
+            iconData: Icons.feedback,
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
+
+            },
+          ),
+          DrawerItem(
+            textKey: 'drawer-support',
+            iconData: Icons.favorite,
+            onTap: () {
+            },
+          ),
+          const Divider(height: 3),
+          DrawerItem(
+            textKey: 'drawer-other-functionalities',
+            iconData: Icons.devices,
+            onTap: () {
+            },
+          ),
+          DrawerItem(
+            textKey: 'drawer-blog',
+            iconData: Icons.star,
+            onTap: () {
+
+            },
+          ),
+          DrawerItem(
+            textKey: 'drawer-privacy',
+            iconData: Icons.security,
+            onTap: () {
+
+            },
+          ),
+          const Divider(height: 3),
+          DrawerItem(
+            textKey: 'drawer-logout',
+            iconData: Icons.exit_to_app,
+            onTap: () {
+
             },
           ),
         ],
