@@ -8,13 +8,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
-import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/init/mock_initializer.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
-import 'package:rousseau_vote/src/network/exceptions/session_expired_exception.dart';
 import 'package:rousseau_vote/src/network/graphql/smart_cache.dart';
-import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 
 import 'injector_config.dart';

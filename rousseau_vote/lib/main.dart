@@ -10,6 +10,7 @@ import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
+import 'package:rousseau_vote/src/screens/init_screen.dart';
 import 'package:rousseau_vote/src/screens/login_screen.dart';
 import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
@@ -49,6 +50,7 @@ class RousseauVoteApp extends StatelessWidget {
                     const Locale('it'),
                   ],
                   routes: <String, WidgetBuilder>{
+                    '/': (BuildContext context) => InitScreen(PollsScreen.ROUTE_NAME, getIt()),
                     PollsScreen.ROUTE_NAME: (BuildContext context) =>
                         PollsScreen(),
                     LoginScreen.ROUTE_NAME: (BuildContext context) =>
