@@ -118,6 +118,12 @@ class Login with ChangeNotifier {
     _moveToState(loginState: LoginState.LOGGED_OUT);
   }
 
+  void logout() {
+    _tokenStore.deleteToken();
+    // TODO invalidate session here
+    _moveToState(loginState: LoginState.LOGGED_OUT);
+  }
+
   bool isWaitingForVoiceCall() =>
       _loginState == LoginState.CODE_VOICE_CALL_LOADING;
 

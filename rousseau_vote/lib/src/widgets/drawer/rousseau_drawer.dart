@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/config/links.dart';
+import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/drawer/drawer_item.dart';
@@ -60,7 +62,7 @@ class RousseauDrawer extends StatelessWidget {
             textKey: 'drawer-logout',
             iconData: Icons.exit_to_app,
             onTap: () {
-//              Provider.of<Login>(context).logout();
+              Provider.of<Login>(context).logout();
             },
           ),
         ],

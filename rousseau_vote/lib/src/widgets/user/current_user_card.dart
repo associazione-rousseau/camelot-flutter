@@ -16,15 +16,14 @@ class CurrentUserCard extends StatelessWidget {
     return GraphqlQueryWidget<CurrentUser>(
         query: currentUserShort,
         builderSuccess: (CurrentUser currentUser) {
-          return Center(
-              child: ListTile(
+          return ListTile(
             leading: ProfilePicture(currentUser.getProfilePictureUrl()),
             title: Text(
               currentUser.fullName,
               style: const TextStyle(fontSize: 20),
             ),
             subtitle: Text(currentUser.slug),
-          ));
+          );
         },
         builderLoading: () {
           return const Center(
