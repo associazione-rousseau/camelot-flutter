@@ -6,6 +6,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:rousseau_vote/src/injection/register_module.dart';
+import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:graphql/client.dart';
@@ -30,6 +31,8 @@ void $initGetIt(GetIt g, {String environment}) {
 
   //Eager singletons must be registered in the right order
   g.registerSingleton<Dio>(registerModule.dioForNative());
+  g.registerSingletonAsync<ExternalPreselection>(
+      () => ExternalPreselection.create());
   g.registerSingleton<FlutterSecureStorage>(
       registerModule.flutterSecureStorage);
   g.registerSingleton<LoginNetworkHandler>(LoginNetworkHandler(g<Dio>()));

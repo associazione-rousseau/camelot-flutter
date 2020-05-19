@@ -9,6 +9,7 @@ import 'package:rousseau_vote/src/providers/login.dart';
 
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 import 'package:rousseau_vote/src/screens/init_screen.dart';
 import 'package:rousseau_vote/src/screens/login_screen.dart';
@@ -29,6 +30,7 @@ class RousseauVoteApp extends StatelessWidget {
         providers: <SingleChildCloneableWidget>[
           // ignore: always_specify_types
           ChangeNotifierProvider(builder: (_) => getIt<Login>()),
+          ChangeNotifierProvider<ExternalPreselection>(builder: (_) => getIt<ExternalPreselection>()),
         ],
         child: GraphQLProvider(
             client: getIt(),
