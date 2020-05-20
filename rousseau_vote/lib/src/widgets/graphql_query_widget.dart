@@ -51,7 +51,7 @@ class _GraphqlQueryWidgetState<T> extends State<GraphqlQueryWidget<T>> {
         }
 
         // Else fetch
-        final queryOptions = QueryOptions(documentNode: gql(widget.query), variables: widget.variables, fetchPolicy: widget.fetchPolicy);
+        final QueryOptions queryOptions = QueryOptions(documentNode: gql(widget.query), variables: widget.variables, fetchPolicy: widget.fetchPolicy);
         final Future<QueryResult> future = client.query(queryOptions);
         future.then((QueryResult result) => _onResults(result))
           .catchError((Object error) => _onError(error));

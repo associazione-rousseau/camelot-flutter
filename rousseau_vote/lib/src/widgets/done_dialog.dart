@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 
-import 'package:rousseau_vote/src/screens/polls_screen.dart';
-
-import 'package:rousseau_vote/src/util/ui_util.dart';
-
 class DoneDialog extends StatelessWidget {
 
+  const DoneDialog(this._action);
+  
+  final Function _action;
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +25,10 @@ class DoneDialog extends StatelessWidget {
             style: const TextStyle(fontSize: 18),
           ),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-          onPressed: () => goPolls(context)
+          onPressed: () => _action(context)
         ),
         Container()
       ],
-    );
-  }
-
-  void goPolls(BuildContext context) {
-    openRoute(
-      context, 
-      PollsScreen.ROUTE_NAME,
     );
   }
 

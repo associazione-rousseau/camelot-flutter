@@ -4,6 +4,8 @@ import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
+import 'package:rousseau_vote/src/screens/polls_screen.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/done_dialog.dart';
 import 'package:rousseau_vote/src/widgets/error_dialog.dart';
 import 'package:rousseau_vote/src/widgets/poll_entity_detail.dart';
@@ -181,20 +183,33 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
   }
 
   void showDone(BuildContext context) {
+    Navigator.of(context).pop();
     showDialog<AlertDialog>(
       context: context,
       builder: (BuildContext context) {
-        return DoneDialog();
+        return DoneDialog(_endAction);
       }
     );
   }
 
   void showError(BuildContext context) {
+    Navigator.of(context).pop();
     showDialog<AlertDialog>(
       context: context,
       builder: (BuildContext context) {
-        return ErrorDialog(RousseauLocalizations.getText(context, 'error-vote'));
+        return ErrorDialog(
+          RousseauLocalizations.getText(context, 'error-vote'),
+          _endAction
+        );
       }
+    );
+  }
+
+  void _endAction(BuildContext context) {
+    openRoute(
+      context, 
+      PollsScreen.ROUTE_NAME,
+      replace: true
     );
   }
 

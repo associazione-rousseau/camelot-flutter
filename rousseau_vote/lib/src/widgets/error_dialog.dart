@@ -3,9 +3,10 @@ import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 
 class ErrorDialog extends StatelessWidget {
 
-  const ErrorDialog(this._error);
+  const ErrorDialog(this._error, this._action);
 
   final String _error;
+  final Function _action;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class ErrorDialog extends StatelessWidget {
             style: const TextStyle(fontSize: 18),
           ),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-          onPressed: () => Navigator.of(context, rootNavigator: true).pop()
+          onPressed: () => _action(context)
         ),
         Container()
       ],
