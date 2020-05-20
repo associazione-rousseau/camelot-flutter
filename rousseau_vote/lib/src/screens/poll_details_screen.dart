@@ -4,7 +4,6 @@ import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/widgets/poll_details_body.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_app_bar.dart';
-import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
 
 class PollDetailsScreen extends StatelessWidget {
   

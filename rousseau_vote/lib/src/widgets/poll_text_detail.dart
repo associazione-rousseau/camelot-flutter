@@ -45,7 +45,6 @@ class _PollTextDetailState extends State<PollTextDetail> {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       elevation: 5,
-      color: active ? ACCENT_RED : Colors.white,
       child: InkWell(
         highlightColor: isDisabled() ? Colors.transparent : null,
         splashColor: isDisabled() ? Colors.transparent : null,
@@ -55,12 +54,10 @@ class _PollTextDetailState extends State<PollTextDetail> {
           child: ListTile(
             title: Text(
               _option.text,
-              style: TextStyle(
-                fontSize: 14,
-                color: active ? Colors.white : Colors.black
-              ),
-              textAlign: TextAlign.justify
+              style: const TextStyle(fontSize: 14),
+              textAlign: TextAlign.justify,
             ),
+            trailing: active ? Icon(Icons.brightness_1, color: PRIMARY_RED) : null
           )
         ),
         onTap: () => isDisabled() ? showMessage(context) : doSelect(),
