@@ -21,13 +21,16 @@ class GraphqlQueryWidget<T> extends StatefulWidget {
       @required this.builderSuccess,
       @required this.builderError,
       @required this.builderLoading,
-      this.variables});
+      this.variables,
+      this.fetchPolicy = FetchPolicy.cacheAndNetwork,
+      });
 
   final String query;
   final Map<String, dynamic> variables;
   final GraphqlSuccessWidgetBuilder<T> builderSuccess;
   final GraphqlErrorWidgetBuilder builderError;
   final GraphqlLoadingWidgetBuilder builderLoading;
+  final FetchPolicy fetchPolicy;
 
   @override
   _GraphqlQueryWidgetState<T> createState() => _GraphqlQueryWidgetState<T>();
@@ -48,7 +51,8 @@ class _GraphqlQueryWidgetState<T> extends State<GraphqlQueryWidget<T>> {
         }
 
         // Else fetch
-        final Future<QueryResult> future = client.query(QueryOptions(documentNode: gql(widget.query), variables: widget.variables));
+        final QueryOptions queryOptions = QueryOptions(documentNode: gql(widget.query), variables: widget.variables, fetchPolicy: widget.fetchPolicy);
+        final Future<QueryResult> future = client.query(queryOptions);
         future.then((QueryResult result) => _onResults(result))
           .catchError((Object error) => _onError(error));
 
