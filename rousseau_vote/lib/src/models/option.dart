@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rousseau_vote/src/models/entity.dart';
 
 part 'option.g.dart';
 
@@ -11,5 +12,6 @@ class Option {
 
   String id;
   String text;
+  Entity entity;
 
 }

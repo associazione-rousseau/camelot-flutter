@@ -12,4 +12,5 @@ class Profile {
   Map<String, dynamic> toJson() => _$ProfileToJson(this);
 
   Picture picture;
+  
 }

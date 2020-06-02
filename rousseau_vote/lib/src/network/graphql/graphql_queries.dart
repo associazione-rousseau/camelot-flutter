@@ -44,6 +44,12 @@ String pollDetail = '''
             ...on User {
               id
               slug
+              fullName
+              profile {
+                picture {
+                  originalUrl
+                }
+              }
             }
           }
         }
