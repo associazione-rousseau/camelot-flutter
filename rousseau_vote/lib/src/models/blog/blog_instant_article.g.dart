@@ -14,7 +14,13 @@ BlogInstantArticle _$BlogInstantArticleFromJson(Map<String, dynamic> json) {
         json['date'] == null ? null : DateTime.parse(json['date'] as String)
     ..text = json['text'] as String
     ..url = json['url'] as String
-    ..slug = json['slug'] as String;
+    ..slug = json['slug'] as String
+    ..author = json['author'] == null
+        ? null
+        : Author.fromJson(json['author'] as Map<String, dynamic>)
+    ..category = json['category'] == null
+        ? null
+        : Category.fromJson(json['category'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$BlogInstantArticleToJson(BlogInstantArticle instance) =>
@@ -25,4 +31,6 @@ Map<String, dynamic> _$BlogInstantArticleToJson(BlogInstantArticle instance) =>
       'text': instance.text,
       'url': instance.url,
       'slug': instance.slug,
+      'author': instance.author,
+      'category': instance.category,
     };

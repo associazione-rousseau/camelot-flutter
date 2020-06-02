@@ -1,4 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rousseau_vote/src/models/blog/category.dart';
+
+import 'author.dart';
 
 part 'blog_instant_article.g.dart';
 
@@ -15,7 +18,6 @@ class BlogInstantArticle {
   String text;
   String url;
   String slug;
-
-
-
+  Author author;
+  Category category;
 }
