@@ -134,7 +134,13 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
 
   Widget getOption(int index) {
     if (_poll.optionType == 'ENTITY') {
-      return const PollEntityDetail();
+      return PollEntityDetail(
+        _poll.options[index],
+        _poll.alreadyVoted || selected.length >= _poll.maxSelectableOptionsNumber, 
+        _toggle,
+        selected,
+        _poll.maxSelectableOptionsNumber
+      );
     } else {
       return PollTextDetail(
         _poll.options[index],
