@@ -12,7 +12,8 @@ class BlogInstantArticle {
   factory BlogInstantArticle.fromJson(Map<String, dynamic> json) => _$BlogInstantArticleFromJson(json);
   Map<String, dynamic> toJson() => _$BlogInstantArticleToJson(this);
 
-  String id;
+  int id;
+  String title;
   String image;
   DateTime date;
   String text;

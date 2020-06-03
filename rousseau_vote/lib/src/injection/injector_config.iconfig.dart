@@ -4,6 +4,8 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+import 'package:rousseau_vote/src/network/handlers/blog_instant_article_network_handler.dart';
+import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:rousseau_vote/src/injection/register_module.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
@@ -30,6 +32,10 @@ void $initGetIt(GetIt g, {String environment}) {
           registerModule.getGraphqlClientNotifier(buildContext));
 
   //Eager singletons must be registered in the right order
+  g.registerSingleton<BlogInstantArticleNetworkHandler>(
+      BlogInstantArticleNetworkHandler());
+  g.registerSingleton<BlogInstantArticleProvider>(
+      BlogInstantArticleProvider(g<BlogInstantArticleNetworkHandler>()));
   g.registerSingleton<Dio>(registerModule.dioForNative());
   g.registerSingletonAsync<ExternalPreselection>(
       () => ExternalPreselection.create());

@@ -8,7 +8,8 @@ part of 'blog_instant_article.dart';
 
 BlogInstantArticle _$BlogInstantArticleFromJson(Map<String, dynamic> json) {
   return BlogInstantArticle()
-    ..id = json['id'] as String
+    ..id = json['id'] as int
+    ..title = json['title'] as String
     ..image = json['image'] as String
     ..date =
         json['date'] == null ? null : DateTime.parse(json['date'] as String)
@@ -26,6 +27,7 @@ BlogInstantArticle _$BlogInstantArticleFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$BlogInstantArticleToJson(BlogInstantArticle instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'title': instance.title,
       'image': instance.image,
       'date': instance.date?.toIso8601String(),
       'text': instance.text,

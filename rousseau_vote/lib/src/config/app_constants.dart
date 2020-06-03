@@ -20,6 +20,10 @@ const String GRAPHQL_URL = GRAPHQL_URL_PRODUCTION;
 
 const String IN_APP_BROWSER_USER_AGENT = 'camelot-flutter';
 
+// Blog instant article config
+const String BLOG_URL = 'https://www.ilblogdellestelle.it';
+const int DEFAULT_ARTICLES_PER_PAGE = 10;
+
 //colors
 const Color PRIMARY_RED = Color(0xFFE30613);
 const Color ACCENT_RED = Color(0xFFFF7A82);
