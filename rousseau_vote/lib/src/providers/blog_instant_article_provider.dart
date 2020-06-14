@@ -12,8 +12,12 @@ class BlogInstantArticleProvider extends NetworkChangeNotifier {
   BlogInstantArticleProvider(this._networkHandler);
 
   final BlogInstantArticleNetworkHandler _networkHandler;
-  final List<BlogInstantArticle> _instantArticles = [];
+  final List<BlogInstantArticle> _instantArticles = <BlogInstantArticle>[];
   final HashMap<String, BlogInstantArticle> _instantArticleCache = HashMap<String, BlogInstantArticle>();
+
+  List<BlogInstantArticle> getInstantArticles() {
+    return _instantArticles;
+  }
 
   Future<List<BlogInstantArticle>> loadMoreInstantArticles() async {
     startLoading();

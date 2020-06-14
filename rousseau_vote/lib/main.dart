@@ -13,6 +13,7 @@ import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
+import 'package:rousseau_vote/src/screens/blog_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 import 'package:rousseau_vote/src/screens/init_screen.dart';
 import 'package:rousseau_vote/src/screens/login_screen.dart';
@@ -72,6 +73,9 @@ class RousseauVoteApp extends StatelessWidget {
                       final BrowserArguments arguments =
                           ModalRoute.of(context).settings.arguments;
                       return InAppBrowser(arguments);
+                    },
+                    BlogScreen.ROUTE_NAME: (BuildContext context) {
+                      return BlogScreen();
                     },
                     BlogInstantArticleScreen.ROUTE_NAME: (BuildContext context) {
                       final BlogInstantArticleArguments arguments =
