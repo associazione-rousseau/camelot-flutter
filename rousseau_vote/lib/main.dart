@@ -6,12 +6,14 @@ import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/models/arguments/blog_instant_article_arguments.dart';
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
+import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
+import 'package:rousseau_vote/src/screens/account/login_info_screen.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 import 'package:rousseau_vote/src/screens/init_screen.dart';
@@ -19,6 +21,8 @@ import 'package:rousseau_vote/src/screens/login_screen.dart';
 import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/register_screen.dart';
+import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
+import 'package:rousseau_vote/src/screens/account/anagraph_screen.dart';
 
 void main() {
   configure();
@@ -33,8 +37,10 @@ class RousseauVoteApp extends StatelessWidget {
         providers: <SingleChildCloneableWidget>[
           // ignore: always_specify_types
           ChangeNotifierProvider(builder: (_) => getIt<Login>()),
-          ChangeNotifierProvider<ExternalPreselection>(builder: (_) => getIt<ExternalPreselection>()),
-          ChangeNotifierProvider<BlogInstantArticleProvider>(builder: (_) => getIt<BlogInstantArticleProvider>()),
+          ChangeNotifierProvider<ExternalPreselection>(
+              builder: (_) => getIt<ExternalPreselection>()),
+          ChangeNotifierProvider<BlogInstantArticleProvider>(
+              builder: (_) => getIt<BlogInstantArticleProvider>()),
         ],
         child: GraphQLProvider(
             client: getIt(),
@@ -45,7 +51,8 @@ class RousseauVoteApp extends StatelessWidget {
                       fontFamily: 'Poppins',
                       primarySwatch: Colors.red,
                       primaryColor: PRIMARY_RED),
-                  localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                  localizationsDelegates: const <
+                      LocalizationsDelegate<dynamic>>[
                     RousseauLocalizations.delegate,
                     GlobalMaterialLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,
@@ -56,13 +63,26 @@ class RousseauVoteApp extends StatelessWidget {
                     const Locale('it'),
                   ],
                   routes: <String, WidgetBuilder>{
-                    '/': (BuildContext context) => InitScreen(PollsScreen.ROUTE_NAME, getIt()),
+                    '/': (BuildContext context) =>
+                        InitScreen(PollsScreen.ROUTE_NAME, getIt()),
                     PollsScreen.ROUTE_NAME: (BuildContext context) =>
                         PollsScreen(),
                     LoginScreen.ROUTE_NAME: (BuildContext context) =>
                         LoginScreen(),
                     RegisterScreen.ROUTE_NAME: (BuildContext context) =>
                         RegisterScreen(),
+                    EditAccountScreen.ROUTE_NAME: (BuildContext context) =>
+                        EditAccountScreen(),
+                    AnagraphScreen.ROUTE_NAME: (BuildContext context) {
+                      final CurrentUser cu =
+                          ModalRoute.of(context).settings.arguments;
+                      return AnagraphScreen(cu);
+                    },
+                    LoginInfoScreen.ROUTE_NAME: (BuildContext context) {
+                      final CurrentUser cu =
+                          ModalRoute.of(context).settings.arguments;
+                      return LoginInfoScreen(cu);
+                    },
                     PollDetailsScreen.ROUTE_NAME: (BuildContext context) {
                       final PollDetailArguments arguments =
                           ModalRoute.of(context).settings.arguments;
@@ -73,7 +93,8 @@ class RousseauVoteApp extends StatelessWidget {
                           ModalRoute.of(context).settings.arguments;
                       return InAppBrowser(arguments);
                     },
-                    BlogInstantArticleScreen.ROUTE_NAME: (BuildContext context) {
+                    BlogInstantArticleScreen.ROUTE_NAME:
+                        (BuildContext context) {
                       final BlogInstantArticleArguments arguments =
                           ModalRoute.of(context).settings.arguments;
                       return BlogInstantArticleScreen(arguments);

@@ -58,7 +58,6 @@ String pollDetail = '''
   }
 ''';
 
-
 String currentUserShort = '''
   query currentUser {
    currentUser {
@@ -86,6 +85,9 @@ String currentUserFull = '''
     firstName
     fullName
     lastName
+    gender
+    placeOfBirth
+    dateOfBirth
     email
     codiceFiscale
     phoneNumber

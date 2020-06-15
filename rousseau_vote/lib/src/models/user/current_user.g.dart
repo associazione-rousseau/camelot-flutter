@@ -12,6 +12,14 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..fullName = json['fullName'] as String
     ..statusColor = json['statusColor'] as String
     ..slug = json['slug'] as String
+    ..gender = json['gender'] as String
+    ..placeOfBirth = json['placeOfBirth'] as String
+    ..dateOfBirth = json['dateOfBirth'] as String
+    ..firstName = json['firstName'] as String
+    ..lastName = json['lastName'] as String
+    ..codiceFiscale = json['codiceFiscale'] as String
+    ..phoneNumber = json['phoneNumber'] as String
+    ..email = json['email'] as String
     ..createdAt = json['createdAt'] == null
         ? null
         : DateTime.parse(json['createdAt'] as String)
@@ -33,4 +41,11 @@ Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
       'voteRightStartingCountDate':
           instance.voteRightStartingCountDate?.toIso8601String(),
       'profile': instance.profile,
+      'lastName': instance.lastName,
+      'firstName': instance.firstName,
+      'gender': instance.gender,
+      'placeOfBirth': instance.placeOfBirth,
+      'dateOfBirth': instance.dateOfBirth,
+      'codiceFiscale': instance.codiceFiscale,
+      'phoneNumber': instance.phoneNumber
     };

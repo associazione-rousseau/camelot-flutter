@@ -95,7 +95,7 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
     final Login login = Provider.of<Login>(context, listen: false);
     if (login.hasError()) {
       String errorMessage;
-      switch(login.errorState) {
+      switch (login.errorState) {
         case ErrorState.CREDENTIALS_ERROR:
           errorMessage = 'error-credentials';
           break;

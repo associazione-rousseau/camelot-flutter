@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 class RoundedTextField extends StatelessWidget {
-
   const RoundedTextField(
       {this.hintText,
-        this.obscureText = false,
-        this.enabled = true,
-        this.controller});
+      this.obscureText = false,
+      this.enabled = true,
+      this.controller});
 
   final String hintText;
   final bool obscureText;
