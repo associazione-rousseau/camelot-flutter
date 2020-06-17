@@ -7,3 +7,16 @@ String pollAnswerSubmit = '''
     }
   }
 ''';
+
+String userAccessDataUpdate =
+    '''mutation userAccessDataUpdate(\$user:UpdateAccessDataUserInput!){
+user{
+userAccessDataUpdate(user:\$user){
+errors
+user{
+email
+phoneNumber
+}
+}
+}
+}''';

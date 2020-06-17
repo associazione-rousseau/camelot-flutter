@@ -7,11 +7,11 @@ import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 
 void showRousseauSnackbar(BuildContext context,
-    GlobalKey<ScaffoldState> scaffoldState, String errorMessage) {
+    GlobalKey<ScaffoldState> scaffoldState, String message) {
   final SnackBar snackBar = SnackBar(
-    content: Text(RousseauLocalizations.getText(context, errorMessage)),
-    duration: const Duration(seconds: 5),
-  );
+      content: Text(RousseauLocalizations.getText(context, message)),
+      duration: const Duration(seconds: 5),
+      behavior: SnackBarBehavior.floating);
 
   scaffoldState.currentState.showSnackBar(snackBar);
 }
@@ -37,7 +37,8 @@ Function openUrlInternalAction(BuildContext context, String url) {
   };
 }
 
-void openBlogArticle(BuildContext context, BlogInstantArticleArguments arguments) {
+void openBlogArticle(
+    BuildContext context, BlogInstantArticleArguments arguments) {
   Navigator.of(context)
       .pushNamed(BlogInstantArticleScreen.ROUTE_NAME, arguments: arguments);
 }
@@ -53,7 +54,8 @@ Function openLinkAction(BuildContext context, BrowserArguments arguments) {
   };
 }
 
-void openRoute(BuildContext context, String route, {Object arguments, bool replace = false}) {
+void openRoute(BuildContext context, String route,
+    {Object arguments, bool replace = false}) {
   if (replace) {
     Navigator.of(context).pushReplacementNamed(route, arguments: arguments);
   } else {
@@ -61,7 +63,8 @@ void openRoute(BuildContext context, String route, {Object arguments, bool repla
   }
 }
 
-Function openRouteAction(BuildContext context, String route, {Object arguments, bool replace = false}) {
+Function openRouteAction(BuildContext context, String route,
+    {Object arguments, bool replace = false}) {
   return () {
     openRoute(context, route, arguments: arguments, replace: replace);
   };
@@ -71,6 +74,7 @@ BlogInstantArticleArguments getBlogInstantArticleArguments(String url) {
   final String slug = getArticleSlug(url);
   return BlogInstantArticleArguments(slug);
 }
+
 String getArticleSlug(String url) {
   // TODO remove
   return 'lapp-immuni-garantite-privacy-e-sicurezza-nuovo-strumento-nella-lotta-al-covid-19';

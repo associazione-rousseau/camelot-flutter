@@ -23,6 +23,7 @@
     "error-invalid-token": "Ops! Token non valido. Riprovare più tardi",
     "error-vote": "Qualcosa non va, assicurati di essere ancora in tempo per votare e riprova.",
 
+    "info-saved": "Informazioni salvate con successo",
     "poll-start": "Inizio",
     "poll-end": "Fine",
     "poll-info": "Approfondisci",

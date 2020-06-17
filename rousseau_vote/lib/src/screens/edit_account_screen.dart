@@ -3,7 +3,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_app_bar.dart';
-import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
@@ -24,8 +23,7 @@ class EditAccountScreen extends StatelessWidget {
         body: GraphqlQueryWidget<CurrentUser>(
           query: currentUserFull,
           builderSuccess: (CurrentUser currentUser) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            return ListView(
               children: <Widget>[
                 CardRow(
                     'Dati anagrafici', AnagraphScreen.ROUTE_NAME, currentUser),
@@ -57,15 +55,15 @@ class CardRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding: EdgeInsets.all(15.0),
-        child: GestureDetector(
-          onTap: () {
-            openRoute(context, route, arguments: arguments);
-          },
+    return GestureDetector(
+      onTap: () {
+        openRoute(context, route, arguments: arguments);
+      },
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
