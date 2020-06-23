@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/blog/blog_instant_article.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
-import 'package:rousseau_vote/src/widgets/blog/blog_instant_article_summary.dart';
+import 'package:rousseau_vote/src/widgets/blog/blog_instant_article_card.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 
 class BlogScreen extends StatefulWidget {
@@ -51,13 +51,14 @@ class _BlogScreenState extends State<BlogScreen> {
             _loadMore();
           }
         },
-        child: ListView.builder(
-          padding: const EdgeInsets.all(30),
+        child: ListView.separated(
+          separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 20),
+          padding: const EdgeInsets.all(20),
           itemCount: _instantArticles.length + 1,
           itemBuilder: (BuildContext context, int index) {
             return (index == _instantArticles.length)
                 ? const LoadingIndicator()
-                : BlogInstantArticleSummary(_instantArticles[index]);
+                : BlogInstantArticleCard(_instantArticles[index]);
           },
         ),
       ),
