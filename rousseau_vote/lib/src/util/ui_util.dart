@@ -25,7 +25,8 @@ String formatDate(BuildContext context, DateTime dateTime) {
 
 void openUrlInternal(BuildContext context, String url) {
   if (isBlogArticle(url)) {
-    openBlogArticle(context, getBlogInstantArticleArguments(url));
+    final String slug = getArticleSlug(url);
+    openBlogInstantArticle(context, slug);
   } else {
     openLink(context, BrowserArguments(url: url));
   }
@@ -37,7 +38,14 @@ Function openUrlInternalAction(BuildContext context, String url) {
   };
 }
 
-void openBlogArticle(BuildContext context, BlogInstantArticleArguments arguments) {
+Function openBlogInstantArticleAction(BuildContext context, String slug) {
+  return () {
+    openBlogInstantArticle(context, slug);
+  };
+}
+
+void openBlogInstantArticle(BuildContext context, String slug) {
+  final BlogInstantArticleArguments arguments = getBlogInstantArticleArguments(slug);
   Navigator.of(context)
       .pushNamed(BlogInstantArticleScreen.ROUTE_NAME, arguments: arguments);
 }
@@ -67,15 +75,17 @@ Function openRouteAction(BuildContext context, String route, {Object arguments, 
   };
 }
 
-BlogInstantArticleArguments getBlogInstantArticleArguments(String url) {
-  final String slug = getArticleSlug(url);
+BlogInstantArticleArguments getBlogInstantArticleArguments(String slug) {
   return BlogInstantArticleArguments(slug);
 }
+
 String getArticleSlug(String url) {
-  // TODO remove
-  return 'lapp-immuni-garantite-privacy-e-sicurezza-nuovo-strumento-nella-lotta-al-covid-19';
+  if (!isBlogArticle(url)) {
+    return null;
+  }
+  return url.substring(url.lastIndexOf('/') + 1);
 }
 
 bool isBlogArticle(String url) {
-  return url.startsWith("https://www.ilblogdellestelle.it/");
+  return url.startsWith('https://www.ilblogdellestelle.it/');
 }
