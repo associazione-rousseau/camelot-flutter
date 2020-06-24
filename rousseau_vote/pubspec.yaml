@@ -58,7 +58,7 @@ dev_dependencies:
     sdk: flutter
 
   retrofit_generator: ^1.0.2+2
-  build_runner: ^1.7.2
+  build_runner: ^1.10.0
 
   injectable_generator: ^0.3.5
 
