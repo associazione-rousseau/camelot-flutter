@@ -25,6 +25,7 @@ class BlogInstantArticleCard extends StatelessWidget {
           onTap: openBlogInstantArticleAction(context, _article.slug),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               ClipRRect(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(RADIUS)),
@@ -34,10 +35,14 @@ class BlogInstantArticleCard extends StatelessWidget {
                   errorWidget: (BuildContext context, String url, dynamic error) => BlogInstantArticlePlaceholder(),
                 ),
               ),
+              Row(
+                children: [
+                  Text(_article.author.name),
+                ],
+              ),
               ListTile(
-                  contentPadding: const EdgeInsets.only(top: 15.0, left: 15.0),
-                  title: Text(_article.title),
-                  subtitle: const Text('subtitle')
+                  contentPadding: const EdgeInsets.only(left: 15.0),
+                  title: Text(_article.title, style: const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Roboto '),),
               ),
           ]
     ),
