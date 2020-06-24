@@ -27,6 +27,7 @@ class BlogInstantArticleProvider extends NetworkChangeNotifier {
       return null;
     }
     _instantArticles.addAll(newArticles);
+    addInstantArticlesToCache(newArticles);
     doneLoading();
     return newArticles;
   }
@@ -53,6 +54,12 @@ class BlogInstantArticleProvider extends NetworkChangeNotifier {
 
   BlogInstantArticle getCachedInstantArticle(String slug) {
     return _instantArticleCache[slug];
+  }
+
+  void addInstantArticlesToCache(List<BlogInstantArticle> instantArticles) {
+    _instantArticles.forEach((BlogInstantArticle element) {
+      addInstantArticleToCache(element);
+    });
   }
 
   void addInstantArticleToCache(BlogInstantArticle instantArticle) {
