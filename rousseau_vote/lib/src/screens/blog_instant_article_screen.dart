@@ -1,14 +1,14 @@
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/models/arguments/blog_instant_article_arguments.dart';
 import 'package:rousseau_vote/src/models/blog/blog_instant_article.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
-import 'package:rousseau_vote/src/widgets/blog/blog_instant_article_widget.dart';
+import 'package:rousseau_vote/src/widgets/blog/blog_instant_article_placeholder.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 
 class BlogInstantArticleScreen extends StatefulWidget {
-
   const BlogInstantArticleScreen(this.arguments);
 
   final BlogInstantArticleArguments arguments;
@@ -16,25 +16,25 @@ class BlogInstantArticleScreen extends StatefulWidget {
   static const String ROUTE_NAME = '/blog_instant_article';
 
   @override
-  _BlogInstantArticleScreenState createState() => _BlogInstantArticleScreenState();
+  _BlogInstantArticleScreenState createState() =>
+      _BlogInstantArticleScreenState();
 }
 
 class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
-
   BlogInstantArticle _instantArticle;
   bool _loading;
   bool _error;
-
 
   @override
   void initState() {
     super.initState();
     _error = false;
 
-    final BlogInstantArticleProvider provider = Provider.of<BlogInstantArticleProvider>(context, listen: false);
+    final BlogInstantArticleProvider provider =
+        Provider.of<BlogInstantArticleProvider>(context, listen: false);
     _instantArticle = provider.getCachedInstantArticle(widget.arguments.slug);
 
-    if(_instantArticle == null) {
+    if (_instantArticle == null) {
       _loading = true;
       loadArticle();
     } else {
@@ -44,23 +44,50 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    return Container(
+      color: Colors.white,
+      child: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: 188,
+            flexibleSpace: FlexibleSpaceBar(
+              background: _instantArticle != null
+                  ? _articleCoverImage()
+                  : _articleCoverImagePlaceholder(),
+            ),
+          ),
+          SliverList(
+            delegate:
+                SliverChildBuilderDelegate((BuildContext context, int index) {
+              return _body();
+            }, childCount: 1),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _body() {
     if (_loading) {
-      return _loadingScreen();
+      return _articleLoadingWidget();
     }
     if (_error) {
-      return _errorScreen();
+      return _articleErrorWidget();
     }
-    if(_instantArticle != null) {
-      return _articleScreen();
+    if (_instantArticle != null) {
+      return _articleBodyWidget();
     }
-
-    return _errorScreen();
   }
 
   void loadArticle() {
-    final BlogInstantArticleProvider provider = Provider.of<BlogInstantArticleProvider>(context, listen: false);
-    final Future<BlogInstantArticle> future = provider.loadArticle(widget.arguments.slug);
-    future.then((BlogInstantArticle article) => _onResults(article))
+    final BlogInstantArticleProvider provider =
+        Provider.of<BlogInstantArticleProvider>(context, listen: false);
+    final Future<BlogInstantArticle> future =
+        provider.loadArticle(widget.arguments.slug);
+    future
+        .then((BlogInstantArticle article) => _onResults(article))
         .catchError((Object error) => _onError(error));
   }
 
@@ -79,15 +106,36 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
     });
   }
 
-  Widget _articleScreen() {
-    return BlogInstantArticleWidget(_instantArticle);
+  Widget _articleBodyWidget() {
+    return Text(_instantArticle.text);
   }
 
-  Widget _errorScreen() {
-    return const Text("Error");
+  Widget _articleLoadingWidget() {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const <Widget>[
+            SizedBox(height: 100),
+            LoadingIndicator()
+        ]
+    );
   }
 
-  Widget _loadingScreen() {
-    return const LoadingIndicator();
+  Widget _articleErrorWidget() {
+    // TODO implement it
+    return const Text('Error');
+  }
+
+  Widget _articleCoverImage() {
+    return CachedNetworkImage(
+      imageUrl: _instantArticle.image,
+      placeholder: (BuildContext context, String url) =>
+          BlogInstantArticlePlaceholder(),
+      errorWidget: (BuildContext context, String url, dynamic error) =>
+          BlogInstantArticlePlaceholder(),
+    );
+  }
+
+  Widget _articleCoverImagePlaceholder() {
+    return BlogInstantArticlePlaceholder();
   }
 }
