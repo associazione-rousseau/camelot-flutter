@@ -10,4 +10,5 @@ class Author {
   Map<String, dynamic> toJson() => _$AuthorToJson(this);
 
   String name;
+  String avatar;
 }
