@@ -26,14 +26,12 @@ class _BlogScreenState extends State<BlogScreen> {
   void initState() {
     super.initState();
     _error = false;
+    _loading = false;
 
     final BlogInstantArticleProvider provider = Provider.of<BlogInstantArticleProvider>(context, listen: false);
     _instantArticles = provider.getInstantArticles();
     if (_instantArticles.isEmpty) {
-      _loading = true;
       _loadArticles();
-    } else {
-      _loading = false;
     }
   }
 
@@ -66,6 +64,10 @@ class _BlogScreenState extends State<BlogScreen> {
   }
 
   void _loadArticles() {
+    if (_loading) {
+      return;
+    }
+    _loading = true;
     final BlogInstantArticleProvider provider = Provider.of<BlogInstantArticleProvider>(context, listen: false);
     final Future<List<BlogInstantArticle>> future = provider.loadMoreInstantArticles();
     future.then((List<BlogInstantArticle> articles) => _onResults(articles))
@@ -81,7 +83,6 @@ class _BlogScreenState extends State<BlogScreen> {
 
   void _onResults(List<BlogInstantArticle> instantArticles) {
     setState(() {
-      _instantArticles.addAll(instantArticles);
       _error = false;
       _loading = false;
     });

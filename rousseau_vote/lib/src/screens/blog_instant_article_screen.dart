@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/models/arguments/blog_instant_article_arguments.dart';
 import 'package:rousseau_vote/src/models/blog/blog_instant_article.dart';
@@ -107,7 +108,7 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
   }
 
   Widget _articleBodyWidget() {
-    return Text(_instantArticle.text);
+    return Html(data: _instantArticle.text);
   }
 
   Widget _articleLoadingWidget() {
