@@ -1,2 +1,2 @@
-secrets/** filter=git-crypt diff=git-crypt
+rousseau_vote/assets/secrets/** filter=git-crypt diff=git-crypt
 
