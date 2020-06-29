@@ -45,7 +45,6 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       color: Colors.white,
       child: CustomScrollView(
@@ -108,17 +107,33 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
   }
 
   Widget _articleBodyWidget() {
-    return Html(data: _instantArticle.text);
+    return Card(
+      child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            ListTile(
+              contentPadding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
+              title: Text(
+                _instantArticle.title,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: 20, fontFamily: 'Roboto '),
+              ),
+              subtitle: Text('DI ' + _instantArticle.author.name.toUpperCase()),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+              child:
+                  Html(data: _instantArticle.text),
+              ),
+          ]),
+    );
   }
 
   Widget _articleLoadingWidget() {
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const <Widget>[
-            SizedBox(height: 100),
-            LoadingIndicator()
-        ]
-    );
+        children: const <Widget>[SizedBox(height: 100), LoadingIndicator()]);
   }
 
   Widget _articleErrorWidget() {
