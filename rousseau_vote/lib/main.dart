@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:rousseau_vote/src/error_reporting/error_logger.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/models/arguments/blog_instant_article_arguments.dart';
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
@@ -21,10 +24,17 @@ import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/register_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   configure();
 
-  runApp(RousseauVoteApp());
+  final ErrorLogger errorLogger = await getIt.getAsync();
+
+  runZonedGuarded<Future<void>>(() async {
+    runApp(RousseauVoteApp());
+  }, (Object error, StackTrace stackTrace) {
+    errorLogger.reportError(error, stackTrace);
+  });
 }
 
 class RousseauVoteApp extends StatelessWidget {

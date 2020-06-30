@@ -8,6 +8,7 @@ import 'package:rousseau_vote/src/network/handlers/blog_instant_article_network_
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:rousseau_vote/src/injection/register_module.dart';
+import 'package:rousseau_vote/src/error_reporting/error_logger.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -23,6 +24,7 @@ import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
   final registerModule = _$RegisterModule();
+  g.registerFactoryAsync<ErrorLogger>(() => ErrorLogger.create());
   g.registerFactoryParam<GraphQLClient, BuildContext, dynamic>(
       (buildContext, _) => registerModule.getGraphQLClient(buildContext));
   g.registerFactory<StartupInitializer>(
