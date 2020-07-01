@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/widgets.dart';
 
 abstract class NetworkChangeNotifier extends ChangeNotifier {
@@ -30,7 +28,7 @@ abstract class NetworkChangeNotifier extends ChangeNotifier {
   void startLoading() {
     _moveToState(LoadingState.LOADING);
   }
-  
+
   void doneLoading() {
     _moveToState(LoadingState.LOADED);
   }
@@ -43,12 +41,6 @@ abstract class NetworkChangeNotifier extends ChangeNotifier {
   }
 }
 
-enum LoadingState {
-  LOADING,
-  LOADED
-}
+enum LoadingState { LOADING, LOADED }
 
-enum ErrorState {
-  NO_ERRORS,
-  GENERIC_ERROR
-}
+enum ErrorState { NO_ERRORS, GENERIC_ERROR }

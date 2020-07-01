@@ -9,6 +9,7 @@ import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/screens/account/anagraph_screen.dart';
 import 'package:rousseau_vote/src/screens/account/login_info_screen.dart';
+import 'package:rousseau_vote/src/screens/account/residence_screen.dart';
 
 class EditAccountScreen extends StatelessWidget {
   const EditAccountScreen();
@@ -29,7 +30,8 @@ class EditAccountScreen extends StatelessWidget {
                     'Dati anagrafici', AnagraphScreen.ROUTE_NAME, currentUser),
                 CardRow('Informazioni di login', LoginInfoScreen.ROUTE_NAME,
                     currentUser),
-//                CardRow('Informazioni di residenza', AnagraphScreen.ROUTE_NAME),
+                CardRow('Informazioni di residenza', ResidenceScreen.ROUTE_NAME,
+                    currentUser),
 //                CardRow(
 //                    'Preferenze notifiche email', AnagraphScreen.ROUTE_NAME),
 //                CardRow('Cancella iscrizione', AnagraphScreen.ROUTE_NAME),

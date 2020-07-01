@@ -14,6 +14,7 @@ import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:rousseau_vote/src/screens/account/login_info_screen.dart';
+import 'package:rousseau_vote/src/screens/account/residence_screen.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 import 'package:rousseau_vote/src/screens/init_screen.dart';
@@ -82,6 +83,11 @@ class RousseauVoteApp extends StatelessWidget {
                       final CurrentUser cu =
                           ModalRoute.of(context).settings.arguments;
                       return LoginInfoScreen(cu);
+                    },
+                    ResidenceScreen.ROUTE_NAME: (BuildContext context) {
+                      final CurrentUser cu =
+                          ModalRoute.of(context).settings.arguments;
+                      return ResidenceScreen(cu);
                     },
                     PollDetailsScreen.ROUTE_NAME: (BuildContext context) {
                       final PollDetailArguments arguments =
