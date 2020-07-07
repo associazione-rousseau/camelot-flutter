@@ -7,6 +7,7 @@ import 'package:rousseau_vote/src/models/arguments/blog_instant_article_argument
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void showRousseauSnackbar(BuildContext context,
     GlobalKey<ScaffoldState> scaffoldState, String errorMessage) {
@@ -23,6 +24,20 @@ String formatDate(BuildContext context, DateTime dateTime) {
       .addPattern(" '-' ")
       .add_jm()
       .format(dateTime);
+}
+
+Future<void> openUrlExternal(BuildContext context, String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+Function openUrlExternalAction(BuildContext context, String url) {
+  return () {
+    openUrlExternal(context, url);
+  };
 }
 
 Future<void> openUrlInternal(BuildContext context, String url) async {

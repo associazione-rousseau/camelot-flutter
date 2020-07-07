@@ -40,13 +40,13 @@ class RousseauDrawer extends StatelessWidget {
           DrawerItem(
             textKey: 'drawer-support',
             iconData: Icons.favorite,
-            onTap: openUrlInternalAction(context, SUPPORT_LINK),
+            onTap: openUrlExternalAction(context, SUPPORT_LINK),
           ),
           const Divider(height: 3),
           DrawerItem(
             textKey: 'drawer-other-functionalities',
             iconData: Icons.devices,
-            onTap: openUrlInternalAction(context, ROUSSEAU_WEB_LINK),
+            onTap: openUrlExternalAction(context, ROUSSEAU_WEB_LINK),
           ),
           DrawerItem(
             textKey: 'drawer-blog',
