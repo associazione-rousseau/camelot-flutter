@@ -30,6 +30,11 @@ dependencies:
 
   sentry: ">=3.0.0 <4.0.0"
 
+  # Firebase (notifications and analytics)
+  firebase_core: ^0.4.5
+  firebase_messaging: ^6.0.16
+  firebase_analytics: ^5.0.16
+
   # UI
   pinput: ^0.1.10
   webview_flutter: ^0.3.16

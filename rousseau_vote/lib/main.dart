@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
@@ -72,6 +74,9 @@ class RousseauVoteApp extends StatelessWidget {
                       fontFamily: 'Poppins',
                       primarySwatch: Colors.red,
                       primaryColor: PRIMARY_RED),
+                  navigatorObservers: [
+                    FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
+                  ],
                   localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
                     RousseauLocalizations.delegate,
                     GlobalMaterialLocalizations.delegate,
