@@ -20,7 +20,7 @@ class BlogInstantArticleCard extends StatelessWidget {
 //        side: BorderSide(width: 0.5, color: statusColor)),)
       elevation: 5,
       child: InkWell(
-        onTap: openBlogInstantArticleAction(context, _article.slug),
+        onTap: openBlogInstantArticleAction(context, _article.url, _article.slug),
         child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -44,7 +44,7 @@ Future<void> openUrlInternal(BuildContext context, String url) async {
   url = await resolveUrl(url);
   if (isBlogArticle(url)) {
     final String slug = getArticleSlug(url);
-    openBlogInstantArticle(context, slug);
+    openBlogInstantArticle(context, url, slug);
   } else {
     openLink(context, BrowserArguments(url: url));
   }
@@ -56,16 +56,20 @@ Function openUrlInternalAction(BuildContext context, String url) {
   };
 }
 
-Function openBlogInstantArticleAction(BuildContext context, String slug) {
+Function openBlogInstantArticleAction(BuildContext context, String url, String slug) {
   return () {
-    openBlogInstantArticle(context, slug);
+    openBlogInstantArticle(context, url, slug);
   };
 }
 
-void openBlogInstantArticle(BuildContext context, String slug) {
-  final BlogInstantArticleArguments arguments = getBlogInstantArticleArguments(slug);
+void openBlogInstantArticle(BuildContext context, String url, String slug) {
+  final BlogInstantArticleArguments arguments = getBlogInstantArticleArguments(url, slug);
   Navigator.of(context)
       .pushNamed(BlogInstantArticleScreen.ROUTE_NAME, arguments: arguments);
+}
+
+void goBack(BuildContext context) {
+  Navigator.of(context).pop();
 }
 
 void openLink(BuildContext context, BrowserArguments arguments) {
@@ -93,8 +97,8 @@ Function openRouteAction(BuildContext context, String route, {Object arguments, 
   };
 }
 
-BlogInstantArticleArguments getBlogInstantArticleArguments(String slug) {
-  return BlogInstantArticleArguments(slug);
+BlogInstantArticleArguments getBlogInstantArticleArguments(String url, String slug) {
+  return BlogInstantArticleArguments(url, slug);
 }
 
 String getArticleSlug(String url) {

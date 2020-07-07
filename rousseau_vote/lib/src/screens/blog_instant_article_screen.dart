@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/models/arguments/blog_instant_article_arguments.dart';
 import 'package:rousseau_vote/src/models/blog/blog_instant_article.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/blog/blog_instant_article_placeholder.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 
@@ -92,10 +93,8 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
   }
 
   void _onError(Object error) {
-    setState(() {
-      _error = true;
-      _loading = false;
-    });
+    openUrlExternal(context, widget.arguments.url);
+    goBack(context);
   }
 
   void _onResults(BlogInstantArticle instantArticle) {
