@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
+import 'package:rousseau_vote/src/models/badge.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
+import 'package:rousseau_vote/src/widgets/user/badge_slider.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 
 class PollEntityDetail extends StatefulWidget {
 
@@ -51,14 +54,19 @@ class _PollEntityDetailState extends State<PollEntityDetail> {
         customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         child: Padding(
           padding: const EdgeInsets.all(15),
-          child: ListTile(
-            leading: ProfilePicture(_option.entity.getProfilePictureUrl()),
-            title: Text(
-              _option.entity.fullName,
-              style: const TextStyle(fontSize: 16),
-              textAlign: TextAlign.justify,
-            ),
-            trailing: active ? Icon(Icons.brightness_1, color: PRIMARY_RED) : null
+          child: Column(
+            children: <Widget>[
+              ListTile(
+                leading: ProfilePicture(_option.entity.getProfilePictureUrl()),
+                title: Text(
+                  _option.entity.fullName,
+                  style: const TextStyle(fontSize: 16),
+                  textAlign: TextAlign.justify,
+                ),
+                trailing: active ? Icon(Icons.brightness_1, color: PRIMARY_RED) : null
+              ),
+              BadgeSlider(badges: _option.entity.badges)
+            ],
           )
         ),
         onTap: () => isDisabled() ? showMessage(context) : doSelect(),

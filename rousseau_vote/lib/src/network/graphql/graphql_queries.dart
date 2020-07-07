@@ -50,6 +50,11 @@ String pollDetail = '''
                   originalUrl
                 }
               }
+              badges {
+                code
+                active
+                name
+              }
             }
           }
         }

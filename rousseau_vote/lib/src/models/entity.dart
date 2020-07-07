@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rousseau_vote/src/models/user/profile.dart';
+import 'package:rousseau_vote/src/models/badge.dart';
 
 part 'entity.g.dart';
 
@@ -14,6 +15,7 @@ class Entity {
   String fullName;
   String slug;
   Profile profile;
+  List<Badge> badges;
 
   String getProfilePictureUrl() {
     if(profile == null || profile.picture == null) {
