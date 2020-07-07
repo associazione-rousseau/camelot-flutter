@@ -11,11 +11,11 @@ class ErrorLogger {
   final SentryClient _sentryClient;
 
   bool isEnabled() {
-    return _sentryClient != null;
+    return !isInDebugMode && _sentryClient != null;
   }
 
   void reportError(dynamic error, StackTrace stackTrace) {
-    if (isInDebugMode || _sentryClient == null) {
+    if (!isEnabled()) {
       print(stackTrace);
     } else {
       // Send the Exception and Stacktrace to Sentry in Production mode.

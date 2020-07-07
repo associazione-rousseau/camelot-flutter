@@ -30,11 +30,27 @@ Future<void> main() async {
 
   final ErrorLogger errorLogger = await getIt.getAsync();
 
+  if (errorLogger.isEnabled()) {
+    runAppCatchingErrors(errorLogger);
+  } else {
+    runAppDefault();
+  }
+}
+
+void runAppCatchingErrors(ErrorLogger errorLogger) {
+  FlutterError.onError = (FlutterErrorDetails details) async {
+    Zone.current.handleUncaughtError(details.exception, details.stack);
+  };
+
   runZonedGuarded<Future<void>>(() async {
     runApp(RousseauVoteApp());
   }, (Object error, StackTrace stackTrace) {
     errorLogger.reportError(error, stackTrace);
   });
+}
+
+void runAppDefault() {
+  runApp(RousseauVoteApp());
 }
 
 class RousseauVoteApp extends StatelessWidget {
