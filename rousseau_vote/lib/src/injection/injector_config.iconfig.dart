@@ -10,10 +10,12 @@ import 'package:dio/dio.dart';
 import 'package:rousseau_vote/src/injection/register_module.dart';
 import 'package:rousseau_vote/src/error_reporting/error_logger.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:graphql/client.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
+import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
 import 'package:rousseau_vote/src/network/graphql/smart_cache.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
@@ -25,6 +27,7 @@ import 'package:get_it/get_it.dart';
 void $initGetIt(GetIt g, {String environment}) {
   final registerModule = _$RegisterModule();
   g.registerFactoryAsync<ErrorLogger>(() => ErrorLogger.create());
+  g.registerFactory<FirebaseMessaging>(() => registerModule.firebaseMessaging);
   g.registerFactoryParam<GraphQLClient, BuildContext, dynamic>(
       (buildContext, _) => registerModule.getGraphQLClient(buildContext));
   g.registerFactory<StartupInitializer>(
@@ -44,11 +47,17 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerSingleton<FlutterSecureStorage>(
       registerModule.flutterSecureStorage);
   g.registerSingleton<LoginNetworkHandler>(LoginNetworkHandler(g<Dio>()));
+  g.registerSingleton<PushNotificationManager>(
+      PushNotificationManager(g<FirebaseMessaging>()));
   g.registerSingleton<SecureStorage>(SecureStorage(g<FlutterSecureStorage>()));
   g.registerSingleton<SmartCache>(registerModule.smartCache);
   g.registerSingleton<TokenStore>(
       TokenStore(g<SecureStorage>(), g<LoginNetworkHandler>()));
-  g.registerSingleton<Login>(Login(g<LoginNetworkHandler>(), g<TokenStore>()));
+  g.registerSingleton<Login>(Login(
+    g<LoginNetworkHandler>(),
+    g<TokenStore>(),
+    g<PushNotificationManager>(),
+  ));
 }
 
 class _$RegisterModule extends RegisterModule {

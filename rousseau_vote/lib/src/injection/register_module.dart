@@ -4,6 +4,7 @@ import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/native_imp.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -30,6 +31,8 @@ abstract class RegisterModule {
 
   @singleton
   SmartCache get smartCache => SmartCache();
+
+  FirebaseMessaging get firebaseMessaging => FirebaseMessaging();
 
   GraphQLClient getGraphQLClient(@factoryParam BuildContext buildContext) {
     final HttpLink httpLink = HttpLink(
