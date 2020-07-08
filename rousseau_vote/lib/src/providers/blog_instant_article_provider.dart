@@ -20,7 +20,7 @@ class BlogInstantArticleProvider extends NetworkChangeNotifier {
   }
 
   Future<List<BlogInstantArticle>> loadMoreInstantArticles() async {
-    startLoading();
+    startLoading(notify: false);
     final List<BlogInstantArticle> newArticles = await _networkHandler.getPosts(_instantArticles.length);
     if (newArticles == null || newArticles.isEmpty) {
       setError();
