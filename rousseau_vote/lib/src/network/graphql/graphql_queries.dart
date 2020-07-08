@@ -46,6 +46,11 @@ String pollDetail = '''
               slug
               fullName
               profile {
+                age
+                placeOfResidence {
+                  comuneName
+                  provinciaName
+                }
                 picture {
                   originalUrl
                 }

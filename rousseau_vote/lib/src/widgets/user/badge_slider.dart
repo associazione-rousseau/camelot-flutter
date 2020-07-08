@@ -11,22 +11,22 @@ class BadgeSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 81,
+      height: 71,
       child: Row(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(right: 4),
+            padding: const EdgeInsets.only(right: 8, left:4,bottom:10),
             child: Text.rich(
              TextSpan(
                 text: badges.length.toString(),
                 style: TextStyle(
-                  fontSize: 36,
+                  fontSize: 30,
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
                 ),
                 children: <TextSpan>[
                   TextSpan(
-                    text: '\nMeriti:'.toUpperCase(),
+                    text: '\nMeriti'.toUpperCase(),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 12,  
@@ -43,17 +43,19 @@ class BadgeSlider extends StatelessWidget {
           Expanded(
               child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.only(bottom: 10),
               itemCount: badges.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
                   child: Chip(
                     label: Text(
-                      RousseauLocalizations.getText(context, badges[index].name,),
-                      style: TextStyle(color: Colors.white),
+                      RousseauLocalizations.getText(context, badges[index].name).toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
                     ),
-                    backgroundColor: PRIMARY_RED,
+                    backgroundColor: Colors.white,
                   ),
                 );
               }

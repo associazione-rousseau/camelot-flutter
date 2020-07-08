@@ -11,6 +11,7 @@ import 'package:rousseau_vote/src/widgets/error_dialog.dart';
 import 'package:rousseau_vote/src/widgets/poll_entity_detail.dart';
 import 'package:rousseau_vote/src/widgets/poll_text_detail.dart';
 import 'package:rousseau_vote/src/widgets/vote_dialog.dart';
+import 'package:rousseau_vote/src/widgets/rounded_text_field.dart';
 
 class PollDetailsBodyContent extends StatefulWidget {
   
@@ -25,13 +26,16 @@ class PollDetailsBodyContent extends StatefulWidget {
 
 }
 
+
 class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
 
   _PollDetailsBodyContentState(this._poll);
 
   final Poll _poll;
   List<Option> selected = <Option>[];
-
+  List<Option> filteredOptions = <Option>[];
+  TextEditingController _entityFilterController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,8 +45,8 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
           padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
           child: Text(
             _poll.title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            textAlign: TextAlign.center,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            textAlign: TextAlign.left,
           ),
         ),
         const SizedBox(height: 10),
@@ -55,9 +59,17 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
           ),
         ),
         const SizedBox(height: 10),
+        _poll.optionType == 'ENTITY' ? 
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10, left:10, right:10),
+            child: TextField(
+              controller: _entityFilterController, 
+              enabled: true,
+            ),
+          ): null,
         Expanded(
           child: ListView.builder(
-            itemCount: _poll.options.length,
+            itemCount: filteredOptions.length,
             itemBuilder: (BuildContext context, int position) {
               return getOption(position);
             },
@@ -70,6 +82,13 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
         const SizedBox(height: 10),
       ],
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    filterCandidates();
+    _entityFilterController.addListener(filterCandidates);
   }
 
   Text getPreferencesText(BuildContext context) {
@@ -134,8 +153,11 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
 
   Widget getOption(int index) {
     if (_poll.optionType == 'ENTITY') {
+      print('inside get option for index' + index.toString());
+      print(filteredOptions[index].entity.fullName);
+
       return PollEntityDetail(
-        _poll.options[index],
+        filteredOptions[index],
         _poll.alreadyVoted || selected.length >= _poll.maxSelectableOptionsNumber, 
         _toggle,
         selected,
@@ -217,6 +239,16 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
       PollsScreen.ROUTE_NAME,
       replace: true
     );
+  }
+
+  void filterCandidates(){
+    setState(() {
+      filteredOptions = List.from(filteredOptions);
+      filteredOptions = _poll.options.where(
+        (o){ 
+          return o.entity.fullName.toLowerCase().contains(_entityFilterController.text.toLowerCase());
+        }).toList();
+    });
   }
 
 }
