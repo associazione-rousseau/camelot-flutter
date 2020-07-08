@@ -5,15 +5,20 @@ import 'package:flutter/material.dart';
 
 class ProfilePicture extends StatelessWidget {
 
-  const ProfilePicture(this.url);
+  const ProfilePicture(this.uri);
 
-  final String url;
+  final String uri;
 
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      backgroundImage:  CachedNetworkImageProvider(url),
+      backgroundImage:  _imageProvider(uri),
     );
   }
 
+  ImageProvider _imageProvider(String uri) {
+    return uri.startsWith('http') ?
+      CachedNetworkImageProvider(uri) :
+      AssetImage(uri);
+  }
 }

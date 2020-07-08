@@ -23,7 +23,7 @@ class Login with ChangeNotifier {
     final LoginState loginState = _tokenStore.hasValidToken()
         ? LoginState.LOGGED_IN
         : LoginState.LOGGED_OUT;
-    _moveToState(loginState: loginState, errorState: ErrorState.NO_ERRORS);
+    _moveToState(loginState: loginState, errorState: ErrorState.NO_ERRORS, shouldNotifyListeners: false);
   }
 
   void _moveToState(
