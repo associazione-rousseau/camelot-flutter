@@ -31,7 +31,7 @@ class PushNotificationManager {
   void onLogout() {
     _currentToken = null;
     _firebaseMessaging.deleteInstanceID();
-    // TODO Unregister token
+    // TODO Unregister token with backend
   }
 
   Future<void> _registerToken(String userId) async {
@@ -39,18 +39,8 @@ class PushNotificationManager {
 
     // Save it to Firestore
     if (_currentToken != null) {
+      // TODO register token with backend
       print('Registering: $userId');
-//      final DocumentReference tokens = Firestore.instance
-//          .collection('users')
-//          .document(userId)
-//          .collection('tokens')
-//          .document(_currentToken);
-//
-//      await tokens.setData(<String, dynamic>{
-//        'token': _currentToken,
-//        'createdAt': FieldValue.serverTimestamp(),
-//        'platform': Platform.operatingSystem
-//      });
     }
   }
 }
