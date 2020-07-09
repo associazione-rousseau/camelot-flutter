@@ -153,15 +153,13 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
 
   Widget getOption(int index) {
     if (_poll.optionType == 'ENTITY') {
-      print('inside get option for index' + index.toString());
-      print(filteredOptions[index].entity.fullName);
-
       return PollEntityDetail(
         filteredOptions[index],
         _poll.alreadyVoted || selected.length >= _poll.maxSelectableOptionsNumber, 
         _toggle,
         selected,
-        _poll.maxSelectableOptionsNumber
+        _poll.maxSelectableOptionsNumber,
+        selected.where((Option element) => element.entity.slug == filteredOptions[index].entity.slug).isNotEmpty
       );
     } else {
       return PollTextDetail(

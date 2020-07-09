@@ -9,14 +9,15 @@ import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/config/links.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 
-class PollEntityDetail extends StatefulWidget {
+class PollEntityDetail extends StatelessWidget {
 
   const PollEntityDetail(
     this._option, 
     this._disabled, 
     this._toggle,
     this._selected,
-    this._number
+    this._number,
+    this._active
   );
 
   final Option _option;
@@ -25,24 +26,7 @@ class PollEntityDetail extends StatefulWidget {
   final List<Option> _selected;
   final int _number;
 
-  @override
-  State<StatefulWidget> createState() {
-    return _PollEntityDetailState(_option, _disabled, _toggle, _selected, _number);
-  }
-
-}
-
-class _PollEntityDetailState extends State<PollEntityDetail> {
-
-  _PollEntityDetailState(this._option, this._disabled, this._toggle, this._selected, this._number);
-
-  final Option _option;
-  final bool _disabled;
-  final Function _toggle;
-  final List<Option> _selected;
-  final int _number;
-
-  bool active = false;
+  final bool _active;
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +86,7 @@ class _PollEntityDetailState extends State<PollEntityDetail> {
                       ),
                     ),
                   ),
-                  active ? Padding(
+                  _active ? Padding(
                     padding: EdgeInsets.only(right:15, top:15),
                     child: Icon(Icons.brightness_1, color: PRIMARY_RED),
                     ) : Text(''),
@@ -120,11 +104,10 @@ class _PollEntityDetailState extends State<PollEntityDetail> {
   }
 
   bool isDisabled() {
-    return !active && (_disabled || _selected.length >= _number);
+    return !_active && (_disabled || _selected.length >= _number);
   }
 
   void doSelect() {
-    setState(() { active = !active; });
     _toggle(_option);
   }
 
