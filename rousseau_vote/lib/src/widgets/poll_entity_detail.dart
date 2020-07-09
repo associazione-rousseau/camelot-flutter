@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
 import 'package:rousseau_vote/src/widgets/user/badge_slider.dart';
@@ -30,7 +31,10 @@ class PollEntityDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     print(_option.entity.fullName);
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+        side: _active ? BorderSide(color: PRIMARY_RED, width: 4.0) : BorderSide.none
+      ),
       elevation: 5,
       child: InkWell(
         highlightColor: isDisabled() ? Colors.transparent : null,

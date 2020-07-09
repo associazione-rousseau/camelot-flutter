@@ -33,13 +33,22 @@ class PollEntityInfoRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[ 
-                Text(
-                  _entity.fullName,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                  ),
-                  textAlign: TextAlign.justify,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      _entity.fullName,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
+                    _active ? 
+                      // padding: EdgeInsets.only(right:15, top:15),
+                      Icon(Icons.brightness_1, size: 24 , color: PRIMARY_RED
+                    ) : Container(),
+                  ],
                 ),
                 Row(
                   children: <Widget>[
@@ -63,10 +72,6 @@ class PollEntityInfoRow extends StatelessWidget {
             ),
           ),
         ),
-        _active ? Padding(
-          padding: EdgeInsets.only(right:15, top:15),
-          child: Icon(Icons.brightness_1, color: PRIMARY_RED),
-          ) : Text(''),
       ]
     );
   }
