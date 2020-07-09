@@ -22,7 +22,7 @@ jobs:
       working-directory: ./rousseau_vote
       run: flutter pub get
     - name: Unlock secrets
-      uses: sliteteam/github-action-git-crypt-unlock@1.0.2
+      run: sudo apt-get install -y git-crypt
       env:
         GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_PRIVATE_KEY }}
     - name: Testing
