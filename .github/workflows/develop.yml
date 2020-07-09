@@ -17,4 +17,3 @@ jobs:
         flutter-version: '1.17.5'
     - run: flutter pub get
     - run: flutter test
-    - run: flutter build appbundle --obfuscate --split-debug-info=/tmp/
