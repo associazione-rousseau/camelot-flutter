@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
 import 'package:rousseau_vote/src/widgets/user/badge_slider.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
-import 'package:rousseau_vote/src/util/ui_util.dart';
-import 'package:rousseau_vote/src/config/links.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+import 'package:rousseau_vote/src/widgets/user/poll_entity_info_row.dart';
 
 class PollEntityDetail extends StatelessWidget {
 
@@ -40,58 +38,7 @@ class PollEntityDetail extends StatelessWidget {
         customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
           child: Column(
             children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[ 
-                  SizedBox(
-                    width: 80,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
-                      child:Image.network(_option.entity.getProfilePictureUrl()),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 15,right:15, top:10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[ 
-                          Text(
-                            _option.entity.fullName,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                            ),
-                            textAlign: TextAlign.justify,
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Text(
-                                _option.entity.profile.age.toString() + ' anni, ' + 
-                                (_option.entity.profile.placeOfResidence != null && _option.entity.profile.placeOfResidence.comuneName != null ? _option.entity.profile.placeOfResidence.comuneName : '')
-                              ),
-                              FlatButton(
-                                child: Text(
-                                  RousseauLocalizations.getText(context, 'view_profile').toUpperCase(),
-                                  style: TextStyle(
-                                    color: PRIMARY_RED,
-                                    fontWeight: FontWeight.w600
-                                  )
-                                ),
-                                onPressed: openUrlInternalAction(context, ROUSSEAU_WEB_LINK + 'profiles/' + _option.entity.slug),
-                              ),
-                            ],
-                          )
-                        ]
-                      ),
-                    ),
-                  ),
-                  _active ? Padding(
-                    padding: EdgeInsets.only(right:15, top:15),
-                    child: Icon(Icons.brightness_1, color: PRIMARY_RED),
-                    ) : Text(''),
-                ]
-              ),
+              PollEntityInfoRow(_active, _option.entity),
               Padding(
                 padding: const EdgeInsets.only(left: 15),
                 child: BadgeSlider(badges: _option.entity.badges)
