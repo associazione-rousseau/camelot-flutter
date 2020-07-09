@@ -9,12 +9,13 @@ import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
 
 class VoteDialog extends StatelessWidget {
 
-  const VoteDialog(this._options, this._pollId, this._error, this._done);
+  const VoteDialog(this._options, this._pollId, this._error, this._done, this._optionType);
 
   final String _pollId;
   final List<Option> _options;
   final Function _error;
   final Function _done;
+  final String _optionType;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,9 @@ class VoteDialog extends StatelessWidget {
           const SizedBox(width: 10),
           Icon(Icons.radio_button_checked),
           const SizedBox(width: 10),
-          Text(option.text, style: const TextStyle(fontWeight: FontWeight.bold))
+          Text(
+            _optionType == 'ENTITY' ? option.entity.fullName : option.text, 
+            style: const TextStyle(fontWeight: FontWeight.bold))
         ]),
         const SizedBox(height: 10),
         Text(RousseauLocalizations.getText(context, 'vote-content-2'))

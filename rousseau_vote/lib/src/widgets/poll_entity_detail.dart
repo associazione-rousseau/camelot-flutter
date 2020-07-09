@@ -29,7 +29,6 @@ class PollEntityDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(_option.entity.fullName);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),

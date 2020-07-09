@@ -104,7 +104,8 @@ class VoteBar extends StatelessWidget {
           _selected, 
           _poll.slug,
           showError,
-          showDone
+          showDone,
+          _poll.optionType
         );
       }
     );
