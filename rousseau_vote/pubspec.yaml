@@ -86,6 +86,8 @@ flutter:
   assets:
     - l10n/it.json
     - assets/images/
+    - assets/merits/
+
 
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg

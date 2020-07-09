@@ -44,9 +44,10 @@
     "vote-limit": "Hai già selezionato il numero massimo di opzioni consentite per questa votazione",
     "vote-complete": "Il tuo voto è stato acquisito correttamente",
 
-    "vote-preferences-1": "Hai ",
+    "vote-preferences-1": "Hai ancora ",
     "vote-preferences-2s": " preferenza a disposizione",
     "vote-preferences-2p": " preferenze a disposizione",
+    "vote-preferences-done": "Hai espresso le preferenze a disposizione.",
 
     "vote-content-1s": "Stai per votare la seguente opzione:",
     "vote-content-1p": "Stai per votare le seguenti opzioni:",
@@ -81,5 +82,6 @@
     "elearnign_student": "Studente Elearning",
     "community_leader": "Portavoce",
 
-    "view_profile": "Vedi Profilo"
+    "view_profile": "Vedi Profilo",
+    "vote-search-candidate": "Ricerca candidato"
 }
