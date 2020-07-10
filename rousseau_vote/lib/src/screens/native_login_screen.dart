@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+import 'package:rousseau_vote/src/network/util/open_id_util.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
@@ -84,7 +85,7 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
                 color: Theme.of(context).primaryColor,
               ),
             ),
-            onPressed: () {},
+            onPressed: openUrlExternalAction(context, generateRegisterUrl()),
           )
         ],
       ),
