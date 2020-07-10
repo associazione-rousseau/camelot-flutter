@@ -94,6 +94,12 @@ String currentUserFull = '''
     voteRightStartingCountDate
     verified
     createdAt
+    noLocalEventsEmail
+    noNationalEventsEmail
+    noNewsletterEmail
+    noRousseauEventsEmail
+    noSms
+    noVoteEmail
     badges {
         id
         name

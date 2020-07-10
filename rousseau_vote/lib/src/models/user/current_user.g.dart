@@ -28,7 +28,13 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..codiceFiscale = json['codiceFiscale'] as String
     ..dateOfBirth = json['dateOfBirth'] as String
     ..placeOfBirth = json['placeOfBirth'] as String
-    ..phoneNumber = json['phoneNumber'] as String;
+    ..phoneNumber = json['phoneNumber'] as String
+    ..noLocalEventsEmail = json['noLocalEventsEmail'] as bool
+    ..noNationalEventsEmail = json['noNationalEventsEmail'] as bool
+    ..noNewsletterEmail = json['noNewsletterEmail'] as bool
+    ..noRousseauEventsEmail = json['noRousseauEventsEmail'] as bool
+    ..noVoteEmail = json['noVoteEmail'] as bool
+    ..noSms = json['noSms'] as bool;
 }
 
 Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
@@ -49,4 +55,10 @@ Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
       'dateOfBirth': instance.dateOfBirth,
       'placeOfBirth': instance.placeOfBirth,
       'phoneNumber': instance.phoneNumber,
+      'noLocalEventsEmail': instance.noLocalEventsEmail,
+      'noNationalEventsEmail': instance.noNationalEventsEmail,
+      'noNewsletterEmail': instance.noNewsletterEmail,
+      'noRousseauEventsEmail': instance.noRousseauEventsEmail,
+      'noVoteEmail': instance.noVoteEmail,
+      'noSms': instance.noSms,
     };

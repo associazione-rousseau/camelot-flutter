@@ -26,6 +26,12 @@ class CurrentUser {
   String dateOfBirth;
   String placeOfBirth;
   String phoneNumber;
+  bool noLocalEventsEmail;
+  bool noNationalEventsEmail;
+  bool noNewsletterEmail;
+  bool noRousseauEventsEmail;
+  bool noVoteEmail;
+  bool noSms;
 
   String getProfilePictureUrl() {
     if (profile == null || profile.picture == null) {

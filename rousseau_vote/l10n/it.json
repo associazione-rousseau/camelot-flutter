@@ -13,7 +13,7 @@
     "back": "Indietro",
     "close": "Chiudi",
     "confirm": "Conferma",
-
+    "save": "Salva",
     "error-title": "Errore",
     "error-network": "Ops! C'è stato un problema. Riprovare più tardi",
     "error-credentials": "Ops. Email o password errati. Riprova!",
@@ -60,5 +60,12 @@
     "drawer-blog": "Il Blog Delle Stelle",
     "drawer-feedback": "Invia un feedback",
     "drawer-privacy": "Privacy",
-    "drawer-logout": "Logout"
+    "drawer-logout": "Logout",
+
+    "noNationalEventsEmail": "Non voglio ricevere email sugli eventi nazionali",
+    "noLocalEventsEmail": "Non voglio ricevere email sugli eventi locali",
+    "noRousseauEventsEmail": "Non voglio ricevere email sugli eventi Rousseau",
+    "noNewsletterEmail": "Non voglio ricevere la newsletter settimanale",
+    "noVoteEmail": "Non voglio ricevere email sulle votazioni",
+    "noSms": "Non voglio ricevere sms informativi"
 }

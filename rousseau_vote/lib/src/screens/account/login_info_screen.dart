@@ -46,10 +46,6 @@ class LoginInfoScreen extends StatelessWidget {
               options: MutationOptions(
                 documentNode: gql(userAccessDataUpdate),
                 update: (Cache cache, QueryResult result) {
-                  print('result');
-                  print(
-                    json.encode(result.data),
-                  );
                   String message;
 
                   if (result.hasException) {
