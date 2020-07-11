@@ -24,7 +24,7 @@ abstract class NetworkChangeNotifier extends ChangeNotifier {
 
   void setError({ErrorState errorState = ErrorState.GENERIC_ERROR, bool notify = true}) {
     _errorState = errorState;
-    _moveToState(LoadingState.LOADING, notify: notify);
+    _moveToState(LoadingState.LOADED, notify: notify);
   }
 
   void startLoading({bool notify = true}) {
