@@ -11,8 +11,8 @@ class CurrentUserProvider extends NetworkChangeNotifier {
   final UserNetworkHandler _userNetworkHandler;
   CurrentUser _currentUser;
 
-  CurrentUser getCurrentUser({bool forceLoading = false}) {
-    if(_currentUser != null && !forceLoading) {
+  CurrentUser getCurrentUser() {
+    if(_currentUser != null) {
       return _currentUser;
     }
 
