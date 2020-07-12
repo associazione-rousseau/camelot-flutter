@@ -11,6 +11,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/init/mock_initializer.dart';
+import 'package:rousseau_vote/src/init/polls_prefetcher.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/network/graphql/smart_cache.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
@@ -25,9 +26,9 @@ abstract class RegisterModule {
 
   // all the initializer here are going to be executed at startup time
   StartupInitializer get startupInitializer => StartupInitializer([
-    MockInitializer(1), // hack used to show the splash screen, remove when you have real waiting time on startup
-    getIt<TokenStore>()
-  ]);
+    getIt<TokenStore>(),
+    getIt<PollsPrefetcher>(),
+  ], 3000);
 
   @singleton
   SmartCache get smartCache => SmartCache();
