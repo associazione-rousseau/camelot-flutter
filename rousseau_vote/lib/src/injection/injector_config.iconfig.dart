@@ -4,7 +4,6 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-import 'package:rousseau_vote/src/network/graphql/parser/current_user_parser.dart';
 import 'package:rousseau_vote/src/network/handlers/blog_instant_article_network_handler.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/injection/register_module.dart';
@@ -26,7 +25,6 @@ import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:rousseau_vote/src/providers/current_user_provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
-import 'package:rousseau_vote/src/providers/current_user_provider.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
