@@ -33,6 +33,7 @@ class PollsScreen extends StatelessWidget {
         builderError: (List<GraphQLError> error) {
           return Text(error.toString());
         },
+        pullToRefresh: true,
       )
     );
   }
