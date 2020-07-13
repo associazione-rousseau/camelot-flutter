@@ -10,10 +10,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
-import 'package:rousseau_vote/src/init/mock_initializer.dart';
 import 'package:rousseau_vote/src/init/polls_prefetcher.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
-import 'package:rousseau_vote/src/network/graphql/smart_cache.dart';
+import 'package:rousseau_vote/src/network/graphql/graphql_cache_util.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 
 import 'injector_config.dart';
@@ -29,9 +28,6 @@ abstract class RegisterModule {
     getIt<TokenStore>(),
     getIt<PollsPrefetcher>(),
   ], 3000);
-
-  @singleton
-  SmartCache get smartCache => SmartCache();
 
   FirebaseMessaging get firebaseMessaging => FirebaseMessaging();
 
@@ -49,7 +45,7 @@ abstract class RegisterModule {
     final Link link = authLink.concat(httpLink);
     return GraphQLClient(
       link: link,
-      cache: getIt<SmartCache>(),
+      cache: OptimisticCache(dataIdFromObject: idFromObject),
     );
   }
 

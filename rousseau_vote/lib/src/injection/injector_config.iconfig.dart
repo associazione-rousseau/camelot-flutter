@@ -18,7 +18,6 @@ import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/init/polls_prefetcher.dart';
 import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
-import 'package:rousseau_vote/src/network/graphql/smart_cache.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
@@ -54,7 +53,6 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerSingleton<PushNotificationManager>(
       PushNotificationManager(g<FirebaseMessaging>()));
   g.registerSingleton<SecureStorage>(SecureStorage(g<FlutterSecureStorage>()));
-  g.registerSingleton<SmartCache>(registerModule.smartCache);
   g.registerSingleton<TokenStore>(
       TokenStore(g<SecureStorage>(), g<LoginNetworkHandler>()));
   g.registerSingleton<UserNetworkHandler>(
