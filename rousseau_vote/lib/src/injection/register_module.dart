@@ -31,7 +31,8 @@ abstract class RegisterModule {
 
   FirebaseMessaging get firebaseMessaging => FirebaseMessaging();
 
-  GraphQLClient getGraphQLClient(@factoryParam BuildContext buildContext) {
+  @singleton
+  GraphQLClient getGraphQLClient() {
     final HttpLink httpLink = HttpLink(
       uri: GRAPHQL_URL,
     );
@@ -45,7 +46,7 @@ abstract class RegisterModule {
     final Link link = authLink.concat(httpLink);
     return GraphQLClient(
       link: link,
-      cache: OptimisticCache(dataIdFromObject: idFromObject),
+      cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
     );
   }
 
