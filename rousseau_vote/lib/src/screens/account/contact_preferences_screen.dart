@@ -8,28 +8,38 @@ import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
 import 'dart:collection';
+import 'package:rousseau_vote/src/providers/current_user_provider.dart';
+import 'package:provider/provider.dart';
+
 
 class ContactPreferencesScreen extends StatefulWidget{
 
-  ContactPreferencesScreen(this.currentUser){
-    userBools = <bool> [currentUser.noLocalEventsEmail, currentUser.noNationalEventsEmail, currentUser.noNewsletterEmail, currentUser.noRousseauEventsEmail, currentUser.noVoteEmail, currentUser.noSms];
-  }
-  final GlobalKey _scaffoldState = GlobalKey<ScaffoldState>();
-
   static const String ROUTE_NAME = '/account_preferences';
   static const List<String> checks = <String> ['noLocalEventsEmail','noNationalEventsEmail','noNewsletterEmail','noRousseauEventsEmail','noVoteEmail','noSms'];
-  List<bool> userBools;
-  CurrentUser currentUser;
 
   @override
   _ContactPreferencesScreenState createState() => _ContactPreferencesScreenState();
 }
 
 class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
+  final GlobalKey _scaffoldState = GlobalKey<ScaffoldState>();
+
+  List<bool> userBools;
+
   @override
   Widget build(BuildContext context){
+    print('building');
+    print(userBools);
+    userBools = userBools ??  <bool> [Provider.of<CurrentUserProvider>(context).currentUser.noLocalEventsEmail,
+     Provider.of<CurrentUserProvider>(context).currentUser.noNationalEventsEmail,
+     Provider.of<CurrentUserProvider>(context).currentUser.noNewsletterEmail,
+     Provider.of<CurrentUserProvider>(context).currentUser.noRousseauEventsEmail,
+     Provider.of<CurrentUserProvider>(context).currentUser.noVoteEmail,
+     Provider.of<CurrentUserProvider>(context).currentUser.noSms
+    ]; 
+
     return Scaffold(
-      key: widget._scaffoldState,
+      key: _scaffoldState,
       appBar: RousseauAppBar(),
       body: Column(
         children: <Widget>[
@@ -40,13 +50,12 @@ class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
                   title: Text(
-                    RousseauLocalizations.getText(context, ContactPreferencesScreen.checks[index]),
+                    RousseauLocalizations.getText(context,ContactPreferencesScreen.checks[index]),
                     style: const TextStyle(fontSize: 18),
                   ),
-                  trailing: Switch(value: widget.userBools[index], onChanged: (bool newVal) {
-                    print(newVal);
+                  trailing: Switch(value: userBools[index], onChanged: (bool newVal) {
                     setState(() {
-                      widget.userBools[index] = newVal;
+                      userBools[index] = newVal;
                     });
                   }),
                 );
@@ -72,7 +81,7 @@ class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
                       ? 'info-saved'
                       : 'error-generic';
 
-                  showRousseauSnackbar(context, widget._scaffoldState, message);
+                  showRousseauSnackbar(context, _scaffoldState, message);
                 },
               ),
               builder: (RunMutation runMutation, QueryResult result) {
@@ -87,12 +96,12 @@ class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
                       variables.putIfAbsent(
                           'user', 
                           () => <String,bool>{
-                            'noLocalEventsEmail': widget.userBools[0],
-                            'noNationalEventsEmail': widget.userBools[1],
-                            'noNewsletterEmail': widget.userBools[2],
-                            'noRousseauEventsEmail': widget.userBools[3],
-                            'noVoteEmail': widget.userBools[4],
-                            'noSms': widget.userBools[5],
+                            'noLocalEventsEmail': userBools[0],
+                            'noNationalEventsEmail': userBools[1],
+                            'noNewsletterEmail': userBools[2],
+                            'noRousseauEventsEmail': userBools[3],
+                            'noVoteEmail': userBools[4],
+                            'noSms': userBools[5],
                           });
                       return runMutation(
                         variables,

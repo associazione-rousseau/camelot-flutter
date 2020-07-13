@@ -1,7 +1,5 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/widgets/label_value.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_app_bar.dart';
@@ -9,13 +7,13 @@ import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
-import 'dart:convert';
+import 'package:provider/provider.dart';
+import 'package:rousseau_vote/src/providers/current_user_provider.dart';
+
 
 class LoginInfoScreen extends StatelessWidget {
-  LoginInfoScreen(this.currentUser);
+  LoginInfoScreen();
   final GlobalKey _scaffoldState = GlobalKey<ScaffoldState>();
-
-  CurrentUser currentUser;
 
   static const String ROUTE_NAME = '/account_login_info';
   TextEditingController _emailController;
@@ -23,9 +21,6 @@ class LoginInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _emailController = TextEditingController(text: currentUser.email);
-    _phoneNumberController =
-        TextEditingController(text: currentUser.phoneNumber);
 
     return Scaffold(
       key: _scaffoldState,
@@ -35,8 +30,8 @@ class LoginInfoScreen extends StatelessWidget {
           Expanded(
             child: ListView(
               children: <Widget>[
-                LabelValue(_emailController, 'Email', true),
-                LabelValue(_phoneNumberController, 'Numero di telefono', true),
+                LabelValue(_emailController = TextEditingController(text: Provider.of<CurrentUserProvider>(context).currentUser.email), 'Email', true),
+                LabelValue(_phoneNumberController = TextEditingController(text: Provider.of<CurrentUserProvider>(context).currentUser.phoneNumber), 'Numero di telefono', true),
               ],
             ),
           ),

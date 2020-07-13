@@ -4,6 +4,7 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+import 'package:rousseau_vote/src/network/graphql/parser/current_user_parser.dart';
 import 'package:rousseau_vote/src/network/handlers/blog_instant_article_network_handler.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:dio/dio.dart';
@@ -19,6 +20,7 @@ import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
+import 'package:rousseau_vote/src/providers/current_user_provider.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
@@ -47,6 +49,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerSingleton<TokenStore>(
       TokenStore(g<SecureStorage>(), g<LoginNetworkHandler>()));
   g.registerSingleton<Login>(Login(g<LoginNetworkHandler>(), g<TokenStore>()));
+  g.registerSingleton<CurrentUserProvider>(CurrentUserProvider());
 }
 
 class _$RegisterModule extends RegisterModule {

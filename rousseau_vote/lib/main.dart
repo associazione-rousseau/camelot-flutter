@@ -9,6 +9,7 @@ import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
+import 'package:rousseau_vote/src/providers/current_user_provider.dart';
 
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
@@ -43,6 +44,7 @@ class RousseauVoteApp extends StatelessWidget {
               builder: (_) => getIt<ExternalPreselection>()),
           ChangeNotifierProvider<BlogInstantArticleProvider>(
               builder: (_) => getIt<BlogInstantArticleProvider>()),
+          ChangeNotifierProvider<CurrentUserProvider>(builder: (_) => getIt<CurrentUserProvider>()),
         ],
         child: GraphQLProvider(
             client: getIt(),
@@ -75,26 +77,16 @@ class RousseauVoteApp extends StatelessWidget {
                         RegisterScreen(),
                     EditAccountScreen.ROUTE_NAME: (BuildContext context) =>
                         EditAccountScreen(),
-                    AnagraphScreen.ROUTE_NAME: (BuildContext context) {
-                      final CurrentUser cu =
-                          ModalRoute.of(context).settings.arguments;
-                      return AnagraphScreen(cu);
-                    },
-                    LoginInfoScreen.ROUTE_NAME: (BuildContext context) {
-                      final CurrentUser cu =
-                          ModalRoute.of(context).settings.arguments;
-                      return LoginInfoScreen(cu);
-                    },
+                    AnagraphScreen.ROUTE_NAME: (BuildContext context) => AnagraphScreen(),
+                    
+                    LoginInfoScreen.ROUTE_NAME: (BuildContext context) => LoginInfoScreen(),
+                     
                     ResidenceScreen.ROUTE_NAME: (BuildContext context) {
                       final CurrentUser cu =
                           ModalRoute.of(context).settings.arguments;
                       return ResidenceScreen(cu);
                     },
-                    ContactPreferencesScreen.ROUTE_NAME: (BuildContext context) {
-                      final CurrentUser cu =
-                          ModalRoute.of(context).settings.arguments;
-                      return ContactPreferencesScreen(cu);
-                    },
+                    ContactPreferencesScreen.ROUTE_NAME: (BuildContext context) => ContactPreferencesScreen(),
                     PollDetailsScreen.ROUTE_NAME: (BuildContext context) {
                       final PollDetailArguments arguments =
                           ModalRoute.of(context).settings.arguments;
