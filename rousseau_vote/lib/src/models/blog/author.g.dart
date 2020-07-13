@@ -7,9 +7,12 @@ part of 'author.dart';
 // **************************************************************************
 
 Author _$AuthorFromJson(Map<String, dynamic> json) {
-  return Author()..name = json['name'] as String;
+  return Author()
+    ..name = json['name'] as String
+    ..avatar = json['avatar'] as String;
 }
 
 Map<String, dynamic> _$AuthorToJson(Author instance) => <String, dynamic>{
       'name': instance.name,
+      'avatar': instance.avatar,
     };

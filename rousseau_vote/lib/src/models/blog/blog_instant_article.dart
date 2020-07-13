@@ -17,6 +17,7 @@ class BlogInstantArticle {
   String image;
   DateTime date;
   String text;
+  String summary;
   String url;
   String slug;
   Author author;

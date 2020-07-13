@@ -51,6 +51,14 @@ class TokenStore with InitializeOnStartup {
     return _token?.accessToken;
   }
 
+  String getUserId() {
+    return _accessTokenInfo != null ? _accessTokenInfo.sub : null;
+  }
+
+  String getUserFullName() {
+    return _accessTokenInfo != null ? _accessTokenInfo.name : null;
+  }
+
   @override
   Future<void> doInitialize() async {
     final String serializedToken = await _secureStorage.readToken();

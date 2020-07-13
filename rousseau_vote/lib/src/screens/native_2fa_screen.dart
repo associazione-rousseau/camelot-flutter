@@ -25,6 +25,7 @@ class _Native2FaScreenState extends State<Native2FaScreen> {
         key: _scaffoldState,
         body: VerticalScrollView(children: <Widget>[
           RousseauLogoHeader(),
+          const SizedBox(height: 20.0),
           Consumer<Login>(
               builder: (BuildContext context, Login login, _) => Column(children: <Widget>[
                     // ignore: prefer_if_elements_to_conditional_expressions
@@ -32,12 +33,18 @@ class _Native2FaScreenState extends State<Native2FaScreen> {
                         ? const LoadingIndicator()
                         : PinPut(
                             fieldsCount: 5,
-                            onClear: (String code) => () {},
+                            followingFieldDecoration: _pinFieldDecoration(),
+                            selectedFieldDecoration: _pinFieldDecorationSelected(),
+                            submittedFieldDecoration: _pinFieldDecoration(),
+                            eachFieldHeight: 50,
+                            eachFieldWidth: 50,
+                            eachFieldMargin: const EdgeInsets.all(0),
+                            textStyle: const TextStyle(fontSize: 25, fontFamily: 'Roboto'),
                             onSubmit: (String code) {
                               login.submitCode(code);
                             },
                           ),
-                    const SizedBox(height: 15.0),
+                    const SizedBox(height: 40.0),
                     RoundedButton(
                       text:
                           RousseauLocalizations.getText(context, 'voice-call'),
@@ -67,6 +74,17 @@ class _Native2FaScreenState extends State<Native2FaScreen> {
                     ),
                   ])),
         ]));
+  }
+
+  BoxDecoration _pinFieldDecoration() {
+    return BoxDecoration(
+      border: Border.all(color: Colors.red.shade200, width: 2),
+      borderRadius: BorderRadius.circular(15),
+    );
+  }
+
+  BoxDecoration _pinFieldDecorationSelected() {
+    return _pinFieldDecoration().copyWith(border: Border.all(color: Colors.red, width: 3));
   }
 
   void _maybeShowErrorMessage(BuildContext context) {

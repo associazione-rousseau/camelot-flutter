@@ -28,13 +28,13 @@ class _LoginRestClient implements LoginRestClient {
     ArgumentError.checkNotNull(state, 'state');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      'nonce': nonce,
-      'state': state,
-      'client_id': clientId,
-      'redirect_uri': redirectUri,
-      'response_mode': responseMode,
-      'response_type': responseType,
-      'scope': scope
+      r'nonce': nonce,
+      r'state': state,
+      r'client_id': clientId,
+      r'redirect_uri': redirectUri,
+      r'response_mode': responseMode,
+      r'response_type': responseType,
+      r'scope': scope
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
@@ -48,7 +48,7 @@ class _LoginRestClient implements LoginRestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = InitLoginResponse.fromJson(_result.data);
-    return Future.value(value);
+    return value;
   }
 
   @override
@@ -60,10 +60,10 @@ class _LoginRestClient implements LoginRestClient {
     ArgumentError.checkNotNull(body, 'body');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      'session_code': sessionCode,
-      'execution': execution,
-      'tab_id': tabId,
-      'client_id': clientId
+      r'session_code': sessionCode,
+      r'execution': execution,
+      r'tab_id': tabId,
+      r'client_id': clientId
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
@@ -79,7 +79,7 @@ class _LoginRestClient implements LoginRestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = CredentialsLoginResponse.fromJson(_result.data);
-    return Future.value(value);
+    return value;
   }
 
   @override
@@ -91,10 +91,10 @@ class _LoginRestClient implements LoginRestClient {
     ArgumentError.checkNotNull(body, 'body');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      'session_code': sessionCode,
-      'execution': execution,
-      'tab_id': tabId,
-      'client_id': clientId
+      r'session_code': sessionCode,
+      r'execution': execution,
+      r'tab_id': tabId,
+      r'client_id': clientId
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
@@ -110,7 +110,7 @@ class _LoginRestClient implements LoginRestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = CredentialsLoginResponse.fromJson(_result.data);
-    return Future.value(value);
+    return value;
   }
 
   @override
@@ -131,6 +131,6 @@ class _LoginRestClient implements LoginRestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = TokenResponse.fromJson(_result.data);
-    return Future.value(value);
+    return value;
   }
 }

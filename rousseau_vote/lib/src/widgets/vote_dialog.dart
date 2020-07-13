@@ -47,7 +47,8 @@ class VoteDialog extends StatelessWidget {
               update: (Cache cache, QueryResult result) {
                 if (result.hasException) {
                   _error(context);
-                } 
+                }
+                // TODO update cache
                 final Map<String, Object> user = (result.data as Map<String, Object>)['user'] as Map<String, Object>;
                 final LazyCacheMap map = user.values.first;
                 final List<Object> errors = map.values.first;

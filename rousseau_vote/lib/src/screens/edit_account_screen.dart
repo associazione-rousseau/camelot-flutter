@@ -1,36 +1,57 @@
-import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:rousseau_vote/src/providers/current_user_provider.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
-import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
-import 'package:rousseau_vote/src/widgets/rousseau_app_bar.dart';
-import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
-import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
-import 'package:rousseau_vote/src/models/user/current_user.dart';
-import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/screens/account/anagraph_screen.dart';
 import 'package:rousseau_vote/src/screens/account/login_info_screen.dart';
 import 'package:rousseau_vote/src/screens/account/residence_screen.dart';
 import 'package:rousseau_vote/src/screens/account/contact_preferences_screen.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+import 'package:rousseau_vote/src/models/user/current_user.dart';
+import 'package:rousseau_vote/src/providers/current_user_provider.dart';
+import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 
 class EditAccountScreen extends StatelessWidget {
-  const EditAccountScreen();
 
   static const String ROUTE_NAME = '/edit_account';
-  //final edit-account-argss arguments;
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      builder: (context) => CurrentUserProvider(),
-      child: RousseauLoggedScaffold(
-      appBar: RousseauAppBar(),
-      body: GraphqlQueryWidget<CurrentUser>(
-          query: currentUserFull,
-          builderSuccess: (CurrentUser currentUser) {
-            Provider.of<CurrentUserProvider>(context).setCurrentUser(currentUser);
-            return ListView(
+    final String title = RousseauLocalizations.of(context).text(
+        'drawer-edit-account');
+
+    final CurrentUserProvider provider = Provider.of<CurrentUserProvider>(context);
+
+    final CurrentUser currentUser = provider.getCurrentUser();
+
+    Widget body;
+
+    if (currentUser != null) {
+      body = _currentUserBody(currentUser);
+    } else if (provider.isLoading()) {
+      body = _loadingBody();
+    } else {
+      body = _errorBody();
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: body,
+    );
+  }
+
+  Widget _errorBody() {
+    return const Text('Error');
+  }
+
+  Widget _loadingBody() {
+    return const LoadingIndicator();
+  }
+
+  Widget _currentUserBody(CurrentUser currentUser) {
+    return ListView(
               children: <Widget>[
                 CardRow(
                     'Dati anagrafici', AnagraphScreen.ROUTE_NAME),
@@ -40,16 +61,7 @@ class EditAccountScreen extends StatelessWidget {
 //                CardRow('Cancella iscrizione', AnagraphScreen.ROUTE_NAME),
               ],
             );
-          },
-          builderLoading: () {
-            return const LoadingIndicator();
-          },
-          builderError: (List<GraphQLError> error) {
-            return Text(error.toString());
-          },
-        ),
-      ),
-    );
+    // return Text(currentUser.fullName);
   }
 }
 

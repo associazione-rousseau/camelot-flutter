@@ -22,7 +22,7 @@ class GraphqlQueryWidget<T> extends StatefulWidget {
       @required this.builderError,
       @required this.builderLoading,
       this.variables,
-      this.fetchPolicy = FetchPolicy.cacheAndNetwork,
+      this.fetchPolicy = FetchPolicy.cacheFirst,
       });
 
   final String query;

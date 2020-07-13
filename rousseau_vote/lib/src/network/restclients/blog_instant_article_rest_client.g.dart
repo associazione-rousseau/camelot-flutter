@@ -20,8 +20,8 @@ class _BlogInstantArticleRestClient implements BlogInstantArticleRestClient {
   getPosts({offset = 0, perPage = DEFAULT_ARTICLES_PER_PAGE}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      'offset': offset,
-      'per_page': perPage
+      r'offset': offset,
+      r'per_page': perPage
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
@@ -38,14 +38,14 @@ class _BlogInstantArticleRestClient implements BlogInstantArticleRestClient {
         .map((dynamic i) =>
             BlogInstantArticle.fromJson(i as Map<String, dynamic>))
         .toList();
-    return Future.value(value);
+    return value;
   }
 
   @override
   getPost(slug) async {
     ArgumentError.checkNotNull(slug, 'slug');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{'slug': slug};
+    final queryParameters = <String, dynamic>{r'slug': slug};
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
         '/wp-json/mobile_api/v1/ia_post',
@@ -57,6 +57,6 @@ class _BlogInstantArticleRestClient implements BlogInstantArticleRestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = BlogInstantArticle.fromJson(_result.data);
-    return Future.value(value);
+    return value;
   }
 }
