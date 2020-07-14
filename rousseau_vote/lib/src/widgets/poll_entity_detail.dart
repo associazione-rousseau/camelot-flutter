@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
+import 'package:rousseau_vote/src/screens/UserProfileScreen.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
 
 class PollEntityDetail extends StatefulWidget {
@@ -61,7 +63,7 @@ class _PollEntityDetailState extends State<PollEntityDetail> {
             trailing: active ? Icon(Icons.brightness_1, color: PRIMARY_RED) : null
           )
         ),
-        onTap: () => isDisabled() ? showMessage(context) : doSelect(),
+        onTap: openRouteAction(context, UserProfileScreen.ROUTE_NAME, arguments: UserProfileArguments(_option.entity.slug)),//isDisabled() ? showMessage(context) : doSelect(),
       )
     );
   }
