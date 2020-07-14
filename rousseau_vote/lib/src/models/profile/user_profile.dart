@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rousseau_vote/src/models/blog/category.dart';
+import 'package:rousseau_vote/src/models/profile/profile.dart';
 import 'package:rousseau_vote/src/models/profile/tag.dart';
 
 import 'badge.dart';
@@ -23,4 +24,5 @@ class UserProfile {
   List<Badge> badges;
   List<Category> category;
   List<Tag> tags;
+  Profile profile;
 }

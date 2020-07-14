@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rousseau_vote/src/models/user/picture.dart';
 
 part 'profile.g.dart';
 
@@ -40,4 +41,6 @@ class Profile {
   String villaggioRousseauParticipant;
   String villaggioRousseauVolunteerFlag;
   String villaggioRousseauVolunteer;
+
+  Picture picture;
 }
