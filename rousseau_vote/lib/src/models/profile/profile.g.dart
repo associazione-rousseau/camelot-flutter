@@ -26,23 +26,23 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
     ..age = json['age'] as int
     ..placeOfBirth = json['placeOfBirth'] as String
     ..italiaCinqueStelleVolunteerFlag =
-        json['italiaCinqueStelleVolunteerFlag'] as String
+        json['italiaCinqueStelleVolunteerFlag'] as bool
     ..italiaCinqueStelleVolunteer =
         json['italiaCinqueStelleVolunteer'] as String
-    ..listRepresentativeFlag = json['listRepresentativeFlag'] as String
+    ..listRepresentativeFlag = json['listRepresentativeFlag'] as bool
     ..listRepresentativeYear = json['listRepresentativeYear'] as String
     ..listRepresentativeComune = json['listRepresentativeComune'] as String
-    ..opendayParticipantFlag = json['opendayParticipantFlag'] as String
+    ..opendayParticipantFlag = json['opendayParticipantFlag'] as bool
     ..opendayParticipant = json['opendayParticipant'] as String
-    ..spokesmanM5sFlag = json['spokesmanM5sFlag'] as String
+    ..spokesmanM5sFlag = json['spokesmanM5sFlag'] as bool
     ..spokesmanM5sYear = json['spokesmanM5sYear'] as String
     ..spokesmanM5sInstitution = json['spokesmanM5sInstitution'] as String
     ..villaggioRousseauParticipantFlag =
-        json['villaggioRousseauParticipantFlag'] as String
+        json['villaggioRousseauParticipantFlag'] as bool
     ..villaggioRousseauParticipant =
         json['villaggioRousseauParticipant'] as String
     ..villaggioRousseauVolunteerFlag =
-        json['villaggioRousseauVolunteerFlag'] as String
+        json['villaggioRousseauVolunteerFlag'] as bool
     ..villaggioRousseauVolunteer = json['villaggioRousseauVolunteer'] as String
     ..picture = json['picture'] == null
         ? null

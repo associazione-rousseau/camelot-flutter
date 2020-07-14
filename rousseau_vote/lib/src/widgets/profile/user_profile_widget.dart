@@ -10,6 +10,6 @@ class UserProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(_userProfile.fullName);
+    return Text(_userProfile.profile.presentation);
   }
 }

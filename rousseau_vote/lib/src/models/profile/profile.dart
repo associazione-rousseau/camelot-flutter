@@ -27,19 +27,19 @@ class Profile {
   String linkedinProfile;
   int age;
   String placeOfBirth;
-  String italiaCinqueStelleVolunteerFlag;
+  bool italiaCinqueStelleVolunteerFlag;
   String italiaCinqueStelleVolunteer;
-  String listRepresentativeFlag;
+  bool listRepresentativeFlag;
   String listRepresentativeYear;
   String listRepresentativeComune;
-  String opendayParticipantFlag;
+  bool opendayParticipantFlag;
   String opendayParticipant;
-  String spokesmanM5sFlag;
+  bool spokesmanM5sFlag;
   String spokesmanM5sYear;
   String spokesmanM5sInstitution;
-  String villaggioRousseauParticipantFlag;
+  bool villaggioRousseauParticipantFlag;
   String villaggioRousseauParticipant;
-  String villaggioRousseauVolunteerFlag;
+  bool villaggioRousseauVolunteerFlag;
   String villaggioRousseauVolunteer;
 
   Picture picture;

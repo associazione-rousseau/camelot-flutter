@@ -22,7 +22,7 @@ class UserProfile {
   String lastName;
   String firstName;
   List<Badge> badges;
-  List<Category> category;
+  Category category;
   List<Tag> tags;
   Profile profile;
 }

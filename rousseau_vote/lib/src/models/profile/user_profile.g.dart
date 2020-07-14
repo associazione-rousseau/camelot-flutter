@@ -19,10 +19,9 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
         ?.map(
             (e) => e == null ? null : Badge.fromJson(e as Map<String, dynamic>))
         ?.toList()
-    ..category = (json['category'] as List)
-        ?.map((e) =>
-            e == null ? null : Category.fromJson(e as Map<String, dynamic>))
-        ?.toList()
+    ..category = json['category'] == null
+        ? null
+        : Category.fromJson(json['category'] as Map<String, dynamic>)
     ..tags = (json['tags'] as List)
         ?.map((e) => e == null ? null : Tag.fromJson(e as Map<String, dynamic>))
         ?.toList()
