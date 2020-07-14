@@ -26,6 +26,8 @@ jobs:
       env:
         GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
         KEY_FILE: /tmp/github-jobs.key
+    - name: Copying firebase config
+      run: cp rousseau_vote/ios/Runner/GoogleService-Info.plist.release rousseau_vote/ios/Runner/GoogleService-Info.plist
     - name: Testing
       working-directory: ./rousseau_vote
       run: flutter test
