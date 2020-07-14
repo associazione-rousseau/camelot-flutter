@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
@@ -12,8 +13,9 @@ import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/init/polls_prefetcher.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
-import 'package:rousseau_vote/src/network/graphql/graphql_cache_util.dart';
+import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
+import 'package:rousseau_vote/src/util/debug_util.dart';
 
 import 'injector_config.dart';
 
@@ -30,6 +32,15 @@ abstract class RegisterModule {
   ], 3000);
 
   FirebaseMessaging get firebaseMessaging => FirebaseMessaging();
+
+  @singleton
+  @Injectable(as: PushNotificationManager)
+  PushNotificationManager getPushNotificationManager() {
+    if (Platform.isIOS && isInDebugMode) {
+      return getIt<NoOpPushNotificationManager>();
+    }
+    return getIt<FirebaseNotificationManager>();
+  }
 
   @singleton
   GraphQLClient getGraphQLClient() {

@@ -1,12 +1,27 @@
-import 'dart:io';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
 
-@singleton
-class PushNotificationManager {
+abstract class PushNotificationManager {
+  Future<void> onLogin(String userId);
 
-  PushNotificationManager(this._firebaseMessaging);
+  void onLogout();
+}
+
+@injectable
+class NoOpPushNotificationManager extends PushNotificationManager {
+  @override
+  Future<void> onLogin(String userId) {
+    return null;
+  }
+
+  @override
+  void onLogout() {}
+}
+
+@injectable
+class FirebaseNotificationManager extends PushNotificationManager {
+
+  FirebaseNotificationManager(this._firebaseMessaging);
 
   final FirebaseMessaging _firebaseMessaging;
   String _currentToken;
