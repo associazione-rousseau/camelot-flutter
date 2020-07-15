@@ -4,6 +4,7 @@ import 'package:rousseau_vote/src/models/profile/profile.dart';
 import 'package:rousseau_vote/src/models/profile/tag.dart';
 
 import 'badge.dart';
+import 'user_positions.dart';
 
 part 'user_profile.g.dart';
 
@@ -25,4 +26,5 @@ class UserProfile {
   Category category;
   List<Tag> tags;
   Profile profile;
+  List<UserPositions> userPositions;
 }

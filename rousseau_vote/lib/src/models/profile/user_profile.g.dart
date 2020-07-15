@@ -27,7 +27,12 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
         ?.toList()
     ..profile = json['profile'] == null
         ? null
-        : Profile.fromJson(json['profile'] as Map<String, dynamic>);
+        : Profile.fromJson(json['profile'] as Map<String, dynamic>)
+    ..userPositions = (json['userPositions'] as List)
+        ?.map((e) => e == null
+            ? null
+            : UserPositions.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
@@ -43,4 +48,5 @@ Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
       'category': instance.category,
       'tags': instance.tags,
       'profile': instance.profile,
+      'userPositions': instance.userPositions,
     };

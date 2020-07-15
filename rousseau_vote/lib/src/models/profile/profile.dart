@@ -41,6 +41,5 @@ class Profile {
   String villaggioRousseauParticipant;
   bool villaggioRousseauVolunteerFlag;
   String villaggioRousseauVolunteer;
-
   Picture picture;
 }
