@@ -54,7 +54,7 @@ class _PollEntityDetailState extends State<PollEntityDetail> {
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: ListTile(
-            leading: ProfilePicture(_option.entity.getProfilePictureUrl()),
+            leading: ProfilePicture(url: _option.entity.getProfilePictureUrl()),
             title: Text(
               _option.entity.fullName,
               style: const TextStyle(fontSize: 16),

@@ -22,7 +22,7 @@ class CurrentUserCard extends StatelessWidget {
 
     if(currentUser != null) {
       return ListTile(
-        leading: ProfilePicture(currentUser.getProfilePictureUrl()),
+        leading: ProfilePicture(url: currentUser.getProfilePictureUrl()),
         title: Text(
           currentUser.fullName,
           style: const TextStyle(fontSize: 20),
@@ -41,7 +41,7 @@ class CurrentUserCard extends StatelessWidget {
   Widget _placeholderWidget() {
     final TokenStore tokenStore = getIt<TokenStore>();
     return ListTile(
-      leading: const ProfilePicture('assets/images/profilePlaceholder.png'),
+      leading: const ProfilePicture(),
       title: Text(
         tokenStore.getUserFullName(),
         style: const TextStyle(fontSize: 20),
