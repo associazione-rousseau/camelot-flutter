@@ -100,19 +100,21 @@ class UserProfileWidget extends StatelessWidget {
   }
 
   Widget _profileBody() {
-    return Column(
-      children: <Widget>[
-        SocialBadgesSection(userProfile),
-        const VerticalSpace(15),
-        UserInfoSection(
-            'profile-presentation', userProfile.profile.presentation),
-        UserInfoSection(
-            'profile-curriculum-vitae', userProfile.profile.curriculumVitae),
-        UserInfoSection(
-            'profile-curriculum-activitst', userProfile.profile.curriculumActivist),
-        UserInfoSection(
-            'profile-political-experiences', userProfile.profile.politicalExperiences),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Column(
+        children: <Widget>[
+          SocialBadgesSection(userProfile),
+          UserInfoSection(
+              'profile-presentation', userProfile.profile.presentation),
+          UserInfoSection(
+              'profile-curriculum-vitae', userProfile.profile.curriculumVitae),
+          UserInfoSection(
+              'profile-curriculum-activitst', userProfile.profile.curriculumActivist),
+          UserInfoSection(
+              'profile-political-experiences', userProfile.profile.politicalExperiences),
+        ],
+      ),
     );
   }
 

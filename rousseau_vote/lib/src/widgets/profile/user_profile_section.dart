@@ -13,7 +13,7 @@ class UserInfoSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final String title = RousseauLocalizations.of(context).text(_titleKey);
     return Container(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
         child: Column(children: <Widget>[
           Card(
               child: Container(
