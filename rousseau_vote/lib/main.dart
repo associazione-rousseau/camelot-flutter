@@ -67,7 +67,7 @@ class RousseauVoteApp extends StatelessWidget {
           ChangeNotifierProvider(builder: (_) => getIt<Login>()),
           ChangeNotifierProvider<ExternalPreselection>(builder: (_) => getIt<ExternalPreselection>()),
           ChangeNotifierProvider<BlogInstantArticleProvider>(builder: (_) => getIt<BlogInstantArticleProvider>()),
-          ChangeNotifierProvider(builder: (_) => getIt<CurrentUserProvider>()),
+          ChangeNotifierProvider<CurrentUserProvider>(builder: (_) => getIt<CurrentUserProvider>()),
         ],
         child: GraphQLProvider(
             client: getIt(),
