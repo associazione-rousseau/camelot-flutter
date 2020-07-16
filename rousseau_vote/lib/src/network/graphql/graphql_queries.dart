@@ -18,6 +18,97 @@ String listPolls = '''
   }
 ''';
 
+String profileDetail = '''
+query profileDetail(\$id: ID!) {
+    user(id: \$id) {
+        id
+        slug
+        accountType
+        badges {
+            code
+            active
+        }
+        category {
+            code
+        }
+        tags {
+            code
+        }
+        gender
+        firstName
+        fullName
+        lastName
+        userPositions {
+            description
+            geographicalScope {
+                name
+                type
+            }
+            position {
+                code
+                type
+                name
+            }
+            startsAt
+            endsAt
+        }
+        profile {
+            presentation
+            curriculumActivist
+            curriculumVitae
+            yearOfGraduation
+            educationalInstitute
+            studyCourse
+            englishLevel
+            frenchLevel
+            germanLevel
+            spanishLevel
+            qualification
+            politicalExperiences
+            facebookProfile
+            twitterProfile
+            linkedinProfile
+            age
+            placeOfBirth
+            placeOfResidence {
+                comuneName
+            }
+            picture {
+                originalUrl
+            }
+            curriculumVitaeDocument {
+                originalUrl
+            }
+            italiaCinqueStelleVolunteerFlag
+            italiaCinqueStelleVolunteer
+            listRepresentativeFlag
+            listRepresentativeYear
+            listRepresentativeComune
+            opendayParticipantFlag
+            opendayParticipant
+            spokesmanM5sFlag
+            spokesmanM5sYear
+            spokesmanM5sInstitution
+            villaggioRousseauParticipantFlag
+            villaggioRousseauParticipant
+            villaggioRousseauVolunteerFlag
+            villaggioRousseauVolunteer
+            approvedCandidatures {
+                availableForFrontRunning
+                poll {
+                    title
+                    features {
+                        frontRunners
+                        frontRunnersLabel
+                    }
+                }
+            }
+        }
+    }
+}
+''';
+
+
 String pollDetail = '''
   query pollDetail(\$pollId: ID!) {
     poll(id: \$pollId) {

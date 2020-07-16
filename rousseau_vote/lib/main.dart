@@ -16,13 +16,13 @@ import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/providers/current_user_provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/providers/current_user_provider.dart';
-
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:rousseau_vote/src/screens/account/contact_preferences_screen.dart';
 import 'package:rousseau_vote/src/screens/account/login_info_screen.dart';
 import 'package:rousseau_vote/src/screens/account/residence_screen.dart';
+import 'package:rousseau_vote/src/screens/UserProfileScreen.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/blog_screen.dart';
 import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
@@ -138,6 +138,11 @@ class RousseauVoteApp extends StatelessWidget {
                     },
                     EditAccountScreen.ROUTE_NAME: (BuildContext context) {
                       return EditAccountScreen();
+                    },
+                    UserProfileScreen.ROUTE_NAME: (BuildContext context) {
+                      final UserProfileArguments arguments =
+                        ModalRoute.of(context).settings.arguments;
+                      return UserProfileScreen(arguments);
                     },
                   }),
             )));

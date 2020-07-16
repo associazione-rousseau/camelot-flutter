@@ -11,18 +11,18 @@ import 'package:dio/dio.dart';
 import 'package:rousseau_vote/src/error_reporting/error_logger.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql/client.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/init/polls_prefetcher.dart';
-import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
+import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
-import 'package:rousseau_vote/src/network/graphql/smart_cache.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:rousseau_vote/src/providers/current_user_provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:get_it/get_it.dart';
@@ -31,8 +31,10 @@ void $initGetIt(GetIt g, {String environment}) {
   final registerModule = _$RegisterModule();
   g.registerFactoryAsync<ErrorLogger>(() => ErrorLogger.create());
   g.registerFactory<FirebaseMessaging>(() => registerModule.firebaseMessaging);
-  g.registerFactoryParam<GraphQLClient, BuildContext, dynamic>(
-      (buildContext, _) => registerModule.getGraphQLClient(buildContext));
+  g.registerFactory<FirebaseNotificationManager>(
+      () => FirebaseNotificationManager(g<FirebaseMessaging>()));
+  g.registerFactory<NoOpPushNotificationManager>(
+      () => NoOpPushNotificationManager());
   g.registerFactory<StartupInitializer>(
       () => registerModule.startupInitializer);
   g.registerFactoryParam<ValueNotifier<GraphQLClient>, BuildContext, dynamic>(
@@ -49,12 +51,13 @@ void $initGetIt(GetIt g, {String environment}) {
       () => ExternalPreselection.create());
   g.registerSingleton<FlutterSecureStorage>(
       registerModule.flutterSecureStorage);
+  g.registerSingleton<GraphQLClient>(registerModule.getGraphQLClient());
   g.registerSingleton<LoginNetworkHandler>(LoginNetworkHandler(g<Dio>()));
   g.registerSingleton<PollsPrefetcher>(PollsPrefetcher());
+  g.registerSingleton<PrefetchManager>(PrefetchManager());
   g.registerSingleton<PushNotificationManager>(
-      PushNotificationManager(g<FirebaseMessaging>()));
+      registerModule.getPushNotificationManager());
   g.registerSingleton<SecureStorage>(SecureStorage(g<FlutterSecureStorage>()));
-  g.registerSingleton<SmartCache>(registerModule.smartCache);
   g.registerSingleton<TokenStore>(
       TokenStore(g<SecureStorage>(), g<LoginNetworkHandler>()));
   g.registerSingleton<UserNetworkHandler>(

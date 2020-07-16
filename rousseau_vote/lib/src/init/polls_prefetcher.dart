@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
+import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
 
 // prefetches polls on startup GraphQLClient handles the cache
 @singleton
@@ -12,9 +13,6 @@ class PollsPrefetcher with InitializeOnStartup {
 
   @override
   Future<QueryResult> doInitialize() async {
-    final GraphQLClient client = getIt<GraphQLClient>();
-    final QueryOptions options = QueryOptions(documentNode: gql(listPolls), fetchPolicy: FetchPolicy.networkOnly);
-    final QueryResult queryResult = await client.query(options);
-    return queryResult;
+    return getIt<PrefetchManager>().prefetch(listPolls);
   }
 }

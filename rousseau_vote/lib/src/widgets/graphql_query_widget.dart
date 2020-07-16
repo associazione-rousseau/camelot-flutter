@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/network/exceptions/session_expired_exception.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/query_response_parser.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/query_response_parsers.dart';
@@ -15,6 +17,8 @@ typedef GraphqlSuccessWidgetBuilder<T> = Widget Function(T data);
 // callback function called to render a widget while a graphql query is loading
 typedef GraphqlLoadingWidgetBuilder = Widget Function();
 
+const FetchPolicy DEFAULT_CACHE_POLICY = FetchPolicy.cacheAndNetwork;
+
 class GraphqlQueryWidget<T> extends StatefulWidget {
   const GraphqlQueryWidget(
       {@required this.query,
@@ -22,7 +26,8 @@ class GraphqlQueryWidget<T> extends StatefulWidget {
       @required this.builderError,
       @required this.builderLoading,
       this.variables,
-      this.fetchPolicy = FetchPolicy.cacheFirst,
+      this.pullToRefresh = false,
+      this.fetchPolicy = DEFAULT_CACHE_POLICY,
       });
 
   final String query;
@@ -31,6 +36,7 @@ class GraphqlQueryWidget<T> extends StatefulWidget {
   final GraphqlErrorWidgetBuilder builderError;
   final GraphqlLoadingWidgetBuilder builderLoading;
   final FetchPolicy fetchPolicy;
+  final bool pullToRefresh;
 
   @override
   _GraphqlQueryWidgetState<T> createState() => _GraphqlQueryWidgetState<T>();
@@ -47,18 +53,38 @@ class _GraphqlQueryWidgetState<T> extends State<GraphqlQueryWidget<T>> {
         // Render results if already fetched
         if(_queryResult != null) {
           final QueryResponseParser<T> parser = getParser();
-          return widget.builderSuccess(parser.parse(_queryResult));
+          final Widget successWidget = widget.builderSuccess(parser.parse(_queryResult));
+          if (widget.pullToRefresh) {
+            return RefreshIndicator(
+              child: successWidget,
+              onRefresh: _onPullToRefresh,
+            );
+          } else {
+            return successWidget;
+          }
         }
 
         // Else fetch
-        final QueryOptions queryOptions = QueryOptions(documentNode: gql(widget.query), variables: widget.variables, fetchPolicy: widget.fetchPolicy);
-        final Future<QueryResult> future = client.query(queryOptions);
-        future.then((QueryResult result) => _onResults(result))
-          .catchError((Object error) => _onError(error));
+        _fetch();
 
         return widget.builderLoading();
       },
     );
+  }
+
+  Future<void> _onPullToRefresh() async {
+    setState(() {
+      _fetch(fetchPolicy: FetchPolicy.networkOnly);
+    });
+  }
+
+  void _fetch({FetchPolicy fetchPolicy}) {
+    fetchPolicy ??= widget.fetchPolicy;
+    final GraphQLClient client = getIt();
+    final QueryOptions queryOptions = QueryOptions(documentNode: gql(widget.query), variables: widget.variables, fetchPolicy: fetchPolicy);
+    final Future<QueryResult> future = client.query(queryOptions);
+    future.then((QueryResult result) => _onResults(result))
+        .catchError((Object error) => _onError(error));
   }
   
   void _onResults(QueryResult result) {

@@ -1,6 +1,7 @@
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:injectable/injectable.dart';
+import 'package:rousseau_vote/src/util/debug_util.dart';
 import 'package:sentry/sentry.dart';
 
 @injectable
@@ -24,18 +25,6 @@ class ErrorLogger {
         stackTrace: stackTrace,
       );
     }
-  }
-
-  bool get isInDebugMode {
-    // Assume you're in production mode.
-    bool inDebugMode = false;
-
-    // Assert expressions are only evaluated during development. They are ignored
-    // in production. Therefore, this code only sets `inDebugMode` to true
-    // in a development environment.
-    assert(inDebugMode = true);
-
-    return inDebugMode;
   }
 
   @factoryMethod

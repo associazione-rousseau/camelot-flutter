@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
@@ -10,11 +11,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
-import 'package:rousseau_vote/src/init/mock_initializer.dart';
 import 'package:rousseau_vote/src/init/polls_prefetcher.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
-import 'package:rousseau_vote/src/network/graphql/smart_cache.dart';
+import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
+import 'package:rousseau_vote/src/util/debug_util.dart';
 
 import 'injector_config.dart';
 
@@ -30,12 +31,19 @@ abstract class RegisterModule {
     getIt<PollsPrefetcher>(),
   ], 3000);
 
-  @singleton
-  SmartCache get smartCache => SmartCache();
-
   FirebaseMessaging get firebaseMessaging => FirebaseMessaging();
 
-  GraphQLClient getGraphQLClient(@factoryParam BuildContext buildContext) {
+  @singleton
+  @Injectable(as: PushNotificationManager)
+  PushNotificationManager getPushNotificationManager() {
+    if (Platform.isIOS && isInDebugMode) {
+      return getIt<NoOpPushNotificationManager>();
+    }
+    return getIt<FirebaseNotificationManager>();
+  }
+
+  @singleton
+  GraphQLClient getGraphQLClient() {
     final HttpLink httpLink = HttpLink(
       uri: GRAPHQL_URL,
     );
@@ -49,7 +57,7 @@ abstract class RegisterModule {
     final Link link = authLink.concat(httpLink);
     return GraphQLClient(
       link: link,
-      cache: getIt<SmartCache>(),
+      cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
     );
   }
 
