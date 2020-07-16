@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:sprintf/sprintf.dart';
 
 class _RousseauLocalizationsDelegate extends LocalizationsDelegate<RousseauLocalizations> {
 
@@ -47,6 +48,11 @@ class RousseauLocalizations {
 
   static String getText(BuildContext context, String messageKey) {
     return RousseauLocalizations.of(context).text(messageKey);
+  }
+
+  static String getTextFormatted(BuildContext context, String messageKey, List<dynamic> args) {
+    final String rawString = RousseauLocalizations.of(context).text(messageKey);
+    return sprintf(rawString, args);
   }
 
   static Future<RousseauLocalizations> load(Locale locale) async {
