@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
 import 'package:rousseau_vote/src/models/user/profile.dart';
 
 part 'current_user.g.dart';
@@ -32,6 +33,12 @@ class CurrentUser {
   bool noRousseauEventsEmail;
   bool noVoteEmail;
   bool noSms;
+  ItalianGeographicalDivision country;
+  ItalianGeographicalDivision regione;
+  ItalianGeographicalDivision provincia;
+  ItalianGeographicalDivision comune;
+  ItalianGeographicalDivision municipio;
+  String overseaseCity;
 
   String getProfilePictureUrl() {
     if (profile == null || profile.picture == null) {

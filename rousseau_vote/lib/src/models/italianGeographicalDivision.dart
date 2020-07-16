@@ -13,8 +13,6 @@ class ItalianGeographicalDivision {
       _$ItalianGeographicalDivisionFromJson(json);
   Map<String, dynamic> toJson() => _$ItalianGeographicalDivisionToJson(this);
 
-  ItalianGeographicalDivision(
-      this.id, this.name, this.code, this.type, this.descendants) {
-    print('itaGeoDiv constructor');
-  }
+  ItalianGeographicalDivision(this.id, this.name, this.code, this.type, this.descendants);
+
 }

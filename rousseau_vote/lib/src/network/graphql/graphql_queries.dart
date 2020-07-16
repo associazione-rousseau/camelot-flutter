@@ -221,6 +221,15 @@ String currentUserFull = '''
       code
       name
     }
+    municipio{
+      code
+      name
+    }
+    country{
+      code 
+      name
+    }
+    overseaseCity
     profile {
         presentation
         curriculumActivist
@@ -268,6 +277,35 @@ String currentUserFull = '''
         rejectionReason
       }
     }
+  }
+}
+''';
+
+String currentUserResidence = '''
+query currentUser {
+  currentUser {
+    slug
+    comune{
+      code
+      name
+    }
+    provincia{
+      code
+      name
+    }
+    regione{
+      code
+      name
+    }
+    municipio{
+      code
+      name
+    }
+    country{
+      code 
+      name
+    }
+    overseaseCity
   }
 }
 ''';

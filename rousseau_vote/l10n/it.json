@@ -70,5 +70,6 @@
     "noSms": "Non voglio ricevere sms informativi",
     "edit-account-anagraph": "Dati anagrafici",
     "edit-account-login": "Informazioni di login",
-    "edit-account-contact":  "Preferenze di contatto"
+    "edit-account-contact":  "Preferenze di contatto",
+    "edit-account-residence":  "Residenza"
 }

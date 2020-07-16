@@ -34,7 +34,28 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..noNewsletterEmail = json['noNewsletterEmail'] as bool
     ..noRousseauEventsEmail = json['noRousseauEventsEmail'] as bool
     ..noVoteEmail = json['noVoteEmail'] as bool
-    ..noSms = json['noSms'] as bool;
+    ..noSms = json['noSms'] as bool
+    ..country = json['country'] == null
+        ? null
+        : ItalianGeographicalDivision.fromJson(
+            json['country'] as Map<String, dynamic>)
+    ..regione = json['regione'] == null
+        ? null
+        : ItalianGeographicalDivision.fromJson(
+            json['regione'] as Map<String, dynamic>)
+    ..provincia = json['provincia'] == null
+        ? null
+        : ItalianGeographicalDivision.fromJson(
+            json['provincia'] as Map<String, dynamic>)
+    ..comune = json['comune'] == null
+        ? null
+        : ItalianGeographicalDivision.fromJson(
+            json['comune'] as Map<String, dynamic>)
+    ..municipio = json['municipio'] == null
+        ? null
+        : ItalianGeographicalDivision.fromJson(
+            json['municipio'] as Map<String, dynamic>)
+    ..overseaseCity = json['overseaseCity'] as String;
 }
 
 Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
@@ -61,4 +82,10 @@ Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
       'noRousseauEventsEmail': instance.noRousseauEventsEmail,
       'noVoteEmail': instance.noVoteEmail,
       'noSms': instance.noSms,
+      'country': instance.country,
+      'regione': instance.regione,
+      'provincia': instance.provincia,
+      'comune': instance.comune,
+      'municipio': instance.municipio,
+      'overseaseCity': instance.overseaseCity,
     };

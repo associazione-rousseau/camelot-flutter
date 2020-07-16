@@ -25,7 +25,7 @@ class EditAccountScreen extends StatelessWidget {
         children: <Widget>[
           CardRow('Dati anagrafici', AnagraphScreen.ROUTE_NAME),
           CardRow('Informazioni di login', LoginInfoScreen.ROUTE_NAME),
-          // CardRow('Informazioni di residenza', ResidenceScreen.ROUTE_NAME),
+          CardRow('Informazioni di residenza', ResidenceScreen.ROUTE_NAME),
           CardRow('Preferenze notifiche email', ContactPreferencesScreen.ROUTE_NAME)
           // CardRow('Cancella iscrizione', AnagraphScreen.ROUTE_NAME),
         ],

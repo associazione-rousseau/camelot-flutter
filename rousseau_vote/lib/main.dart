@@ -112,11 +112,7 @@ class RousseauVoteApp extends StatelessWidget {
                     
                     LoginInfoScreen.ROUTE_NAME: (BuildContext context) => LoginInfoScreen(),
                      
-                    ResidenceScreen.ROUTE_NAME: (BuildContext context) {
-                      final CurrentUser cu =
-                          ModalRoute.of(context).settings.arguments;
-                      return ResidenceScreen(cu);
-                    },
+                    ResidenceScreen.ROUTE_NAME: (BuildContext context) => ResidenceScreen(),
                     ContactPreferencesScreen.ROUTE_NAME: (BuildContext context) => ContactPreferencesScreen(),
                     PollDetailsScreen.ROUTE_NAME: (BuildContext context) {
                       final PollDetailArguments arguments =
