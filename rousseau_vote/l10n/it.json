@@ -22,6 +22,7 @@
     "error-too-many-attempts": "Codice sbagliato per troppe volte. Riprova tra 15 minuti",
     "error-invalid-token": "Ops! Token non valido. Riprovare più tardi",
     "error-vote": "Qualcosa non va, assicurati di essere ancora in tempo per votare e riprova.",
+    "error-profile-loading": "Ops! C'è stato un problema nel caricare il profilo",
 
     "poll-start": "Inizio",
     "poll-end": "Fine",
