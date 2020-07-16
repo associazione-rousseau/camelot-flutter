@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-const String PROFILE_PICTURE_PLACEHOLDER = 'assets/images/profilePlaceholder.png';
+const String PROFILE_PICTURE_PLACEHOLDER = 'assets/images/placeholders/profilePlaceholder.png';
 
 class ProfilePicture extends StatelessWidget {
 
