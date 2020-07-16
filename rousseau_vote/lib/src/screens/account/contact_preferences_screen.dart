@@ -1,17 +1,15 @@
+import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
-import 'package:rousseau_vote/src/widgets/rousseau_app_bar.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
-import 'dart:collection';
-import 'package:rousseau_vote/src/providers/current_user_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
-
+import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
+import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 
 class ContactPreferencesScreen extends StatefulWidget{
 
@@ -32,32 +30,24 @@ class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
     final String title = RousseauLocalizations.of(context).text(
         'edit-account-contact');
 
-    final CurrentUserProvider provider = Provider.of<CurrentUserProvider>(context);
-    final CurrentUser currentUser = provider.getCurrentUser();
-
-    userBools = userBools ??  <bool> [currentUser.noLocalEventsEmail,
-     currentUser.noNationalEventsEmail,
-     currentUser.noNewsletterEmail,
-     currentUser.noRousseauEventsEmail,
-     currentUser.noVoteEmail,
-     currentUser.noSms
-    ]; 
-
-    Widget body;
-
-    if (currentUser != null) {
-      body = _currentUserBody(currentUser);
-    } else if (provider.isLoading()) {
-      body = _loadingBody();
-    } else {
-      body = _errorBody();
-    }
-
+  
     return Scaffold(
+      key: _scaffoldState,
       appBar: AppBar(
         title: Text(title),
       ),
-      body: body,
+      body: GraphqlQueryWidget<CurrentUser>(
+        query: currentUserFull,
+        builderSuccess: (CurrentUser currentUser) {
+          return _currentUserBody(currentUser);
+        },
+        builderLoading: () {
+          return const LoadingIndicator();
+        },
+        builderError: (List<GraphQLError> error) {
+          return Text(error.toString());
+        },
+      ),
     );
   }
 
@@ -70,6 +60,13 @@ class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
   }
 
   Widget _currentUserBody(CurrentUser currentUser) {
+    userBools = userBools ??  <bool> [currentUser.noLocalEventsEmail,
+     currentUser.noNationalEventsEmail,
+     currentUser.noNewsletterEmail,
+     currentUser.noRousseauEventsEmail,
+     currentUser.noVoteEmail,
+     currentUser.noSms
+    ]; 
     return Column(
       children: <Widget>[
           Expanded(
