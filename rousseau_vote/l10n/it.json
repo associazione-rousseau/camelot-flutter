@@ -67,5 +67,8 @@
     "noRousseauEventsEmail": "Non voglio ricevere email sugli eventi Rousseau",
     "noNewsletterEmail": "Non voglio ricevere la newsletter settimanale",
     "noVoteEmail": "Non voglio ricevere email sulle votazioni",
-    "noSms": "Non voglio ricevere sms informativi"
+    "noSms": "Non voglio ricevere sms informativi",
+    "edit-account-anagraph": "Dati anagrafici",
+    "edit-account-login": "Informazioni di login",
+    "edit-account-contact":  "Preferenze di contatto"
 }

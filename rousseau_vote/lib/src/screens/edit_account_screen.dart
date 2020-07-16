@@ -52,16 +52,14 @@ class EditAccountScreen extends StatelessWidget {
 
   Widget _currentUserBody(CurrentUser currentUser) {
     return ListView(
-              children: <Widget>[
-                CardRow(
-                    'Dati anagrafici', AnagraphScreen.ROUTE_NAME),
-                CardRow('Informazioni di login', LoginInfoScreen.ROUTE_NAME),
-                CardRow('Informazioni di residenza', ResidenceScreen.ROUTE_NAME),
-                CardRow('Preferenze notifiche email', ContactPreferencesScreen.ROUTE_NAME)
-//                CardRow('Cancella iscrizione', AnagraphScreen.ROUTE_NAME),
-              ],
-            );
-    // return Text(currentUser.fullName);
+      children: <Widget>[
+        CardRow('Dati anagrafici', AnagraphScreen.ROUTE_NAME),
+        CardRow('Informazioni di login', LoginInfoScreen.ROUTE_NAME),
+        // CardRow('Informazioni di residenza', ResidenceScreen.ROUTE_NAME),
+        CardRow('Preferenze notifiche email', ContactPreferencesScreen.ROUTE_NAME)
+        // CardRow('Cancella iscrizione', AnagraphScreen.ROUTE_NAME),
+      ],
+    );
   }
 }
 

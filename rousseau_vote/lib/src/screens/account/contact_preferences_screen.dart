@@ -10,6 +10,7 @@ import 'package:rousseau_vote/src/widgets/rounded_button.dart';
 import 'dart:collection';
 import 'package:rousseau_vote/src/providers/current_user_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 
 
 class ContactPreferencesScreen extends StatefulWidget{
@@ -23,26 +24,54 @@ class ContactPreferencesScreen extends StatefulWidget{
 
 class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
   final GlobalKey _scaffoldState = GlobalKey<ScaffoldState>();
-
   List<bool> userBools;
-
+  
   @override
   Widget build(BuildContext context){
-    print('building');
-    print(userBools);
-    userBools = userBools ??  <bool> [Provider.of<CurrentUserProvider>(context).currentUser.noLocalEventsEmail,
-     Provider.of<CurrentUserProvider>(context).currentUser.noNationalEventsEmail,
-     Provider.of<CurrentUserProvider>(context).currentUser.noNewsletterEmail,
-     Provider.of<CurrentUserProvider>(context).currentUser.noRousseauEventsEmail,
-     Provider.of<CurrentUserProvider>(context).currentUser.noVoteEmail,
-     Provider.of<CurrentUserProvider>(context).currentUser.noSms
+    
+    final String title = RousseauLocalizations.of(context).text(
+        'edit-account-contact');
+
+    final CurrentUserProvider provider = Provider.of<CurrentUserProvider>(context);
+    final CurrentUser currentUser = provider.getCurrentUser();
+
+    userBools = userBools ??  <bool> [currentUser.noLocalEventsEmail,
+     currentUser.noNationalEventsEmail,
+     currentUser.noNewsletterEmail,
+     currentUser.noRousseauEventsEmail,
+     currentUser.noVoteEmail,
+     currentUser.noSms
     ]; 
 
+    Widget body;
+
+    if (currentUser != null) {
+      body = _currentUserBody(currentUser);
+    } else if (provider.isLoading()) {
+      body = _loadingBody();
+    } else {
+      body = _errorBody();
+    }
+
     return Scaffold(
-      key: _scaffoldState,
-      appBar: RousseauAppBar(),
-      body: Column(
-        children: <Widget>[
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: body,
+    );
+  }
+
+  Widget _errorBody() {
+    return const Text('Error');
+  }
+
+  Widget _loadingBody() {
+    return const LoadingIndicator();
+  }
+
+  Widget _currentUserBody(CurrentUser currentUser) {
+    return Column(
+      children: <Widget>[
           Expanded(
             child: ListView.separated(
               itemCount: ContactPreferencesScreen.checks.length,
@@ -113,7 +142,6 @@ class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
             ),
           )
         ],
-      ),
     );
   }
 }
