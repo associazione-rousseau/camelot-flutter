@@ -19,6 +19,7 @@ class CurrentUserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GraphqlQueryWidget<CurrentUser>(
       query: currentUserShort,
+      fetchPolicy: FetchPolicy.cacheFirst,
       builderSuccess: (CurrentUser currentUser) {
         return ListTile(
           leading: ProfilePicture(url: currentUser.getProfilePictureUrl(), radius: PROFILE_PICTURE_RADIUS),

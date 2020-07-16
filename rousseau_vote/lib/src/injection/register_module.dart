@@ -11,8 +11,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
-import 'package:rousseau_vote/src/init/polls_prefetcher.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
+import 'package:rousseau_vote/src/init/startup_prefetcher.dart';
+import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:rousseau_vote/src/util/debug_util.dart';
@@ -28,7 +29,7 @@ abstract class RegisterModule {
   // all the initializer here are going to be executed at startup time
   StartupInitializer get startupInitializer => StartupInitializer([
     getIt<TokenStore>(),
-    getIt<PollsPrefetcher>(),
+    StartupPrefetcher([listPolls, currentUserShort]),
   ], 3000);
 
   FirebaseMessaging get firebaseMessaging => FirebaseMessaging();
