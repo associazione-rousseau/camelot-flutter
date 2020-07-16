@@ -59,5 +59,10 @@
     "drawer-blog": "Il Blog Delle Stelle",
     "drawer-feedback": "Invia un feedback",
     "drawer-privacy": "Privacy",
-    "drawer-logout": "Logout"
+    "drawer-logout": "Logout",
+
+    "profile-presentation": "Presentazione",
+    "profile-curriculum-vitae": "Curriculum Vitae",
+    "profile-curriculum-activitst": "Curriculum Attivista",
+    "profile-political-experiences": "Esperienze Politiche"
 }
