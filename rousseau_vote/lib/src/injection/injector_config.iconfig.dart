@@ -23,7 +23,6 @@ import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:rousseau_vote/src/providers/current_user_provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:get_it/get_it.dart';
 
@@ -62,8 +61,6 @@ void $initGetIt(GetIt g, {String environment}) {
       TokenStore(g<SecureStorage>(), g<LoginNetworkHandler>()));
   g.registerSingleton<UserNetworkHandler>(
       UserNetworkHandler(g<GraphQLClient>()));
-  g.registerSingleton<CurrentUserProvider>(
-      CurrentUserProvider(g<UserNetworkHandler>()));
   g.registerSingleton<Login>(Login(
     g<LoginNetworkHandler>(),
     g<TokenStore>(),
