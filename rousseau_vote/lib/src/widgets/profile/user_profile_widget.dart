@@ -12,6 +12,8 @@ import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/profile/user_profile_section.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
 
+import 'social_badges_section.dart';
+
 class UserProfileWidget extends StatelessWidget {
   const UserProfileWidget({this.userProfile, this.isLoading = false});
 
@@ -27,7 +29,7 @@ class UserProfileWidget extends StatelessWidget {
           slivers: <Widget>[
             SliverAppBar(
               pinned: true,
-              expandedHeight: 330,
+              expandedHeight: 320,
               backgroundColor: PRIMARY_RED,
               flexibleSpace: FlexibleSpaceBar(background: _header(context)),
             ),
@@ -100,6 +102,8 @@ class UserProfileWidget extends StatelessWidget {
   Widget _profileBody() {
     return Column(
       children: <Widget>[
+        SocialBadgesSection(userProfile),
+        const VerticalSpace(15),
         UserInfoSection(
             'profile-presentation', userProfile.profile.presentation),
         UserInfoSection(

@@ -9,7 +9,7 @@ import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-void showSimpleSnackbar(BuildContext context, String textKey, {bool dismissable}) {
+void showSimpleSnackbar(BuildContext context, String textKey, {bool dismissable = false}) {
 
   final SnackBarAction action = dismissable ? SnackBarAction(
         label: RousseauLocalizations.getText(context, 'close'),
