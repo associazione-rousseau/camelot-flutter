@@ -100,6 +100,7 @@ flutter:
     - assets/images/
     - assets/images/badges/
     - assets/images/placeholders/
+    - assets/images/socials/
     - assets/secrets/
 
   #  - images/a_dot_burr.jpeg
