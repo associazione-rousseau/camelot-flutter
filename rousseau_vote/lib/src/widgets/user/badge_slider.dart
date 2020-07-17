@@ -7,7 +7,7 @@ class BadgeSlider extends StatelessWidget {
   const BadgeSlider({this.badges});
 
   final List<Badge> badges;
-  static const double iconSize = 40;
+  static const double ICON_SIZE = 40;
   @override
   Widget build(BuildContext context) {
     final List<String> meritIcons = badgesToMerits();
@@ -50,12 +50,12 @@ class BadgeSlider extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
                   child: InkWell(
-                    borderRadius: BorderRadius.circular(iconSize / 2),
+                    borderRadius: BorderRadius.circular(ICON_SIZE / 2),
                     onTap: () => showMeritMeaning(meritIcons[index],context),
                     child: Image( 
                       image: AssetImage('assets/merits/' + meritIcons[index] +  '_true.png'),
-                      width: iconSize,
-                      height: iconSize,
+                      width: ICON_SIZE,
+                      height: ICON_SIZE,
                     ),
                   ),
                 );
@@ -93,7 +93,7 @@ class BadgeSlider extends StatelessWidget {
   List<String> badgesToMerits(){
     List<String> meritIcons = [];
     if (badges.isNotEmpty){
-      for(final badge in badges){
+      for(final Badge badge in badges){
         switch(badge.code) {
           case 'list_representative':
           case 'italia_cinque_stelle_volunteer':
