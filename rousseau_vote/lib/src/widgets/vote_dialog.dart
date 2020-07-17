@@ -52,7 +52,7 @@ class VoteDialog extends StatelessWidget {
                 final Map<String, Object> user = (result.data as Map<String, Object>)['user'] as Map<String, Object>;
                 final LazyCacheMap map = user.values.first;
                 final List<Object> errors = map.values.first;
-                errors == null || errors.isEmpty ? _done(context) : showError(context, _dialogEndAction ,'error-vote');
+                errors == null || errors.isEmpty ? showDone(context,_dialogEndAction) : showError(context, _dialogEndAction ,'error-vote');
               },
             ),
             builder: (RunMutation runMutation, QueryResult result) {
