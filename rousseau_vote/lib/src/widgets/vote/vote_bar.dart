@@ -54,16 +54,16 @@ class VoteBar extends StatelessWidget {
         style: const TextStyle(fontSize: 18),
       );
     }
-    final String text1 = RousseauLocalizations.getText(context, 'vote-preferences-1');
-    String text2 = '';
+    final String remainingPreferencesText1 = RousseauLocalizations.getText(context, 'vote-preferences-1');
+    String remainingPreferencesText2 = '';
     if (remainingPreferences == 1) {
-      text2 += RousseauLocalizations.getText(context, 'vote-preferences-2s');
+      remainingPreferencesText2 += RousseauLocalizations.getText(context, 'vote-preferences-2s');
     } else {
-      text2 += RousseauLocalizations.getText(context, 'vote-preferences-2p');
+      remainingPreferencesText2 += RousseauLocalizations.getText(context, 'vote-preferences-2p');
     }
     return Text.rich(
       TextSpan(
-        text: text1,
+        text: remainingPreferencesText1,
         style: const TextStyle(fontSize: 18),
         children:<TextSpan>[
           TextSpan(
@@ -74,7 +74,7 @@ class VoteBar extends StatelessWidget {
             )
           ),
           TextSpan(
-            text: text2
+            text: remainingPreferencesText2
           )
         ],
       ),
