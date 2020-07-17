@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/badge.dart';
-import 'package:rousseau_vote/src/config/app_constants.dart';
 
 class BadgeSlider extends StatelessWidget {
   const BadgeSlider({this.badges});
@@ -98,19 +97,19 @@ class BadgeSlider extends StatelessWidget {
         switch(badge.code) {
           case 'list_representative':
           case 'italia_cinque_stelle_volunteer':
-          case 'villaggio_rousseau_volunteer': if(!meritIcons.contains('merit1')) meritIcons.add('merit1'); break;
+          case 'villaggio_rousseau_volunteer': if(!meritIcons.contains('merit_1')) meritIcons.add('merit_1'); break;
           case 'call_to_actions_organizer':
           case 'activism_organizer':
           case 'sharing_proposer':
-          case 'user_lex_proposer': if(!meritIcons.contains('merit2')) meritIcons.add('merit2'); break; 
-          case 'graduate': meritIcons.add('merit3'); break;
-          case 'english_language_expert': meritIcons.add('merit4'); break;
+          case 'user_lex_proposer': if(!meritIcons.contains('merit_2')) meritIcons.add('merit_2'); break; 
+          case 'graduate': meritIcons.add('merit_3'); break;
+          case 'english_language_expert': meritIcons.add('merit_4'); break;
           case 'openday_participant':
-          case 'villaggio_rousseau_participant': if(!meritIcons.contains('merit5')) meritIcons.add('merit5'); break;
-          case 'elearnign_student': meritIcons.add('merit6'); break;
-          case 'special_mentions': meritIcons.add('merit7'); break;
-          case 'high_specialization': meritIcons.add('merit8'); break;
-          case 'community_leader': meritIcons.add('merit9'); break;
+          case 'villaggio_rousseau_participant': if(!meritIcons.contains('merit_5')) meritIcons.add('merit_5'); break;
+          case 'elearnign_student': meritIcons.add('merit_6'); break;
+          case 'special_mentions': meritIcons.add('merit_7'); break;
+          case 'high_specialization': meritIcons.add('merit_8'); break;
+          case 'community_leader': meritIcons.add('merit_9'); break;
         }
       }
     }
