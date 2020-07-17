@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,6 +9,7 @@ import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/profile/user_profile_section.dart';
+import 'package:rousseau_vote/src/widgets/user/badge_widget.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
 
 import 'social_badges_section.dart';
@@ -129,12 +129,7 @@ class UserProfileWidget extends StatelessWidget {
     final List<String> badgeImagesPaths = getActiveBadgesImages(userProfile.badges);
     final List<Widget> badgeImagesWidgets = <Widget>[];
     for (String badgeImagePath in badgeImagesPaths) {
-      badgeImagesWidgets.add(Container(
-          padding: const EdgeInsets.only(left: 6),
-          child: Image.asset(
-            badgeImagePath,
-            width: 40,
-          )));
+      badgeImagesWidgets.add(BadgeWidget(badgeImagePath: badgeImagePath));
     }
     return Card(
         child: Container(
