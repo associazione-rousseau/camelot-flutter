@@ -3,8 +3,6 @@ import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
-import 'package:rousseau_vote/src/widgets/done_dialog.dart';
-import 'package:rousseau_vote/src/widgets/error_dialog.dart';
 import 'package:rousseau_vote/src/widgets/vote_dialog.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/option.dart';
@@ -39,7 +37,7 @@ class VoteBar extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
         ),
         color: _selected.isEmpty ? DISABLED_GREY : PRIMARY_RED,
-        onPressed: () => _selected.isEmpty ? showMessage(context) : showAction(context),
+        onPressed: () => _selected.isEmpty ? showNeedsSelectionMessage(context) : showVoteDialog(context),
       ),
     );
   }
@@ -84,7 +82,7 @@ class VoteBar extends StatelessWidget {
     );
   }
 
-  void showMessage(BuildContext context) {
+  void showNeedsSelectionMessage(BuildContext context) {
     Scaffold.of(context).showSnackBar(
         SnackBar(
           content: Text(RousseauLocalizations.getText(context, 'vote-pick-one')),
@@ -96,39 +94,15 @@ class VoteBar extends StatelessWidget {
       );
   }
 
-  void showAction(BuildContext context) {
+  void showVoteDialog(BuildContext context) {
     showDialog<AlertDialog>(
       context: context,
       builder: (BuildContext context) {
         return VoteDialog(
           _selected, 
           _poll.slug,
-          showError,
-          showDone,
+          _endAction,
           _poll.optionType
-        );
-      }
-    );
-  }
-
-  void showDone(BuildContext context) {
-    Navigator.of(context).pop();
-    showDialog<AlertDialog>(
-      context: context,
-      builder: (BuildContext context) {
-        return DoneDialog(_endAction);
-      }
-    );
-  }
-
-  void showError(BuildContext context) {
-    Navigator.of(context).pop();
-    showDialog<AlertDialog>(
-      context: context,
-      builder: (BuildContext context) {
-        return ErrorDialog(
-          RousseauLocalizations.getText(context, 'error-vote'),
-          _endAction
         );
       }
     );
