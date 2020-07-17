@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
-import 'package:rousseau_vote/src/screens/UserProfileScreen.dart';
+import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
 
@@ -54,7 +54,7 @@ class _PollEntityDetailState extends State<PollEntityDetail> {
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: ListTile(
-            leading: ProfilePicture(_option.entity.getProfilePictureUrl()),
+            leading: ProfilePicture(url: _option.entity.getProfilePictureUrl()),
             title: Text(
               _option.entity.fullName,
               style: const TextStyle(fontSize: 16),

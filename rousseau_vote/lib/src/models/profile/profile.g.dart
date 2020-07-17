@@ -46,7 +46,11 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
     ..villaggioRousseauVolunteer = json['villaggioRousseauVolunteer'] as String
     ..picture = json['picture'] == null
         ? null
-        : Picture.fromJson(json['picture'] as Map<String, dynamic>);
+        : Picture.fromJson(json['picture'] as Map<String, dynamic>)
+    ..placeOfResidence = json['placeOfResidence'] == null
+        ? null
+        : PlaceOfResidence.fromJson(
+            json['placeOfResidence'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
@@ -84,4 +88,5 @@ Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
       'villaggioRousseauVolunteerFlag': instance.villaggioRousseauVolunteerFlag,
       'villaggioRousseauVolunteer': instance.villaggioRousseauVolunteer,
       'picture': instance.picture,
+      'placeOfResidence': instance.placeOfResidence,
     };

@@ -9,6 +9,21 @@ import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+void showSimpleSnackbar(BuildContext context, String textKey, {bool dismissable = false}) {
+
+  final SnackBarAction action = dismissable ? SnackBarAction(
+        label: RousseauLocalizations.getText(context, 'close'),
+        onPressed: () => Scaffold.of(context).hideCurrentSnackBar(),
+  ) : null;
+
+  Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Text(RousseauLocalizations.getText(context, textKey)),
+        action: action,
+      )
+  );
+}
+
 void showRousseauSnackbar(BuildContext context,
     GlobalKey<ScaffoldState> scaffoldState, String message) {
   final SnackBar snackBar = SnackBar(

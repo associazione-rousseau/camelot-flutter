@@ -21,7 +21,7 @@ class CurrentUserProvider extends NetworkChangeNotifier {
     _fetchCurrentUser().then((CurrentUser currentUser) {
       _currentUser = currentUser;
       doneLoading();
-    }).catchError((){
+    }).catchError((Object error){
       setError();
     });
 

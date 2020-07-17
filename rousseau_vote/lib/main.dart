@@ -22,7 +22,7 @@ import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:rousseau_vote/src/screens/account/contact_preferences_screen.dart';
 import 'package:rousseau_vote/src/screens/account/login_info_screen.dart';
 import 'package:rousseau_vote/src/screens/account/residence_screen.dart';
-import 'package:rousseau_vote/src/screens/UserProfileScreen.dart';
+import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/blog_screen.dart';
 import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
@@ -73,7 +73,7 @@ class RousseauVoteApp extends StatelessWidget {
           ChangeNotifierProvider(builder: (_) => getIt<Login>()),
           ChangeNotifierProvider<ExternalPreselection>(builder: (_) => getIt<ExternalPreselection>()),
           ChangeNotifierProvider<BlogInstantArticleProvider>(builder: (_) => getIt<BlogInstantArticleProvider>()),
-          ChangeNotifierProvider(builder: (_) => getIt<CurrentUserProvider>()),
+          ChangeNotifierProvider<CurrentUserProvider>(builder: (_) => getIt<CurrentUserProvider>()),
         ],
         child: GraphQLProvider(
             client: getIt(),
