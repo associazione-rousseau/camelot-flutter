@@ -4,6 +4,8 @@ import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/config/links.dart';
 import 'package:rousseau_vote/src/models/entity.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
+import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
 
 class PollEntityInfoRow extends StatelessWidget {
 
@@ -64,7 +66,7 @@ class PollEntityInfoRow extends StatelessWidget {
                           fontWeight: FontWeight.w600
                         )
                       ),
-                      onPressed: openUrlInternalAction(context, ROUSSEAU_WEB_LINK + 'profiles/' + _entity.slug),
+                      onPressed: openRouteAction(context, UserProfileScreen.ROUTE_NAME, arguments: UserProfileArguments(_entity.slug))
                     ),
                   ],
                 )
