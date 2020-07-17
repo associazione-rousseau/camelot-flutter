@@ -25,12 +25,14 @@ class ItaGeoDivisionsNetworkHandler {
     return getParser<ItaGeoDivisionList>().parse(result);
   }
 
-  Future<CountryList> getCountries(String search) async {
+  Future<List<ItalianGeographicalDivision>> getCountries(String search) async {
     final QueryOptions queryOptions = QueryOptions(
       documentNode: gql(countries),
     );
     final QueryResult result = await _graphQLClient.query(queryOptions);
-    return getParser<CountryList>().parse(result);
+    final CountryList countryList =  getParser<CountryList>().parse(result);
+    final List<ItalianGeographicalDivision> filteredCountries =  countryList.countries.where((ItalianGeographicalDivision c) => c.name.contains(search)).toList();
+    return filteredCountries;
   }
 
 }

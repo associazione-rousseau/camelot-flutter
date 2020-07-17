@@ -83,5 +83,14 @@
     "profile-location-same-female": "nata e residente a %s",
     "profile-location-same-male": "nato e residente a %s",
 
-    "message-link-copied": "Link copiato"
+    "message-link-copied": "Link copiato",
+    "overseas-city": "Città di residenza estera",
+    "last-italian-residence": "Ultima residenza in Italia",
+
+    "country": "Stato",
+    "regione": "Regione",
+    "provincia": "Provincia",
+    "comune": "Comune",
+    "municipio": "Municipio"
+    
 }
