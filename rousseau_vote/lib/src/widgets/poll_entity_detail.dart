@@ -63,7 +63,7 @@ class _PollEntityDetailState extends State<PollEntityDetail> {
             trailing: active ? Icon(Icons.brightness_1, color: PRIMARY_RED) : null
           )
         ),
-        onTap: openRouteAction(context, UserProfileScreen.ROUTE_NAME, arguments: UserProfileArguments(_option.entity.slug)),//isDisabled() ? showMessage(context) : doSelect(),
+        onTap: openProfileAction(context, _option.entity.slug),//isDisabled() ? showMessage(context) : doSelect(),
       )
     );
   }
