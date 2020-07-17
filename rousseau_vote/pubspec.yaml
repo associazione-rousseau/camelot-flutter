@@ -97,8 +97,6 @@ flutter:
   assets:
     - l10n/it.json
     - assets/images/
-    - assets/merits/
-
     - assets/secrets/
 
   #  - images/a_dot_burr.jpeg
