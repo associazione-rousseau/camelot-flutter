@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rousseau_vote/src/models/user/profile.dart';
-import 'package:rousseau_vote/src/models/badge.dart';
+import 'package:rousseau_vote/src/models/profile/badge.dart';
 
 part 'entity.g.dart';
 

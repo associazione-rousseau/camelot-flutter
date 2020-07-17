@@ -126,7 +126,7 @@ class UserProfileWidget extends StatelessWidget {
   }
 
   Widget _badgesCard(BuildContext context) {
-    final List<String> badgeImagesPaths = getActiveBadgesImages(userProfile);
+    final List<String> badgeImagesPaths = getActiveBadgesImages(userProfile.badges);
     final List<Widget> badgeImagesWidgets = <Widget>[];
     for (String badgeImagePath in badgeImagesPaths) {
       badgeImagesWidgets.add(Container(
