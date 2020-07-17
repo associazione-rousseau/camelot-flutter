@@ -86,13 +86,16 @@ class ResidenceScreen extends StatelessWidget {
         )
       ),          
       suggestionsCallback: (pattern) async {
-        print('sugg call');
+        if(type=='country'){
+          return await itaGeoDivisionsNetworkHandler.getCountries(pattern).then((value){
+          return value.countries;  
+        });
+        }
         return await itaGeoDivisionsNetworkHandler.getGeoDivList(type,pattern).then((value){
           return value.italianGeographicalDivisions.nodes;  
         });
       },
       itemBuilder: (context, dynamic suggestion) {
-        print('item build call');
         ItalianGeographicalDivision geoDivision = suggestion;
         return ListTile(
           title: Text(geoDivision.name),
@@ -102,7 +105,6 @@ class ResidenceScreen extends StatelessWidget {
         return suggestionsBox;
       },
       onSuggestionSelected: (dynamic suggestion) async {
-        print('sugg select');
         ItalianGeographicalDivision geoDivision = suggestion;
         textController.text = geoDivision.name;
       },

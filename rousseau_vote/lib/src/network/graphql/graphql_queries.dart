@@ -354,3 +354,12 @@ query italianGeographicalDivisions(
   }
 }
 ''';
+
+String countries = '''
+query countries{
+  countries {
+    name
+    code
+  }
+}
+''';
