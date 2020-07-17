@@ -92,25 +92,23 @@ class BadgeSlider extends StatelessWidget {
 
   List<String> badgesToMerits(){
     List<String> meritIcons = [];
-    if (badges.isNotEmpty){
-      for(final Badge badge in badges){
-        switch(badge.code) {
-          case 'list_representative':
-          case 'italia_cinque_stelle_volunteer':
-          case 'villaggio_rousseau_volunteer': if(!meritIcons.contains('merit_1')) meritIcons.add('merit_1'); break;
-          case 'call_to_actions_organizer':
-          case 'activism_organizer':
-          case 'sharing_proposer':
-          case 'user_lex_proposer': if(!meritIcons.contains('merit_2')) meritIcons.add('merit_2'); break; 
-          case 'graduate': meritIcons.add('merit_3'); break;
-          case 'english_language_expert': meritIcons.add('merit_4'); break;
-          case 'openday_participant':
-          case 'villaggio_rousseau_participant': if(!meritIcons.contains('merit_5')) meritIcons.add('merit_5'); break;
-          case 'elearnign_student': meritIcons.add('merit_6'); break;
-          case 'special_mentions': meritIcons.add('merit_7'); break;
-          case 'high_specialization': meritIcons.add('merit_8'); break;
-          case 'community_leader': meritIcons.add('merit_9'); break;
-        }
+    for(final Badge badge in badges){
+      switch(badge.code) {
+        case 'list_representative':
+        case 'italia_cinque_stelle_volunteer':
+        case 'villaggio_rousseau_volunteer': if(!meritIcons.contains('merit_1')) meritIcons.add('merit_1'); break;
+        case 'call_to_actions_organizer':
+        case 'activism_organizer':
+        case 'sharing_proposer':
+        case 'user_lex_proposer': if(!meritIcons.contains('merit_2')) meritIcons.add('merit_2'); break; 
+        case 'graduate': meritIcons.add('merit_3'); break;
+        case 'english_language_expert': meritIcons.add('merit_4'); break;
+        case 'openday_participant':
+        case 'villaggio_rousseau_participant': if(!meritIcons.contains('merit_5')) meritIcons.add('merit_5'); break;
+        case 'elearnign_student': meritIcons.add('merit_6'); break;
+        case 'special_mentions': meritIcons.add('merit_7'); break;
+        case 'high_specialization': meritIcons.add('merit_8'); break;
+        case 'community_leader': meritIcons.add('merit_9'); break;
       }
     }
     return meritIcons;
