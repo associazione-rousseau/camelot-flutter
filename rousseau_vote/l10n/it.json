@@ -95,5 +95,16 @@
 
     "view_profile": "Vedi Profilo",
     "vote-search-candidate": "Ricerca candidato",
-    "merits": "Meriti"
+    "merits": "Meriti",
+    "profile-presentation": "Presentazione",
+    "profile-curriculum-vitae": "Curriculum Vitae",
+    "profile-curriculum-activitst": "Curriculum Attivista",
+    "profile-political-experiences": "Esperienze Politiche",
+    "profile-age": "%d anni",
+    "profile-location-female": "nata a %s, residente a %s",
+    "profile-location-male": "nato a %s, residente a %s",
+    "profile-location-same-female": "nata e residente a %s",
+    "profile-location-same-male": "nato e residente a %s",
+
+    "message-link-copied": "Link copiato"
 }

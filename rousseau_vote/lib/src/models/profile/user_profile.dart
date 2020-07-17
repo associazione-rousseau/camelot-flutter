@@ -27,4 +27,8 @@ class UserProfile {
   List<Tag> tags;
   Profile profile;
   List<UserPositions> userPositions;
+
+  bool isFemale() {
+    return gender == 'F';
+  }
 }

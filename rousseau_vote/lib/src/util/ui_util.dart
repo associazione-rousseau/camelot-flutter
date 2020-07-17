@@ -11,6 +11,21 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:rousseau_vote/src/widgets/error_dialog.dart';
 import 'package:rousseau_vote/src/widgets/done_dialog.dart';
 
+void showSimpleSnackbar(BuildContext context, String textKey, {bool dismissable = false}) {
+
+  final SnackBarAction action = dismissable ? SnackBarAction(
+        label: RousseauLocalizations.getText(context, 'close'),
+        onPressed: () => Scaffold.of(context).hideCurrentSnackBar(),
+  ) : null;
+
+  Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Text(RousseauLocalizations.getText(context, textKey)),
+        action: action,
+      )
+  );
+}
+
 void showRousseauSnackbar(BuildContext context,
     GlobalKey<ScaffoldState> scaffoldState, String errorMessage) {
   final SnackBar snackBar = SnackBar(
