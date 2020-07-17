@@ -1,0 +1,5 @@
+rousseau_vote/assets/secrets/** filter=git-crypt diff=git-crypt
+rousseau_vote/android/app/google-services.json filter=git-crypt diff=git-crypt
+rousseau_vote/android/key.properties filter=git-crypt diff=git-crypt
+rousseau_vote/ios/Runner/GoogleService-Info.plist.release filter=git-crypt diff=git-crypt
+keys/** filter=git-crypt diff=git-crypt

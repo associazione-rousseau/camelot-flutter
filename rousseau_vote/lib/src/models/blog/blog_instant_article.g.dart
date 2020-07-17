@@ -14,6 +14,7 @@ BlogInstantArticle _$BlogInstantArticleFromJson(Map<String, dynamic> json) {
     ..date =
         json['date'] == null ? null : DateTime.parse(json['date'] as String)
     ..text = json['text'] as String
+    ..summary = json['summary'] as String
     ..url = json['url'] as String
     ..slug = json['slug'] as String
     ..author = json['author'] == null
@@ -31,6 +32,7 @@ Map<String, dynamic> _$BlogInstantArticleToJson(BlogInstantArticle instance) =>
       'image': instance.image,
       'date': instance.date?.toIso8601String(),
       'text': instance.text,
+      'summary': instance.summary,
       'url': instance.url,
       'slug': instance.slug,
       'author': instance.author,

@@ -130,7 +130,7 @@ class PollCard extends StatelessWidget {
         borderSide: BorderSide(color: color),
         textColor: color,
         icon: Icon(Icons.info_outline),
-        onPressed: () => openUrlInternal(context,  _poll.announcementLink),
+        onPressed: openUrlInternalAction(context,  _poll.announcementLink),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
@@ -140,5 +140,4 @@ class PollCard extends StatelessWidget {
       return Container();
     }
   }
-
 }

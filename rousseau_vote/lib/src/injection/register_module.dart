@@ -1,18 +1,21 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/native_imp.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
-import 'package:rousseau_vote/src/init/mock_initializer.dart';
+import 'package:rousseau_vote/src/init/polls_prefetcher.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
-import 'package:rousseau_vote/src/network/graphql/smart_cache.dart';
+import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
+import 'package:rousseau_vote/src/util/debug_util.dart';
 
 import 'injector_config.dart';
 
@@ -24,14 +27,23 @@ abstract class RegisterModule {
 
   // all the initializer here are going to be executed at startup time
   StartupInitializer get startupInitializer => StartupInitializer([
-    MockInitializer(1), // hack used to show the splash screen, remove when you have real waiting time on startup
-    getIt<TokenStore>()
-  ]);
+    getIt<TokenStore>(),
+    getIt<PollsPrefetcher>(),
+  ], 3000);
+
+  FirebaseMessaging get firebaseMessaging => FirebaseMessaging();
 
   @singleton
-  SmartCache get smartCache => SmartCache();
+  @Injectable(as: PushNotificationManager)
+  PushNotificationManager getPushNotificationManager() {
+    if (Platform.isIOS && isInDebugMode) {
+      return getIt<NoOpPushNotificationManager>();
+    }
+    return getIt<FirebaseNotificationManager>();
+  }
 
-  GraphQLClient getGraphQLClient(@factoryParam BuildContext buildContext) {
+  @singleton
+  GraphQLClient getGraphQLClient() {
     final HttpLink httpLink = HttpLink(
       uri: GRAPHQL_URL,
     );
@@ -45,7 +57,7 @@ abstract class RegisterModule {
     final Link link = authLink.concat(httpLink);
     return GraphQLClient(
       link: link,
-      cache: getIt<SmartCache>(),
+      cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
     );
   }
 

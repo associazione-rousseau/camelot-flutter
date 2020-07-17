@@ -11,7 +11,7 @@ import 'package:rousseau_vote/src/network/response/has_login_response.dart';
 import 'package:rousseau_vote/src/network/response/init_login_response.dart';
 import 'package:rousseau_vote/src/network/response/token_response.dart';
 import 'package:rousseau_vote/src/network/restclients/login_rest_client.dart';
-import 'package:uuid/uuid.dart';
+import 'package:rousseau_vote/src/network/util/open_id_util.dart';
 
 @singleton
 class LoginNetworkHandler {
@@ -22,8 +22,8 @@ class LoginNetworkHandler {
   LoginSession _loginSession;
 
   Future<LoginSession> credentialsLogin(String username, String password) async {
-    final String nonce = Uuid().v4();
-    final String state = Uuid().v4();
+    final String nonce = generateNonce();
+    final String state = generateState();
 
     final InitLoginResponse initLoginResponse = await _loginRestClient.initLogin(nonce, state);
     if (initLoginResponse.hasErrors()) {

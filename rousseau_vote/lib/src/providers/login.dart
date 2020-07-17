@@ -6,14 +6,16 @@ import 'package:rousseau_vote/src/network/exceptions/too_many_attempts_exception
 import 'package:rousseau_vote/src/network/exceptions/wrong_credentials_exception.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/network/response/token_response.dart';
+import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 
 @singleton
 class Login with ChangeNotifier {
-  Login(this._loginNetworkHandler, this._tokenStore);
+  Login(this._loginNetworkHandler, this._tokenStore, this._pushNotificationManager);
 
   final LoginNetworkHandler _loginNetworkHandler;
   final TokenStore _tokenStore;
+  final PushNotificationManager _pushNotificationManager;
   LoginState _loginState;
   ErrorState _errorState;
 
@@ -21,7 +23,7 @@ class Login with ChangeNotifier {
     final LoginState loginState = _tokenStore.hasValidToken()
         ? LoginState.LOGGED_IN
         : LoginState.LOGGED_OUT;
-    _moveToState(loginState: loginState, errorState: ErrorState.NO_ERRORS);
+    _moveToState(loginState: loginState, errorState: ErrorState.NO_ERRORS, shouldNotifyListeners: false);
   }
 
   void _moveToState(
@@ -70,6 +72,7 @@ class Login with ChangeNotifier {
       final Token token = Token.fromTokenResponse(tokenResponse);
       _tokenStore.onTokenFetched(token);
       if (_tokenStore.hasValidToken()) {
+        _onLogin(token);
         _moveToState(
             loginState: LoginState.LOGGED_IN, errorState: ErrorState.NO_ERRORS);
       } else {
@@ -119,9 +122,21 @@ class Login with ChangeNotifier {
   }
 
   void logout() {
-    _tokenStore.deleteToken();
+    _onLogout();
     // TODO invalidate session here
     _moveToState(loginState: LoginState.LOGGED_OUT);
+  }
+
+  void _onLogout() {
+    _tokenStore.deleteToken();
+    _pushNotificationManager.onLogout();
+  }
+
+  void _onLogin(Token token) {
+    final String userId = _tokenStore.getUserId();
+    if (userId != null) {
+      _pushNotificationManager.onLogin(userId);
+    }
   }
 
   bool isWaitingForVoiceCall() =>

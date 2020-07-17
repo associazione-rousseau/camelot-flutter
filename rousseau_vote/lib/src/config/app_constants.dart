@@ -13,6 +13,13 @@ const String KEYCLOAK_REDIRECT_URI = 'http://localhost';
 const String KEYCLOAK_URL_LOCAL = 'http://10.0.2.2:8081';
 const String KEYCLOAK_URL_PRODUCTION = 'https://sso.rousseau.movimento5stelle.it';
 const String KEYCLOAK_URL = KEYCLOAK_URL_PRODUCTION;
+const String KEYCLOAK_REGISTRATION_URL =
+    '$KEYCLOAK_URL/auth/realms/rousseau/protocol/openid-connect/registrations?'
+    'client_id=camelot-frontend&'
+    'redirect_uri=https%3A%2F%2Frousseau.movimento5stelle.it%2F&'
+    'response_mode=fragment&'
+    'response_type=code&'
+    'scope=openid';
 
 const String GRAPHQL_URL_LOCAL = 'http://10.0.2.2:3000/graphql';
 const String GRAPHQL_URL_PRODUCTION = 'https://api.rousseau.movimento5stelle.it/graphql';

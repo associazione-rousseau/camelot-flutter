@@ -12,17 +12,22 @@ class BlogInstantArticleProvider extends NetworkChangeNotifier {
   BlogInstantArticleProvider(this._networkHandler);
 
   final BlogInstantArticleNetworkHandler _networkHandler;
-  final List<BlogInstantArticle> _instantArticles = [];
+  final List<BlogInstantArticle> _instantArticles = <BlogInstantArticle>[];
   final HashMap<String, BlogInstantArticle> _instantArticleCache = HashMap<String, BlogInstantArticle>();
 
+  List<BlogInstantArticle> getInstantArticles() {
+    return _instantArticles;
+  }
+
   Future<List<BlogInstantArticle>> loadMoreInstantArticles() async {
-    startLoading();
+    startLoading(notify: false);
     final List<BlogInstantArticle> newArticles = await _networkHandler.getPosts(_instantArticles.length);
     if (newArticles == null || newArticles.isEmpty) {
       setError();
       return null;
     }
     _instantArticles.addAll(newArticles);
+    addInstantArticlesToCache(newArticles);
     doneLoading();
     return newArticles;
   }
@@ -49,6 +54,12 @@ class BlogInstantArticleProvider extends NetworkChangeNotifier {
 
   BlogInstantArticle getCachedInstantArticle(String slug) {
     return _instantArticleCache[slug];
+  }
+
+  void addInstantArticlesToCache(List<BlogInstantArticle> instantArticles) {
+    _instantArticles.forEach((BlogInstantArticle element) {
+      addInstantArticleToCache(element);
+    });
   }
 
   void addInstantArticleToCache(BlogInstantArticle instantArticle) {

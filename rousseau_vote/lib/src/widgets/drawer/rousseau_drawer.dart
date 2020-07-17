@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/config/links.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
+import 'package:rousseau_vote/src/screens/blog_screen.dart';
+import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/drawer/drawer_item.dart';
@@ -25,9 +27,7 @@ class RousseauDrawer extends StatelessWidget {
           DrawerItem(
             textKey: 'drawer-edit-account',
             iconData: Icons.person,
-            onTap: () {
-              // TODO implement
-            },
+            onTap: openRouteAction(context, EditAccountScreen.ROUTE_NAME),
           ),
           DrawerItem(
             textKey: 'drawer-feedback',
@@ -39,18 +39,18 @@ class RousseauDrawer extends StatelessWidget {
           DrawerItem(
             textKey: 'drawer-support',
             iconData: Icons.favorite,
-            onTap: openUrlInternalAction(context, SUPPORT_LINK),
+            onTap: openUrlExternalAction(context, SUPPORT_LINK),
           ),
           const Divider(height: 3),
           DrawerItem(
             textKey: 'drawer-other-functionalities',
             iconData: Icons.devices,
-            onTap: openUrlInternalAction(context, ROUSSEAU_WEB_LINK),
+            onTap: openUrlExternalAction(context, ROUSSEAU_WEB_LINK),
           ),
           DrawerItem(
             textKey: 'drawer-blog',
             iconData: Icons.star,
-            onTap: openUrlInternalAction(context, BLOG_LINK),
+            onTap: openRouteAction(context, BlogScreen.ROUTE_NAME),
           ),
           DrawerItem(
             textKey: 'drawer-privacy',

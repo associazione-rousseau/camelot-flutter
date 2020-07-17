@@ -8,16 +8,13 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:rousseau_vote/main.dart';
+import 'package:rousseau_vote/src/injection/injector_config.dart';
 
 void main() {
- testWidgets('Is the app findable by type', (WidgetTester tester) async {
-    await tester.pumpWidget(RousseauVoteApp());
-    expect(find.byType(RousseauVoteApp), findsOneWidget);
- });
 
-  testWidgets('Is the app findable by widget', (WidgetTester tester) async {
-    final RousseauVoteApp app = RousseauVoteApp();
-    await tester.pumpWidget(app);
-    expect(find.byWidget(app), findsOneWidget);
-  });
+ testWidgets('Is the app findable by type', (WidgetTester tester) async {
+    configure();
+    await tester.pumpWidget(RousseauVoteApp());
+    expect(find.byType(RousseauVoteApp), findsWidgets);
+ });
 }

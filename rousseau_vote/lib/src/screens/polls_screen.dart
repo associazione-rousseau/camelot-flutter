@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:rousseau_vote/src/init/polls_prefetcher.dart';
+import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_list.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
+import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/poll_card.dart';
@@ -16,10 +19,18 @@ class PollsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PrefetchManager prefetchManager = getIt<PrefetchManager>();
+    FetchPolicy fetchPolicy = FetchPolicy.cacheAndNetwork;
+    if (prefetchManager.hasPrefetchedData(listPolls)) {
+      prefetchManager.invalidateQuery(listPolls);
+      fetchPolicy = FetchPolicy.cacheFirst;
+    }
+
     return RousseauLoggedScaffold(
       appBar: RousseauAppBar(),
       body: GraphqlQueryWidget<PollList>(
         query: listPolls,
+        fetchPolicy: fetchPolicy,
         builderSuccess: (PollList pollList) {
           final List<Poll> polls = sortedPolls(pollList);
           return ListView.builder(
@@ -33,6 +44,7 @@ class PollsScreen extends StatelessWidget {
         builderError: (List<GraphQLError> error) {
           return Text(error.toString());
         },
+        pullToRefresh: true,
       )
     );
   }
