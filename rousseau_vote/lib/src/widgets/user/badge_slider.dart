@@ -28,7 +28,7 @@ class BadgeSlider extends StatelessWidget {
                 ),
                 children: <TextSpan>[
                   TextSpan(
-                    text: '\nMeriti'.toUpperCase(),
+                    text: '\n'+RousseauLocalizations.getText(context, 'merits').toUpperCase(),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 12,  
