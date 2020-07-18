@@ -165,6 +165,10 @@ String currentUserShort = '''
             originalUrl
         }
     }
+    badges {
+        code
+        active
+    }
   }
 }
 ''';

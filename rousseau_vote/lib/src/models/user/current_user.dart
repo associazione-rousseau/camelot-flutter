@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rousseau_vote/src/models/profile/badge.dart';
 import 'package:rousseau_vote/src/models/user/profile.dart';
 
 part 'current_user.g.dart';
@@ -18,6 +19,7 @@ class CurrentUser {
   DateTime createdAt;
   DateTime voteRightStartingCountDate;
   Profile profile;
+  List<Badge> badges;
 
   String getProfilePictureUrl() {
     if(profile == null || profile.picture == null) {

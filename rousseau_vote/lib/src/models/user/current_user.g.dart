@@ -20,7 +20,11 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
         : DateTime.parse(json['voteRightStartingCountDate'] as String)
     ..profile = json['profile'] == null
         ? null
-        : Profile.fromJson(json['profile'] as Map<String, dynamic>);
+        : Profile.fromJson(json['profile'] as Map<String, dynamic>)
+    ..badges = (json['badges'] as List)
+        ?.map(
+            (e) => e == null ? null : Badge.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
@@ -33,4 +37,5 @@ Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
       'voteRightStartingCountDate':
           instance.voteRightStartingCountDate?.toIso8601String(),
       'profile': instance.profile,
+      'badges': instance.badges,
     };
