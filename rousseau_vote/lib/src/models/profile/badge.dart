@@ -15,5 +15,5 @@ class Badge {
 
   int get merit => BADGE_MERIT_MAPPING[code];
 
-  String get localImage => 'assets/images/badges/merit${merit}_true.png';
+  String get localImage => 'assets/images/badges/merit${merit}_${active.toString()}.png';
 }

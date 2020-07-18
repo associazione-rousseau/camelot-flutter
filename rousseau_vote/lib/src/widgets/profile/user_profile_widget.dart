@@ -127,7 +127,7 @@ class UserProfileWidget extends StatelessWidget {
     return Card(
         child: Container(
       padding: const EdgeInsets.all(6),
-      child: BadgesWidget(userProfile.badges, 40),
+      child: BadgesWidget(userProfile.badges, 35, showInactive: false,),
     ));
   }
 

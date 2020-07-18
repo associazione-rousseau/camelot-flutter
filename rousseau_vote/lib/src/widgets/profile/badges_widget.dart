@@ -5,11 +5,12 @@ import 'package:rousseau_vote/src/util/profile_util.dart';
 
 class BadgesWidget extends StatelessWidget {
 
-  BadgesWidget(List<Badge> badges, this.iconSize, { this.padding = 6 }) : _badgeImagesPaths = getActiveBadgesImages(badges);
+  BadgesWidget(List<Badge> badges, this.iconSize, { this.padding = 6, this.showInactive = false }) : _badgeImagesPaths = getBadgesImages(badges, showInactive: showInactive);
 
   final List<String> _badgeImagesPaths;
   final double iconSize;
   final double padding;
+  final bool showInactive;
 
   @override
   Widget build(BuildContext context) {

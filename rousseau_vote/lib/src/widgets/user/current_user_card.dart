@@ -27,7 +27,7 @@ class CurrentUserCard extends StatelessWidget {
           children: <Widget>[
             _identitySection(context, currentUser),
             const VerticalSpace(10),
-            BadgesWidget(currentUser.badges, 20),
+            BadgesWidget(currentUser.badges, 20, showInactive: false),
           ],
         );
       },
