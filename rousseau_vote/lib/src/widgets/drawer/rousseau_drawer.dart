@@ -17,7 +17,7 @@ class RousseauDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          Container(height: 250,child: RousseauDrawerHeader()),
+          Container(height: 230,child: RousseauDrawerHeader()),
           DrawerItem(
             textKey: 'drawer-vote',
             iconData: Icons.account_balance,
@@ -40,7 +40,7 @@ class RousseauDrawer extends StatelessWidget {
             iconData: Icons.person,
             onTap: () {},
           ),
-          const Divider(height: 3),
+          const Divider(height: 4),
           DrawerItem(
             textKey: 'drawer-support',
             iconData: Icons.favorite,
@@ -56,7 +56,7 @@ class RousseauDrawer extends StatelessWidget {
             iconData: Icons.security,
             onTap: openUrlInternalAction(context, PRIVACY_LINK),
           ),
-          const Divider(height: 3),
+          const Divider(height: 4),
           DrawerItem(
             textKey: 'drawer-logout',
             iconData: Icons.exit_to_app,
