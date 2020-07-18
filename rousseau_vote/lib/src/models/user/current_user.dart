@@ -22,7 +22,7 @@ class CurrentUser {
   Profile profile;
   List<Badge> badges;
 
-  String getProfilePictureUrl() {
+  String get profilePictureUrl {
     if(profile == null || profile.picture == null) {
       return null;
     }
