@@ -1,9 +1,4 @@
-
-import 'dart:collection';
-
-import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/models/profile/badge.dart';
-import 'package:rousseau_vote/src/models/profile/user_profile.dart';
 
 const Map<String, int> BADGE_MERIT_MAPPING = <String, int>{
   'list_representative': 1,
