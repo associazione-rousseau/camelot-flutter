@@ -72,5 +72,6 @@
     "profile-location-same-female": "nata e residente a %s",
     "profile-location-same-male": "nato e residente a %s",
 
-    "message-link-copied": "Link copiato"
+    "message-link-copied": "Link copiato",
+    "message-profile-not-compiled": "Non hai ancora completato il profilo. Puoi completarlo visitando il sito internet."
 }

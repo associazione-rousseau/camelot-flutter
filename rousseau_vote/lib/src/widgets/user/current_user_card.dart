@@ -21,13 +21,23 @@ class CurrentUserCard extends StatelessWidget {
       query: currentUserShort,
       fetchPolicy: FetchPolicy.cacheFirst,
       builderSuccess: (CurrentUser currentUser) {
-        return ListTile(
-          leading: ProfilePicture(url: currentUser.getProfilePictureUrl(), radius: PROFILE_PICTURE_RADIUS),
-          title: Text(
-            currentUser.fullName,
-            style: const TextStyle(fontSize: 20),
+        return InkWell(
+          child: ListTile(
+            leading: ProfilePicture(url: currentUser.getProfilePictureUrl(), radius: PROFILE_PICTURE_RADIUS),
+            title: Text(
+              currentUser.fullName,
+              style: const TextStyle(fontSize: 20),
+            ),
+            subtitle: Text(currentUser.slug),
+            onTap: () {
+              Navigator.of(context).pop();
+              if (currentUser.profile != null) {
+                openProfile(context, currentUser.slug);
+              } else {
+                showSimpleSnackbar(context, 'message-profile-not-compiled');
+              }
+            }
           ),
-          subtitle: Text(currentUser.slug),
         );
       },
       builderLoading: () {
