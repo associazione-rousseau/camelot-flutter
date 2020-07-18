@@ -16,6 +16,7 @@ class CurrentUser {
   String fullName;
   String statusColor;
   String slug;
+  bool verified;
   DateTime createdAt;
   DateTime voteRightStartingCountDate;
   Profile profile;
