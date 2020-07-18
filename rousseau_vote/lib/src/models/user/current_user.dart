@@ -28,4 +28,12 @@ class CurrentUser {
     }
     return profile.picture.originalUrl;
   }
+
+  bool get canVote {
+    return statusColor == 'GREEN';
+  }
+
+  bool get pendingVerification {
+    return statusColor == 'ORANGE';
+  }
 }
