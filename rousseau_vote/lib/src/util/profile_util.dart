@@ -23,9 +23,9 @@ const Map<String, int> BADGE_MERIT_MAPPING = <String, int>{
   'community_leader': 9,
 };
 
-List<String> getActiveBadgesImages(UserProfile userProfile) {
+List<String> getActiveBadgesImages(List<Badge> badges) {
   final List<String> images = <String>[];
-  for(Badge badge in userProfile.badges) {
+  for(Badge badge in badges) {
     if(badge.active && !images.contains(badge.localImage)) {
       images.add(badge.localImage);
     }
