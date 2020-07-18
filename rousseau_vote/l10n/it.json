@@ -72,6 +72,16 @@
     "profile-location-same-female": "nata e residente a %s",
     "profile-location-same-male": "nato e residente a %s",
 
+    "user-identity-verified": "Identità verificata",
+    "user-identity-pending": "Documento in verifica",
+    "user-identity-rejected": "Documento non valido",
+    "user-identity-not-verified": "Identità non verificata",
+    "user-suspended": "Account sospeso",
+    "user-can-vote": "Puoi votare dal %s",
+    "user-cannot-vote": "Non puoi votare",
+    "user-cannot-vote-yet": "Non puoi ancora votare",
+    "user-will-vote": "Potrai votare da %s",
+
     "message-link-copied": "Link copiato",
     "message-profile-not-compiled": "Non hai ancora completato il profilo. Puoi completarlo visitando il sito internet."
 }
