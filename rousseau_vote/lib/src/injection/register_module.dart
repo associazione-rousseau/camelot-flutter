@@ -30,6 +30,7 @@ abstract class RegisterModule {
   StartupInitializer get startupInitializer => StartupInitializer([
     getIt<TokenStore>(),
     StartupPrefetcher([listPolls, currentUserShort]),
+    getIt<PushNotificationManager>(),
   ], 3000);
 
   FirebaseMessaging get firebaseMessaging => FirebaseMessaging();

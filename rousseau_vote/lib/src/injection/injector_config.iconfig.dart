@@ -11,10 +11,10 @@ import 'package:dio/dio.dart';
 import 'package:rousseau_vote/src/error_reporting/error_logger.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql/client.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
+import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
@@ -29,8 +29,6 @@ void $initGetIt(GetIt g, {String environment}) {
   final registerModule = _$RegisterModule();
   g.registerFactoryAsync<ErrorLogger>(() => ErrorLogger.create());
   g.registerFactory<FirebaseMessaging>(() => registerModule.firebaseMessaging);
-  g.registerFactory<FirebaseNotificationManager>(
-      () => FirebaseNotificationManager(g<FirebaseMessaging>()));
   g.registerFactory<NoOpPushNotificationManager>(
       () => NoOpPushNotificationManager());
   g.registerFactory<StartupInitializer>(
@@ -38,6 +36,8 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerFactoryParam<ValueNotifier<GraphQLClient>, BuildContext, dynamic>(
       (buildContext, _) =>
           registerModule.getGraphqlClientNotifier(buildContext));
+  g.registerFactory<FirebaseNotificationManager>(() =>
+      FirebaseNotificationManager(g<FirebaseMessaging>(), g<SecureStorage>()));
 
   //Eager singletons must be registered in the right order
   g.registerSingleton<BlogInstantArticleNetworkHandler>(
