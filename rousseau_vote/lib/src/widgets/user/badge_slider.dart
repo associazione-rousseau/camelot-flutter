@@ -12,7 +12,7 @@ class BadgeSlider extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    final List<String> badgeImagesPaths = getActiveBadgesImages(badges);
+    final List<String> badgeImagesPaths = getBadgesImages(badges);
 
     return SizedBox(
       height: 71,
