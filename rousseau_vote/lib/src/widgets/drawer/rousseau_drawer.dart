@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/config/links.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/screens/blog_screen.dart';
-import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/drawer/drawer_item.dart';
@@ -18,16 +17,16 @@ class RousseauDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          RousseauDrawerHeader(),
+          Container(height: 230,child: RousseauDrawerHeader()),
           DrawerItem(
             textKey: 'drawer-vote',
             iconData: Icons.account_balance,
             onTap: openRouteAction(context, PollsScreen.ROUTE_NAME, replace: true),
           ),
           DrawerItem(
-            textKey: 'drawer-edit-account',
-            iconData: Icons.person,
-            onTap: openRouteAction(context, EditAccountScreen.ROUTE_NAME),
+            textKey: 'drawer-blog',
+            iconData: Icons.star,
+            onTap: openRouteAction(context, BlogScreen.ROUTE_NAME),
           ),
           DrawerItem(
             textKey: 'drawer-feedback',
@@ -37,27 +36,27 @@ class RousseauDrawer extends StatelessWidget {
             },
           ),
           DrawerItem(
+            textKey: 'drawer-edit-account',
+            iconData: Icons.person,
+            onTap: () {},
+          ),
+          const Divider(height: 4),
+          DrawerItem(
             textKey: 'drawer-support',
             iconData: Icons.favorite,
             onTap: openUrlExternalAction(context, SUPPORT_LINK),
           ),
-          const Divider(height: 3),
           DrawerItem(
             textKey: 'drawer-other-functionalities',
             iconData: Icons.devices,
             onTap: openUrlExternalAction(context, ROUSSEAU_WEB_LINK),
           ),
           DrawerItem(
-            textKey: 'drawer-blog',
-            iconData: Icons.star,
-            onTap: openRouteAction(context, BlogScreen.ROUTE_NAME),
-          ),
-          DrawerItem(
             textKey: 'drawer-privacy',
             iconData: Icons.security,
             onTap: openUrlInternalAction(context, PRIVACY_LINK),
           ),
-          const Divider(height: 3),
+          const Divider(height: 4),
           DrawerItem(
             textKey: 'drawer-logout',
             iconData: Icons.exit_to_app,

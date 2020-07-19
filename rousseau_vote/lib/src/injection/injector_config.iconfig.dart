@@ -15,7 +15,6 @@ import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart'
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql/client.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
-import 'package:rousseau_vote/src/init/polls_prefetcher.dart';
 import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
@@ -23,7 +22,6 @@ import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:rousseau_vote/src/providers/current_user_provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:get_it/get_it.dart';
 
@@ -53,7 +51,6 @@ void $initGetIt(GetIt g, {String environment}) {
       registerModule.flutterSecureStorage);
   g.registerSingleton<GraphQLClient>(registerModule.getGraphQLClient());
   g.registerSingleton<LoginNetworkHandler>(LoginNetworkHandler(g<Dio>()));
-  g.registerSingleton<PollsPrefetcher>(PollsPrefetcher());
   g.registerSingleton<PrefetchManager>(PrefetchManager());
   g.registerSingleton<PushNotificationManager>(
       registerModule.getPushNotificationManager());
@@ -62,8 +59,6 @@ void $initGetIt(GetIt g, {String environment}) {
       TokenStore(g<SecureStorage>(), g<LoginNetworkHandler>()));
   g.registerSingleton<UserNetworkHandler>(
       UserNetworkHandler(g<GraphQLClient>()));
-  g.registerSingleton<CurrentUserProvider>(
-      CurrentUserProvider(g<UserNetworkHandler>()));
   g.registerSingleton<Login>(Login(
     g<LoginNetworkHandler>(),
     g<TokenStore>(),
