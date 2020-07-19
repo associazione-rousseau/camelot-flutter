@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
-import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
-import 'package:rousseau_vote/src/util/ui_util.dart';
-import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
+import 'package:rousseau_vote/src/widgets/user/badge_slider.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+import 'package:rousseau_vote/src/widgets/user/poll_entity_info_row.dart';
 
-class PollEntityDetail extends StatefulWidget {
+class PollEntityDetail extends StatelessWidget {
 
   const PollEntityDetail(
     this._option, 
     this._disabled, 
     this._toggle,
     this._selected,
-    this._number
+    this._number,
+    this._active
   );
 
   final Option _option;
@@ -23,57 +25,39 @@ class PollEntityDetail extends StatefulWidget {
   final List<Option> _selected;
   final int _number;
 
-  @override
-  State<StatefulWidget> createState() {
-    return _PollEntityDetailState(_option, _disabled, _toggle, _selected, _number);
-  }
-
-}
-
-class _PollEntityDetailState extends State<PollEntityDetail> {
-
-  _PollEntityDetailState(this._option, this._disabled, this._toggle, this._selected, this._number);
-
-  final Option _option;
-  final bool _disabled;
-  final Function _toggle;
-  final List<Option> _selected;
-  final int _number;
-
-  bool active = false;
+  final bool _active;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+        side: _active ? BorderSide(color: PRIMARY_RED, width: 4.0) : BorderSide.none
+      ),
       elevation: 5,
       child: InkWell(
         highlightColor: isDisabled() ? Colors.transparent : null,
         splashColor: isDisabled() ? Colors.transparent : null,
         customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: ListTile(
-            leading: ProfilePicture(url: _option.entity.getProfilePictureUrl()),
-            title: Text(
-              _option.entity.fullName,
-              style: const TextStyle(fontSize: 16),
-              textAlign: TextAlign.justify,
-            ),
-            trailing: active ? Icon(Icons.brightness_1, color: PRIMARY_RED) : null
-          )
-        ),
-        onTap: openProfileAction(context, _option.entity.slug),//isDisabled() ? showMessage(context) : doSelect(),
+          child: Column(
+            children: <Widget>[
+              PollEntityInfoRow(_active, _option.entity),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: BadgeSlider(badges: _option.entity.badges)
+              )
+            ],
+          ),
+        onTap: () => isDisabled() ? showMessage(context) : doSelect(),
       )
     );
   }
 
   bool isDisabled() {
-    return !active && (_disabled || _selected.length >= _number);
+    return !_active && (_disabled || _selected.length >= _number);
   }
 
   void doSelect() {
-    setState(() { active = !active; });
     _toggle(_option);
   }
 

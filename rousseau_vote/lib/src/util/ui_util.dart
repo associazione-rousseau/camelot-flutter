@@ -9,6 +9,8 @@ import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:rousseau_vote/src/widgets/error_dialog.dart';
+import 'package:rousseau_vote/src/widgets/done_dialog.dart';
 
 void showSimpleSnackbar(BuildContext context, String textKey, {bool dismissable = false}) {
 
@@ -158,4 +160,27 @@ Future<String> resolveUrl(String url) async {
     }
   } catch (_) {}
   return url;
+}
+
+void showError(BuildContext context, Function endAction, String errorMessage) {
+  Navigator.of(context).pop();
+  showDialog<AlertDialog>(
+    context: context,
+    builder: (BuildContext context) {
+      return ErrorDialog(
+        RousseauLocalizations.getText(context, errorMessage),
+        endAction
+      );
+    }
+  );
+}
+
+void showDone(BuildContext context,Function endAction) {
+  Navigator.of(context).pop();
+  showDialog<AlertDialog>(
+    context: context,
+    builder: (BuildContext context) {
+      return DoneDialog(endAction);
+    }
+  );
 }

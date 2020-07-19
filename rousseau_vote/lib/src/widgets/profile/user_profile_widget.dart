@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
@@ -7,6 +6,7 @@ import 'package:rousseau_vote/src/models/profile/user_profile.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/profile/user_profile_section.dart';
+import 'package:rousseau_vote/src/widgets/user/badge_widget.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
 
 import 'badges_widget.dart';
