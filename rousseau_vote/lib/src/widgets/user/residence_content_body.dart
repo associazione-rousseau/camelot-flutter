@@ -69,7 +69,8 @@ class _ResidenceContentBodyState extends State<ResidenceContentBody> {
       }
     }
     if(divisionTextControllers['country'].text != 'Italy' && overseasCityTextController.text.isEmpty) buttonEnabled = false;
-
+    if(fieldsUnchanged(currentUser, selectedDivisions) == true) buttonEnabled = false;
+    
     return Column(
       children: <Widget>[
         Expanded(
