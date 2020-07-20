@@ -14,8 +14,15 @@ class ItaGeoDivisionsNetworkHandler {
 
   final GraphQLClient _graphQLClient;
 
-  Future<ItaGeoDivisionList> getGeoDivList(String type, String search) async {
-    Map<String, String> geoVar = {'type': type.toLowerCase(), 'search': search};
+  Future<ItaGeoDivisionList> getGeoDivList(String type, String search, String parentType, String parentCode) async {
+    Map<String, String> geoVar = {
+      'type': type.toLowerCase(),
+      'search': search
+    };
+    if(parentCode.isNotEmpty){
+      geoVar.putIfAbsent('parentType', () => parentType);
+      geoVar.putIfAbsent('parentCode', () => parentCode);
+    }
 
     final QueryOptions queryOptions = QueryOptions(
       documentNode: gql(italianGeographicalDivisions),
@@ -31,7 +38,7 @@ class ItaGeoDivisionsNetworkHandler {
     );
     final QueryResult result = await _graphQLClient.query(queryOptions);
     final CountryList countryList =  getParser<CountryList>().parse(result);
-    final List<ItalianGeographicalDivision> filteredCountries =  countryList.countries.where((ItalianGeographicalDivision c) => c.name.contains(search)).toList();
+    final List<ItalianGeographicalDivision> filteredCountries =  countryList.countries.where((ItalianGeographicalDivision c) => c.name.toLowerCase().contains(search.toLowerCase())).toList();
     return filteredCountries;
   }
 

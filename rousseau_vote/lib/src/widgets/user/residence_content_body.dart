@@ -2,11 +2,10 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
-import 'package:rousseau_vote/src/network/handlers/ita_geo_divisions_network_handler.dart';
-import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+import 'package:rousseau_vote/src/widgets/geo_autocomplete.dart';
+import 'package:rousseau_vote/src/util/residence_util.dart';
+
 
 class ResidenceContentBody extends StatefulWidget {
     
@@ -36,44 +35,42 @@ class ResidenceContentBody extends StatefulWidget {
     );
   }
 
-  ItaGeoDivisionsNetworkHandler itaGeoDivisionsNetworkHandler = getIt<ItaGeoDivisionsNetworkHandler>();
-
   @override
-  _ResidenceContentBodyState createState() => _ResidenceContentBodyState(currentUser, itaGeoDivisionsNetworkHandler, selectedDivisions, divisionTextControllers, _overseasCityTextController);
+  _ResidenceContentBodyState createState() => _ResidenceContentBodyState(currentUser, selectedDivisions, divisionTextControllers, _overseasCityTextController);
 }
 
 class _ResidenceContentBodyState extends State<ResidenceContentBody> {
   
-  _ResidenceContentBodyState(this.currentUser, this.itaGeoDivisionsNetworkHandler, this.selectedDivisions, this.divisionTextControllers, this.overseasCityTextController);
+  _ResidenceContentBodyState(this.currentUser, this.selectedDivisions, this.divisionTextControllers, this.overseasCityTextController);
 
-  ItaGeoDivisionsNetworkHandler itaGeoDivisionsNetworkHandler;
   CurrentUser currentUser;
   HashMap<String,ItalianGeographicalDivision> selectedDivisions;
   HashMap<String,TextEditingController> divisionTextControllers;
   TextEditingController overseasCityTextController;
-  static const List<String> DIVISIONS = <String>['country','regione','provincia','comune','municipio'];
-  
 
   @override
   Widget build(BuildContext context) {
     List<String> visibleDivisions = <String>[];
     bool oneEmptyFieldFlag = false;
+    
     for(String division in DIVISIONS) { 
       if(selectedDivisions[division] != null){
-        print(selectedDivisions[division]);
         visibleDivisions.add(division);
       }else if(!oneEmptyFieldFlag){
+        //only show municipio for comuni with descendants
+        if(division == 'municipio' && selectedDivisions['comune'].descendants.isEmpty){
+          continue;
+        }
         visibleDivisions.add(division);
         oneEmptyFieldFlag = true;
       }
     }
 
-    
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Column(
         children: <Widget>[
-          _geoAutoComplete('country', divisionTextControllers['country']),
+          GeoAutocomplete('country', divisionTextControllers['country'], _onSuggestionSelected, selectedDivisions),
           divisionTextControllers['country'].text != 'Italy' ? 
           Column(
             children: <Widget>[
@@ -95,54 +92,25 @@ class _ResidenceContentBodyState extends State<ResidenceContentBody> {
             ],
           ) : 
           Container(),
-          visibleDivisions.contains('regione') ? _geoAutoComplete('regione', divisionTextControllers['regione']) : Container(),
-          visibleDivisions.contains('provincia') ? _geoAutoComplete('provincia', divisionTextControllers['provincia']) : Container(),
-          visibleDivisions.contains('comune') ? _geoAutoComplete('comune', divisionTextControllers['comune']) : Container(),
-          visibleDivisions.contains('municipio') ? _geoAutoComplete('municipio', divisionTextControllers['municipio']) : Container(),
+          visibleDivisions.contains('regione') ? GeoAutocomplete('regione', divisionTextControllers['regione'], _onSuggestionSelected, selectedDivisions) : Container(),
+          visibleDivisions.contains('provincia') ? GeoAutocomplete('provincia', divisionTextControllers['provincia'], _onSuggestionSelected, selectedDivisions) : Container(),
+          visibleDivisions.contains('comune') ? GeoAutocomplete('comune', divisionTextControllers['comune'], _onSuggestionSelected, selectedDivisions) : Container(),
+          visibleDivisions.contains('municipio') ? GeoAutocomplete('municipio', divisionTextControllers['municipio'], _onSuggestionSelected, selectedDivisions) : Container(),
         ],
       ),
     );
   }
 
-  Widget _geoAutoComplete(String type, TextEditingController textController){
-    return TypeAheadFormField<dynamic>(
-      textFieldConfiguration: TextFieldConfiguration<dynamic>(
-        controller: textController,
-        decoration: InputDecoration(
-          labelText: RousseauLocalizations.of(context).text(type)
-        )
-      ),          
-      suggestionsCallback: (pattern) async {
-        if(type=='country'){
-          return await itaGeoDivisionsNetworkHandler.getCountries(pattern).then((countries){
-          return countries;  
-        });
-        }
-        return await itaGeoDivisionsNetworkHandler.getGeoDivList(type,pattern).then((value){
-          return value.italianGeographicalDivisions.nodes;  
-        });
-      },
-      itemBuilder: (context, dynamic suggestion) {
-        ItalianGeographicalDivision geoDivision = suggestion;
-        return ListTile(
-          title: Text(geoDivision.name),
-        );
-      },
-      transitionBuilder: (context, suggestionsBox, controller) {
-        return suggestionsBox;
-      },
-      onSuggestionSelected: (dynamic suggestion) async {
-        setState(() {
-          selectedDivisions.update(type, (value) => suggestion);
-          textController.text = suggestion.name;
-          int divisionIndex = DIVISIONS.indexOf(type);
-          DIVISIONS.asMap().forEach((index, value) { 
-            if(index <= divisionIndex) return;
-            selectedDivisions.update(value, (value) => null);
-            divisionTextControllers[value].text = '';
-          });
-        });
-      },
-    );
+  void _onSuggestionSelected(String type, ItalianGeographicalDivision suggestion){
+    setState(() {
+      selectedDivisions.update(type, (value) => suggestion);
+      divisionTextControllers[type].text = suggestion.name;
+      final int divisionIndex = DIVISIONS.indexOf(type);
+      DIVISIONS.asMap().forEach((int index, String value) { 
+        if(index <= divisionIndex) return;
+        selectedDivisions.update(value, (ItalianGeographicalDivision value) => null);
+        divisionTextControllers[value].text = '';
+      });
+    });
   }
 }

@@ -345,10 +345,8 @@ query italianGeographicalDivisions(
       code
       type
       descendants {
-          id
-          code
-          name
-          type
+        name
+        code
       }
     }
   }

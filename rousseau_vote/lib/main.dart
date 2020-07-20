@@ -15,7 +15,6 @@ import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/providers/current_user_provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
-import 'package:rousseau_vote/src/providers/current_user_provider.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
@@ -32,7 +31,6 @@ import 'package:rousseau_vote/src/screens/login_screen.dart';
 import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/register_screen.dart';
-import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
 import 'package:rousseau_vote/src/screens/account/anagraph_screen.dart';
 
 Future<void> main() async {

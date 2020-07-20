@@ -7,6 +7,7 @@ class ItaGeoDivisionListParser implements QueryResponseParser<ItaGeoDivisionList
   @override
   ItaGeoDivisionList parse(QueryResult result) {
     final LazyCacheMap lazyCacheMap = result.data;
+    print('paresd ' + result.data.data.toString());
     return ItaGeoDivisionList.fromJson(lazyCacheMap.data);
   }
 }
