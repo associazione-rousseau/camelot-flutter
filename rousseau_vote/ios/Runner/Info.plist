@@ -65,5 +65,7 @@
 	</array>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Caricamento documenti per verifica identità</string>
 </dict>
 </plist>

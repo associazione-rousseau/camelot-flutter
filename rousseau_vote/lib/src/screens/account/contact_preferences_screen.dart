@@ -114,7 +114,7 @@ class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
                 return Padding(
                   padding: EdgeInsets.all(10),
                   child: RoundedButton(
-                    text: "SALVA",
+                    text: RousseauLocalizations.getText(context, 'save').toUpperCase(),
                     loading: result.loading,
                     onPressed: () {
                       Map<String, dynamic> variables =

@@ -39,3 +39,37 @@ mutation userContactPreferencesUpdate(\$user:UpdateContactPreferencesUserInput!)
     }
 }
 ''';
+
+String residenceChangeRequestCreate = '''
+mutation residenceChangeRequestCreate(\$attributes:ResidenceChangeRequestCreateInput!, \$documentIds: [ID!]!){
+    user{
+        residenceChangeRequestCreate(attributes: \$attributes, documentIds: \$documentIds){
+            errors
+            residenceChangeRequest{
+                status
+                country{
+                    code 
+                    name
+                }
+                comune{
+                    code
+                    name
+                }
+                municipio{
+                    code
+                    name
+                }
+                provincia{
+                    code
+                    name
+                }
+                regione{
+                    code
+                    name
+                }
+                overseaseCity
+            }
+        }
+    }
+}
+''';

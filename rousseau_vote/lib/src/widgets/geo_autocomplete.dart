@@ -24,9 +24,9 @@ class GeoAutocomplete extends StatelessWidget {
         decoration: InputDecoration(
           labelText: RousseauLocalizations.of(context).text(type)
         )
-      ),          
+      ),
       suggestionsCallback: (pattern) async {
-        if(type=='country'){
+        if(type == 'country'){
           return await itaGeoDivisionsNetworkHandler.getCountries(pattern).then((countries){
             return countries;  
           });
