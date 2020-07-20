@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
+import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
 
@@ -14,43 +18,44 @@ abstract class PushNotificationManager with InitializeOnStartup {
 @injectable
 class NoOpPushNotificationManager extends PushNotificationManager {
   @override
-  Future<void> onLogin(String userId) {}
+  Future<void> onLogin(String userId) async {}
 
   @override
-  Future<void> onLogout() {}
+  Future<void> onLogout() async {}
 
   @override
-  Future<void> doInitialize() {}
+  Future<void> doInitialize() async {}
 }
 
 @injectable
 class FirebaseNotificationManager extends PushNotificationManager {
 
-  FirebaseNotificationManager(this._firebaseMessaging, this._secureStorage);
+  FirebaseNotificationManager(this._firebaseMessaging, this._secureStorage, this._graphQLClient);
 
   final FirebaseMessaging _firebaseMessaging;
   final SecureStorage _secureStorage;
+  final GraphQLClient _graphQLClient;
 
   @override
   Future<void> onLogin(String userId) async {
-    _initFirebase();
+    await _initFirebase();
   }
 
   @override
-  Future<void> onLogout() {
-    _firebaseMessaging.deleteInstanceID();
-    _unregisterToken();
+  Future<void> onLogout() async {
+    await _firebaseMessaging.deleteInstanceID();
+    await _unregisterToken();
   }
 
   @override
   Future<void> doInitialize() async {
     final Login login = getIt<Login>();
     if(login.isLoggedIn()) {
-      _initFirebase();
+      await _initFirebase();
     }
   }
 
-  void _initFirebase() async {
+  Future<void> _initFirebase() async {
     _firebaseMessaging.requestNotificationPermissions();
     _firebaseMessaging.setAutoInitEnabled(false);
     _firebaseMessaging.configure(
@@ -64,14 +69,17 @@ class FirebaseNotificationManager extends PushNotificationManager {
         print('onResume: $message');
       },
     );
-    _registerToken();
+    await _registerToken();
   }
 
   Future<void> _unregisterToken() async {
     final String lastRegisteredToken = await _getLastRegisteredToken();
     if (lastRegisteredToken != null) {
-      // TODO graphql call
-      print('Unregister Token: $lastRegisteredToken');
+      final MutationOptions options = MutationOptions(documentNode: gql(tokenRemove), variables: <String, String>{ 'tokenString': lastRegisteredToken});
+      final QueryResult result = await _graphQLClient.mutate(options);
+      if (!result.hasException) {
+        await _secureStorage.deleteFirebaseToken();
+      }
     }
   }
 
@@ -80,8 +88,12 @@ class FirebaseNotificationManager extends PushNotificationManager {
     if (currentToken != null) {
       final String lastRegisteredToken = await _getLastRegisteredToken();
       if(lastRegisteredToken != currentToken) {
-        // TODO graphql call
-        print('Registering Token: $currentToken');
+        final Map<String, String> variables = <String, String>{ 'tokenString': currentToken, 'client': Platform.operatingSystem};
+        final MutationOptions options = MutationOptions(documentNode: gql(tokenAdd), variables: variables);
+        final QueryResult result = await _graphQLClient.mutate(options);
+        if (!result.hasException) {
+          await _secureStorage.storeFirebaseToken(currentToken);
+        }
       }
     }
   }

@@ -31,13 +31,19 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerFactory<FirebaseMessaging>(() => registerModule.firebaseMessaging);
   g.registerFactory<NoOpPushNotificationManager>(
       () => NoOpPushNotificationManager());
+  g.registerLazySingleton<SecureStorage>(
+      () => SecureStorage(g<FlutterSecureStorage>()));
   g.registerFactory<StartupInitializer>(
       () => registerModule.startupInitializer);
   g.registerFactoryParam<ValueNotifier<GraphQLClient>, BuildContext, dynamic>(
       (buildContext, _) =>
           registerModule.getGraphqlClientNotifier(buildContext));
-  g.registerFactory<FirebaseNotificationManager>(() =>
-      FirebaseNotificationManager(g<FirebaseMessaging>(), g<SecureStorage>()));
+  g.registerFactory<FirebaseNotificationManager>(
+      () => FirebaseNotificationManager(
+            g<FirebaseMessaging>(),
+            g<SecureStorage>(),
+            g<GraphQLClient>(),
+          ));
 
   //Eager singletons must be registered in the right order
   g.registerSingleton<BlogInstantArticleNetworkHandler>(
@@ -54,7 +60,6 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerSingleton<PrefetchManager>(PrefetchManager());
   g.registerSingleton<PushNotificationManager>(
       registerModule.getPushNotificationManager());
-  g.registerSingleton<SecureStorage>(SecureStorage(g<FlutterSecureStorage>()));
   g.registerSingleton<TokenStore>(
       TokenStore(g<SecureStorage>(), g<LoginNetworkHandler>()));
   g.registerSingleton<UserNetworkHandler>(

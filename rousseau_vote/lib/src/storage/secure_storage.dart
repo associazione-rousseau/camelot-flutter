@@ -5,13 +5,13 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/models/token.dart';
 
-@singleton
+@lazySingleton
 class SecureStorage {
 
   SecureStorage(this._flutterSecureStorage);
 
   static const String _KEY_TOKEN = 'key_token';
-  static const String _KEY_FIREBASE_TOKEN = 'key_token';
+  static const String _KEY_FIREBASE_TOKEN = 'key_firebase_token';
 
   final FlutterSecureStorage _flutterSecureStorage;
 
