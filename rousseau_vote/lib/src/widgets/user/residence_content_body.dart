@@ -108,7 +108,7 @@ class _ResidenceContentBodyState extends State<ResidenceContentBody> {
             ),
           ),
         ),
-        ChangeResidenceButton(buttonEnabled, selectedDivisions,overseasCityTextController.text)
+        ChangeResidenceButton(buttonEnabled, selectedDivisions,overseasCityTextController.text, currentUser.slug)
       ],
     );
   }
