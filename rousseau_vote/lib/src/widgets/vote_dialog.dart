@@ -1,20 +1,20 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
 
 class VoteDialog extends StatelessWidget {
 
-  const VoteDialog(this._options, this._pollId, this._error, this._done);
+  const VoteDialog(this._options, this._pollId, this._dialogEndAction, this._optionType);
 
   final String _pollId;
   final List<Option> _options;
-  final Function _error;
-  final Function _done;
+  final String _optionType;
+  final Function _dialogEndAction;
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +46,13 @@ class VoteDialog extends StatelessWidget {
               documentNode: gql(pollAnswerSubmit),
               update: (Cache cache, QueryResult result) {
                 if (result.hasException) {
-                  _error(context);
+                  showError(context, _dialogEndAction ,'error-vote');
                 }
                 // TODO update cache
                 final Map<String, Object> user = (result.data as Map<String, Object>)['user'] as Map<String, Object>;
                 final LazyCacheMap map = user.values.first;
                 final List<Object> errors = map.values.first;
-                errors == null || errors.isEmpty ? _done(context) : _error(context);
+                errors == null || errors.isEmpty ? showDone(context,_dialogEndAction) : showError(context, _dialogEndAction ,'error-vote');
               },
             ),
             builder: (RunMutation runMutation, QueryResult result) {
@@ -86,7 +86,9 @@ class VoteDialog extends StatelessWidget {
           const SizedBox(width: 10),
           Icon(Icons.radio_button_checked),
           const SizedBox(width: 10),
-          Text(option.text, style: const TextStyle(fontWeight: FontWeight.bold))
+          Text(
+            _optionType == 'ENTITY' ? option.entity.fullName : option.text, 
+            style: const TextStyle(fontWeight: FontWeight.bold))
         ]),
         const SizedBox(height: 10),
         Text(RousseauLocalizations.getText(context, 'vote-content-2'))

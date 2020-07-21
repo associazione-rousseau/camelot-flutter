@@ -13,7 +13,6 @@ import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
-import 'package:rousseau_vote/src/providers/current_user_provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
@@ -24,7 +23,6 @@ import 'package:rousseau_vote/src/screens/account/residence_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/blog_screen.dart';
-import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 import 'package:rousseau_vote/src/screens/init_screen.dart';
 import 'package:rousseau_vote/src/screens/login_screen.dart';
@@ -32,6 +30,7 @@ import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/register_screen.dart';
 import 'package:rousseau_vote/src/screens/account/anagraph_screen.dart';
+import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,7 +70,6 @@ class RousseauVoteApp extends StatelessWidget {
           ChangeNotifierProvider(builder: (_) => getIt<Login>()),
           ChangeNotifierProvider<ExternalPreselection>(builder: (_) => getIt<ExternalPreselection>()),
           ChangeNotifierProvider<BlogInstantArticleProvider>(builder: (_) => getIt<BlogInstantArticleProvider>()),
-          ChangeNotifierProvider<CurrentUserProvider>(builder: (_) => getIt<CurrentUserProvider>()),
         ],
         child: GraphQLProvider(
             client: getIt(),
@@ -129,9 +127,6 @@ class RousseauVoteApp extends StatelessWidget {
                       final BlogInstantArticleArguments arguments =
                           ModalRoute.of(context).settings.arguments;
                       return BlogInstantArticleScreen(arguments);
-                    },
-                    EditAccountScreen.ROUTE_NAME: (BuildContext context) {
-                      return EditAccountScreen();
                     },
                     UserProfileScreen.ROUTE_NAME: (BuildContext context) {
                       final UserProfileArguments arguments =

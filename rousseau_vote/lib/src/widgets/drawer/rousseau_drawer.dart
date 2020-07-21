@@ -17,7 +17,7 @@ class RousseauDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          RousseauDrawerHeader(),
+          Container(height: 230,child: RousseauDrawerHeader()),
           DrawerItem(
             textKey: 'drawer-vote',
             iconData: Icons.account_balance,
@@ -25,9 +25,9 @@ class RousseauDrawer extends StatelessWidget {
                 openRouteAction(context, PollsScreen.ROUTE_NAME, replace: true),
           ),
           DrawerItem(
-            textKey: 'drawer-edit-account',
-            iconData: Icons.person,
-            onTap: openRouteAction(context, EditAccountScreen.ROUTE_NAME),
+            textKey: 'drawer-blog',
+            iconData: Icons.star,
+            onTap: openRouteAction(context, BlogScreen.ROUTE_NAME),
           ),
           DrawerItem(
             textKey: 'drawer-feedback',
@@ -37,27 +37,27 @@ class RousseauDrawer extends StatelessWidget {
             },
           ),
           DrawerItem(
+            textKey: 'drawer-edit-account',
+            iconData: Icons.person,
+            onTap: openRouteAction(context, EditAccountScreen.ROUTE_NAME),
+          ),
+          const Divider(height: 4),
+          DrawerItem(
             textKey: 'drawer-support',
             iconData: Icons.favorite,
             onTap: openUrlExternalAction(context, SUPPORT_LINK),
           ),
-          const Divider(height: 3),
           DrawerItem(
             textKey: 'drawer-other-functionalities',
             iconData: Icons.devices,
             onTap: openUrlExternalAction(context, ROUSSEAU_WEB_LINK),
           ),
           DrawerItem(
-            textKey: 'drawer-blog',
-            iconData: Icons.star,
-            onTap: openRouteAction(context, BlogScreen.ROUTE_NAME),
-          ),
-          DrawerItem(
             textKey: 'drawer-privacy',
             iconData: Icons.security,
             onTap: openUrlInternalAction(context, PRIVACY_LINK),
           ),
-          const Divider(height: 3),
+          const Divider(height: 4),
           DrawerItem(
             textKey: 'drawer-logout',
             iconData: Icons.exit_to_app,

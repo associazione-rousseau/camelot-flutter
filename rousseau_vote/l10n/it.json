@@ -22,6 +22,7 @@
     "error-too-many-attempts": "Codice sbagliato per troppe volte. Riprova tra 15 minuti",
     "error-invalid-token": "Ops! Token non valido. Riprovare più tardi",
     "error-vote": "Qualcosa non va, assicurati di essere ancora in tempo per votare e riprova.",
+    "error-profile-loading": "Ops! C'è stato un problema nel caricare il profilo",
 
     "info-saved": "Informazioni salvate con successo",
     "poll-start": "Inizio",
@@ -45,9 +46,10 @@
     "vote-limit": "Hai già selezionato il numero massimo di opzioni consentite per questa votazione",
     "vote-complete": "Il tuo voto è stato acquisito correttamente",
 
-    "vote-preferences-1": "Hai ",
+    "vote-preferences-1": "Hai ancora ",
     "vote-preferences-2s": " preferenza a disposizione",
     "vote-preferences-2p": " preferenze a disposizione",
+    "vote-preferences-done": "Hai espresso le preferenze a disposizione.",
 
     "vote-content-1s": "Stai per votare la seguente opzione:",
     "vote-content-1p": "Stai per votare le seguenti opzioni:",
@@ -73,6 +75,40 @@
     "edit-account-contact":  "Preferenze di contatto",
     "edit-account-residence":  "Residenza",
     
+    
+    "special_mentions": "Menzioni speciali",
+    "special_mentions_tooltip": "Il candidato presenta nel suo Curriculum Vitae menzioni speciali o riconoscimenti riconducibili ad ambiti personali o professionali, o riconoscimenti pubblici rilevanti",
+    "high_specialization": "Alta specializzazione",
+    "high_specialization_tooltip": "Il candidato presenta nel suo Curriculum Vitae esperienze lavorative di eccellenza o un alto livello di specializzazione professionale",
+    "sharing_proposer": "Proponente Sharing",
+    "activism_organizer":" Organizzatore Activism",
+    "villaggio_rousseau_volunteer":" Volontario Villaggio Rousseau",
+    "user_lex_proposer": "Proponente lex iscritti",
+    "villaggio_rousseau_participant":" Partecipante Villaggio Rousseau",
+    "elarning_student": "Studente Elearning",
+    "openday_participant": "Partecipante Openday",
+    "list_representative": "Rappresentante di lista",
+    "graduate":" Laureato",
+    "italia_cinque_stelle_volunteer":" Volontario Italia 5 Stelle",
+    "call_to_actions_organizer":" Organizzatore Call to action",
+    "english_language_expert": "Esperto lingua inglese",
+    "elearnign_student": "Studente Elearning",
+    "community_leader": "Portavoce",
+
+    "merit1": "L'attivista è rappresentante di lista o ha partecipato come volontario a un evento Italia 5 Stelle o Villaggio Rousseau",
+    "merit2": "L'attivista ha inserito almeno 3 Call to Action, 1 Lex Iscritti arrivata in votazione, 10 Atti Sharing o 2 Eventi Activism sulla piattaforma Rousseau",
+    "merit3": "L'attivista possiede un titolo di studio equivalente ad una Laurea Triennale o superiore",
+    "merit4": "L'attivista ha una conoscenza della lingua inglese di livello B2 o superiore",
+    "merit5": "L'attivista ha partecipato ad almeno un evento Open Day Rousseau o Villaggio Rousseau",
+    "merit6": "L'attivista ha superato i test relativi ad almeno 3 moduli della sezione E-Learning presente sulla piattaforma Rousseau",
+    "merit7": "L'attivista presenta nel suo Curriculum Vitae menzioni speciali o riconoscimenti riconducibili ad ambiti personali o professionali, o riconoscimenti pubblici rilevanti",
+    "merit8": "L'attivista presenta nel suo Curriculum Vitae esperienze lavorative di eccellenza o un alto livello di specializzazione professionale",
+    "merit9": "L'attivista è stato, o è tuttora, portavoce del MoVimento 5 Stelle",
+
+
+    "view_profile": "Vedi Profilo",
+    "vote-search-candidate": "Ricerca candidato",
+    "merits": "Meriti",
     "profile-presentation": "Presentazione",
     "profile-curriculum-vitae": "Curriculum Vitae",
     "profile-curriculum-activitst": "Curriculum Attivista",
@@ -91,6 +127,18 @@
     "regione": "Regione",
     "provincia": "Provincia",
     "comune": "Comune",
-    "municipio": "Municipio"
+    "municipio": "Municipio",
     
+    "user-identity-verified": "Identità verificata",
+    "user-identity-pending": "Documento in verifica",
+    "user-identity-rejected": "Documento non valido",
+    "user-identity-not-verified": "Identità non verificata",
+    "user-suspended": "Account sospeso",
+    "user-can-vote": "Puoi votare dal %s",
+    "user-cannot-vote": "Non puoi votare",
+    "user-cannot-vote-yet": "Non puoi ancora votare",
+    "user-will-vote": "Potrai votare da %s",
+
+    "message-link-copied": "Link copiato",
+    "message-profile-not-compiled": "Non hai ancora completato il profilo. Puoi completarlo visitando il sito internet."
 }

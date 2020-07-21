@@ -128,8 +128,9 @@ class Login with ChangeNotifier {
   }
 
   void _onLogout() {
-    _tokenStore.deleteToken();
-    _pushNotificationManager.onLogout();
+    _pushNotificationManager.onLogout().whenComplete(() {
+      _tokenStore.deleteToken();
+    });
   }
 
   void _onLogin(Token token) {

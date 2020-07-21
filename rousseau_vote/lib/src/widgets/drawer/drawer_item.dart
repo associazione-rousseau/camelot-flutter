@@ -23,6 +23,7 @@ class DrawerItem extends StatelessWidget {
         RousseauLocalizations.getText(context, textKey),
         style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400),
       ),
+      dense: true,
       onTap: () {
         Navigator.pop(context);
         onTap();

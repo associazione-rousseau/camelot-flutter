@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
+import 'package:rousseau_vote/src/models/profile/badge.dart';
 import 'package:rousseau_vote/src/models/user/profile.dart';
 
 part 'current_user.g.dart';
@@ -17,6 +18,7 @@ class CurrentUser {
   String fullName;
   String statusColor;
   String slug;
+  bool verified;
   DateTime createdAt;
   DateTime voteRightStartingCountDate;
   Profile profile;
@@ -39,11 +41,21 @@ class CurrentUser {
   ItalianGeographicalDivision comune;
   ItalianGeographicalDivision municipio;
   String overseaseCity;
+  List<Badge> badges;
+
 
   String getProfilePictureUrl() {
     if (profile == null || profile.picture == null) {
       return null;
     }
     return profile.picture.originalUrl;
+  }
+
+  bool get canVote {
+    return statusColor == 'GREEN';
+  }
+
+  bool get pendingVerification {
+    return statusColor == 'ORANGE';
   }
 }
