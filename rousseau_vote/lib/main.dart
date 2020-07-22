@@ -18,6 +18,8 @@ import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:rousseau_vote/src/screens/account/contact_preferences_screen.dart';
+import 'package:rousseau_vote/src/screens/account/delete_account_disclaimer_screen.dart';
+import 'package:rousseau_vote/src/screens/account/delete_account_action_screen.dart';
 import 'package:rousseau_vote/src/screens/account/login_info_screen.dart';
 import 'package:rousseau_vote/src/screens/account/residence_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
@@ -107,6 +109,8 @@ class RousseauVoteApp extends StatelessWidget {
                     AnagraphScreen.ROUTE_NAME: (BuildContext context) => AnagraphScreen(),
                     
                     LoginInfoScreen.ROUTE_NAME: (BuildContext context) => LoginInfoScreen(),
+                    DeleteAccountDisclaimerScreen.ROUTE_NAME: (BuildContext context) => DeleteAccountDisclaimerScreen(),
+                    DeleteAccountActionScreen.ROUTE_NAME: (BuildContext context) => DeleteAccountActionScreen(),
                      
                     ResidenceScreen.ROUTE_NAME: (BuildContext context) => ResidenceScreen(),
                     ContactPreferencesScreen.ROUTE_NAME: (BuildContext context) => ContactPreferencesScreen(),

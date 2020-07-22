@@ -74,6 +74,7 @@
     "edit-account-login": "Informazioni di login",
     "edit-account-contact":  "Preferenze di contatto",
     "edit-account-residence":  "Residenza",
+    "edit-account-delete":  "Cancella iscrizione",
     
     
     "special_mentions": "Menzioni speciali",
@@ -140,5 +141,20 @@
     "user-will-vote": "Potrai votare da %s",
 
     "message-link-copied": "Link copiato",
-    "message-profile-not-compiled": "Non hai ancora completato il profilo. Puoi completarlo visitando il sito internet."
+    "message-profile-not-compiled": "Non hai ancora completato il profilo. Puoi completarlo visitando il sito internet.",
+
+    "unsubscribe-title": "Sei sicuro di voler eliminare il profilo?",
+    "unsubscribe-text": "Eliminando il tuo profilo, non ti sarà consentito l' accesso a tutte le funzioni di Rousseau compreso il voto.",
+    "understand": "Ho capito",
+
+    "unsubscribe-political": "Motivi politici",
+    "unsubscribe-too-much-communication": "Troppe comunicazioni",
+    "unsubscribe-technical-issues": "Problemi tecnici di accesso e utilizzo della piattaforma",
+    "unsubscribe-no-support": "Mancanza di supporto",
+    "unsubscribe-bad-content": "Contenuti e funzioni non interessanti",
+    "unsubscribe-other": "Altro",
+    "unsubscribe-reason": "Motivo della disiscrizione",
+    "unsubscribe-action": "Cancella iscrizione",
+    "unsubscribe-reason-custom": "Scrivi quì il motivo della tua disiscrizione"
+
 }

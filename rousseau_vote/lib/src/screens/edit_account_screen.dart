@@ -1,3 +1,4 @@
+import 'package:rousseau_vote/src/screens/account/delete_account_disclaimer_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/screens/account/anagraph_screen.dart';
 import 'package:rousseau_vote/src/screens/account/login_info_screen.dart';
@@ -26,8 +27,8 @@ class EditAccountScreen extends StatelessWidget {
           CardRow('Dati anagrafici', AnagraphScreen.ROUTE_NAME),
           CardRow('Informazioni di login', LoginInfoScreen.ROUTE_NAME),
           CardRow('Informazioni di residenza', ResidenceScreen.ROUTE_NAME),
-          CardRow('Preferenze notifiche email', ContactPreferencesScreen.ROUTE_NAME)
-          // CardRow('Cancella iscrizione', AnagraphScreen.ROUTE_NAME),
+          CardRow('Preferenze notifiche email', ContactPreferencesScreen.ROUTE_NAME),
+          CardRow('Cancella iscrizione', DeleteAccountDisclaimerScreen.ROUTE_NAME),
         ],
       ),
     );

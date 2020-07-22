@@ -91,3 +91,13 @@ mutation tokenRemove(\$tokenString: String!) {
     }
   }
 ''';
+
+String userDelete = '''
+mutation userDelete(\$unsubscribeReason: String!){
+    user{
+        userDelete(unsubscribeReason: \$unsubscribeReason){
+            errors
+        }
+    }
+}
+''';

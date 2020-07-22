@@ -1,6 +1,7 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
+import 'package:rousseau_vote/src/network/response/user/generic_user_response.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/query_response_parsers.dart';
@@ -22,6 +23,19 @@ class UserNetworkHandler {
 		// TODO implement mutation
 //    _graphQLClient.mutate(options);
 	}
+
+  Future<GenericUserResponse> deleteUser(String reason) async {
+    final Map<String, String> deleteVar = <String, String>{
+			'unsubscribeReason': reason,
+		};
+    final MutationOptions mutationOptions = MutationOptions(
+			documentNode: gql(userDelete),
+			variables: deleteVar
+		);
+    final QueryResult result = await _graphQLClient.mutate(mutationOptions);
+    final LazyCacheMap lazyCacheMap = result.data.get('user');
+    return GenericUserResponse.fromJson(lazyCacheMap.data);
+  }
 
 	Future<CurrentUser> createResidenceRequestChange(String countryCode, String regioneCode, String provinciaCode, String comuneCode, String municipioCode, String overseaseCity,String documentId) async {
 		Map<String, String> residenceData = <String, String>{

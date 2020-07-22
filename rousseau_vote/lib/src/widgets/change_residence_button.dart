@@ -27,7 +27,6 @@ class ChangeResidenceButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: RoundedButton(
-
          onPressed: enabled == true ? () => {
           createResidenceChangeRequest() 
         } : null,
