@@ -25,6 +25,7 @@
     "error-profile-loading": "Ops! C'è stato un problema nel caricare il profilo",
 
     "object-created": "Elemento creato con successo",
+    "success-message": "Elemento salvato con successo.",
 
     "poll-start": "Inizio",
     "poll-end": "Fine",
@@ -129,5 +130,8 @@
     "feedback-write-here": "Scrivi qui il tuo messaggio",
     "category": "Categoria",
     "feedback": "Feedback",
-    "send": "Invia"
+    "send": "Invia",
+    "feedback-thanks": "Grazie per averci inviato il tuo feedback!",
+
+    "back-home": "Torna alla home"
 }
