@@ -13,8 +13,8 @@ class LoginInfoWidget extends StatefulWidget{
     _emailController = TextEditingController(text: userOriginalEmail);
     _phoneNumberController = TextEditingController(text: userOriginalPhoneNumber);
   }
-  final String userOriginalEmail;
-  final String userOriginalPhoneNumber;
+  String userOriginalEmail;
+  String userOriginalPhoneNumber;
   TextEditingController _emailController;
   TextEditingController _phoneNumberController;
   GlobalKey<ScaffoldState> _scaffoldState;
@@ -67,6 +67,12 @@ class _LoginInfoWidgetState extends State<LoginInfoWidget> {
                 message = errors == null || errors.isEmpty
                     ? 'info-saved'
                     : 'error-generic';
+                if(errors == null){
+                  setState(() {
+                    widget.userOriginalEmail = widget._emailController.text;
+                    widget.userOriginalPhoneNumber = widget._phoneNumberController.text;
+                  });
+                }
                 showRousseauSnackbar(context, widget._scaffoldState, message);
               },
             ),
