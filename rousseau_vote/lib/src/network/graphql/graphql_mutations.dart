@@ -9,15 +9,17 @@ String pollAnswerSubmit = '''
 ''';
 
 String userAccessDataUpdate = '''
-  mutation userAccessDataUpdate(\$user:UpdateAccessDataUserInput!){
-    user{
-      userAccessDataUpdate(user:\$user){
-        errors
-        user{
-          email
-          phoneNumber
-        }
+mutation userAccessDataUpdate(\$user:UpdateAccessDataUserInput!){
+  user{
+    userAccessDataUpdate(user:\$user){
+      errors
+      user{
+        email
+        phoneNumber
       }
+    }
+  }
+}
 ''';
 
 String tokenAdd = '''
