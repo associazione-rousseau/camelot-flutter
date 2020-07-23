@@ -153,7 +153,6 @@ class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
   bool preferencesChanged(){
     bool flag = false;
     originalBools.asMap().forEach((int index, bool value) { 
-      print('old: ' + originalBools[index].toString() + ', new: ' + newBools[index].toString());
       if(newBools[index] != value){
         flag = true;
       }
