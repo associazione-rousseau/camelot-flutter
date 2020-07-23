@@ -8,6 +8,7 @@ import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
+import 'package:rousseau_vote/src/widgets/rousseau_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rousseau_vote/src/widgets/error_dialog.dart';
 import 'package:rousseau_vote/src/widgets/done_dialog.dart';
@@ -182,6 +183,15 @@ void showDone(BuildContext context,Function endAction) {
     context: context,
     builder: (BuildContext context) {
       return DoneDialog(endAction);
+    }
+  );
+}
+
+void showRousseauDialog(BuildContext context,Function endAction, String title, String message, String buttonText){
+  showDialog<AlertDialog>(
+    context: context,
+    builder: (BuildContext context) {
+      return RousseauDialog(endAction, title, message, buttonText);
     }
   );
 }

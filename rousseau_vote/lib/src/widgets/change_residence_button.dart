@@ -7,6 +7,7 @@ import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:rousseau_vote/src/network/response/user/residence_request_create_response.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/util/upload_util.dart';
@@ -30,12 +31,13 @@ class ChangeResidenceButton extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: RoundedButton(
          onPressed: enabled == true ? () => {
-          createResidenceChangeRequest() 
+          showRousseauDialog(context, createResidenceChangeRequest, 'upload-residence-document-title', 'upload-residence-document-message', 'upload-file')
         } : null,
         text: RousseauLocalizations.getText(context, 'save').toUpperCase(),
       ),
     );
   }
+
 
   Future createResidenceChangeRequest() async{
     // 1. pick image
@@ -58,7 +60,9 @@ class ChangeResidenceButton extends StatelessWidget {
     //4 show residence request created
     if(response != null && response.residenceChangeRequest != null){
       setResidenceChangeRequest(response.residenceChangeRequest);
+      return;
     }
+    //show error
   }
 
   Future<File> getImage() async {

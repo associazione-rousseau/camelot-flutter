@@ -120,7 +120,6 @@
     "profile-location-same-female": "nata e residente a %s",
     "profile-location-same-male": "nato e residente a %s",
 
-    "message-link-copied": "Link copiato",
     "overseas-city": "Città di residenza estera",
     "last-italian-residence": "Ultima residenza in Italia",
 
@@ -155,6 +154,10 @@
     "unsubscribe-other": "Altro",
     "unsubscribe-reason": "Motivo della disiscrizione",
     "unsubscribe-action": "Cancella iscrizione",
-    "unsubscribe-reason-custom": "Scrivi quì il motivo della tua disiscrizione"
+    "unsubscribe-reason-custom": "Scrivi quì il motivo della tua disiscrizione",
+
+    "upload-residence-document-title": "Cambio residenza",
+    "upload-residence-document-message": "Per effettuare questa operazione è necessario caricare un documento che attesti il tuo cambio di residenza.",
+    "upload-file": "Carica documento"
 
 }
