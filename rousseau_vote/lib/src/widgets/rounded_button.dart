@@ -19,7 +19,7 @@ class RoundedButton extends StatelessWidget {
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         onPressed: loading ? null : onPressed,
-        child: loading ? LoadingIndicator(color: Colors.white) : _buttonTextWidget(text.toUpperCase()),
+        child: loading ? LoadingIndicator(color: Colors.white) : _buttonTextWidget(text),
       ),
     );
   }
