@@ -22,7 +22,9 @@ class ContactPreferencesScreen extends StatefulWidget{
 
 class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
   final GlobalKey _scaffoldState = GlobalKey<ScaffoldState>();
-  List<bool> userBools;
+  List<bool> newBools;
+  List<bool> originalBools;
+
   
   @override
   Widget build(BuildContext context){
@@ -60,7 +62,14 @@ class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
   }
 
   Widget _currentUserBody(CurrentUser currentUser) {
-    userBools = userBools ??  <bool> [currentUser.noLocalEventsEmail,
+    originalBools = originalBools ??  <bool> [currentUser.noLocalEventsEmail,
+     currentUser.noNationalEventsEmail,
+     currentUser.noNewsletterEmail,
+     currentUser.noRousseauEventsEmail,
+     currentUser.noVoteEmail,
+     currentUser.noSms
+    ]; 
+    newBools = newBools ??  <bool> [currentUser.noLocalEventsEmail,
      currentUser.noNationalEventsEmail,
      currentUser.noNewsletterEmail,
      currentUser.noRousseauEventsEmail,
@@ -79,9 +88,9 @@ class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
                     RousseauLocalizations.getText(context,ContactPreferencesScreen.checks[index]),
                     style: const TextStyle(fontSize: 18),
                   ),
-                  trailing: Switch(value: userBools[index], onChanged: (bool newVal) {
+                  trailing: Switch(value: newBools[index], onChanged: (bool newVal) {
                     setState(() {
-                      userBools[index] = newVal;
+                      newBools[index] = newVal;
                     });
                   }),
                 );
@@ -116,23 +125,23 @@ class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
                   child: RoundedButton(
                     text: RousseauLocalizations.getText(context, 'save').toUpperCase(),
                     loading: result.loading,
-                    onPressed: () {
+                    onPressed: preferencesChanged() == true ? () {
                       Map<String, dynamic> variables =
                           HashMap<String, dynamic>();
                       variables.putIfAbsent(
                           'user', 
                           () => <String,bool>{
-                            'noLocalEventsEmail': userBools[0],
-                            'noNationalEventsEmail': userBools[1],
-                            'noNewsletterEmail': userBools[2],
-                            'noRousseauEventsEmail': userBools[3],
-                            'noVoteEmail': userBools[4],
-                            'noSms': userBools[5],
+                            'noLocalEventsEmail': newBools[0],
+                            'noNationalEventsEmail': newBools[1],
+                            'noNewsletterEmail': newBools[2],
+                            'noRousseauEventsEmail': newBools[3],
+                            'noVoteEmail': newBools[4],
+                            'noSms': newBools[5],
                           });
                       return runMutation(
                         variables,
                       );
-                    },
+                    } : null,
                   ),
                 );
               },
@@ -140,5 +149,15 @@ class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
           )
         ],
     );
+  }
+  bool preferencesChanged(){
+    bool flag = false;
+    originalBools.asMap().forEach((int index, bool value) { 
+      print('old: ' + originalBools[index].toString() + ', new: ' + newBools[index].toString());
+      if(newBools[index] != value){
+        flag = true;
+      }
+    });
+    return flag;
   }
 }
