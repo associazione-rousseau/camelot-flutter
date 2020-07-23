@@ -6,7 +6,7 @@ import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
-import 'package:rousseau_vote/src/widgets/label_value.dart';
+import 'package:rousseau_vote/src/widgets/rounded_text_field.dart';
 
 class LoginInfoWidget extends StatefulWidget{
   LoginInfoWidget(this.userOriginalEmail,this.userOriginalPhoneNumber, this._scaffoldState){
@@ -42,9 +42,10 @@ class _LoginInfoWidgetState extends State<LoginInfoWidget> {
       children: <Widget>[
         Expanded(
           child: ListView(
+            padding: EdgeInsets.symmetric(horizontal:15, vertical:10),
             children: <Widget>[
-              LabelValue(widget._emailController, 'Email', true),
-              LabelValue(widget._phoneNumberController, 'Numero di telefono', true),
+              RoundedTextField(controller: widget._emailController, labelText: 'email', enabled: true),
+              RoundedTextField(controller: widget._phoneNumberController, labelText: 'phone-number', enabled: true),
             ],
           ),
         ),

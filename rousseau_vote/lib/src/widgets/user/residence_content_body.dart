@@ -7,6 +7,7 @@ import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/widgets/change_residence_button.dart';
 import 'package:rousseau_vote/src/widgets/geo_autocomplete.dart';
 import 'package:rousseau_vote/src/util/residence_util.dart';
+import 'package:rousseau_vote/src/widgets/rounded_text_field.dart';
 import 'package:rousseau_vote/src/widgets/user/residence_request_widget.dart';
 
 
@@ -86,16 +87,20 @@ class _ResidenceContentBodyState extends State<ResidenceContentBody> {
               itemCount: 6,
               itemBuilder: (BuildContext context, int index) {
                 if(index == 0){
-                  return GeoAutocomplete('country', divisionTextControllers['country'], _onSuggestionSelected, selectedDivisions);
+                  return Padding(
+                    padding: const EdgeInsets.only(top:10.0),
+                    child: GeoAutocomplete('country', divisionTextControllers['country'], _onSuggestionSelected, selectedDivisions),
+                  );
                 }
                 if(index == 1){
                   return divisionTextControllers['country'].text != 'Italy' ? 
                   Column(
                     children: <Widget>[
-                      TextField(
-                        controller: overseasCityTextController,
-                        decoration: InputDecoration(
-                          labelText: RousseauLocalizations.of(context).text('overseas-city'),
+                      Padding(
+                        padding: const EdgeInsets.only(top:10.0),
+                        child: RoundedTextField(
+                          controller: overseasCityTextController,
+                          labelText: 'overseas-city',
                         ),
                       ),
                       Padding(

@@ -158,6 +158,17 @@
 
     "upload-residence-document-title": "Cambio residenza",
     "upload-residence-document-message": "Per effettuare questa operazione è necessario caricare un documento che attesti il tuo cambio di residenza.",
-    "upload-file": "Carica documento"
+    "upload-file": "Carica documento",
+
+    "name": "Nome",
+    "last-name": "Cognome",
+    "dob": "Data di nascita",
+    "place-of-birth": "Luogo di nascita",
+    "ssn": "Codice fiscale",
+    "gender": "Genere",
+    "phone-number": "Numero di telefono",
+    "man": "Uomo",
+    "woman": "Donna"
+
 
 }
