@@ -11,10 +11,16 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) {
     ..userDelete = json['userDelete'] == null
         ? null
         : UserDeleteResponse.fromJson(
-            json['userDelete'] as Map<String, dynamic>);
+            json['userDelete'] as Map<String, dynamic>)
+    ..residenceChangeRequestCreate =
+        json['residenceChangeRequestCreate'] == null
+            ? null
+            : ResidenceRequestCreateResponse.fromJson(
+                json['residenceChangeRequestCreate'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
     <String, dynamic>{
       'userDelete': instance.userDelete,
+      'residenceChangeRequestCreate': instance.residenceChangeRequestCreate,
     };

@@ -60,7 +60,11 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..badges = (json['badges'] as List)
         ?.map(
             (e) => e == null ? null : Badge.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList()
+    ..lastResidenceChangeRequest = json['lastResidenceChangeRequest'] == null
+        ? null
+        : ResidenceChangeRequest.fromJson(
+            json['lastResidenceChangeRequest'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
@@ -95,4 +99,5 @@ Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
       'municipio': instance.municipio,
       'overseaseCity': instance.overseaseCity,
       'badges': instance.badges,
+      'lastResidenceChangeRequest': instance.lastResidenceChangeRequest,
     };

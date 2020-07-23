@@ -6,12 +6,13 @@ import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
+import 'package:rousseau_vote/src/network/response/user/residence_request_create_response.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/util/upload_util.dart';
 
 class ChangeResidenceButton extends StatelessWidget {  
-  ChangeResidenceButton(this.enabled, this.selectedDivisions, this.overseaseCity, this.userSlug);
+  ChangeResidenceButton(this.enabled, this.selectedDivisions, this.overseaseCity, this.userSlug, this.setResidenceChangeRequest);
   
   File _image;
   ImagePicker picker = ImagePicker();
@@ -21,6 +22,7 @@ class ChangeResidenceButton extends StatelessWidget {
   final UserNetworkHandler _userNetworkHandler = getIt<UserNetworkHandler>();
   final bool enabled;
   final String userSlug;
+  final Function setResidenceChangeRequest;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class ChangeResidenceButton extends StatelessWidget {
     String documentId = await uploadFile(image, 'residence_request_' + userSlug );
     
     //3.change residence mutation
-    CurrentUser cu = await _userNetworkHandler.createResidenceRequestChange(
+    ResidenceRequestCreateResponse response = await _userNetworkHandler.createResidenceRequestChange(
       selectedDivisions['country'].code,
       selectedDivisions['regione'].code,
       selectedDivisions['provincia'].code,
@@ -52,6 +54,11 @@ class ChangeResidenceButton extends StatelessWidget {
       overseaseCity ?? '',
       documentId
     );
+
+    //4 show residence request created
+    if(response != null && response.residenceChangeRequest != null){
+      setResidenceChangeRequest(response.residenceChangeRequest);
+    }
   }
 
   Future<File> getImage() async {

@@ -1,10 +1,12 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rousseau_vote/src/models/residence_change_request.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
-import 'package:rousseau_vote/src/network/response/user/generic_user_response.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/query_response_parsers.dart';
+import 'package:rousseau_vote/src/network/response/user/residence_request_create_response.dart';
+import 'package:rousseau_vote/src/network/response/user/user_response.dart';
 
 @singleton
 class UserNetworkHandler {
@@ -24,7 +26,7 @@ class UserNetworkHandler {
 //    _graphQLClient.mutate(options);
 	}
 
-  Future<GenericUserResponse> deleteUser(String reason) async {
+  Future<UserResponse> deleteUser(String reason) async {
     final Map<String, String> deleteVar = <String, String>{
 			'unsubscribeReason': reason,
 		};
@@ -34,10 +36,10 @@ class UserNetworkHandler {
 		);
     final QueryResult result = await _graphQLClient.mutate(mutationOptions);
     final LazyCacheMap lazyCacheMap = result.data.get('user');
-    return GenericUserResponse.fromJson(lazyCacheMap.data);
+    return UserResponse.fromJson(lazyCacheMap.data);
   }
 
-	Future<CurrentUser> createResidenceRequestChange(String countryCode, String regioneCode, String provinciaCode, String comuneCode, String municipioCode, String overseaseCity,String documentId) async {
+	Future<ResidenceRequestCreateResponse> createResidenceRequestChange(String countryCode, String regioneCode, String provinciaCode, String comuneCode, String municipioCode, String overseaseCity,String documentId) async {
 		Map<String, String> residenceData = <String, String>{
 			'countryCode': countryCode,
 			'regioneCode': regioneCode,
@@ -54,7 +56,7 @@ class UserNetworkHandler {
 
 		final Map<String, dynamic> geoVar = <String, dynamic>{
 			'attributes': residenceData,
-			'documentIds': [documentId]
+			'documentIds': <String>[documentId]
 		};
 
 		final MutationOptions mutationOptions = MutationOptions(
@@ -63,7 +65,13 @@ class UserNetworkHandler {
 		);
 
 		final QueryResult result = await _graphQLClient.mutate(mutationOptions);
-		final CurrentUser updatedUser = getParser<CurrentUser>().parse(result);
-		return updatedUser;
+    final LazyCacheMap lazyCacheMap = result.data.get('user');
+    final UserResponse userResp = UserResponse.fromJson(lazyCacheMap.data);
+    
+    if(userResp != null && userResp.residenceChangeRequestCreate != null){
+      return userResp.residenceChangeRequestCreate;
+    }
+    return null;
+
 	}
 }

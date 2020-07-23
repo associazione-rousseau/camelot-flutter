@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
-import 'package:rousseau_vote/src/network/response/user/generic_user_response.dart';
+import 'package:rousseau_vote/src/network/response/user/user_response.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/screens/login_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
@@ -103,8 +103,8 @@ class _DeleteAccountActionScreenState extends State<DeleteAccountActionScreen> {
     if(bools[bools.length-1] == true && customReasonController.text.isNotEmpty){
       selectedReason += ': ' + customReasonController.text;
     }
-    GenericUserResponse response = await _userNetworkHandler.deleteUser(selectedReason);
-    if(response.user != null && response.user.userDelete != null && response.user.userDelete.errors == null){
+    UserResponse response = await _userNetworkHandler.deleteUser(selectedReason);
+    if(response != null && response.userDelete != null && response.userDelete.errors == null){
       Provider.of<Login>(context).logout();
       openRoute(context, LoginScreen.ROUTE_NAME, replace: true);
     }

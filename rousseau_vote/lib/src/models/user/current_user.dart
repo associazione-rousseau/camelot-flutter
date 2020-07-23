@@ -1,7 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
 import 'package:rousseau_vote/src/models/profile/badge.dart';
+import 'package:rousseau_vote/src/models/residence_change_request.dart';
 import 'package:rousseau_vote/src/models/user/profile.dart';
+import 'package:rousseau_vote/src/widgets/user/residence_request_widget.dart';
 
 part 'current_user.g.dart';
 
@@ -42,6 +44,7 @@ class CurrentUser {
   ItalianGeographicalDivision municipio;
   String overseaseCity;
   List<Badge> badges;
+  ResidenceChangeRequest lastResidenceChangeRequest;
 
 
   String getProfilePictureUrl() {

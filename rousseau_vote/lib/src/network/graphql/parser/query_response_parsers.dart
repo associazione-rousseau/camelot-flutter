@@ -10,7 +10,6 @@ import 'package:rousseau_vote/src/network/graphql/parser/ita_geo_divisions_parse
 import 'package:rousseau_vote/src/network/graphql/parser/poll_detail_parser.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/query_response_parser.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/user_profile_parser.dart';
-import 'package:rousseau_vote/src/network/response/user/generic_user_response.dart';
 
 import 'current_user_parser.dart';
 import 'poll_list_parser.dart';

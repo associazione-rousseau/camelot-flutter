@@ -1,11 +1,13 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
+import 'package:rousseau_vote/src/models/residence_change_request.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/widgets/change_residence_button.dart';
 import 'package:rousseau_vote/src/widgets/geo_autocomplete.dart';
 import 'package:rousseau_vote/src/util/residence_util.dart';
+import 'package:rousseau_vote/src/widgets/user/residence_request_widget.dart';
 
 
 class ResidenceContentBody extends StatefulWidget {
@@ -54,6 +56,10 @@ class _ResidenceContentBodyState extends State<ResidenceContentBody> {
     List<String> visibleDivisions = <String>[];
     bool oneEmptyFieldFlag = false;
     bool buttonEnabled = true;
+
+    if(currentUser.lastResidenceChangeRequest != null && currentUser.lastResidenceChangeRequest.status == 'PENDING'){
+      return ResidenceRequestWidget(currentUser.lastResidenceChangeRequest);
+    }
 
     for(String division in DIVISIONS) { 
       if(selectedDivisions[division] != null){
@@ -108,7 +114,7 @@ class _ResidenceContentBodyState extends State<ResidenceContentBody> {
             ),
           ),
         ),
-        ChangeResidenceButton(buttonEnabled, selectedDivisions,overseasCityTextController.text, currentUser.slug)
+        ChangeResidenceButton(buttonEnabled, selectedDivisions,overseasCityTextController.text, currentUser.slug, setResidenceRequest)
       ],
     );
   }
@@ -123,6 +129,12 @@ class _ResidenceContentBodyState extends State<ResidenceContentBody> {
         selectedDivisions.update(value, (ItalianGeographicalDivision value) => null);
         divisionTextControllers[value].text = '';
       });
+    });
+  }
+
+  void setResidenceRequest(ResidenceChangeRequest residenceChangeRequest){
+    setState(() {
+      currentUser.lastResidenceChangeRequest = residenceChangeRequest;
     });
   }
 }

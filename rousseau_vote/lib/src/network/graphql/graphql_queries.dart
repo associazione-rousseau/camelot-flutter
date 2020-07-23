@@ -320,6 +320,31 @@ query currentUser {
       name
     }
     overseaseCity
+    lastResidenceChangeRequest{
+      comune{
+          code
+          name
+      }
+      country{
+          code
+          name
+      }
+      municipio{
+          code
+          name
+      }
+      overseaseCity
+      provincia{
+          code
+          name
+      }
+      regione{
+          code
+          name
+      }
+      rejectionReason
+      status
+    }
   }
 }
 ''';
