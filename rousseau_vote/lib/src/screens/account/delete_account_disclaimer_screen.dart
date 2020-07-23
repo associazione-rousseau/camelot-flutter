@@ -38,9 +38,11 @@ class DeleteAccountDisclaimerScreen extends StatelessWidget {
                 ),
               ),
             ),
-            RoundedButton(
-              text: RousseauLocalizations.of(context).text('understand'),
-              onPressed: () {openRoute(context, DeleteAccountActionScreen.ROUTE_NAME);},
+            SafeArea(
+              child: RoundedButton(
+                text: RousseauLocalizations.of(context).text('understand'),
+                onPressed: () {openRoute(context, DeleteAccountActionScreen.ROUTE_NAME);},
+              ),
             )
           ],
         ),

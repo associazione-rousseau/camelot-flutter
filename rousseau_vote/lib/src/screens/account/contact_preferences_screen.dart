@@ -120,28 +120,30 @@ class _ContactPreferencesScreenState extends State<ContactPreferencesScreen> {
                 },
               ),
               builder: (RunMutation runMutation, QueryResult result) {
-                return Padding(
-                  padding: EdgeInsets.all(10),
-                  child: RoundedButton(
-                    text: RousseauLocalizations.getText(context, 'save'),
-                    loading: result.loading,
-                    onPressed: preferencesChanged() == true ? () {
-                      Map<String, dynamic> variables =
-                          HashMap<String, dynamic>();
-                      variables.putIfAbsent(
-                          'user', 
-                          () => <String,bool>{
-                            'noLocalEventsEmail': newBools[0],
-                            'noNationalEventsEmail': newBools[1],
-                            'noNewsletterEmail': newBools[2],
-                            'noRousseauEventsEmail': newBools[3],
-                            'noVoteEmail': newBools[4],
-                            'noSms': newBools[5],
-                          });
-                      return runMutation(
-                        variables,
-                      );
-                    } : null,
+                return SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: RoundedButton(
+                      text: RousseauLocalizations.getText(context, 'save'),
+                      loading: result.loading,
+                      onPressed: preferencesChanged() == true ? () {
+                        Map<String, dynamic> variables =
+                            HashMap<String, dynamic>();
+                        variables.putIfAbsent(
+                            'user', 
+                            () => <String,bool>{
+                              'noLocalEventsEmail': newBools[0],
+                              'noNationalEventsEmail': newBools[1],
+                              'noNewsletterEmail': newBools[2],
+                              'noRousseauEventsEmail': newBools[3],
+                              'noVoteEmail': newBools[4],
+                              'noSms': newBools[5],
+                            });
+                        return runMutation(
+                          variables,
+                        );
+                      } : null,
+                    ),
                   ),
                 );
               },

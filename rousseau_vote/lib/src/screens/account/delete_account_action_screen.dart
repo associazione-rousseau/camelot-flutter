@@ -87,11 +87,13 @@ class _DeleteAccountActionScreenState extends State<DeleteAccountActionScreen> {
               }
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: RoundedButton(
-              text: RousseauLocalizations.of(context).text('unsubscribe-action'),
-              onPressed: selectedReason != null ? () =>  deleteAccount() : null,
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all( 15),
+              child: RoundedButton(
+                text: RousseauLocalizations.of(context).text('unsubscribe-action'),
+                onPressed: selectedReason != null ? () =>  deleteAccount() : null,
+              ),
             ),
           ),
         ],

@@ -78,52 +78,54 @@ class _ResidenceContentBodyState extends State<ResidenceContentBody> {
     if(divisionTextControllers['country'].text != 'Italy' && overseasCityTextController.text.isEmpty) buttonEnabled = false;
     if(fieldsUnchanged(currentUser, selectedDivisions) == true) buttonEnabled = false;
     
-    return Column(
-      children: <Widget>[
-        Expanded(
-            child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal:15),
-            child: ListView.builder(
-              itemCount: 6,
-              itemBuilder: (BuildContext context, int index) {
-                if(index == 0){
-                  return Padding(
-                    padding: const EdgeInsets.only(top:10.0),
-                    child: GeoAutocomplete('country', divisionTextControllers['country'], _onSuggestionSelected, selectedDivisions),
-                  );
-                }
-                if(index == 1){
-                  return divisionTextControllers['country'].text != 'Italy' ? 
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top:10.0),
-                        child: RoundedTextField(
-                          controller: overseasCityTextController,
-                          labelText: 'overseas-city',
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top:30,bottom: 10),
-                        child: Text(
-                          RousseauLocalizations.of(context).text('last-italian-residence').toUpperCase(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600
+    return SafeArea(
+      child: Column(
+        children: <Widget>[
+          Expanded(
+              child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal:15),
+              child: ListView.builder(
+                itemCount: 6,
+                itemBuilder: (BuildContext context, int index) {
+                  if(index == 0){
+                    return Padding(
+                      padding: const EdgeInsets.only(top:10.0),
+                      child: GeoAutocomplete('country', divisionTextControllers['country'], _onSuggestionSelected, selectedDivisions),
+                    );
+                  }
+                  if(index == 1){
+                    return divisionTextControllers['country'].text != 'Italy' ? 
+                    Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top:10.0),
+                          child: RoundedTextField(
+                            controller: overseasCityTextController,
+                            labelText: 'overseas-city',
                           ),
                         ),
-                      ),
-                    ],
-                  ) : 
-                  Container();
+                        Padding(
+                          padding: const EdgeInsets.only(top:30,bottom: 10),
+                          child: Text(
+                            RousseauLocalizations.of(context).text('last-italian-residence').toUpperCase(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600
+                            ),
+                          ),
+                        ),
+                      ],
+                    ) : 
+                    Container();
+                  }
+                  String division = DIVISIONS[index-1];
+                  return visibleDivisions.contains(division) ? GeoAutocomplete(division, divisionTextControllers[division], _onSuggestionSelected, selectedDivisions) : Container();
                 }
-                String division = DIVISIONS[index-1];
-                return visibleDivisions.contains(division) ? GeoAutocomplete(division, divisionTextControllers[division], _onSuggestionSelected, selectedDivisions) : Container();
-              }
+              ),
             ),
           ),
-        ),
-        ChangeResidenceButton(buttonEnabled, selectedDivisions,overseasCityTextController.text, currentUser.slug, setResidenceRequest)
-      ],
+          ChangeResidenceButton(buttonEnabled, selectedDivisions,overseasCityTextController.text, currentUser.slug, setResidenceRequest)
+        ],
+      ),
     );
   }
 

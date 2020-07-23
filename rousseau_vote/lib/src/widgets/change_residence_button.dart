@@ -28,12 +28,12 @@ class ChangeResidenceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(15),
       child: RoundedButton(
          onPressed: enabled == true ? () => {
           showRousseauDialog(context, createResidenceChangeRequest, 'upload-residence-document-title', 'upload-residence-document-message', 'upload-file')
         } : null,
-        text: RousseauLocalizations.getText(context, 'save').toUpperCase(),
+        text: RousseauLocalizations.getText(context, 'save'),
       ),
     );
   }
