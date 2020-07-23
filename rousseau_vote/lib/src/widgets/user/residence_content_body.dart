@@ -81,36 +81,39 @@ class _ResidenceContentBodyState extends State<ResidenceContentBody> {
       children: <Widget>[
         Expanded(
             child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              children: <Widget>[
-                GeoAutocomplete('country', divisionTextControllers['country'], _onSuggestionSelected, selectedDivisions),
-                divisionTextControllers['country'].text != 'Italy' ? 
-                Column(
-                  children: <Widget>[
-                    TextField(
-                      controller: overseasCityTextController,
-                      decoration: InputDecoration(
-                        labelText: RousseauLocalizations.of(context).text('overseas-city'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top:30,bottom: 10),
-                      child: Text(
-                        RousseauLocalizations.of(context).text('last-italian-residence').toUpperCase(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600
+            padding: const EdgeInsets.symmetric(horizontal:15),
+            child: ListView.builder(
+              itemCount: 6,
+              itemBuilder: (BuildContext context, int index) {
+                if(index == 0){
+                  return GeoAutocomplete('country', divisionTextControllers['country'], _onSuggestionSelected, selectedDivisions);
+                }
+                if(index == 1){
+                  return divisionTextControllers['country'].text != 'Italy' ? 
+                  Column(
+                    children: <Widget>[
+                      TextField(
+                        controller: overseasCityTextController,
+                        decoration: InputDecoration(
+                          labelText: RousseauLocalizations.of(context).text('overseas-city'),
                         ),
                       ),
-                    ),
-                  ],
-                ) : 
-                Container(),
-                visibleDivisions.contains('regione') ? GeoAutocomplete('regione', divisionTextControllers['regione'], _onSuggestionSelected, selectedDivisions) : Container(),
-                visibleDivisions.contains('provincia') ? GeoAutocomplete('provincia', divisionTextControllers['provincia'], _onSuggestionSelected, selectedDivisions) : Container(),
-                visibleDivisions.contains('comune') ? GeoAutocomplete('comune', divisionTextControllers['comune'], _onSuggestionSelected, selectedDivisions) : Container(),
-                visibleDivisions.contains('municipio') ? GeoAutocomplete('municipio', divisionTextControllers['municipio'], _onSuggestionSelected, selectedDivisions) : Container(),
-              ],
+                      Padding(
+                        padding: const EdgeInsets.only(top:30,bottom: 10),
+                        child: Text(
+                          RousseauLocalizations.of(context).text('last-italian-residence').toUpperCase(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600
+                          ),
+                        ),
+                      ),
+                    ],
+                  ) : 
+                  Container();
+                }
+                String division = DIVISIONS[index-1];
+                return visibleDivisions.contains(division) ? GeoAutocomplete(division, divisionTextControllers[division], _onSuggestionSelected, selectedDivisions) : Container();
+              }
             ),
           ),
         ),
