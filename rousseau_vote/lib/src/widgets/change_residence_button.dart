@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
-import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:rousseau_vote/src/network/response/user/residence_request_create_response.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
@@ -15,8 +14,7 @@ import 'package:rousseau_vote/src/util/upload_util.dart';
 class ChangeResidenceButton extends StatelessWidget {  
   ChangeResidenceButton(this.enabled, this.selectedDivisions, this.overseaseCity, this.userSlug, this.setResidenceChangeRequest);
   
-  File _image;
-  ImagePicker picker = ImagePicker();
+  final ImagePicker picker = ImagePicker();
   
   final HashMap<String, ItalianGeographicalDivision> selectedDivisions;
   final String overseaseCity;
@@ -39,12 +37,12 @@ class ChangeResidenceButton extends StatelessWidget {
   }
 
 
-  Future createResidenceChangeRequest() async{
+  Future<void> createResidenceChangeRequest() async{
     // 1. pick image
-    File image = await getImage();
+    final File image = await getImage();
     
     //2. upload it 
-    String documentId = await uploadFile(image, 'residence_request_' + userSlug );
+    final String documentId = await uploadFile(image, 'residence_request_' + userSlug );
     
     //3.change residence mutation
     final ResidenceRequestCreateResponse response = await _userNetworkHandler.createResidenceRequestChange(
