@@ -6,6 +6,7 @@ import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:rousseau_vote/src/network/response/user/feedback_submit_response.dart';
 import 'package:rousseau_vote/src/screens/success_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
+import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
 
 class FeedbackScreen extends StatefulWidget{
@@ -95,7 +96,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               text: RousseauLocalizations.of(context).text('send').toUpperCase(),
               loading: _loading,
               onPressed: textController.text.isEmpty ? null : () => sendFeedback(),
-            )
+            ),
+            const VerticalSpace(40),
           ],
         ),
       )
