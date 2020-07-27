@@ -49,7 +49,7 @@ class CurrentUserCard extends StatelessWidget {
           children: <Widget>[
             _identitySection(context, currentUser),
             _badgesSection(context, currentUser),
-            const VerticalSpace(20),
+            const VerticalSpace(10),
             _certificationSection(context, currentUser),
           ],
         );
