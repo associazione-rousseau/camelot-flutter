@@ -7,6 +7,8 @@ import 'package:rousseau_vote/src/models/arguments/blog_instant_article_argument
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
+import 'package:rousseau_vote/src/screens/polls_screen.dart';
+import 'package:rousseau_vote/src/screens/success_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rousseau_vote/src/widgets/error_dialog.dart';
@@ -117,6 +119,10 @@ void openRoute(BuildContext context, String route, {Object arguments, bool repla
   } else {
     Navigator.of(context).pushNamed(route, arguments: arguments);
   }
+}
+
+void openModalSuccessPage(BuildContext context,{String message}){
+  Navigator.of(context).pushAndRemoveUntil<dynamic>(MaterialPageRoute<dynamic>(builder: (context) => SuccessScreen(message: message), fullscreenDialog: true),ModalRoute.withName(PollsScreen.ROUTE_NAME));
 }
 
 Function openRouteAction(BuildContext context, String route, {Object arguments, bool replace = false}) {

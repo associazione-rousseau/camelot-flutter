@@ -24,6 +24,9 @@
     "error-vote": "Qualcosa non va, assicurati di essere ancora in tempo per votare e riprova.",
     "error-profile-loading": "Ops! C'è stato un problema nel caricare il profilo",
 
+    "object-created": "Elemento creato con successo",
+    "success-message": "Elemento salvato con successo.",
+
     "poll-start": "Inizio",
     "poll-end": "Fine",
     "poll-info": "Approfondisci",
@@ -118,5 +121,17 @@
     "user-will-vote": "Potrai votare da %s",
 
     "message-link-copied": "Link copiato",
-    "message-profile-not-compiled": "Non hai ancora completato il profilo. Puoi completarlo visitando il sito internet."
+    "message-profile-not-compiled": "Non hai ancora completato il profilo. Puoi completarlo visitando il sito internet.",
+
+    "feedback-bug_report": "Segnalazione Bug",
+    "feedback-feature_improvement": "Possibile miglioramento",
+    "feedback-new_feature":"Nuova funzionalità",
+    "feedback-feedback": "Feedback generico",
+    "feedback-write-here": "Scrivi qui il tuo messaggio",
+    "category": "Categoria",
+    "feedback": "Feedback",
+    "send": "Invia",
+    "feedback-thanks": "Grazie per averci inviato il tuo feedback!",
+
+    "back-home": "Torna alla home"
 }
