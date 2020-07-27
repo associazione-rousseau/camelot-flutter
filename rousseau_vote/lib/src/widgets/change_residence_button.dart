@@ -47,7 +47,7 @@ class ChangeResidenceButton extends StatelessWidget {
     String documentId = await uploadFile(image, 'residence_request_' + userSlug );
     
     //3.change residence mutation
-    ResidenceRequestCreateResponse response = await _userNetworkHandler.createResidenceRequestChange(
+    final ResidenceRequestCreateResponse response = await _userNetworkHandler.createResidenceRequestChange(
       selectedDivisions['country'].code,
       selectedDivisions['regione'].code,
       selectedDivisions['provincia'].code,
@@ -66,7 +66,7 @@ class ChangeResidenceButton extends StatelessWidget {
   }
 
   Future<File> getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    final PickedFile pickedFile = await picker.getImage(source: ImageSource.gallery);
     return File(pickedFile.path);
   }
 }
