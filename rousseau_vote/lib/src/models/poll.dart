@@ -37,6 +37,7 @@ class Poll {
   List<Option> options;
 
   bool get open => status == 'OPEN';
+  bool get closed => status == 'CLOSED';
   bool get scheduled => status == 'PUBLISHED';
 
   PollStatus get pollStatus {
@@ -49,8 +50,11 @@ class Poll {
     return PollStatus.CLOSED;
   }
 
+  bool get mightVote => open && !alreadyVoted;
+
   bool get canVote => open && !alreadyVoted && options != null && options.isNotEmpty && (alerts == null || alerts.isEmpty);
 
+  bool get hasResults => resultsLink != null;
   Color get color => STATUS_COLOR_MAPPING[pollStatus];
 }
 

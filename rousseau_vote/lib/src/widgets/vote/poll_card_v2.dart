@@ -32,32 +32,63 @@ class PollCardV2 extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(DEFAULT_SPACING)),
       elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(DEFAULT_SPACING),
-        child: Column(
-          children: <Widget>[
-            Text(
-              _poll.title,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const VerticalSpace(10),
-            ListTile(
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(startDateString),
-                  Text(endDateString),
-                ],
+      child: InkWell(
+        onTap: _onCtaTapAction(context),
+        child: Padding(
+          padding: const EdgeInsets.all(DEFAULT_SPACING),
+          child: Column(
+            children: <Widget>[
+              Text(
+                _poll.title,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              leading: _getIcon(context),
-            ),
+              const VerticalSpace(10),
+              ListTile(
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(startDateString),
+                    Text(endDateString),
+                  ],
+                ),
+                leading: _getIcon(context),
+              ),
 //            _alreadyVoted(context),
-            _buttonBar(context)
-          ],
+              _buttonBar(context)
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Function _onCtaTapAction(BuildContext context) {
+    return () {
+      switch(_poll.pollStatus) {
+        case PollStatus.PUBLISHED:
+          openPollDetails(context, _poll);
+          break;
+        case PollStatus.OPEN:
+          if(_poll.alreadyVoted) {
+            showSimpleSnackbar(context, 'poll-voted');
+          } else if (_poll.canVote) {
+            openPollDetails(context, _poll);
+          } else {
+            showSimpleSnackbar(context, 'poll-alert');
+          }
+          break;
+        case PollStatus.CLOSED:
+          if (_poll.hasResults) {
+            final SnackBarAction action =
+            createSnackBarAction(context, 'poll-results', openUrlInternalAction(context, _poll.resultsLink));
+            showSimpleSnackbar(context, 'poll-closed', action: action);
+          } else {
+            showSimpleSnackbar(context, 'poll-closed-no-results');
+          }
+          break;
+      }
+    };
   }
 
   Widget _alreadyVoted(BuildContext context) {
@@ -89,7 +120,7 @@ class PollCardV2 extends StatelessWidget {
     if (_poll.resultsLink != null) {
       buttons.add(_linkButton(context, 'poll-results', _poll.resultsLink, bold: true));
     }
-    if (_poll.canVote) {
+    if (_poll.mightVote) {
       buttons.add(_voteButton(context, 'vote-button'));
     } else if (_poll.scheduled) {
       buttons.add(_voteButton(context, 'vote-view'));
@@ -106,7 +137,7 @@ class PollCardV2 extends StatelessWidget {
 
   Widget _voteButton(BuildContext context, String textKey) {
     return _button(
-        context, textKey, openPollDetailsAction(context, _poll),
+        context, textKey, _onCtaTapAction(context),
         bold: true);
   }
 
