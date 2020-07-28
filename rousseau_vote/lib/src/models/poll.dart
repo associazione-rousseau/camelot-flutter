@@ -49,7 +49,7 @@ class Poll {
     return PollStatus.CLOSED;
   }
 
-  bool get canVote => open && !alreadyVoted && options != null && options.isNotEmpty;
+  bool get canVote => open && !alreadyVoted && options != null && options.isNotEmpty && (alerts == null || alerts.isEmpty);
 
   Color get color => STATUS_COLOR_MAPPING[pollStatus];
 }

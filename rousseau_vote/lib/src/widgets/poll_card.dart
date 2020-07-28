@@ -26,7 +26,8 @@ class PollCard extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(
-                _poll.title, 
+                _poll.title,
+                maxLines: 3,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
@@ -118,7 +119,7 @@ class PollCard extends StatelessWidget {
     } else if (status == PollStatus.OPEN) {
       return 'poll-open';
     } else if (_poll.resultsLink != null) {
-      return 'poll-result';
+      return 'poll-result-available';
     } else {
       return 'poll-closed';
     }

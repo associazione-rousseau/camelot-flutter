@@ -5,8 +5,11 @@ import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/arguments/blog_instant_article_arguments.dart';
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
+import 'package:rousseau_vote/src/models/poll.dart';
+import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
+import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/success_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
@@ -110,6 +113,16 @@ void openProfile(BuildContext context, String slug) {
 Function openProfileAction(BuildContext context, String slug) {
   return () {
     openProfile(context, slug);
+  };
+}
+
+Function openPollDetailsAction(BuildContext context, Poll poll) {
+  return () {
+    openRoute(
+      context,
+      PollDetailsScreen.ROUTE_NAME,
+      arguments: PollDetailArguments(poll.slug, false),
+    );
   };
 }
 

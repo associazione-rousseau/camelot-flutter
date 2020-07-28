@@ -38,7 +38,7 @@ class PollsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             itemCount: polls.length,
             itemBuilder: (BuildContext context, int index) {
-              return index % 2 == 1 ? PollCard(polls[index]) : PollCardV2(polls[index]);
+              return PollCardV2(polls[index]);
             }
           );
         },
