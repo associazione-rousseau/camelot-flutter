@@ -13,6 +13,7 @@ import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/success_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
+import 'package:rousseau_vote/src/widgets/rousseau_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rousseau_vote/src/widgets/error_dialog.dart';
 import 'package:rousseau_vote/src/widgets/done_dialog.dart';
@@ -40,11 +41,11 @@ void showSimpleSnackbar(BuildContext context, String textKey, { SnackBarAction a
 }
 
 void showRousseauSnackbar(BuildContext context,
-    GlobalKey<ScaffoldState> scaffoldState, String errorMessage) {
+    GlobalKey<ScaffoldState> scaffoldState, String message) {
   final SnackBar snackBar = SnackBar(
-    content: Text(RousseauLocalizations.getText(context, errorMessage)),
-    duration: const Duration(seconds: 5),
-  );
+      content: Text(RousseauLocalizations.getText(context, message)),
+      duration: const Duration(seconds: 5),
+      behavior: SnackBarBehavior.floating);
 
   scaffoldState.currentState.showSnackBar(snackBar);
 }
@@ -211,6 +212,15 @@ void showDone(BuildContext context,Function endAction) {
     context: context,
     builder: (BuildContext context) {
       return DoneDialog(endAction);
+    }
+  );
+}
+
+void showRousseauDialog(BuildContext context,Function endAction, String title, String message, String buttonText){
+  showDialog<AlertDialog>(
+    context: context,
+    builder: (BuildContext context) {
+      return RousseauDialog(endAction, title, message, buttonText);
     }
   );
 }

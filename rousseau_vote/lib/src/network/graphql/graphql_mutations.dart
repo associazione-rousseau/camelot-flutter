@@ -8,6 +8,20 @@ String pollAnswerSubmit = '''
   }
 ''';
 
+String userAccessDataUpdate = '''
+mutation userAccessDataUpdate(\$user:UpdateAccessDataUserInput!){
+  user{
+    userAccessDataUpdate(user:\$user){
+      errors
+      user{
+        email
+        phoneNumber
+      }
+    }
+  }
+}
+''';
+
 String tokenAdd = '''
 mutation tokenAdd(\$tokenString: String!, \$client: String!) {
     user {
@@ -16,6 +30,58 @@ mutation tokenAdd(\$tokenString: String!, \$client: String!) {
 		  }
     }
   }
+''';
+
+String userContactPreferencesUpdate = '''
+mutation userContactPreferencesUpdate(\$user:UpdateContactPreferencesUserInput!){
+    user{
+        userContactPreferencesUpdate(user:\$user){
+            errors
+            user{
+                noLocalEventsEmail
+                noNationalEventsEmail
+                noNewsletterEmail
+                noRousseauEventsEmail
+                noSms
+                noVoteEmail
+            }
+        }
+    }
+}
+''';
+
+String residenceChangeRequestCreate = '''
+mutation residenceChangeRequestCreate(\$attributes:ResidenceChangeRequestCreateInput!, \$documentIds: [ID!]!){
+    user{
+        residenceChangeRequestCreate(attributes: \$attributes, documentIds: \$documentIds){
+            errors
+            residenceChangeRequest{
+                status
+                country{
+                    code 
+                    name
+                }
+                comune{
+                    code
+                    name
+                }
+                municipio{
+                    code
+                    name
+                }
+                provincia{
+                    code
+                    name
+                }
+                regione{
+                    code
+                    name
+                }
+                overseaseCity
+            }
+        }
+    }
+}
 ''';
 
 String tokenRemove = '''
@@ -27,6 +93,15 @@ mutation tokenRemove(\$tokenString: String!) {
     }
   }
 ''';
+
+String userDelete = '''
+mutation userDelete(\$unsubscribeReason: String!){
+    user{
+        userDelete(unsubscribeReason: \$unsubscribeReason){
+            errors
+        }
+    }
+}
 
 String userFeedbackSubmit = '''
 mutation userFeedbackSubmit(\$category: String!,\$feedback: String!){

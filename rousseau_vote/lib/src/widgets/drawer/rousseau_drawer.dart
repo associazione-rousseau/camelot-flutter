@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/config/links.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/screens/blog_screen.dart';
+import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
 import 'package:rousseau_vote/src/screens/feedback_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
@@ -22,7 +22,8 @@ class RousseauDrawer extends StatelessWidget {
           DrawerItem(
             textKey: 'drawer-vote',
             iconData: Icons.account_balance,
-            onTap: openRouteAction(context, PollsScreen.ROUTE_NAME, replace: true),
+            onTap:
+                openRouteAction(context, PollsScreen.ROUTE_NAME, replace: true),
           ),
           DrawerItem(
             textKey: 'drawer-blog',
@@ -37,7 +38,7 @@ class RousseauDrawer extends StatelessWidget {
           DrawerItem(
             textKey: 'drawer-edit-account',
             iconData: Icons.person,
-            onTap: () {},
+            onTap: openRouteAction(context, EditAccountScreen.ROUTE_NAME),
           ),
           const Divider(height: 4),
           DrawerItem(
@@ -67,5 +68,4 @@ class RousseauDrawer extends StatelessWidget {
       ),
     );
   }
-  
 }

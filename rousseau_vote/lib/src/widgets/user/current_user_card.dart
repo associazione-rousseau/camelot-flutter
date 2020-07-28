@@ -111,7 +111,7 @@ class CurrentUserCard extends StatelessWidget {
   Widget _identitySection(BuildContext context, CurrentUser currentUser) {
     return InkWell(
       child: ListTile(
-          leading: ProfilePicture(url: currentUser.profilePictureUrl, radius: PROFILE_PICTURE_RADIUS),
+          leading: ProfilePicture(url: currentUser.getProfilePictureUrl(), radius: PROFILE_PICTURE_RADIUS),
           title: Text(
             currentUser.fullName,
             style: const TextStyle(fontSize: 20),

@@ -162,7 +162,6 @@ String pollDetail = '''
   }
 ''';
 
-
 String currentUserShort = '''
   query currentUser {
    currentUser {
@@ -194,12 +193,21 @@ String currentUserFull = '''
     firstName
     fullName
     lastName
+    gender
+    placeOfBirth
+    dateOfBirth
     email
     codiceFiscale
     phoneNumber
     voteRightStartingCountDate
     verified
     createdAt
+    noLocalEventsEmail
+    noNationalEventsEmail
+    noNewsletterEmail
+    noRousseauEventsEmail
+    noSms
+    noVoteEmail
     badges {
         id
         name
@@ -230,6 +238,15 @@ String currentUserFull = '''
       code
       name
     }
+    municipio{
+      code
+      name
+    }
+    country{
+      code 
+      name
+    }
+    overseaseCity
     profile {
         presentation
         curriculumActivist
@@ -277,6 +294,112 @@ String currentUserFull = '''
         rejectionReason
       }
     }
+  }
+}
+''';
+
+String currentUserResidence = '''
+query currentUser {
+  currentUser {
+    slug
+    comune{
+      code
+      name
+    }
+    provincia{
+      code
+      name
+    }
+    regione{
+      code
+      name
+    }
+    municipio{
+      code
+      name
+    }
+    country{
+      code 
+      name
+    }
+    overseaseCity
+    lastResidenceChangeRequest{
+      comune{
+          code
+          name
+      }
+      country{
+          code
+          name
+      }
+      municipio{
+          code
+          name
+      }
+      overseaseCity
+      provincia{
+          code
+          name
+      }
+      regione{
+          code
+          name
+      }
+      rejectionReason
+      status
+    }
+  }
+}
+''';
+
+String italianGeographicalDivisions = '''
+query italianGeographicalDivisions(
+    \$after:String,
+    \$before:String,
+    \$first:Int,
+    \$last:Int,
+    \$orderAttribute:ItalianGeographicalDivisionOrderAttributes,
+    \$orderDirection:OrderDirection,
+    \$search:String,
+    \$name:String,
+    \$code:String,
+    \$type:ItalianGeographicalDivisionTypes,
+    \$parentType: ItalianGeographicalDivisionTypes,
+    \$parentCode: String
+){
+ italianGeographicalDivisions(
+     after: \$after,
+     before: \$before
+     first:\$first,
+     last:\$last,
+     orderAttribute:\$orderAttribute,
+     orderDirection: \$orderDirection,
+     search:\$search,
+     name:\$name,
+     code:\$code,
+     type:\$type,
+     parentType: \$parentType,
+     parentCode: \$parentCode
+ ){
+    nodes{
+      id
+      name
+      code
+      type
+      descendants {
+        name
+        code
+      }
+    }
+  }
+}
+''';
+
+String countries = '''
+query countries{
+  countries {
+    name
+    code
   }
 }
 ''';

@@ -13,6 +13,7 @@ import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql/client.dart';
+import 'package:rousseau_vote/src/network/handlers/ita_geo_divisions_network_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
@@ -56,6 +57,8 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerSingleton<FlutterSecureStorage>(
       registerModule.flutterSecureStorage);
   g.registerSingleton<GraphQLClient>(registerModule.getGraphQLClient());
+  g.registerSingleton<ItaGeoDivisionsNetworkHandler>(
+      ItaGeoDivisionsNetworkHandler(g<GraphQLClient>()));
   g.registerSingleton<LoginNetworkHandler>(LoginNetworkHandler(g<Dio>()));
   g.registerSingleton<PrefetchManager>(PrefetchManager());
   g.registerSingleton<PushNotificationManager>(

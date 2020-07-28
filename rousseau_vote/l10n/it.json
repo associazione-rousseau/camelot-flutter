@@ -13,7 +13,7 @@
     "back": "Indietro",
     "close": "Chiudi",
     "confirm": "Conferma",
-
+    "save": "Salva",
     "error-title": "Errore",
     "error-network": "Ops! C'è stato un problema. Riprovare più tardi",
     "error-credentials": "Ops. Email o password errati. Riprova!",
@@ -24,6 +24,7 @@
     "error-vote": "Qualcosa non va, assicurati di essere ancora in tempo per votare e riprova.",
     "error-profile-loading": "Ops! C'è stato un problema nel caricare il profilo",
 
+    "info-saved": "Informazioni salvate con successo",
     "object-created": "Elemento creato con successo",
     "success-message": "Elemento salvato con successo.",
 
@@ -71,6 +72,18 @@
     "drawer-privacy": "Privacy",
     "drawer-logout": "Logout",
 
+    "noNationalEventsEmail": "Non voglio ricevere email sugli eventi nazionali",
+    "noLocalEventsEmail": "Non voglio ricevere email sugli eventi locali",
+    "noRousseauEventsEmail": "Non voglio ricevere email sugli eventi Rousseau",
+    "noNewsletterEmail": "Non voglio ricevere la newsletter settimanale",
+    "noVoteEmail": "Non voglio ricevere email sulle votazioni",
+    "noSms": "Non voglio ricevere sms informativi",
+    "edit-account-anagraph": "Dati anagrafici",
+    "edit-account-login": "Informazioni di login",
+    "edit-account-contact":  "Preferenze di contatto",
+    "edit-account-residence":  "Residenza",
+    "edit-account-delete":  "Cancella iscrizione",
+    
     
     "special_mentions": "Menzioni speciali",
     "special_mentions_tooltip": "Il candidato presenta nel suo Curriculum Vitae menzioni speciali o riconoscimenti riconducibili ad ambiti personali o professionali, o riconoscimenti pubblici rilevanti",
@@ -115,6 +128,15 @@
     "profile-location-same-female": "nata e residente a %s",
     "profile-location-same-male": "nato e residente a %s",
 
+    "overseas-city": "Città di residenza estera",
+    "last-italian-residence": "Ultima residenza in Italia",
+
+    "country": "Stato",
+    "regione": "Regione",
+    "provincia": "Provincia",
+    "comune": "Comune",
+    "municipio": "Municipio",
+    
     "user-identity-verified": "Identità verificata",
     "user-identity-pending": "Documento in verifica",
     "user-identity-rejected": "Documento non valido",
@@ -127,6 +149,34 @@
 
     "message-link-copied": "Link copiato",
     "message-profile-not-compiled": "Non hai ancora completato il profilo. Puoi completarlo visitando il sito internet.",
+
+    "unsubscribe-title": "Sei sicuro di voler eliminare il profilo?",
+    "unsubscribe-text": "Eliminando il tuo profilo, non ti sarà consentito l' accesso a tutte le funzioni di Rousseau compreso il voto.",
+    "understand": "Ho capito",
+
+    "unsubscribe-political": "Motivi politici",
+    "unsubscribe-too-much-communication": "Troppe comunicazioni",
+    "unsubscribe-technical-issues": "Problemi tecnici di accesso e utilizzo della piattaforma",
+    "unsubscribe-no-support": "Mancanza di supporto",
+    "unsubscribe-bad-content": "Contenuti e funzioni non interessanti",
+    "unsubscribe-other": "Altro",
+    "unsubscribe-reason": "Motivo della disiscrizione",
+    "unsubscribe-action": "Cancella iscrizione",
+    "unsubscribe-reason-custom": "Scrivi quì il motivo della tua disiscrizione",
+
+    "upload-residence-document-title": "Cambio residenza",
+    "upload-residence-document-message": "Per effettuare questa operazione è necessario caricare un documento che attesti il tuo cambio di residenza.",
+    "upload-file": "Carica documento",
+
+    "name": "Nome",
+    "last-name": "Cognome",
+    "dob": "Data di nascita",
+    "place-of-birth": "Luogo di nascita",
+    "ssn": "Codice fiscale",
+    "gender": "Genere",
+    "phone-number": "Numero di telefono",
+    "man": "Uomo",
+    "woman": "Donna"
 
     "feedback-bug_report": "Segnalazione Bug",
     "feedback-feature_improvement": "Possibile miglioramento",
