@@ -32,7 +32,9 @@ class PollsScreen extends StatelessWidget {
         fetchPolicy: fetchPolicy,
         builderSuccess: (PollList pollList) {
           final List<Poll> polls = sortedPolls(pollList);
-          return ListView.builder(
+          return ListView.separated(
+            separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 10),
+            padding: const EdgeInsets.all(10),
             itemCount: polls.length,
             itemBuilder: (BuildContext context, int index) => PollCard(polls[index])
           );
