@@ -14,7 +14,7 @@ class Poll {
   factory Poll.fromJson(Map<String, dynamic> json) => _$PollFromJson(json);
   Map<String, dynamic> toJson() => _$PollToJson(this);
 
-  static const Map<PollStatus, Color> getStatusColor = <PollStatus, Color>{
+  static const Map<PollStatus, Color> STATUS_COLOR_MAPPING = <PollStatus, Color>{
     PollStatus.PUBLISHED: PUBLISHED_ORANGE,
     PollStatus.OPEN: OPEN_GREEN,
     PollStatus.CLOSED: CLOSED_RED
@@ -36,23 +36,26 @@ class Poll {
   List<Alert> alerts;
   List<Option> options;
 
-  bool isOpen() {
-    return status == 'OPEN';
-  }
+  bool get open => status == 'OPEN';
+  bool get closed => status == 'CLOSED';
+  bool get scheduled => status == 'PUBLISHED';
 
-  bool isScheduled() {
-    return status == 'PUBLISHED';
-  }
-
-  PollStatus calculatePollStatus() {
-    if (isScheduled()) {
+  PollStatus get pollStatus {
+    if (scheduled) {
       return PollStatus.PUBLISHED;
     }
-    if (isOpen()) {
+    if (open) {
       return PollStatus.OPEN;
     }
     return PollStatus.CLOSED;
   }
+
+  bool get mightVote => open && !alreadyVoted;
+
+  bool get canVote => open && !alreadyVoted && options != null && options.isNotEmpty && (alerts == null || alerts.isEmpty);
+
+  bool get hasResults => resultsLink != null;
+  Color get color => STATUS_COLOR_MAPPING[pollStatus];
 }
 
 enum PollStatus { PUBLISHED, OPEN, CLOSED }

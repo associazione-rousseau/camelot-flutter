@@ -48,14 +48,14 @@ class _Native2FaScreenState extends State<Native2FaScreen> {
                     RoundedButton(
                       text:
                           RousseauLocalizations.getText(context, 'voice-call'),
-                      //onPressed: { login.voiceCall() },
+                      onPressed: () => { login.voiceCall() },
                       loading: login.isWaitingForVoiceCall(),
                     ),
                     const SizedBox(height: 15.0),
                     RoundedButton(
                       text:
                           RousseauLocalizations.getText(context, 're-send-sms'),
-                      //onPressed: { login.resendCode() },
+                      onPressed: () => { login.resendCode() },
                       loading: login.isWaitingResendCode(),
                     ),
                     const SizedBox(height: 15.0),

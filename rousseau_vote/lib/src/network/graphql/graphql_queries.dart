@@ -14,6 +14,9 @@ String listPolls = '''
       alerts {
         message
       }
+      options {
+        id
+      }
     }
   }
 ''';

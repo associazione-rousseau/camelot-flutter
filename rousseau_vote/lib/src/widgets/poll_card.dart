@@ -14,8 +14,8 @@ class PollCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PollStatus pollStatus = _poll.calculatePollStatus();
-    final Color statusColor = Poll.getStatusColor[pollStatus];
+    final PollStatus pollStatus = _poll.pollStatus;
+    final Color statusColor = _poll.color;
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       elevation: 5,
@@ -26,7 +26,8 @@ class PollCard extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(
-                _poll.title, 
+                _poll.title,
+                maxLines: 3,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
@@ -118,7 +119,7 @@ class PollCard extends StatelessWidget {
     } else if (status == PollStatus.OPEN) {
       return 'poll-open';
     } else if (_poll.resultsLink != null) {
-      return 'poll-result';
+      return 'poll-result-available';
     } else {
       return 'poll-closed';
     }

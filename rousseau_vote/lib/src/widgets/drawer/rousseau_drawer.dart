@@ -5,6 +5,7 @@ import 'package:rousseau_vote/src/config/links.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/screens/blog_screen.dart';
 import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
+import 'package:rousseau_vote/src/screens/feedback_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/drawer/drawer_item.dart';
@@ -32,9 +33,7 @@ class RousseauDrawer extends StatelessWidget {
           DrawerItem(
             textKey: 'drawer-feedback',
             iconData: Icons.feedback,
-            onTap: () {
-              // TODO implement
-            },
+            onTap: openRouteAction(context, FeedbackScreen.ROUTE_NAME)
           ),
           DrawerItem(
             textKey: 'drawer-edit-account',

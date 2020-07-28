@@ -17,10 +17,15 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) {
             ? null
             : ResidenceRequestCreateResponse.fromJson(
                 json['residenceChangeRequestCreate'] as Map<String, dynamic>);
+    ..userFeedbackSubmit = json['userFeedbackSubmit'] == null
+        ? null
+        : FeedbackSubmitResponse.fromJson(
+            json['userFeedbackSubmit'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
     <String, dynamic>{
       'userDelete': instance.userDelete,
       'residenceChangeRequestCreate': instance.residenceChangeRequestCreate,
+      'userFeedbackSubmit': instance.userFeedbackSubmit,
     };

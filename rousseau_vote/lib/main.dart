@@ -22,6 +22,8 @@ import 'package:rousseau_vote/src/screens/account/delete_account_disclaimer_scre
 import 'package:rousseau_vote/src/screens/account/delete_account_action_screen.dart';
 import 'package:rousseau_vote/src/screens/account/login_info_screen.dart';
 import 'package:rousseau_vote/src/screens/account/residence_screen.dart';
+import 'package:rousseau_vote/src/screens/feedback_screen.dart';
+import 'package:rousseau_vote/src/screens/success_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/blog_screen.dart';
@@ -136,6 +138,12 @@ class RousseauVoteApp extends StatelessWidget {
                       final UserProfileArguments arguments =
                         ModalRoute.of(context).settings.arguments;
                       return UserProfileScreen(arguments);
+                    },
+                    FeedbackScreen.ROUTE_NAME:(BuildContext context) {
+                      return FeedbackScreen();
+                    },
+                    SuccessScreen.ROUTE_NAME:(BuildContext context) {
+                      return SuccessScreen();
                     },
                   }),
             )));

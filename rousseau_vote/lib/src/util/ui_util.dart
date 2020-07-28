@@ -5,23 +5,35 @@ import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/arguments/blog_instant_article_arguments.dart';
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
+import 'package:rousseau_vote/src/models/poll.dart';
+import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
+import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
+import 'package:rousseau_vote/src/screens/polls_screen.dart';
+import 'package:rousseau_vote/src/screens/success_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rousseau_vote/src/widgets/error_dialog.dart';
 import 'package:rousseau_vote/src/widgets/done_dialog.dart';
 
-void showSimpleSnackbar(BuildContext context, String textKey, {bool dismissable = false}) {
+SnackBarAction createSnackBarAction(BuildContext context, String textKey, Function onPressed) {
+  return SnackBarAction(
+    label: RousseauLocalizations.getText(context, textKey),
+    onPressed: onPressed,
+  );
+}
 
-  final SnackBarAction action = dismissable ? SnackBarAction(
-        label: RousseauLocalizations.getText(context, 'close'),
-        onPressed: () => Scaffold.of(context).hideCurrentSnackBar(),
-  ) : null;
+void showSimpleSnackbar(BuildContext context, String textKey, { SnackBarAction action, bool dismissable = false }) {
+
+  if (action == null && dismissable) {
+    action = createSnackBarAction(context, 'close', () => Scaffold.of(context).hideCurrentSnackBar());
+  }
 
   Scaffold.of(context).showSnackBar(
       SnackBar(
+        duration: const Duration(seconds: 7),
         content: Text(RousseauLocalizations.getText(context, textKey)),
         action: action,
       )
@@ -112,6 +124,20 @@ Function openProfileAction(BuildContext context, String slug) {
   };
 }
 
+void openPollDetails(BuildContext context, Poll poll) {
+  openRoute(
+    context,
+    PollDetailsScreen.ROUTE_NAME,
+    arguments: PollDetailArguments(poll.slug, false),
+  );
+}
+
+Function openPollDetailsAction(BuildContext context, Poll poll) {
+  return () {
+    openPollDetails(context, poll);
+  };
+}
+
 void openRoute(BuildContext context, String route, {Object arguments, bool replace = false}) {
   if (replace) {
     Navigator.of(context).pushReplacementNamed(route, arguments: arguments);
@@ -120,8 +146,11 @@ void openRoute(BuildContext context, String route, {Object arguments, bool repla
   }
 }
 
-Function openRouteAction(BuildContext context, String route,
-    {Object arguments, bool replace = false}) {
+void openModalSuccessPage(BuildContext context,{String message}){
+  Navigator.of(context).pushAndRemoveUntil<dynamic>(MaterialPageRoute<dynamic>(builder: (context) => SuccessScreen(message: message), fullscreenDialog: true),ModalRoute.withName(PollsScreen.ROUTE_NAME));
+}
+
+Function openRouteAction(BuildContext context, String route, {Object arguments, bool replace = false}) {
   return () {
     openRoute(context, route, arguments: arguments, replace: replace);
   };

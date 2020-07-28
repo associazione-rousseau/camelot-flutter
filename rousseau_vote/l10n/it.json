@@ -25,18 +25,26 @@
     "error-profile-loading": "Ops! C'è stato un problema nel caricare il profilo",
 
     "info-saved": "Informazioni salvate con successo",
+    "object-created": "Elemento creato con successo",
+    "success-message": "Elemento salvato con successo.",
+
     "poll-start": "Inizio",
     "poll-end": "Fine",
-    "poll-info": "Approfondisci",
+    "poll-start-full": "Inizio %s",
+    "poll-end-full": "Fine %s",
+    "poll-info": "Info",
+    "poll-results": "Risultati",
     "poll-published": "Anteprima",
     "poll-open": "Votazione in corso",
     "poll-closed": "Votazione terminata",
-    "poll-result": "Risultati disponibili",
+    "poll-closed-no-results": "Votazione terminata. Risultati non ancora disponibili.",
+    "poll-result-available": "Risultati disponibili",
     "poll-no-result": "Risultati non ancora disponibili",
-    "poll-voted": "Hai Votato!",
+    "poll-voted": "Hai già Votato!",
     "poll-alert": "Non hai i requisiti per partecipare a questa votazione",
 
     "vote-button": "Vota",
+    "vote-view": "Visualizza",
     "vote-already-done": "Grazie per aver votato!",
     "vote-published": "Si vota prossimamente",
     "vote-closed": "Votazione conslusa",
@@ -170,5 +178,15 @@
     "man": "Uomo",
     "woman": "Donna"
 
+    "feedback-bug_report": "Segnalazione Bug",
+    "feedback-feature_improvement": "Possibile miglioramento",
+    "feedback-new_feature":"Nuova funzionalità",
+    "feedback-feedback": "Feedback generico",
+    "feedback-write-here": "Scrivi qui il tuo messaggio",
+    "category": "Categoria",
+    "feedback": "Feedback",
+    "send": "Invia",
+    "feedback-thanks": "Grazie per averci inviato il tuo feedback!",
 
+    "back-home": "Torna alla home"
 }

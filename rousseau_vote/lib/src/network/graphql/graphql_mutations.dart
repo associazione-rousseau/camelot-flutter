@@ -102,4 +102,14 @@ mutation userDelete(\$unsubscribeReason: String!){
         }
     }
 }
+
+String userFeedbackSubmit = '''
+mutation userFeedbackSubmit(\$category: String!,\$feedback: String!){
+    user{
+        userFeedbackSubmit(category:\$category,feedback:\$feedback){
+          errors
+          success
+        }
+    }
+}
 ''';
