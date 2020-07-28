@@ -25,6 +25,9 @@ const String GRAPHQL_URL_LOCAL = 'http://10.0.2.2:3000/graphql';
 const String GRAPHQL_URL_PRODUCTION = 'https://api.rousseau.movimento5stelle.it/graphql';
 const String GRAPHQL_URL = GRAPHQL_URL_PRODUCTION;
 
+const String FILE_UPLOAD_URL_PRODUCTION = 'https://api.rousseau.movimento5stelle.it/files/direct_uploads';
+
+
 const String IN_APP_BROWSER_USER_AGENT = 'camelot-flutter';
 
 // Blog instant article config

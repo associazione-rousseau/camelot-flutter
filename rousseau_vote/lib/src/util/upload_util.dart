@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 
 Future<String> uploadFile(File file, String fileName) async {
@@ -8,9 +9,7 @@ Future<String> uploadFile(File file, String fileName) async {
   FormData formData = FormData.fromMap(<String,dynamic>{
     'file': await MultipartFile.fromFile(file.path, filename:fileName),
   });
-  
-  //TODO missing url
-  
-  dynamic response = await dio.post<dynamic>("/urlToUploadPath", data: formData);
+    
+  dynamic response = await dio.post<dynamic>(FILE_UPLOAD_URL_PRODUCTION, data: formData);
   return response.data['id'];
 }
