@@ -14,20 +14,21 @@ import 'package:rousseau_vote/src/widgets/user/residence_request_widget.dart';
 class ResidenceContentBody extends StatefulWidget {
     
   ResidenceContentBody(this.currentUser){
-    selectedDivisions.putIfAbsent('country', () => currentUser.country);
-    divisionTextControllers.putIfAbsent('country', () => TextEditingController(text: currentUser.country.name ?? ''));
+     if(currentUser.country != null) selectedDivisions.putIfAbsent('country', () => currentUser.country);
+    divisionTextControllers.putIfAbsent('country', () => TextEditingController(text: currentUser.country != null  ? currentUser.country.name : ''));
 
-    selectedDivisions.putIfAbsent('regione', () => currentUser.regione);
-    divisionTextControllers.putIfAbsent('regione', () => TextEditingController(text: currentUser.regione.name ?? ''));
+    if(currentUser.regione != null) selectedDivisions.putIfAbsent('regione', () => currentUser.regione);
+    divisionTextControllers.putIfAbsent('regione', () => TextEditingController(text: currentUser.regione != null  ? currentUser.regione.name : ''));
 
-    selectedDivisions.putIfAbsent('provincia', () => currentUser.provincia);
-    divisionTextControllers.putIfAbsent('provincia', () => TextEditingController(text: currentUser.provincia.name ?? ''));
+    if(currentUser.provincia != null) selectedDivisions.putIfAbsent('provincia', () => currentUser.provincia);
+    divisionTextControllers.putIfAbsent('provincia', () => TextEditingController(text: currentUser.provincia != null  ? currentUser.provincia.name : ''));
 
-    selectedDivisions.putIfAbsent('comune', () => currentUser.comune);
-    divisionTextControllers.putIfAbsent('comune', () => TextEditingController(text: currentUser.comune.name ?? ''));
+    if(currentUser.comune != null) selectedDivisions.putIfAbsent('comune', () => currentUser.comune);
+    divisionTextControllers.putIfAbsent('comune', () => TextEditingController(text: currentUser.comune != null  ? currentUser.comune.name : ''));
+    
 
-    selectedDivisions.putIfAbsent('municipio', () => currentUser.municipio);
-    divisionTextControllers.putIfAbsent('municipio', () => TextEditingController(text: currentUser.municipio.name ?? ''));
+    if(currentUser.municipio != null) selectedDivisions.putIfAbsent('municipio', () => currentUser.municipio);
+    divisionTextControllers.putIfAbsent('municipio', () => TextEditingController(text: currentUser.municipio != null ? currentUser.municipio.name : ''));
     
     _overseasCityTextController = TextEditingController(
       text: currentUser.overseaseCity
