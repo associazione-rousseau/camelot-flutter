@@ -40,10 +40,16 @@ class ChangeResidenceButton extends StatelessWidget {
   Future<void> createResidenceChangeRequest() async{
     // 1. pick image
     final File image = await getImage();
+    String documentId;
     
     //2. upload it 
-    final String documentId = await uploadFile(image, 'residence_request_' + userSlug );
-    
+    try{
+      documentId = await uploadFile(image, 'residence_request_' + userSlug );
+    }catch(e){
+      print(e);
+      return;
+    }
+
     //3.change residence mutation
     final ResidenceRequestCreateResponse response = await _userNetworkHandler.createResidenceRequestChange(
       selectedDivisions['country'].code,
