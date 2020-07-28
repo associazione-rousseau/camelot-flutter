@@ -16,7 +16,7 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) {
         json['residenceChangeRequestCreate'] == null
             ? null
             : ResidenceRequestCreateResponse.fromJson(
-                json['residenceChangeRequestCreate'] as Map<String, dynamic>);
+                json['residenceChangeRequestCreate'] as Map<String, dynamic>)
     ..userFeedbackSubmit = json['userFeedbackSubmit'] == null
         ? null
         : FeedbackSubmitResponse.fromJson(
