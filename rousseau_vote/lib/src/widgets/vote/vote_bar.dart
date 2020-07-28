@@ -25,7 +25,7 @@ class VoteBar extends StatelessWidget {
   }
   
   Widget getVoteButton(BuildContext context) {
-    if (!_poll.isOpen() || _poll.alreadyVoted) {
+    if (!_poll.open || _poll.alreadyVoted) {
       return Container();
     }
     return SizedBox(
@@ -43,7 +43,7 @@ class VoteBar extends StatelessWidget {
   }
 
   Widget getPreferencesBar(BuildContext context) {
-    if(_poll.alreadyVoted || _poll.calculatePollStatus() == PollStatus.CLOSED){
+    if(_poll.alreadyVoted || _poll.pollStatus == PollStatus.CLOSED){
      return Container();
     }
 

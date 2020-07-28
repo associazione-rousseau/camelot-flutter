@@ -14,8 +14,8 @@ class PollCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PollStatus pollStatus = _poll.calculatePollStatus();
-    final Color statusColor = Poll.getStatusColor[pollStatus];
+    final PollStatus pollStatus = _poll.pollStatus;
+    final Color statusColor = _poll.color;
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       elevation: 5,

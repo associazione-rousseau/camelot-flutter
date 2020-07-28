@@ -84,10 +84,9 @@ class _PollDetailsBodyContentState extends State<PollDetailsBodyContent> {
   }
 
   Widget getPollStatusBar(BuildContext context) {
-    final PollStatus pollStatus = _poll.calculatePollStatus();
-    final Color statusColor = Poll.getStatusColor[pollStatus];
-    Color color = statusColor;
+    final PollStatus pollStatus = _poll.pollStatus;
     String text;
+    Color color = _poll.color;
     if (_poll.alreadyVoted) {
       color = VOTED_BLUE;
       text = 'vote-already-done';

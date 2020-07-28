@@ -12,6 +12,7 @@ import 'package:rousseau_vote/src/widgets/poll_card.dart';
 
 import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_app_bar.dart';
+import 'package:rousseau_vote/src/widgets/vote/poll_card_v2.dart';
 
 class PollsScreen extends StatelessWidget {
   static const String ROUTE_NAME = '/polls';
@@ -36,7 +37,9 @@ class PollsScreen extends StatelessWidget {
             separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 10),
             padding: const EdgeInsets.all(10),
             itemCount: polls.length,
-            itemBuilder: (BuildContext context, int index) => PollCard(polls[index])
+            itemBuilder: (BuildContext context, int index) {
+              return index % 2 == 1 ? PollCard(polls[index]) : PollCardV2(polls[index]);
+            }
           );
         },
         builderLoading: () {
@@ -52,9 +55,9 @@ class PollsScreen extends StatelessWidget {
 
   List<Poll> sortedPolls(PollList list) {
     final List<Poll> result = <Poll>[];
-    result.addAll(list.polls.where((Poll p) => p.calculatePollStatus() == PollStatus.OPEN));
-    result.addAll(list.polls.where((Poll p) => p.calculatePollStatus() == PollStatus.PUBLISHED));
-    result.addAll(list.polls.where((Poll p) => p.calculatePollStatus() == PollStatus.CLOSED));
+    result.addAll(list.polls.where((Poll p) => p.pollStatus == PollStatus.OPEN));
+    result.addAll(list.polls.where((Poll p) => p.pollStatus == PollStatus.PUBLISHED));
+    result.addAll(list.polls.where((Poll p) => p.pollStatus == PollStatus.CLOSED));
     return result;
   }
 
