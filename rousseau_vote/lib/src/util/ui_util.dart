@@ -18,26 +18,26 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:rousseau_vote/src/widgets/error_dialog.dart';
 import 'package:rousseau_vote/src/widgets/done_dialog.dart';
 
-SnackBarAction createSnackBarAction(BuildContext context, String textKey, Function onPressed) {
+SnackBarAction createSnackBarAction(
+    BuildContext context, String textKey, Function onPressed) {
   return SnackBarAction(
     label: RousseauLocalizations.getText(context, textKey),
     onPressed: onPressed,
   );
 }
 
-void showSimpleSnackbar(BuildContext context, String textKey, { SnackBarAction action, bool dismissable = false }) {
-
+void showSimpleSnackbar(BuildContext context, String textKey,
+    {SnackBarAction action, bool dismissable = false}) {
   if (action == null && dismissable) {
-    action = createSnackBarAction(context, 'close', () => Scaffold.of(context).hideCurrentSnackBar());
+    action = createSnackBarAction(
+        context, 'close', () => Scaffold.of(context).hideCurrentSnackBar());
   }
 
-  Scaffold.of(context).showSnackBar(
-      SnackBar(
-        duration: const Duration(seconds: 7),
-        content: Text(RousseauLocalizations.getText(context, textKey)),
-        action: action,
-      )
-  );
+  Scaffold.of(context).showSnackBar(SnackBar(
+    duration: const Duration(seconds: 7),
+    content: Text(RousseauLocalizations.getText(context, textKey)),
+    action: action,
+  ));
 }
 
 void showRousseauSnackbar(BuildContext context,
@@ -87,14 +87,16 @@ Function openUrlInternalAction(BuildContext context, String url) {
   };
 }
 
-Function openBlogInstantArticleAction(BuildContext context, String url, String slug) {
+Function openBlogInstantArticleAction(
+    BuildContext context, String url, String slug) {
   return () {
     openBlogInstantArticle(context, url, slug);
   };
 }
 
 void openBlogInstantArticle(BuildContext context, String url, String slug) {
-  final BlogInstantArticleArguments arguments = getBlogInstantArticleArguments(url, slug);
+  final BlogInstantArticleArguments arguments =
+      getBlogInstantArticleArguments(url, slug);
   Navigator.of(context)
       .pushNamed(BlogInstantArticleScreen.ROUTE_NAME, arguments: arguments);
 }
@@ -115,7 +117,8 @@ Function openLinkAction(BuildContext context, BrowserArguments arguments) {
 }
 
 void openProfile(BuildContext context, String slug) {
-  openRoute(context, UserProfileScreen.ROUTE_NAME, arguments: UserProfileArguments(slug));
+  openRoute(context, UserProfileScreen.ROUTE_NAME,
+      arguments: UserProfileArguments(slug));
 }
 
 Function openProfileAction(BuildContext context, String slug) {
@@ -138,7 +141,8 @@ Function openPollDetailsAction(BuildContext context, Poll poll) {
   };
 }
 
-void openRoute(BuildContext context, String route, {Object arguments, bool replace = false}) {
+void openRoute(BuildContext context, String route,
+    {Object arguments, bool replace = false}) {
   if (replace) {
     Navigator.of(context).pushReplacementNamed(route, arguments: arguments);
   } else {
@@ -146,17 +150,23 @@ void openRoute(BuildContext context, String route, {Object arguments, bool repla
   }
 }
 
-void openModalSuccessPage(BuildContext context,{String message}){
-  Navigator.of(context).pushAndRemoveUntil<dynamic>(MaterialPageRoute<dynamic>(builder: (context) => SuccessScreen(message: message), fullscreenDialog: true),ModalRoute.withName(PollsScreen.ROUTE_NAME));
+void openModalSuccessPage(BuildContext context, {String message}) {
+  Navigator.of(context).pushAndRemoveUntil<dynamic>(
+      MaterialPageRoute<dynamic>(
+          builder: (context) => SuccessScreen(message: message),
+          fullscreenDialog: true),
+      ModalRoute.withName(PollsScreen.ROUTE_NAME));
 }
 
-Function openRouteAction(BuildContext context, String route, {Object arguments, bool replace = false}) {
+Function openRouteAction(BuildContext context, String route,
+    {Object arguments, bool replace = false}) {
   return () {
     openRoute(context, route, arguments: arguments, replace: replace);
   };
 }
 
-BlogInstantArticleArguments getBlogInstantArticleArguments(String url, String slug) {
+BlogInstantArticleArguments getBlogInstantArticleArguments(
+    String url, String slug) {
   return BlogInstantArticleArguments(url, slug);
 }
 
@@ -171,8 +181,6 @@ bool isBlogArticle(String url) {
   return url.startsWith('https://www.ilblogdellestelle.it/');
 }
 
-
-
 /// If it's a shorted url it resolve the actual url (e.g.: bit.ly)
 Future<String> resolveUrl(String url) async {
   if (!url.startsWith('http://bit.ly/') && !url.startsWith('https://bit.ly/')) {
@@ -180,13 +188,15 @@ Future<String> resolveUrl(String url) async {
   }
   try {
     final Dio dio = getIt<Dio>();
-    final Response<String> response = await dio.get(
-      url,
-      options: Options(followRedirects: false,)
-    );
+    final Response<String> response = await dio.get(url,
+        options: Options(
+          followRedirects: false,
+        ));
   } on DioError catch (dioError) {
     final Response<dynamic> response = dioError.response;
-    if (response != null && response.isRedirect && response.headers['Location'] != null) {
+    if (response != null &&
+        response.isRedirect &&
+        response.headers['Location'] != null) {
       return response.headers['Location'][0];
     }
   } catch (_) {}
@@ -196,31 +206,27 @@ Future<String> resolveUrl(String url) async {
 void showError(BuildContext context, Function endAction, String errorMessage) {
   Navigator.of(context).pop();
   showDialog<AlertDialog>(
-    context: context,
-    builder: (BuildContext context) {
-      return ErrorDialog(
-        RousseauLocalizations.getText(context, errorMessage),
-        endAction
-      );
-    }
-  );
+      context: context,
+      builder: (BuildContext context) {
+        return ErrorDialog(
+            RousseauLocalizations.getText(context, errorMessage), endAction);
+      });
 }
 
-void showDone(BuildContext context,Function endAction) {
+void showDone(BuildContext context, Function endAction) {
   Navigator.of(context).pop();
   showDialog<AlertDialog>(
-    context: context,
-    builder: (BuildContext context) {
-      return DoneDialog(endAction);
-    }
-  );
+      context: context,
+      builder: (BuildContext context) {
+        return DoneDialog(endAction);
+      });
 }
 
-void showRousseauDialog(BuildContext context,Function endAction, String title, String message, String buttonText){
+void showRousseauDialog(BuildContext context, Function endAction, String title,
+    String message, String buttonText) {
   showDialog<AlertDialog>(
-    context: context,
-    builder: (BuildContext context) {
-      return RousseauDialog(endAction, title, message, buttonText);
-    }
-  );
+      context: context,
+      builder: (BuildContext context) {
+        return RousseauDialog(endAction, title, message, buttonText);
+      });
 }
