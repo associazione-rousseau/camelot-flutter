@@ -10,6 +10,11 @@ const bool USE_NATIVE_LOGIN = true;
 const String KEYCLOAK_CLIENT_ID = 'camelot-flutter';
 const String KEYCLOAK_REDIRECT_URI = 'http://localhost';
 
+const String ROUSSEAU_URL_LOCAL = 'http://10.0.2.2:8080';
+const String ROUSSEAU_URL_PRODUCTION = 'https://vote.rousseau.movimento5stelle.it';
+const String ROUSSEAU_URL = ROUSSEAU_URL_PRODUCTION;
+const String ROUSSEAU_VOTE_URL = ROUSSEAU_URL_PRODUCTION + '/polls';
+
 const String KEYCLOAK_URL_LOCAL = 'http://10.0.2.2:8081';
 const String KEYCLOAK_URL_PRODUCTION = 'https://sso.rousseau.movimento5stelle.it';
 const String KEYCLOAK_URL = KEYCLOAK_URL_PRODUCTION;

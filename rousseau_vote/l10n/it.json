@@ -63,6 +63,10 @@
     "vote-content-1p": "Stai per votare le seguenti opzioni:",
     "vote-content-2": "Vuoi confermare?",
 
+    "vote-not-supported-title": "Votazione non supportata",
+    "vote-not-supported-message": "Ops! La votazione non è ancora supportata nell'app. Puoi votare dal sito internet.",
+    "vote-not-supported-button": "Vota",
+
     "drawer-vote": "Vota",
     "drawer-edit-account": "Modifica account",
     "drawer-support": "Supportaci",

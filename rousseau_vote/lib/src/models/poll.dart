@@ -72,6 +72,8 @@ class Poll {
     }
   }
 
+  String get url => '$ROUSSEAU_VOTE_URL/$slug';
+
   Color get color => STATUS_COLOR_MAPPING[pollStatus];
 }
 
