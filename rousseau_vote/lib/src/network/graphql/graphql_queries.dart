@@ -17,6 +17,11 @@ String listPolls = '''
       options {
         id
         __typename
+        ...on EntityOption {
+          entity {
+            __typename
+          }
+        }
       }
     }
   }
@@ -137,6 +142,7 @@ String pollDetail = '''
         }
         ...on EntityOption {
           entity {
+            __typename
             ...on User {
               id
               slug

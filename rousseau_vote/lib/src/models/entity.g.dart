@@ -17,7 +17,8 @@ Entity _$EntityFromJson(Map<String, dynamic> json) {
     ..badges = (json['badges'] as List)
         ?.map(
             (e) => e == null ? null : Badge.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList()
+    ..type = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$EntityToJson(Entity instance) => <String, dynamic>{
@@ -26,4 +27,5 @@ Map<String, dynamic> _$EntityToJson(Entity instance) => <String, dynamic>{
       'slug': instance.slug,
       'profile': instance.profile,
       'badges': instance.badges,
+      '__typename': instance.type,
     };

@@ -16,6 +16,8 @@ class Entity {
   String slug;
   Profile profile;
   List<Badge> badges;
+  @JsonKey(name: '__typename')
+  String type;
 
   String getProfilePictureUrl() {
     if(profile == null || profile.picture == null) {
