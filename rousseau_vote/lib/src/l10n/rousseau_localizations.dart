@@ -68,7 +68,7 @@ class RousseauLocalizations {
   String get currentLanguage => locale.languageCode;
 
   String text(String key) {
-    return _localisedValues[key] ?? "'$key' not found";
+    return _localisedValues[key];
   }
 
 }
