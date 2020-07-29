@@ -55,8 +55,28 @@ class Poll {
   bool get canVote => open && !alreadyVoted && options != null && options.isNotEmpty && (alerts == null || alerts.isEmpty);
 
   bool get hasResults => resultsLink != null;
-  String get type => options != null && options.isNotEmpty ? options[0].type : null;
+  bool get hasOptions => options != null && options.isNotEmpty;
+  bool get isSupported => SUPPORTED_TYPES.contains(type);
+
+  PollType get type {
+    if (!hasOptions) {
+      return PollType.UNKNOWN;
+    }
+    switch(options[0].type) {
+      case 'TextOption':
+        return PollType.TEXT;
+      case 'EntityOption':
+        return options[0].entity.type == 'User' ?  PollType.CANDIDATE : PollType.UNKNOWN;
+      default:
+        return PollType.UNKNOWN;
+    }
+  }
+
   Color get color => STATUS_COLOR_MAPPING[pollStatus];
 }
+
+const List<PollType> SUPPORTED_TYPES = <PollType>[PollType.TEXT, PollType.CANDIDATE];
+
+enum PollType { TEXT, CANDIDATE, UNKNOWN }
 
 enum PollStatus { PUBLISHED, OPEN, CLOSED }
