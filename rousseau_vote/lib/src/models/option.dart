@@ -14,4 +14,6 @@ class Option {
   String text;
   Entity entity;
 
+  @JsonKey(name: '__typename')
+  String type;
 }

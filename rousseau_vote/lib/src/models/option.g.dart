@@ -12,11 +12,13 @@ Option _$OptionFromJson(Map<String, dynamic> json) {
     ..text = json['text'] as String
     ..entity = json['entity'] == null
         ? null
-        : Entity.fromJson(json['entity'] as Map<String, dynamic>);
+        : Entity.fromJson(json['entity'] as Map<String, dynamic>)
+    ..type = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$OptionToJson(Option instance) => <String, dynamic>{
       'id': instance.id,
       'text': instance.text,
       'entity': instance.entity,
+      '__typename': instance.type,
     };

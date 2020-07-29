@@ -16,6 +16,7 @@ String listPolls = '''
       }
       options {
         id
+        __typename
       }
     }
   }
@@ -130,6 +131,7 @@ String pollDetail = '''
       maxSelectableOptionsNumber
       options {
         id
+        __typename
         ...on TextOption {
           text
         }
