@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
-import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_detail.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
@@ -45,7 +44,6 @@ class PollDetailsScreen extends StatelessWidget {
       bool isLoading = false,
       List<GraphQLError> errors}) {
     return Container(
-      color: Colors.white,
       child: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
