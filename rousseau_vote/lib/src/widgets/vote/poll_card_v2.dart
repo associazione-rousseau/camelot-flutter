@@ -73,7 +73,7 @@ class PollCardV2 extends StatelessWidget {
           break;
         case PollStatus.OPEN:
           if (_poll.alreadyVoted) {
-            showSimpleSnackbar(context, 'poll-voted');
+            showSimpleSnackbar(context, textKey: 'poll-voted');
           } else if (_poll.canVote) {
             if (_poll.isSupported) {
               openPollDetails(context, _poll);
@@ -81,7 +81,7 @@ class PollCardV2 extends StatelessWidget {
               _showPollNotSupported(context);
             }
           } else {
-            showSimpleSnackbar(context, 'poll-alert');
+            showSimpleSnackbar(context, textKey: 'poll-alert');
           }
           break;
         case PollStatus.CLOSED:
@@ -90,9 +90,9 @@ class PollCardV2 extends StatelessWidget {
                 context,
                 'poll-results',
                 openUrlInternalAction(context, _poll.resultsLink));
-            showSimpleSnackbar(context, 'poll-closed', action: action);
+            showSimpleSnackbar(context, textKey: 'poll-closed', action: action);
           } else {
-            showSimpleSnackbar(context, 'poll-closed-no-results');
+            showSimpleSnackbar(context, textKey: 'poll-closed-no-results');
           }
           break;
       }

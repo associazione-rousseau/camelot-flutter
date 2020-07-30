@@ -48,7 +48,7 @@ class SocialBadgesSection extends StatelessWidget {
         onTap: openUrlExternalAction(context, url),
         onLongPress: () {
           Clipboard.setData(ClipboardData(text: url));
-          showSimpleSnackbar(context, 'message-link-copied');
+          showSimpleSnackbar(context, textKey: 'message-link-copied');
         },
       ),
     );

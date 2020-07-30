@@ -26,16 +26,18 @@ SnackBarAction createSnackBarAction(
   );
 }
 
-void showSimpleSnackbar(BuildContext context, String textKey,
-    {SnackBarAction action, bool dismissable = false}) {
+void showSimpleSnackbar(BuildContext context,
+    {SnackBarAction action, bool dismissable = false, String textKey, String text}) {
   if (action == null && dismissable) {
     action = createSnackBarAction(
         context, 'close', () => Scaffold.of(context).hideCurrentSnackBar());
   }
 
+  text ??= RousseauLocalizations.getText(context, textKey);
+
   Scaffold.of(context).showSnackBar(SnackBar(
     duration: const Duration(seconds: 7),
-    content: Text(RousseauLocalizations.getText(context, textKey)),
+    content: Text(text),
     action: action,
   ));
 }

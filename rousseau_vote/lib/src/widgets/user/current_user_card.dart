@@ -58,7 +58,7 @@ class CurrentUserCard extends StatelessWidget {
         return _placeholderWidget();
       },
       builderError: (List<GraphQLError> errors) {
-        showSimpleSnackbar(context, 'error-profile-loading');
+        showSimpleSnackbar(context, textKey: 'error-profile-loading');
         return _placeholderWidget();
       },
     );
@@ -122,7 +122,7 @@ class CurrentUserCard extends StatelessWidget {
             if (currentUser.profile != null) {
               openProfile(context, currentUser.slug);
             } else {
-              showSimpleSnackbar(context, 'message-profile-not-compiled');
+              showSimpleSnackbar(context, textKey: 'message-profile-not-compiled');
             }
           }
       ),
