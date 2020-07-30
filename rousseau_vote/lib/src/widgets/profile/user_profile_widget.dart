@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/profile/user_profile.dart';
+import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/profile/user_profile_section.dart';
@@ -107,47 +108,33 @@ class UserProfileWidget extends StatelessWidget {
               'profile-presentation', userProfile.profile.presentation),
           UserInfoSection(
               'profile-curriculum-vitae', userProfile.profile.curriculumVitae),
-          UserInfoSection(
-              'profile-curriculum-activitst', userProfile.profile.curriculumActivist),
-          UserInfoSection(
-              'profile-political-experiences', userProfile.profile.politicalExperiences),
+          UserInfoSection('profile-curriculum-activitst',
+              userProfile.profile.curriculumActivist),
+          UserInfoSection('profile-political-experiences',
+              userProfile.profile.politicalExperiences),
         ],
       ),
     );
   }
 
   String _subtitle(BuildContext context) {
-    final String age = RousseauLocalizations.getTextFormatted(
-        context, 'profile-age', <int>[userProfile.profile.age]);
-    final String location = _getFormattedLocation(context);
-    return '$age - $location';
+    return getUserSubtitle(
+        context,
+        userProfile.profile.age,
+        userProfile.profile.placeOfBirth,
+        userProfile.profile.placeOfResidence.comuneName,
+        userProfile.isFemale());
   }
 
   Widget _badgesCard(BuildContext context) {
     return Card(
         child: Container(
       padding: const EdgeInsets.all(6),
-      child: BadgesWidget(userProfile.badges, 35, showInactive: false,),
+      child: BadgesWidget(
+        userProfile.badges,
+        35,
+        showInactive: false,
+      ),
     ));
-  }
-
-  String _getFormattedLocation(BuildContext context) {
-    final String pob = userProfile.profile.placeOfBirth;
-    final String residence = userProfile.profile.placeOfResidence.comuneName;
-    final bool samePlace = pob == residence;
-    final bool isFemale = userProfile.isFemale();
-
-    if (samePlace) {
-      final String rawStringKey = isFemale
-          ? 'profile-location-same-female'
-          : 'profile-location-same-male';
-      return RousseauLocalizations.getTextFormatted(
-          context, rawStringKey, <String>[residence]);
-    }
-    final String rawStringKey =
-        isFemale ? 'profile-location-female' : 'profile-location-male';
-
-    return RousseauLocalizations.getTextFormatted(
-        context, rawStringKey, <String>[pob, residence]);
   }
 }
