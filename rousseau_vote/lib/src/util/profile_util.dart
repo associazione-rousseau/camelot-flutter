@@ -46,13 +46,20 @@ String badgeAsset(int badgeNumber, bool active) {
   return 'assets/images/badges/merit${badgeNumber}_${active.toString()}.png';
 }
 
+String getUserSubtitleShort(BuildContext context, int age, String residence) {
+  return '${getAgeString(context, age)}, $residence';
+}
+
 String getUserSubtitle(BuildContext context, int age, String placeOfBirth,
     String residence, bool isFemale) {
-  final String ageString = RousseauLocalizations.getTextFormatted(
-      context, 'profile-age', <int>[age]);
+  final String ageString = getAgeString(context, age);
   final String location =
       getFormattedLocation(context, placeOfBirth, residence, isFemale);
   return '$ageString - $location';
+}
+
+String getAgeString(BuildContext context, int age) {
+  return RousseauLocalizations.getTextFormatted(context, 'profile-age', <int>[age]);
 }
 
 String getFormattedLocation(BuildContext context, String placeOfBirth,

@@ -53,11 +53,15 @@
     "vote-already": "Hai già espresso il tuo voto",
     "vote-limit": "Hai già selezionato il numero massimo di opzioni consentite per questa votazione",
     "vote-complete": "Il tuo voto è stato acquisito correttamente",
+    "vote-select": "Seleziona",
 
     "vote-preferences-1": "Hai ancora ",
     "vote-preferences-2s": " preferenza a disposizione",
     "vote-preferences-2p": " preferenze a disposizione",
     "vote-preferences-done": "Hai espresso le preferenze a disposizione.",
+
+    "vote-preferences-v2-s": "Puoi esprimere 1 preferenza",
+    "vote-preferences-v2-p": "Puoi esprimere %d preferenze",
 
     "vote-content-1s": "Stai per votare la seguente opzione:",
     "vote-content-1p": "Stai per votare le seguenti opzioni:",
@@ -120,6 +124,7 @@
 
 
     "view_profile": "Vedi Profilo",
+    "profile": "Profilo",
     "vote-search-candidate": "Ricerca candidato",
     "merits": "Meriti",
     "profile-presentation": "Presentazione",

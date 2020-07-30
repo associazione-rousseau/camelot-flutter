@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_detail.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
+import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/errors/error_page_widget.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
@@ -24,11 +27,12 @@ class PollDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<String, dynamic> variables = HashMap<String, dynamic>();
     variables.putIfAbsent('pollId', () => arguments.pollId);
-    return LoggedScreen(Scaffold(
+    return LoggedScreen(Scaffold(backgroundColor: BACKGROUND_GREY,
       body: GraphqlQueryWidget<PollDetail>(
         query: pollDetail,
         variables: variables,
-        builderSuccess: (PollDetail pollDetail) => _page(context, pollDetail: pollDetail),
+        builderSuccess: (PollDetail pollDetail) =>
+            _page(context, pollDetail: pollDetail),
         builderError: (List<GraphQLError> errors) =>
             _page(context, errors: errors),
         builderLoading: () => _page(context, isLoading: true),
@@ -65,9 +69,45 @@ class PollDetailsScreen extends StatelessWidget {
       {PollDetail pollDetail,
       bool isLoading = false,
       List<GraphQLError> errors}) {
-    if (isLoading || errors != null) {
+    if (isLoading || errors != null || pollDetail == null) {
       return Container();
     }
+    final Poll poll = pollDetail.poll;
+    return Column(
+      children: <Widget>[
+        const VerticalSpace(100),
+        Text(
+          poll.title,
+          maxLines: 3,
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
+          textAlign: TextAlign.center,
+        ),
+        Padding(
+            padding:
+                const EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
+            child: Divider(
+              thickness: 2,
+              color: Colors.white,
+            )),
+        Text(
+          poll.description,
+          maxLines: 10,
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
+          textAlign: TextAlign.center,
+        ),
+//        Padding(padding: const EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10), child: Divider(thickness: 2, color: Colors.white,)),
+//        Text(
+//          RousseauLocalizations.getTextPlualized(context, 'vote-preferences-v2-s', 'vote-preferences-v2-p', poll.maxSelectableOptionsNumber),
+//          style: TextStyle(
+//              color: Colors.white,
+//              fontWeight: FontWeight.w300,
+//              fontSize: 15),
+//          textAlign: TextAlign.center,
+//        )
+      ],
+    );
   }
 
   Widget _body(BuildContext context,
