@@ -25,7 +25,7 @@ class CandidateOptionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final Entity user = _option.entity;
     final String subtitle = getUserSubtitleShort(
-        context, user.profile.age, user.profile.placeOfResidence.comuneName);
+        context, user.profile.age, user.residence);
     return Card(
       shape: RoundedRectangleBorder(
           side: _selected ? BorderSide(color: PRIMARY_RED, width: 2.0) : BorderSide.none,

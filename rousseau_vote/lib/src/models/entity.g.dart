@@ -11,6 +11,7 @@ Entity _$EntityFromJson(Map<String, dynamic> json) {
     ..id = json['id'] as String
     ..fullName = json['fullName'] as String
     ..slug = json['slug'] as String
+    ..overseaseCity = json['overseaseCity'] as String
     ..profile = json['profile'] == null
         ? null
         : Profile.fromJson(json['profile'] as Map<String, dynamic>)
@@ -25,6 +26,7 @@ Map<String, dynamic> _$EntityToJson(Entity instance) => <String, dynamic>{
       'id': instance.id,
       'fullName': instance.fullName,
       'slug': instance.slug,
+      'overseaseCity': instance.overseaseCity,
       'profile': instance.profile,
       'badges': instance.badges,
       '__typename': instance.type,

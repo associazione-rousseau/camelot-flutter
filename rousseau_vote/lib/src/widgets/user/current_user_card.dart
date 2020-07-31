@@ -116,7 +116,7 @@ class CurrentUserCard extends StatelessWidget {
             currentUser.fullName,
             style: const TextStyle(fontSize: 20),
           ),
-          subtitle: Text(currentUser.slug),
+          subtitle: Text(currentUser.residence),
           onTap: () {
             Navigator.of(context).pop();
             if (currentUser.profile != null) {

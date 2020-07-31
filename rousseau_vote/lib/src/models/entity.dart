@@ -14,10 +14,13 @@ class Entity {
   String id;
   String fullName;
   String slug;
+  String overseaseCity;
   Profile profile;
   List<Badge> badges;
   @JsonKey(name: '__typename')
   String type;
+
+  String get residence => overseaseCity ?? profile.placeOfResidence.comuneName;
 
   String getProfilePictureUrl() {
     if(profile == null || profile.picture == null) {

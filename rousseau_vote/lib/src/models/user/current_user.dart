@@ -46,6 +46,14 @@ class CurrentUser {
   List<Badge> badges;
   ResidenceChangeRequest lastResidenceChangeRequest;
 
+  String get residence {
+    if(overseaseCity != null) {
+      return overseaseCity;
+    }
+    return profile != null && profile.placeOfResidence != null ?
+        profile.placeOfResidence.comuneName
+        : '';
+  }
 
   String getProfilePictureUrl() {
     if (profile == null || profile.picture == null) {

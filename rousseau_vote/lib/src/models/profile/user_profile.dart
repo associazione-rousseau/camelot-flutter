@@ -25,8 +25,11 @@ class UserProfile {
   List<Badge> badges;
   Category category;
   List<Tag> tags;
+  String overseaseCity;
   Profile profile;
   List<UserPositions> userPositions;
+
+  String get residence => overseaseCity ?? profile.placeOfResidence.comuneName;
 
   bool isFemale() {
     return gender == 'F';

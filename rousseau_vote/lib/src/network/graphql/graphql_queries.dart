@@ -31,6 +31,7 @@ String profileDetail = '''
 query profileDetail(\$id: ID!) {
     user(id: \$id) {
         id
+        overseaseCity
         slug
         accountType
         badges {
@@ -147,6 +148,7 @@ String pollDetail = '''
               id
               slug
               fullName
+              overseaseCity
               profile {
                 age
                 placeOfResidence {
@@ -180,9 +182,13 @@ String currentUserShort = '''
     verified
     createdAt
     statusColor
+    overseaseCity
     profile {
         picture {
             originalUrl
+        }
+        placeOfResidence {
+            comuneName
         }
     }
     badges {
