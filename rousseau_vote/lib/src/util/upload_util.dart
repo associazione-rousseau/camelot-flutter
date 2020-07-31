@@ -6,7 +6,7 @@ import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/network/response/direct_upload.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:crypto/crypto.dart';
-
+import 'dart:convert';
 
 Future<String> uploadFile(File file, String fileName) async {
   final Dio dio = getIt<Dio>();
@@ -18,14 +18,15 @@ Future<String> uploadFile(File file, String fileName) async {
 
   final int byteSize = await file.length();
   final Uint8List bytes = await file.readAsBytes();
-  final String checksum = sha256.convert(bytes).toString();
-
+  final String checksum = md5.convert(bytes).toString();
+  final checksumBytes = utf8.encode(checksum);
+  final String base64checksum = base64Encode(checksumBytes);
 
   //1. CREATE BLOB WITH FILE INFO
   final Map<String,dynamic> blob = <String,dynamic>{
     'blob': <String,dynamic>{
       'byte_size': byteSize,
-      'checksum': checksum,
+      'checksum': base64checksum,
       'content_type': 'image/png',
       'filename': fileName
     }
