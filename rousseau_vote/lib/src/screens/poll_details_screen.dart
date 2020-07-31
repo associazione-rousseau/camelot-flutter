@@ -16,6 +16,7 @@ import 'package:rousseau_vote/src/widgets/errors/error_page_widget.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/logged_screen.dart';
+import 'package:rousseau_vote/src/widgets/rousseau_animated_bar.dart';
 import 'package:rousseau_vote/src/widgets/vote/poll_details_body.dart';
 
 class PollDetailsScreen extends StatelessWidget {
@@ -57,23 +58,15 @@ class PollDetailsScreen extends StatelessWidget {
     if (pollDetail != null) {
       Provider.of<VoteOptionsProvider>(context).onPollFetched(pollDetail.poll);
     }
-    return Container(
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            pinned: true,
-            expandedHeight: 250,
-            backgroundColor: PRIMARY_RED,
-            flexibleSpace: FlexibleSpaceBar(
-                background: _header(context,
-                    pollDetail: pollDetail,
-                    isLoading: isLoading,
-                    errors: errors)),
-          ),
-          _body(context,
-              pollDetail: pollDetail, isLoading: isLoading, errors: errors),
-        ],
+    return RousseauAnimatedBar(
+      extendedAppBar: _header(context,
+          pollDetail: pollDetail, isLoading: isLoading, errors: errors),
+      appBar: const Image(
+        image: WHITE_LOGO,
+        height: 50,
       ),
+      body: _body(context,
+          pollDetail: pollDetail, isLoading: isLoading, errors: errors),
     );
   }
 
@@ -82,12 +75,14 @@ class PollDetailsScreen extends StatelessWidget {
       bool isLoading = false,
       List<GraphQLError> errors}) {
     if (isLoading || errors != null || pollDetail == null) {
-      return Container();
+      return Container(
+        height: 200,
+      );
     }
     final Poll poll = pollDetail.poll;
     return Column(
       children: <Widget>[
-        const VerticalSpace(100),
+        const VerticalSpace(60),
         Text(
           poll.title,
           maxLines: 3,
@@ -109,6 +104,7 @@ class PollDetailsScreen extends StatelessWidget {
               color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
           textAlign: TextAlign.center,
         ),
+        const VerticalSpace(20),
 //        Padding(padding: const EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10), child: Divider(thickness: 2, color: Colors.white,)),
 //        Text(
 //          RousseauLocalizations.getTextPlualized(context, 'vote-preferences-v2-s', 'vote-preferences-v2-p', poll.maxSelectableOptionsNumber),
@@ -125,36 +121,31 @@ class PollDetailsScreen extends StatelessWidget {
   Widget _floatingActionButton(BuildContext context) {
     return Provider.of<VoteOptionsProvider>(context).hasSelectedOptions()
         ? Container(
-              width: 110,
-                height: 110,
-                child: FittedBox(
-                    child: FloatingActionButton.extended(
-                      label: Text(RousseauLocalizations.getText(context, 'vote-button')),
-                      icon: Icon(Icons.send),
-                      onPressed: () => _onSend(context),
+            width: 110,
+            height: 110,
+            child: FittedBox(
+                child: FloatingActionButton.extended(
+              label:
+                  Text(RousseauLocalizations.getText(context, 'vote-button')),
+              icon: Icon(Icons.send),
+              onPressed: () => _onSend(context),
             )))
         : null;
   }
 
-  void _onSend(BuildContext context) {
-
-  }
+  void _onSend(BuildContext context) {}
 
   Widget _body(BuildContext context,
       {PollDetail pollDetail,
       bool isLoading = false,
       List<GraphQLError> errors}) {
     if (isLoading) {
-      return const SliverFillRemaining(child: LoadingIndicator());
+      return const LoadingIndicator();
     }
     if (errors != null) {
-      return const SliverFillRemaining(child: ErrorPageWidget());
+      return const ErrorPageWidget();
     }
 
-    return SliverList(
-      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-        return PollDetailsBody(pollDetail.poll);
-      }, childCount: 1),
-    );
+    return PollDetailsBody(pollDetail.poll);
   }
 }
