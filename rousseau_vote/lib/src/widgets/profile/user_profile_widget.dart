@@ -118,12 +118,10 @@ class UserProfileWidget extends StatelessWidget {
   }
 
   String _subtitle(BuildContext context) {
-    return getUserSubtitle(
+    return getUserSubtitleShort(
         context,
         userProfile.profile.age,
-        userProfile.profile.placeOfBirth,
-        userProfile.profile.placeOfResidence.comuneName,
-        userProfile.isFemale());
+        userProfile.residence);
   }
 
   Widget _badgesCard(BuildContext context) {
