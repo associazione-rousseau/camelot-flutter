@@ -15,7 +15,26 @@ class VoteOptionsProvider extends ChangeNotifier {
     _poll ??= poll;
   }
 
+
+
   void onOptionSelected(BuildContext context, Option option) {
+    if(_poll.maxSelectableOptionsNumber > 1) {
+      onOptionSelectedMultiple(context, option);
+    } else {
+      onOptionSelectedSingle(context, option);
+    }
+  }
+  void onOptionSelectedSingle(BuildContext context, Option option) {
+    if(isOptionSelected(option)) {
+      _selectedOptions.remove(option);
+    } else {
+      _selectedOptions.clear();
+      _selectedOptions.add(option);
+    }
+    notifyListeners();
+  }
+
+  void onOptionSelectedMultiple(BuildContext context, Option option) {
     if(isOptionSelected(option)) {
       _selectedOptions.remove(option);
       _showRemainingSnackbar(context);
