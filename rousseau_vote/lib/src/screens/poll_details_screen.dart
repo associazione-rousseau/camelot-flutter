@@ -16,7 +16,7 @@ import 'package:rousseau_vote/src/widgets/errors/error_page_widget.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/logged_screen.dart';
-import 'package:rousseau_vote/src/widgets/rousseau_animated_bar.dart';
+import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
 import 'package:rousseau_vote/src/widgets/vote/poll_details_body.dart';
 
 class PollDetailsScreen extends StatelessWidget {
@@ -58,7 +58,7 @@ class PollDetailsScreen extends StatelessWidget {
     if (pollDetail != null) {
       Provider.of<VoteOptionsProvider>(context).onPollFetched(pollDetail.poll);
     }
-    return RousseauAnimatedBar(
+    return RousseauAnimatedScreen(
       extendedAppBar: _header(context,
           pollDetail: pollDetail, isLoading: isLoading, errors: errors),
       appBar: const Image(

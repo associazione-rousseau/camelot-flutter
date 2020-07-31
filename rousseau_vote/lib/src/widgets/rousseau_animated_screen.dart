@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 
-class RousseauAnimatedBar extends StatefulWidget {
-  const RousseauAnimatedBar(
+class RousseauAnimatedScreen extends StatefulWidget {
+  const RousseauAnimatedScreen(
       {@required this.appBar,
       @required this.extendedAppBar,
       @required this.body});
@@ -13,10 +13,10 @@ class RousseauAnimatedBar extends StatefulWidget {
   final Widget body;
 
   @override
-  _RousseauAnimatedBarState createState() => _RousseauAnimatedBarState();
+  _RousseauAnimatedScreenState createState() => _RousseauAnimatedScreenState();
 }
 
-class _RousseauAnimatedBarState extends State<RousseauAnimatedBar> {
+class _RousseauAnimatedScreenState extends State<RousseauAnimatedScreen> {
   static const double APP_BAR_HEIGHT = 100;
   static const double FADE_IN_THREHOLD = 150;
 
