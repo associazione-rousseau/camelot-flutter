@@ -3,11 +3,14 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_detail.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
+import 'package:rousseau_vote/src/providers/vote_options_provider.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/errors/error_page_widget.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
@@ -26,23 +29,34 @@ class PollDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<String, dynamic> variables = HashMap<String, dynamic>();
     variables.putIfAbsent('pollId', () => arguments.pollId);
-    return LoggedScreen(Scaffold(backgroundColor: BACKGROUND_GREY,
-      body: GraphqlQueryWidget<PollDetail>(
-        query: pollDetail,
-        variables: variables,
-        builderSuccess: (PollDetail pollDetail) =>
-            _page(context, pollDetail: pollDetail),
-        builderError: (List<GraphQLError> errors) =>
-            _page(context, errors: errors),
-        builderLoading: () => _page(context, isLoading: true),
-      ),
-    ));
+    return ChangeNotifierProvider<VoteOptionsProvider>(
+      builder: (BuildContext context) => VoteOptionsProvider(),
+      child: Consumer<VoteOptionsProvider>(
+          builder: (BuildContext context, value, child) => LoggedScreen(
+                Scaffold(
+                  backgroundColor: BACKGROUND_GREY,
+                  floatingActionButton: _floatingActionButton(context),
+                  body: GraphqlQueryWidget<PollDetail>(
+                    query: pollDetail,
+                    variables: variables,
+                    builderSuccess: (PollDetail pollDetail) =>
+                        _page(context, pollDetail: pollDetail),
+                    builderError: (List<GraphQLError> errors) =>
+                        _page(context, errors: errors),
+                    builderLoading: () => _page(context, isLoading: true),
+                  ),
+                ),
+              )),
+    );
   }
 
   Widget _page(BuildContext context,
       {PollDetail pollDetail,
       bool isLoading = false,
       List<GraphQLError> errors}) {
+    if (pollDetail != null) {
+      Provider.of<VoteOptionsProvider>(context).onPollFetched(pollDetail.poll);
+    }
     return Container(
       child: CustomScrollView(
         slivers: <Widget>[
@@ -106,6 +120,24 @@ class PollDetailsScreen extends StatelessWidget {
 //        )
       ],
     );
+  }
+
+  Widget _floatingActionButton(BuildContext context) {
+    return Provider.of<VoteOptionsProvider>(context).hasSelectedOptions()
+        ? Container(
+              width: 110,
+                height: 110,
+                child: FittedBox(
+                    child: FloatingActionButton.extended(
+                      label: Text(RousseauLocalizations.getText(context, 'vote-button')),
+                      icon: Icon(Icons.send),
+                      onPressed: () => _onSend(context),
+            )))
+        : null;
+  }
+
+  void _onSend(BuildContext context) {
+
   }
 
   Widget _body(BuildContext context,

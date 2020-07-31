@@ -55,10 +55,9 @@
     "vote-complete": "Il tuo voto è stato acquisito correttamente",
     "vote-select": "Seleziona",
 
-    "vote-preferences-1": "Hai ancora ",
-    "vote-preferences-2s": " preferenza a disposizione",
-    "vote-preferences-2p": " preferenze a disposizione",
-    "vote-preferences-done": "Hai espresso le preferenze a disposizione.",
+    "vote-preferences-s": "Hai ancora 1 preferenza",
+    "vote-preferences-p": "Hai ancora %d preferenze",
+    "vote-preferences-done": "Hai espresso le preferenze a disposizione. Invia il tuo voto!",
 
     "vote-preferences-v2-s": "Puoi esprimere 1 preferenza",
     "vote-preferences-v2-p": "Puoi esprimere %d preferenze",

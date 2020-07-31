@@ -27,7 +27,7 @@ SnackBarAction createSnackBarAction(
 }
 
 void showSimpleSnackbar(BuildContext context,
-    {SnackBarAction action, bool dismissable = false, String textKey, String text}) {
+    {SnackBarAction action, bool dismissable = false, String textKey, String text, int duration = 7}) {
   if (action == null && dismissable) {
     action = createSnackBarAction(
         context, 'close', () => Scaffold.of(context).hideCurrentSnackBar());
@@ -35,8 +35,10 @@ void showSimpleSnackbar(BuildContext context,
 
   text ??= RousseauLocalizations.getText(context, textKey);
 
+  Scaffold.of(context).hideCurrentSnackBar();
+
   Scaffold.of(context).showSnackBar(SnackBar(
-    duration: const Duration(seconds: 7),
+    duration: Duration(seconds: duration),
     content: Text(text),
     action: action,
   ));
