@@ -21,6 +21,7 @@ void maybeShowVerificationDialog(BuildContext context) {
 
 void showVerifyIdentityDialog(BuildContext context) {
   showAlertDialog(context,
+      barrierDismissible: false,
       titleKey: 'identity-not-verified',
       messageKey: 'identity-verification-alert-message',
       buttonKey1: 'back',
@@ -28,6 +29,10 @@ void showVerifyIdentityDialog(BuildContext context) {
       buttonAction1: () => Navigator.pop(context),
       buttonAction2: () {
         Navigator.pop(context);
-        openRoute(context, VerifyIdentityScreen.ROUTE_NAME);
+        openVerifyIdentityScreen(context);
       });
+}
+
+void openVerifyIdentityScreen(BuildContext context) {
+  openRoute(context, VerifyIdentityScreen.ROUTE_NAME);
 }

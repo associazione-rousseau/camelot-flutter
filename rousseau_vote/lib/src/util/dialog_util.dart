@@ -12,10 +12,11 @@ Future<void> showAlertDialog(BuildContext context,
       String buttonKey1,
       String buttonKey2,
       Function buttonAction1,
-      Function buttonAction2}) async {
+      Function buttonAction2,
+      bool barrierDismissible = true }) async {
   return showDialog<void>(
     context: context,
-    barrierDismissible: true, // user must tap button!
+    barrierDismissible: barrierDismissible, // user must tap button!
     builder: (BuildContext context) {
       final String title = RousseauLocalizations.getText(context, titleKey);
       final String message = RousseauLocalizations.getText(context, messageKey);
