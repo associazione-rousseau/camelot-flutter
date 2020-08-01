@@ -17,8 +17,9 @@ class UserNetworkHandler {
 
 	final GraphQLClient _graphQLClient;
 
-	Future<CurrentUser> fetchCurrentUser({ FetchPolicy fetchPolicy = FetchPolicy.networkOnly }) async {
-		final QueryOptions queryOptions = QueryOptions(documentNode: gql(currentUserFull), fetchPolicy: fetchPolicy);
+	Future<CurrentUser> fetchCurrentUser({ FetchPolicy fetchPolicy = FetchPolicy.networkOnly, bool fullVersion = false}) async {
+		final String query = fullVersion ? currentUserFull : currentUserShort;
+		final QueryOptions queryOptions = QueryOptions(documentNode: gql(query), fetchPolicy: fetchPolicy);
 		final QueryResult result = await _graphQLClient.query(queryOptions);
 		if (result.hasException) {
 			throw result.exception;
