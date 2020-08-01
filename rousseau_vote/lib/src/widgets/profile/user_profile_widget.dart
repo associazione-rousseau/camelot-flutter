@@ -7,6 +7,7 @@ import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/profile/user_profile_section.dart';
+import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
 import 'package:rousseau_vote/src/widgets/user/badge_widget.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
 
@@ -21,26 +22,14 @@ class UserProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return RousseauAnimatedScreen(
       backgroundColor: BACKGROUND_GREY,
-      body: Container(
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              pinned: true,
-              expandedHeight: 320,
-              backgroundColor: PRIMARY_RED,
-              flexibleSpace: FlexibleSpaceBar(background: _header(context)),
-            ),
-            SliverList(
-              delegate:
-                  SliverChildBuilderDelegate((BuildContext context, int index) {
-                return _body();
-              }, childCount: 1),
-            ),
-          ],
-        ),
+      appBar: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: isLoading ? Container() : Text(userProfile.fullName, style: TextStyle(color: Colors.white, fontSize: 20), textAlign: TextAlign.center,),
       ),
+      extendedAppBar: _header(context),
+      body: _body(),
     );
   }
 
@@ -48,19 +37,19 @@ class UserProfileWidget extends StatelessWidget {
     return Stack(alignment: AlignmentDirectional.topCenter, children: <Widget>[
       Container(
         width: double.infinity,
-        height: 380,
+        height: 290,
         color: BACKGROUND_GREY,
       ),
       Container(
         width: double.infinity,
-        height: 290,
+        height: 260,
         color: PRIMARY_RED,
       ),
       Column(
         children: isLoading
             ? <Widget>[]
             : <Widget>[
-                const VerticalSpace(75),
+                const VerticalSpace(50),
                 ProfilePicture(
                     url: userProfile.profile.picture.originalUrl, radius: 50),
                 const VerticalSpace(10),
