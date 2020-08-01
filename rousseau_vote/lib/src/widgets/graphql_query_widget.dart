@@ -115,6 +115,6 @@ class _GraphqlQueryWidgetState<T> extends State<GraphqlQueryWidget<T>> {
   }
 
   void _onSessionExpired() {
-    Provider.of<Login>(context).sessionExpired();
+    Provider.of<Login>(context, listen: false).sessionExpired();
   }
 }

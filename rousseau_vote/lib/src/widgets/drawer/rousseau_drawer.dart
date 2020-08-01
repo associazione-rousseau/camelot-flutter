@@ -61,7 +61,7 @@ class RousseauDrawer extends StatelessWidget {
             textKey: 'drawer-logout',
             iconData: Icons.exit_to_app,
             onTap: () {
-              Provider.of<Login>(context).logout();
+              Provider.of<Login>(context, listen: false).logout();
             },
           ),
         ],

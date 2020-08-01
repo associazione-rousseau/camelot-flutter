@@ -31,7 +31,7 @@ class PollDetailsScreen extends StatelessWidget {
     final Map<String, dynamic> variables = HashMap<String, dynamic>();
     variables.putIfAbsent('pollId', () => arguments.pollId);
     return ChangeNotifierProvider<VoteOptionsProvider>(
-      builder: (BuildContext context) => VoteOptionsProvider(),
+      create: (BuildContext context) => VoteOptionsProvider(),
       child: Consumer<VoteOptionsProvider>(
           builder: (BuildContext context, value, child) => LoggedScreen(GraphqlQueryWidget<PollDetail>(
                     query: pollDetail,
@@ -52,7 +52,7 @@ class PollDetailsScreen extends StatelessWidget {
       bool isLoading = false,
       List<GraphQLError> errors}) {
     if (pollDetail != null) {
-      Provider.of<VoteOptionsProvider>(context).onPollFetched(pollDetail.poll);
+      Provider.of<VoteOptionsProvider>(context, listen: false).onPollFetched(pollDetail.poll);
     }
     return RousseauAnimatedScreen(
       extendedAppBar: _header(context,
@@ -120,7 +120,7 @@ class PollDetailsScreen extends StatelessWidget {
   }
 
   Widget _floatingActionButton(BuildContext context) {
-    return Provider.of<VoteOptionsProvider>(context).hasSelectedOptions()
+    return Provider.of<VoteOptionsProvider>(context, listen: false).hasSelectedOptions()
         ? Container(
             width: 110,
             height: 110,

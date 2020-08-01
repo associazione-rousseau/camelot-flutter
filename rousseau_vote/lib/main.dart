@@ -69,11 +69,11 @@ class RousseauVoteApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: <SingleChildCloneableWidget>[
+        providers: [
           // ignore: always_specify_types
-          ChangeNotifierProvider(builder: (_) => getIt<Login>()),
-          ChangeNotifierProvider<ExternalPreselection>(builder: (_) => getIt<ExternalPreselection>()),
-          ChangeNotifierProvider<BlogInstantArticleProvider>(builder: (_) => getIt<BlogInstantArticleProvider>()),
+          ChangeNotifierProvider(create: (_) => getIt<Login>()),
+          ChangeNotifierProvider<ExternalPreselection>(create: (_) => getIt<ExternalPreselection>()),
+          ChangeNotifierProvider<BlogInstantArticleProvider>(create: (_) => getIt<BlogInstantArticleProvider>()),
         ],
         child: GraphQLProvider(
             client: getIt(),

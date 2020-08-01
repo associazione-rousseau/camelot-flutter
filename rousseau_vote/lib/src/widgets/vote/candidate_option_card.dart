@@ -72,6 +72,6 @@ class CandidateOptionCard extends StatelessWidget {
   }
 
   void _onTap(BuildContext context) {
-    Provider.of<VoteOptionsProvider>(context).onOptionSelected(context, _option);
+    Provider.of<VoteOptionsProvider>(context, listen: false).onOptionSelected(context, _option);
   }
 }
