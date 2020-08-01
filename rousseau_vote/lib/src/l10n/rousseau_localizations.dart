@@ -50,7 +50,7 @@ class RousseauLocalizations {
     return RousseauLocalizations.of(context).text(messageKey);
   }
 
-  static String getTextPlualized(BuildContext context, String singularKey, String pluralKey, int number) {
+  static String getTextPluralized(BuildContext context, String singularKey, String pluralKey, int number) {
     return number == 1 ?
         getText(context, singularKey)
         : getTextFormatted(context, pluralKey, <int>[number]);
