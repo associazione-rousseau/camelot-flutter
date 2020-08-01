@@ -9,12 +9,14 @@ import 'package:rousseau_vote/src/util/ui_util.dart';
 
 import 'dialog_util.dart';
 
-void maybeShowVerificationDialog(BuildContext context) {
+void maybeShowVerificationDialog(BuildContext context, { int delay = 0 }) {
   getIt<UserNetworkHandler>()
       .fetchCurrentUser(fetchPolicy: FetchPolicy.cacheFirst)
       .then((CurrentUser currentUser) {
     if (currentUser.shouldVerifyIdentity) {
-      showVerifyIdentityDialog(context);
+      Future<void>.delayed(Duration(seconds : delay), () {
+        showVerifyIdentityDialog(context);
+      });
     }
   });
 }
