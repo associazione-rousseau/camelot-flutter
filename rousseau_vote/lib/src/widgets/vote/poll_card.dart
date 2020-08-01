@@ -1,9 +1,11 @@
+import 'dart:async' show Future;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/util/dialog_util.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
+import 'package:rousseau_vote/src/util/verify_identity_util.dart';
 import 'package:rousseau_vote/src/util/widget/horizontal_space.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 
@@ -80,7 +82,8 @@ class PollCard extends StatelessWidget {
               _showPollNotSupported(context);
             }
           } else {
-            showSimpleSnackbar(context, textKey: 'poll-alert');
+            showSimpleSnackbar(context, textKey: 'poll-alert', duration: 5);
+            maybeShowVerificationDialog(context, delay: 5);
           }
           break;
         case PollStatus.CLOSED:

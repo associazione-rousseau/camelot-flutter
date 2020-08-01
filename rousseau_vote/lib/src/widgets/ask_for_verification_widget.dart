@@ -23,6 +23,6 @@ class _AskForVerificationWidgetState extends State<AskForVerificationWidget>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    maybeShowVerificationDialog(context);
+    maybeShowVerificationDialog(context, delay: 1);
   }
 }
