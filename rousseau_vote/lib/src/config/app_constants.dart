@@ -2,7 +2,7 @@ library constants;
 
 import 'package:flutter/material.dart';
 
-const String APP_NAME = 'Rousseau Vote';
+const String APP_NAME = 'Rousseau X';
 const String TOOLBAR_TITLE = APP_NAME;
 const bool USE_NATIVE_LOGIN = true;
 
