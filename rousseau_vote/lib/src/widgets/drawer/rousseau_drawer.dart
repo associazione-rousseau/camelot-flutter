@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/config/links.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
@@ -34,6 +35,12 @@ class RousseauDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           Container(height: 230,child: RousseauDrawerHeader(currentUser: currentUser, isLoading: isLoading, errors: errors,)),
+          currentUser != null && currentUser.shouldVerifyIdentity ? DrawerItem(
+            textKey: 'drawer-verify-identity',
+            iconData: Icons.verified_user,
+            color: PRIMARY_RED,
+            onTap: () => openVerifyIdentityScreen(context),
+          ) : Container(),
           DrawerItem(
             textKey: 'drawer-vote',
             iconData: Icons.account_balance,
