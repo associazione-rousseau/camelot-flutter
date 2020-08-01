@@ -22,7 +22,7 @@ class RousseauDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GraphqlQueryWidget<CurrentUser>(
         query: currentUserShort,
-        fetchPolicy: FetchPolicy.networkOnly,
+        fetchPolicy: FetchPolicy.cacheFirst,
         builderSuccess: (CurrentUser currentUser) => _drawer(context, currentUser: currentUser),
         builderLoading: () => _drawer(context, isLoading: true),
         builderError: (List<GraphQLError> errors) => _drawer(context, errors: errors)
