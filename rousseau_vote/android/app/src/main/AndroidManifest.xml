@@ -11,6 +11,7 @@
         android:label="Rousseau X"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_circle">
         <activity
             android:name=".MainActivity"
