@@ -33,11 +33,7 @@ class PollDetailsScreen extends StatelessWidget {
     return ChangeNotifierProvider<VoteOptionsProvider>(
       builder: (BuildContext context) => VoteOptionsProvider(),
       child: Consumer<VoteOptionsProvider>(
-          builder: (BuildContext context, value, child) => LoggedScreen(
-                Scaffold(
-                  backgroundColor: BACKGROUND_GREY,
-                  floatingActionButton: _floatingActionButton(context),
-                  body: GraphqlQueryWidget<PollDetail>(
+          builder: (BuildContext context, value, child) => LoggedScreen(GraphqlQueryWidget<PollDetail>(
                     query: pollDetail,
                     variables: variables,
                     builderSuccess: (PollDetail pollDetail) =>
@@ -47,7 +43,7 @@ class PollDetailsScreen extends StatelessWidget {
                     builderLoading: () => _page(context, isLoading: true),
                   ),
                 ),
-              )),
+              ),
     );
   }
 
@@ -65,6 +61,7 @@ class PollDetailsScreen extends StatelessWidget {
         image: WHITE_LOGO,
         height: 50,
       ),
+      floatingActionButton: _floatingActionButton(context),
       body: _body(context,
           pollDetail: pollDetail, isLoading: isLoading, errors: errors),
     );
