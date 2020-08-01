@@ -55,6 +55,8 @@ class CurrentUser {
         : '';
   }
 
+  bool get shouldVerifyIdentity => statusColor == 'GREY' || statusColor == 'RED';
+
   String getProfilePictureUrl() {
     if (profile == null || profile.picture == null) {
       return null;

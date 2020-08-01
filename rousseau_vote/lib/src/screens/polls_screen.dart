@@ -6,6 +6,7 @@ import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_list.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
+import 'package:rousseau_vote/src/widgets/ask_for_verification_widget.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/polls_list_widget.dart';
@@ -32,7 +33,7 @@ class PollsScreen extends StatelessWidget {
         query: listPolls,
         fetchPolicy: fetchPolicy,
         builderSuccess: (PollList pollList) {
-          return PollsListWidget(pollList);
+          return AskForVerificationWidget(child: PollsListWidget(pollList));
         },
         builderLoading: () {
           return const LoadingIndicator();

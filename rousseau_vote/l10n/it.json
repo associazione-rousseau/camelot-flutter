@@ -43,6 +43,11 @@
     "poll-voted": "Hai già Votato!",
     "poll-alert": "Non hai i requisiti per partecipare a questa votazione",
 
+    "identity-not-verified": "Identità non verificata",
+    "identity-verification-alert-message": "Per accedere a tutte le funzionalità come voto dobbiamo verificare la tua identità.",
+    "identity-verification-verify": "Verifica",
+    "identity-verification-verify-now": "Verifica ora",
+
     "vote-button": "Vota",
     "vote-view": "Visualizza",
     "vote-already-done": "Grazie per aver votato!",
