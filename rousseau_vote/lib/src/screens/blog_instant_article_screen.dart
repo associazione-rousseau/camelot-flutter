@@ -3,12 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/arguments/blog_instant_article_arguments.dart';
 import 'package:rousseau_vote/src/models/blog/blog_instant_article.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/blog/blog_instant_article_placeholder.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
+import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
 
 class BlogInstantArticleScreen extends StatefulWidget {
   const BlogInstantArticleScreen(this.arguments);
@@ -46,27 +49,17 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            pinned: true,
-            expandedHeight: 188,
-            flexibleSpace: FlexibleSpaceBar(
-              background: _instantArticle != null
-                  ? _articleCoverImage()
-                  : _articleCoverImagePlaceholder(),
-            ),
-          ),
-          SliverList(
-            delegate:
-                SliverChildBuilderDelegate((BuildContext context, int index) {
-              return _body();
-            }, childCount: 1),
-          ),
-        ],
+    final String title = RousseauLocalizations.getText(context, 'drawer-blog');
+    return RousseauAnimatedScreen(
+      appBar: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: Text(title, style: TextStyle(color: Colors.white, fontSize: 20), textAlign: TextAlign.center,),
       ),
+      extendedAppBar: _instantArticle != null
+          ? _articleCoverImage()
+          : _articleCoverImagePlaceholder(),
+      body: _body(),
+      backgroundColor: Colors.white,
     );
   }
 

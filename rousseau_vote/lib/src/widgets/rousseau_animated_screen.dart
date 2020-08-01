@@ -7,12 +7,14 @@ class RousseauAnimatedScreen extends StatefulWidget {
       {@required this.appBar,
       @required this.extendedAppBar,
       @required this.body,
+      this.backgroundColor,
       this.floatingActionButton});
 
   final Widget extendedAppBar;
   final Widget appBar;
   final Widget body;
   final Widget floatingActionButton;
+  final Color backgroundColor;
 
   @override
   _RousseauAnimatedScreenState createState() => _RousseauAnimatedScreenState();
@@ -65,7 +67,7 @@ class _RousseauAnimatedScreenState extends State<RousseauAnimatedScreen> {
   Widget build(BuildContext context) {
     return
       Scaffold(
-        backgroundColor: BACKGROUND_GREY,
+        backgroundColor: widget.backgroundColor,
         floatingActionButton: widget.floatingActionButton,
     body: Stack(
       children: <Widget>[
@@ -80,7 +82,6 @@ class _RousseauAnimatedScreenState extends State<RousseauAnimatedScreen> {
           children: <Widget>[
             Container(
               color: PRIMARY_RED,
-              padding: const EdgeInsets.only(left: 10.0, right: 10),
               child: widget.extendedAppBar,
             ),
             const VerticalSpace(25),

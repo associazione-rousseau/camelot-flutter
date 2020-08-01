@@ -64,6 +64,7 @@ class PollDetailsScreen extends StatelessWidget {
       floatingActionButton: _floatingActionButton(context),
       body: _body(context,
           pollDetail: pollDetail, isLoading: isLoading, errors: errors),
+      backgroundColor: BACKGROUND_GREY,
     );
   }
 
@@ -77,31 +78,33 @@ class PollDetailsScreen extends StatelessWidget {
       );
     }
     final Poll poll = pollDetail.poll;
-    return Column(
-      children: <Widget>[
-        const VerticalSpace(60),
-        Text(
-          poll.title,
-          maxLines: 3,
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
-          textAlign: TextAlign.center,
-        ),
-        Padding(
-            padding:
-                const EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
-            child: Divider(
-              thickness: 2,
-              color: Colors.white,
-            )),
-        Text(
-          poll.description,
-          maxLines: 10,
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
-          textAlign: TextAlign.center,
-        ),
-        const VerticalSpace(40),
+    return Padding(
+      padding: const EdgeInsets.only(left: 10.0, right: 10),
+      child: Column(
+        children: <Widget>[
+          const VerticalSpace(60),
+          Text(
+            poll.title,
+            maxLines: 3,
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
+            textAlign: TextAlign.center,
+          ),
+          Padding(
+              padding:
+                  const EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
+              child: Divider(
+                thickness: 2,
+                color: Colors.white,
+              )),
+          Text(
+            poll.description,
+            maxLines: 10,
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
+            textAlign: TextAlign.center,
+          ),
+          const VerticalSpace(40),
 //        Padding(padding: const EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10), child: Divider(thickness: 2, color: Colors.white,)),
 //        Text(
 //          RousseauLocalizations.getTextPlualized(context, 'vote-preferences-v2-s', 'vote-preferences-v2-p', poll.maxSelectableOptionsNumber),
@@ -111,7 +114,8 @@ class PollDetailsScreen extends StatelessWidget {
 //              fontSize: 15),
 //          textAlign: TextAlign.center,
 //        )
-      ],
+        ],
+      ),
     );
   }
 
