@@ -104,7 +104,7 @@ class PollDetailsScreen extends StatelessWidget {
               color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
           textAlign: TextAlign.center,
         ),
-        const VerticalSpace(20),
+        const VerticalSpace(40),
 //        Padding(padding: const EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10), child: Divider(thickness: 2, color: Colors.white,)),
 //        Text(
 //          RousseauLocalizations.getTextPlualized(context, 'vote-preferences-v2-s', 'vote-preferences-v2-p', poll.maxSelectableOptionsNumber),
