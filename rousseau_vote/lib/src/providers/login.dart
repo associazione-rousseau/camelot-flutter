@@ -1,12 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/models/token.dart';
 import 'package:rousseau_vote/src/network/exceptions/too_many_attempts_exception.dart';
 import 'package:rousseau_vote/src/network/exceptions/wrong_credentials_exception.dart';
+import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/network/response/token_response.dart';
 import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
+import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 
 @singleton
@@ -137,6 +140,7 @@ class Login with ChangeNotifier {
     final String userId = _tokenStore.getUserId();
     if (userId != null) {
       _pushNotificationManager.onLogin(userId);
+      getIt<PrefetchManager>().prefetch(currentUserShort);
     }
   }
 
