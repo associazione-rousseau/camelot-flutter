@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/util/dialog_util.dart';
@@ -8,8 +7,8 @@ import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/util/widget/horizontal_space.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 
-class PollCardV2 extends StatelessWidget {
-  const PollCardV2(this._poll);
+class PollCard extends StatelessWidget {
+  const PollCard(this._poll);
 
   final Poll _poll;
 

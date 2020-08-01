@@ -11,7 +11,7 @@ import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 
 import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_app_bar.dart';
-import 'package:rousseau_vote/src/widgets/vote/poll_card_v2.dart';
+import 'package:rousseau_vote/src/widgets/vote/poll_card.dart';
 
 class PollsScreen extends StatelessWidget {
   static const String ROUTE_NAME = '/polls';
@@ -37,7 +37,7 @@ class PollsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             itemCount: polls.length,
             itemBuilder: (BuildContext context, int index) {
-              return PollCardV2(polls[index]);
+              return PollCard(polls[index]);
             }
           );
         },
