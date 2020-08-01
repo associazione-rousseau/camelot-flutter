@@ -12,18 +12,20 @@ class RousseauLoggedScaffold extends StatelessWidget {
   
   const RousseauLoggedScaffold({
     @required this.appBar, 
-    @required this.body
+    @required this.body,
+    this.showDrawer = true,
   });
 
   final Widget body;
   final Widget appBar;
+  final bool showDrawer;
 
   @override
   Widget build(BuildContext context) {
     return LoggedScreen(
         Scaffold(
           appBar: appBar,
-          drawer: RousseauDrawer(),
+          drawer: showDrawer ? RousseauDrawer() : null,
           body: body,
           backgroundColor: BACKGROUND_GREY,
         ),
