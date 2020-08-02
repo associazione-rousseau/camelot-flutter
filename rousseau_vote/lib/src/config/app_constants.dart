@@ -26,9 +26,9 @@ const String KEYCLOAK_REGISTRATION_URL =
     'response_type=code&'
     'scope=openid';
 
-const String GRAPHQL_URL_LOCAL = 'http://10.0.2.2:3000/graphql';
-const String GRAPHQL_URL_PRODUCTION = 'https://api.rousseau.movimento5stelle.it/graphql';
-const String GRAPHQL_URL = GRAPHQL_URL_PRODUCTION;
+const String API_URL_LOCAL = 'http://10.0.2.2:3000';
+const String API_URL_PRODUCTION = 'https://api.rousseau.movimento5stelle.it';
+const String GRAPHQL_URL = '$API_URL_PRODUCTION/graphql';
 
 const String IN_APP_BROWSER_USER_AGENT = 'camelot-flutter';
 
