@@ -14,6 +14,7 @@
     "close": "Chiudi",
     "confirm": "Conferma",
     "save": "Salva",
+    "retry": "Riprova",
     "error-title": "Errore",
     "error-network": "Ops! C'è stato un problema. Riprovare più tardi",
     "error-credentials": "Ops. Email o password errati. Riprova!",
@@ -47,6 +48,8 @@
     "identity-verification-alert-message": "Per accedere a tutte le funzionalità come voto dobbiamo verificare la tua identità.",
     "identity-verification-verify": "Verifica",
     "identity-verification-verify-now": "Verifica ora!",
+    "identity-verification-load-id": "Fotografa documento",
+    "identity-verification-load-error": "Errore caricamento",
 
     "vote-button": "Vota",
     "vote-view": "Visualizza",

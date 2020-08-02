@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
@@ -233,4 +234,9 @@ void showRousseauDialog(BuildContext context, Function endAction, String title,
       builder: (BuildContext context) {
         return RousseauDialog(endAction, title, message, buttonText);
       });
+}
+
+Future<PickedFile> openCamera() async {
+  final ImagePicker imagePicker = ImagePicker();
+  return imagePicker.getImage(source: ImageSource.gallery);
 }
