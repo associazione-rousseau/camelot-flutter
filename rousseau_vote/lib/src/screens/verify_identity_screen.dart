@@ -4,8 +4,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/network/handlers/image_upload_handler.dart';
-import 'package:rousseau_vote/src/network/response/direct_upload_headers.dart';
-import 'package:rousseau_vote/src/network/response/direct_uploads_response.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_app_bar.dart';
@@ -31,17 +29,21 @@ class VerifyIdentityScreen extends StatelessWidget {
   }
 
   void _openCamera(BuildContext context) {
-    openCamera().then((PickedFile pickedFile) => _onImagePicked(context, pickedFile),
+    openCamera().then(
+        (PickedFile pickedFile) => _onImagePicked(context, pickedFile),
         onError: (dynamic error) => _onImagePickingError(context));
   }
 
   void _onImagePicked(BuildContext context, PickedFile pickedFile) {
     final ImageUploadHandler handler = getIt<ImageUploadHandler>();
-    handler
-        .uploadImage(pickedFile)
-        .then((DirectUploadsResponse directUploadsResponse) {
-      print(directUploadsResponse.directUpload.toJson());
+    handler.uploadImage(pickedFile).then((bool success) {
+      if (!success) {
+        print("SUCCESS but error");
+        _onImagePickingError(context);
+      }
+      print("SUCCESS!!!");
     }).catchError((dynamic error) {
+      print(error);
       _onImagePickingError(context);
     });
   }
