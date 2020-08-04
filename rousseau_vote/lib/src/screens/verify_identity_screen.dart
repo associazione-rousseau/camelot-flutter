@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
-import 'package:rousseau_vote/src/network/handlers/image_upload_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/verification_request_handler.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/rounded_button.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_app_bar.dart';
@@ -35,15 +35,19 @@ class VerifyIdentityScreen extends StatelessWidget {
   }
 
   void _onImagePicked(BuildContext context, PickedFile pickedFile) {
-    final ImageUploadHandler handler = getIt<ImageUploadHandler>();
-    handler.uploadImage(pickedFile).then((bool success) {
+    final VerificationRequestHandler handler = getIt<VerificationRequestHandler>();
+    handler.sendVerificationRequest(pickedFile).then((bool success) {
       if (!success) {
         _onImagePickingError(context);
       }
-
+      _onRequestSuccess(context);
     }).catchError((dynamic error) {
       _onImagePickingError(context);
     });
+  }
+
+  void _onRequestSuccess(BuildContext context) {
+    print("SUCCESS!");
   }
 
   void _onImagePickingError(BuildContext context) {

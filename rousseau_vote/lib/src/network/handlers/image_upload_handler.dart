@@ -18,7 +18,7 @@ class ImageUploadHandler {
 
   final DirectUploadsRestClient _restClient;
 
-  Future<bool> uploadImage(PickedFile pickedFile) async {
+  Future<String> uploadImage(PickedFile pickedFile) async {
     final File file = File(pickedFile.path);
     final String checksum = await file.calculateChecksum();
     final DirectUploadRequestBlob blob =
@@ -32,6 +32,11 @@ class ImageUploadHandler {
     final Uint8List bytes = await pickedFile.readAsBytes();
     final http.Response s3Response = await http.put(response.directUpload.url, body: bytes, headers: headers);
 
-    return s3Response.statusCode == 200;
+    if(s3Response.statusCode != 200) {
+      throw UploadException();
+    }
+    return response.signedId;
   }
 }
+
+class UploadException implements Exception {}

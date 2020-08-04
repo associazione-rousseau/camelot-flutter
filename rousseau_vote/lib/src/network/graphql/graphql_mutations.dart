@@ -114,3 +114,13 @@ mutation userFeedbackSubmit(\$category: String!,\$feedback: String!){
     }
 }
 ''';
+
+String submitIdentityVerificationRequest = '''
+mutation submitIdentityVerificationRequest(\$documentIds: [ID!]!) {
+    user {
+        identityVerificationRequest(documentIds: \$documentIds) {
+            errors
+        }
+    }
+}
+''';
