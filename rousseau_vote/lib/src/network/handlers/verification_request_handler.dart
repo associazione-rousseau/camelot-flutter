@@ -5,6 +5,8 @@ import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
 import 'package:rousseau_vote/src/network/handlers/image_upload_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
+import 'package:rousseau_vote/src/util/graphql_util.dart';
 
 @singleton
 class VerificationRequestHandler {
@@ -19,6 +21,10 @@ class VerificationRequestHandler {
         documentNode: gql(submitIdentityVerificationRequest),
         variables: ids);
     final QueryResult result = await client.mutate(options);
-    return !result.hasException;
+
+    // prefetch current user
+    await getIt<UserNetworkHandler>().fetchCurrentUser(fetchPolicy: FetchPolicy.networkOnly);
+
+    return result.success;
   }
 }
