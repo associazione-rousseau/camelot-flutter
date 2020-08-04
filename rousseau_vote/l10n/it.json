@@ -14,6 +14,7 @@
     "close": "Chiudi",
     "confirm": "Conferma",
     "save": "Salva",
+    "retry": "Riprova",
     "error-title": "Errore",
     "error-network": "Ops! C'è stato un problema. Riprovare più tardi",
     "error-credentials": "Ops. Email o password errati. Riprova!",
@@ -43,6 +44,13 @@
     "poll-voted": "Hai già Votato!",
     "poll-alert": "Non hai i requisiti per partecipare a questa votazione",
 
+    "identity-not-verified": "Identità non verificata",
+    "identity-verification-alert-message": "Per accedere a tutte le funzionalità come voto dobbiamo verificare la tua identità.",
+    "identity-verification-verify": "Verifica",
+    "identity-verification-verify-now": "Verifica ora!",
+    "identity-verification-load-id": "Fotografa documento",
+    "identity-verification-load-error": "Errore di caricamento",
+
     "vote-button": "Vota",
     "vote-view": "Visualizza",
     "vote-already-done": "Grazie per aver votato!",
@@ -53,17 +61,25 @@
     "vote-already": "Hai già espresso il tuo voto",
     "vote-limit": "Hai già selezionato il numero massimo di opzioni consentite per questa votazione",
     "vote-complete": "Il tuo voto è stato acquisito correttamente",
+    "vote-select": "Seleziona",
 
-    "vote-preferences-1": "Hai ancora ",
-    "vote-preferences-2s": " preferenza a disposizione",
-    "vote-preferences-2p": " preferenze a disposizione",
-    "vote-preferences-done": "Hai espresso le preferenze a disposizione.",
+    "vote-preferences-s": "Hai ancora 1 preferenza",
+    "vote-preferences-p": "Hai ancora %d preferenze",
+    "vote-preferences-done": "Hai espresso le preferenze a disposizione. Invia il tuo voto!",
+
+    "vote-preferences-v2-s": "Puoi esprimere 1 preferenza",
+    "vote-preferences-v2-p": "Puoi esprimere %d preferenze",
 
     "vote-content-1s": "Stai per votare la seguente opzione:",
     "vote-content-1p": "Stai per votare le seguenti opzioni:",
     "vote-content-2": "Vuoi confermare?",
 
+    "vote-not-supported-title": "Votazione non supportata",
+    "vote-not-supported-message": "Ops! La votazione non è ancora supportata nell'app. Puoi votare dal sito internet.",
+    "vote-not-supported-button": "Vota",
+
     "drawer-vote": "Vota",
+    "drawer-verify-identity": "Verifica identità",
     "drawer-edit-account": "Modifica account",
     "drawer-support": "Supportaci",
     "drawer-other-functionalities": "Altre funzionalità",
@@ -116,6 +132,7 @@
 
 
     "view_profile": "Vedi Profilo",
+    "profile": "Profilo",
     "vote-search-candidate": "Ricerca candidato",
     "merits": "Meriti",
     "profile-presentation": "Presentazione",

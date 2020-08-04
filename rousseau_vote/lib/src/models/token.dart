@@ -32,16 +32,6 @@ class Token {
   String scope;
 
   bool isValid() {
-    return _isValidSignature();
-  }
-
-  bool isExpired() {
-    // TODO implement
-    return false;
-  }
-
-  bool _isValidSignature() {
-    // TODO implement
-    return true;
+    return accessToken != null && accessToken.split('.').length == 3;
   }
 }

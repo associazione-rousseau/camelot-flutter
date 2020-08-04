@@ -4,16 +4,12 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
-import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/util/date_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/profile/badges_widget.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
-import 'package:intl/date_symbol_data_local.dart';
-
-import '../graphql_query_widget.dart';
 
 const double PROFILE_PICTURE_RADIUS = 30;
 const Map<String, IdentityWidgetData> STATUS_UI_MAPPING = <String, IdentityWidgetData>{
@@ -37,30 +33,33 @@ class IdentityWidgetData {
 }
 
 class CurrentUserCard extends StatelessWidget {
-  const CurrentUserCard();
+
+  const CurrentUserCard({ this.currentUser, this.isLoading = false, this.errors });
+
+  final CurrentUser currentUser;
+  final bool isLoading;
+  final List<GraphQLError> errors;
 
   @override
   Widget build(BuildContext context) {
-    return GraphqlQueryWidget<CurrentUser>(
-      query: currentUserShort,
-      fetchPolicy: FetchPolicy.cacheFirst,
-      builderSuccess: (CurrentUser currentUser) {
-        return Column(
-          children: <Widget>[
-            _identitySection(context, currentUser),
-            _badgesSection(context, currentUser),
-            const VerticalSpace(10),
-            _certificationSection(context, currentUser),
-          ],
-        );
-      },
-      builderLoading: () {
-        return _placeholderWidget();
-      },
-      builderError: (List<GraphQLError> errors) {
-        showSimpleSnackbar(context, 'error-profile-loading');
-        return _placeholderWidget();
-      },
+    if (isLoading) {
+      return _placeholderWidget();
+    } else if (currentUser != null) {
+      return _currentUserBody(context, currentUser);
+    } else {
+      showSimpleSnackbar(context, textKey: 'error-profile-loading');
+      return _placeholderWidget();
+    }
+  }
+
+  Widget _currentUserBody(BuildContext context, CurrentUser currentUser) {
+    return Column(
+      children: <Widget>[
+        _identitySection(context, currentUser),
+        _badgesSection(context, currentUser),
+        const VerticalSpace(10),
+        _certificationSection(context, currentUser),
+      ],
     );
   }
 
@@ -116,13 +115,13 @@ class CurrentUserCard extends StatelessWidget {
             currentUser.fullName,
             style: const TextStyle(fontSize: 20),
           ),
-          subtitle: Text(currentUser.slug),
+          subtitle: Text(currentUser.residence),
           onTap: () {
             Navigator.of(context).pop();
             if (currentUser.profile != null) {
               openProfile(context, currentUser.slug);
             } else {
-              showSimpleSnackbar(context, 'message-profile-not-compiled');
+              showSimpleSnackbar(context, textKey: 'message-profile-not-compiled');
             }
           }
       ),

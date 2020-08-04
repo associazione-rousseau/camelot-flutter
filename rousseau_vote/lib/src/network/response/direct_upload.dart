@@ -1,15 +1,17 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rousseau_vote/src/network/response/direct_upload_headers.dart';
 
 part 'direct_upload.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(nullable: true)
 class DirectUpload {
+  DirectUpload();
 
-  DirectUpload(this.url,this.headers);
-  
-  factory DirectUpload.fromJson(Map<String, dynamic> json) => _$DirectUploadFromJson(json);
+  factory DirectUpload.fromJson(Map<String, dynamic> json) =>
+      _$DirectUploadFromJson(json);
+
   Map<String, dynamic> toJson() => _$DirectUploadToJson(this);
 
   String url;
-  Map<String,String> headers;
+  DirectUploadHeaders headers;
 }

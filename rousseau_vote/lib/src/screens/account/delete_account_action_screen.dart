@@ -107,7 +107,7 @@ class _DeleteAccountActionScreenState extends State<DeleteAccountActionScreen> {
     }
     UserResponse response = await _userNetworkHandler.deleteUser(selectedReason);
     if(response != null && response.userDelete != null && response.userDelete.errors == null){
-      Provider.of<Login>(context).logout();
+      Provider.of<Login>(context, listen: false).logout();
       openRoute(context, LoginScreen.ROUTE_NAME, replace: true);
     }
     else{

@@ -6,13 +6,14 @@ import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_list.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
+import 'package:rousseau_vote/src/widgets/ask_for_verification_widget.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
-import 'package:rousseau_vote/src/widgets/poll_card.dart';
+import 'package:rousseau_vote/src/widgets/polls_list_widget.dart';
 
 import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_app_bar.dart';
-import 'package:rousseau_vote/src/widgets/vote/poll_card_v2.dart';
+import 'package:rousseau_vote/src/widgets/vote/poll_card.dart';
 
 class PollsScreen extends StatelessWidget {
   static const String ROUTE_NAME = '/polls';
@@ -32,15 +33,7 @@ class PollsScreen extends StatelessWidget {
         query: listPolls,
         fetchPolicy: fetchPolicy,
         builderSuccess: (PollList pollList) {
-          final List<Poll> polls = sortedPolls(pollList);
-          return ListView.separated(
-            separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 10),
-            padding: const EdgeInsets.all(10),
-            itemCount: polls.length,
-            itemBuilder: (BuildContext context, int index) {
-              return PollCardV2(polls[index]);
-            }
-          );
+          return AskForVerificationWidget(child: PollsListWidget(pollList));
         },
         builderLoading: () {
           return const LoadingIndicator();
@@ -52,13 +45,4 @@ class PollsScreen extends StatelessWidget {
       )
     );
   }
-
-  List<Poll> sortedPolls(PollList list) {
-    final List<Poll> result = <Poll>[];
-    result.addAll(list.polls.where((Poll p) => p.pollStatus == PollStatus.OPEN));
-    result.addAll(list.polls.where((Poll p) => p.pollStatus == PollStatus.PUBLISHED));
-    result.addAll(list.polls.where((Poll p) => p.pollStatus == PollStatus.CLOSED));
-    return result;
-  }
-
 }

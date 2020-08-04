@@ -1,13 +1,16 @@
+import 'dart:async' show Future;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
+import 'package:rousseau_vote/src/util/dialog_util.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
+import 'package:rousseau_vote/src/util/verify_identity_util.dart';
 import 'package:rousseau_vote/src/util/widget/horizontal_space.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 
-class PollCardV2 extends StatelessWidget {
-  const PollCardV2(this._poll);
+class PollCard extends StatelessWidget {
+  const PollCard(this._poll);
 
   final Poll _poll;
 
@@ -65,26 +68,33 @@ class PollCardV2 extends StatelessWidget {
 
   Function _onCtaTapAction(BuildContext context) {
     return () {
-      switch(_poll.pollStatus) {
+      switch (_poll.pollStatus) {
         case PollStatus.PUBLISHED:
           openPollDetails(context, _poll);
           break;
         case PollStatus.OPEN:
-          if(_poll.alreadyVoted) {
-            showSimpleSnackbar(context, 'poll-voted');
+          if (_poll.alreadyVoted) {
+            showSimpleSnackbar(context, textKey: 'poll-voted');
           } else if (_poll.canVote) {
-            openPollDetails(context, _poll);
+            if (_poll.isSupported) {
+              openPollDetails(context, _poll);
+            } else {
+              _showPollNotSupported(context);
+            }
           } else {
-            showSimpleSnackbar(context, 'poll-alert');
+            showSimpleSnackbar(context, textKey: 'poll-alert', duration: 5);
+            maybeShowVerificationDialog(context, delay: 5);
           }
           break;
         case PollStatus.CLOSED:
           if (_poll.hasResults) {
-            final SnackBarAction action =
-            createSnackBarAction(context, 'poll-results', openUrlInternalAction(context, _poll.resultsLink));
-            showSimpleSnackbar(context, 'poll-closed', action: action);
+            final SnackBarAction action = createSnackBarAction(
+                context,
+                'poll-results',
+                openUrlInternalAction(context, _poll.resultsLink));
+            showSimpleSnackbar(context, textKey: 'poll-closed', action: action);
           } else {
-            showSimpleSnackbar(context, 'poll-closed-no-results');
+            showSimpleSnackbar(context, textKey: 'poll-closed-no-results');
           }
           break;
       }
@@ -118,7 +128,8 @@ class PollCardV2 extends StatelessWidget {
       buttons.add(_linkButton(context, 'poll-info', _poll.announcementLink));
     }
     if (_poll.resultsLink != null) {
-      buttons.add(_linkButton(context, 'poll-results', _poll.resultsLink, bold: true));
+      buttons.add(
+          _linkButton(context, 'poll-results', _poll.resultsLink, bold: true));
     }
     if (_poll.mightVote) {
       buttons.add(_voteButton(context, 'vote-button'));
@@ -131,14 +142,14 @@ class PollCardV2 extends StatelessWidget {
     );
   }
 
-  Widget _linkButton(BuildContext context, String textKey, String url, {bool bold = false}) {
-    return _button(context, textKey, openUrlInternalAction(context, url), bold: bold);
+  Widget _linkButton(BuildContext context, String textKey, String url,
+      {bool bold = false}) {
+    return _button(context, textKey, openUrlInternalAction(context, url),
+        bold: bold);
   }
 
   Widget _voteButton(BuildContext context, String textKey) {
-    return _button(
-        context, textKey, _onCtaTapAction(context),
-        bold: true);
+    return _button(context, textKey, _onCtaTapAction(context), bold: true);
   }
 
   Widget _button(BuildContext context, String textKey, Function action,
@@ -160,10 +171,24 @@ class PollCardV2 extends StatelessWidget {
   Icon _getIcon(BuildContext context) {
 //    return Icon(STATUS_ICON_MAPPING[_poll.pollStatus],
 //        color: _poll.color, size: 40);
-    if(_poll.alreadyVoted) {
+    if (_poll.alreadyVoted) {
       return Icon(Icons.event_available, color: _poll.color, size: 40);
     }
-    return _poll.open ? Icon(Icons.calendar_today, color: _poll.color, size: 35) :
-      Icon(Icons.event_busy, color: _poll.color, size: 40);
+    return _poll.open
+        ? Icon(Icons.calendar_today, color: _poll.color, size: 35)
+        : Icon(Icons.event_busy, color: _poll.color, size: 40);
+  }
+
+  void _showPollNotSupported(BuildContext context) {
+    showAlertDialog(context,
+        titleKey: 'vote-not-supported-title',
+        messageKey: 'vote-not-supported-message',
+        buttonKey1: 'back',
+        buttonKey2: 'vote-not-supported-button',
+        buttonAction1: () => Navigator.pop(context),
+        buttonAction2: () {
+          Navigator.pop(context);
+          openUrlExternal(context, _poll.url);
+        });
   }
 }

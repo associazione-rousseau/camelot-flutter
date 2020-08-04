@@ -13,6 +13,7 @@ import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql/client.dart';
+import 'package:rousseau_vote/src/network/handlers/image_upload_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/ita_geo_divisions_network_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
@@ -23,6 +24,7 @@ import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:rousseau_vote/src/network/handlers/verification_request_handler.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:get_it/get_it.dart';
 
@@ -57,6 +59,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerSingleton<FlutterSecureStorage>(
       registerModule.flutterSecureStorage);
   g.registerSingleton<GraphQLClient>(registerModule.getGraphQLClient());
+  g.registerSingleton<ImageUploadHandler>(ImageUploadHandler());
   g.registerSingleton<ItaGeoDivisionsNetworkHandler>(
       ItaGeoDivisionsNetworkHandler(g<GraphQLClient>()));
   g.registerSingleton<LoginNetworkHandler>(LoginNetworkHandler(g<Dio>()));
@@ -67,6 +70,7 @@ void $initGetIt(GetIt g, {String environment}) {
       TokenStore(g<SecureStorage>(), g<LoginNetworkHandler>()));
   g.registerSingleton<UserNetworkHandler>(
       UserNetworkHandler(g<GraphQLClient>()));
+  g.registerSingleton<VerificationRequestHandler>(VerificationRequestHandler());
   g.registerSingleton<Login>(Login(
     g<LoginNetworkHandler>(),
     g<TokenStore>(),

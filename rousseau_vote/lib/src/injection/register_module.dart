@@ -59,7 +59,8 @@ abstract class RegisterModule {
     final Link link = authLink.concat(httpLink);
     return GraphQLClient(
       link: link,
-      cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
+      // hack not to cache nodes but only whole queries not to have conflicts with json serializable
+      cache: OptimisticCache(dataIdFromObject: (Object object) => null),
     );
   }
 

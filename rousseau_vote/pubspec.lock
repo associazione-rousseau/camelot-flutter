@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0"
+  after_layout:
+    dependency: "direct main"
+    description:
+      name: after_layout
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.7+2"
   analyzer:
     dependency: transitive
     description:
@@ -560,6 +567,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.6"
+  md5_plugin:
+    dependency: "direct main"
+    description:
+      name: md5_plugin
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   meta:
     dependency: transitive
     description:
@@ -574,6 +588,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.6+3"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
   node_interop:
     dependency: transitive
     description:
@@ -713,7 +734,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1+1"
+    version: "4.3.1"
   pub_semver:
     dependency: transitive
     description:

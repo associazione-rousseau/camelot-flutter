@@ -50,6 +50,12 @@ class RousseauLocalizations {
     return RousseauLocalizations.of(context).text(messageKey);
   }
 
+  static String getTextPluralized(BuildContext context, String singularKey, String pluralKey, int number) {
+    return number == 1 ?
+        getText(context, singularKey)
+        : getTextFormatted(context, pluralKey, <int>[number]);
+  }
+
   static String getTextFormatted(BuildContext context, String messageKey, List<dynamic> args) {
     final String rawString = RousseauLocalizations.of(context).text(messageKey);
     return sprintf(rawString, args);
@@ -68,7 +74,7 @@ class RousseauLocalizations {
   String get currentLanguage => locale.languageCode;
 
   String text(String key) {
-    return _localisedValues[key] ?? "'$key' not found";
+    return _localisedValues[key];
   }
 
 }

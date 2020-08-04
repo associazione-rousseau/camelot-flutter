@@ -36,7 +36,7 @@ class UserProfileScreen extends StatelessWidget {
       },
       builderError: (List<GraphQLError> error) {
         Navigator.of(context).pop();
-        showSimpleSnackbar(context, 'error-network');
+        showSimpleSnackbar(context, textKey: 'error-network');
 
         return Text(error.toString());
       },

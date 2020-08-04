@@ -35,6 +35,7 @@ import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/register_screen.dart';
 import 'package:rousseau_vote/src/screens/account/anagraph_screen.dart';
 import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
+import 'package:rousseau_vote/src/screens/verify_identity_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,11 +70,11 @@ class RousseauVoteApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: <SingleChildCloneableWidget>[
+        providers: [
           // ignore: always_specify_types
-          ChangeNotifierProvider(builder: (_) => getIt<Login>()),
-          ChangeNotifierProvider<ExternalPreselection>(builder: (_) => getIt<ExternalPreselection>()),
-          ChangeNotifierProvider<BlogInstantArticleProvider>(builder: (_) => getIt<BlogInstantArticleProvider>()),
+          ChangeNotifierProvider(create: (_) => getIt<Login>()),
+          ChangeNotifierProvider<ExternalPreselection>(create: (_) => getIt<ExternalPreselection>()),
+          ChangeNotifierProvider<BlogInstantArticleProvider>(create: (_) => getIt<BlogInstantArticleProvider>()),
         ],
         child: GraphQLProvider(
             client: getIt(),
@@ -109,7 +110,8 @@ class RousseauVoteApp extends StatelessWidget {
                     EditAccountScreen.ROUTE_NAME: (BuildContext context) =>
                         EditAccountScreen(),
                     AnagraphScreen.ROUTE_NAME: (BuildContext context) => AnagraphScreen(),
-                    
+                    VerifyIdentityScreen.ROUTE_NAME: (BuildContext context) => VerifyIdentityScreen(),
+
                     LoginInfoScreen.ROUTE_NAME: (BuildContext context) => LoginInfoScreen(),
                     DeleteAccountDisclaimerScreen.ROUTE_NAME: (BuildContext context) => DeleteAccountDisclaimerScreen(),
                     DeleteAccountActionScreen.ROUTE_NAME: (BuildContext context) => DeleteAccountActionScreen(),

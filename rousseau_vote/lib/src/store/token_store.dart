@@ -65,9 +65,6 @@ class TokenStore with InitializeOnStartup {
     if(serializedToken != null) {
       final Token token  = Token.fromJson(jsonDecode(serializedToken));
       setToken(token);
-      if(_token.isExpired()) {
-        // TODO refresh token
-      }
     }
   }
 }

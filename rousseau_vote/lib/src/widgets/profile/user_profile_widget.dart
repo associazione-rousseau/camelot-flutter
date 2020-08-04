@@ -3,9 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/profile/user_profile.dart';
+import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/profile/user_profile_section.dart';
+import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
 import 'package:rousseau_vote/src/widgets/user/badge_widget.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
 
@@ -20,26 +22,14 @@ class UserProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return RousseauAnimatedScreen(
       backgroundColor: BACKGROUND_GREY,
-      body: Container(
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              pinned: true,
-              expandedHeight: 320,
-              backgroundColor: PRIMARY_RED,
-              flexibleSpace: FlexibleSpaceBar(background: _header(context)),
-            ),
-            SliverList(
-              delegate:
-                  SliverChildBuilderDelegate((BuildContext context, int index) {
-                return _body();
-              }, childCount: 1),
-            ),
-          ],
-        ),
+      appBar: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: isLoading ? Container() : Text(userProfile.fullName, style: TextStyle(color: Colors.white, fontSize: 20), textAlign: TextAlign.center,),
       ),
+      extendedAppBar: _header(context),
+      body: _body(),
     );
   }
 
@@ -47,19 +37,19 @@ class UserProfileWidget extends StatelessWidget {
     return Stack(alignment: AlignmentDirectional.topCenter, children: <Widget>[
       Container(
         width: double.infinity,
-        height: 380,
+        height: 290,
         color: BACKGROUND_GREY,
       ),
       Container(
         width: double.infinity,
-        height: 290,
+        height: 260,
         color: PRIMARY_RED,
       ),
       Column(
         children: isLoading
             ? <Widget>[]
             : <Widget>[
-                const VerticalSpace(75),
+                const VerticalSpace(50),
                 ProfilePicture(
                     url: userProfile.profile.picture.originalUrl, radius: 50),
                 const VerticalSpace(10),
@@ -107,47 +97,31 @@ class UserProfileWidget extends StatelessWidget {
               'profile-presentation', userProfile.profile.presentation),
           UserInfoSection(
               'profile-curriculum-vitae', userProfile.profile.curriculumVitae),
-          UserInfoSection(
-              'profile-curriculum-activitst', userProfile.profile.curriculumActivist),
-          UserInfoSection(
-              'profile-political-experiences', userProfile.profile.politicalExperiences),
+          UserInfoSection('profile-curriculum-activitst',
+              userProfile.profile.curriculumActivist),
+          UserInfoSection('profile-political-experiences',
+              userProfile.profile.politicalExperiences),
         ],
       ),
     );
   }
 
   String _subtitle(BuildContext context) {
-    final String age = RousseauLocalizations.getTextFormatted(
-        context, 'profile-age', <int>[userProfile.profile.age]);
-    final String location = _getFormattedLocation(context);
-    return '$age - $location';
+    return getUserSubtitleShort(
+        context,
+        userProfile.profile.age,
+        userProfile.residence);
   }
 
   Widget _badgesCard(BuildContext context) {
     return Card(
         child: Container(
       padding: const EdgeInsets.all(6),
-      child: BadgesWidget(userProfile.badges, 35, showInactive: false,),
+      child: BadgesWidget(
+        userProfile.badges,
+        35,
+        showInactive: false,
+      ),
     ));
-  }
-
-  String _getFormattedLocation(BuildContext context) {
-    final String pob = userProfile.profile.placeOfBirth;
-    final String residence = userProfile.profile.placeOfResidence.comuneName;
-    final bool samePlace = pob == residence;
-    final bool isFemale = userProfile.isFemale();
-
-    if (samePlace) {
-      final String rawStringKey = isFemale
-          ? 'profile-location-same-female'
-          : 'profile-location-same-male';
-      return RousseauLocalizations.getTextFormatted(
-          context, rawStringKey, <String>[residence]);
-    }
-    final String rawStringKey =
-        isFemale ? 'profile-location-female' : 'profile-location-male';
-
-    return RousseauLocalizations.getTextFormatted(
-        context, rawStringKey, <String>[pob, residence]);
   }
 }

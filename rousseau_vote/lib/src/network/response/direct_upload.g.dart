@@ -7,12 +7,11 @@ part of 'direct_upload.dart';
 // **************************************************************************
 
 DirectUpload _$DirectUploadFromJson(Map<String, dynamic> json) {
-  return DirectUpload(
-    json['url'] as String,
-    (json['headers'] as Map<String, dynamic>)?.map(
-      (k, e) => MapEntry(k, e as String),
-    ),
-  );
+  return DirectUpload()
+    ..url = json['url'] as String
+    ..headers = json['headers'] == null
+        ? null
+        : DirectUploadHeaders.fromJson(json['headers'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$DirectUploadToJson(DirectUpload instance) =>

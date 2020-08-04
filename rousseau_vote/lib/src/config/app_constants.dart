@@ -2,13 +2,18 @@ library constants;
 
 import 'package:flutter/material.dart';
 
-const String APP_NAME = 'Rousseau Vote';
+const String APP_NAME = 'Rousseau X';
 const String TOOLBAR_TITLE = APP_NAME;
 const bool USE_NATIVE_LOGIN = true;
 
 // Login configuration
 const String KEYCLOAK_CLIENT_ID = 'camelot-flutter';
 const String KEYCLOAK_REDIRECT_URI = 'http://localhost';
+
+const String ROUSSEAU_URL_LOCAL = 'http://10.0.2.2:8080';
+const String ROUSSEAU_URL_PRODUCTION = 'https://vote.rousseau.movimento5stelle.it';
+const String ROUSSEAU_URL = ROUSSEAU_URL_PRODUCTION;
+const String ROUSSEAU_VOTE_URL = ROUSSEAU_URL_PRODUCTION + '/polls';
 
 const String KEYCLOAK_URL_LOCAL = 'http://10.0.2.2:8081';
 const String KEYCLOAK_URL_PRODUCTION = 'https://sso.rousseau.movimento5stelle.it';
@@ -21,9 +26,9 @@ const String KEYCLOAK_REGISTRATION_URL =
     'response_type=code&'
     'scope=openid';
 
-const String GRAPHQL_URL_LOCAL = 'http://10.0.2.2:3000/graphql';
-const String GRAPHQL_URL_PRODUCTION = 'https://api.rousseau.movimento5stelle.it/graphql';
-const String GRAPHQL_URL = GRAPHQL_URL_PRODUCTION;
+const String API_URL_LOCAL = 'http://10.0.2.2:3000';
+const String API_URL_PRODUCTION = 'https://api.rousseau.movimento5stelle.it';
+const String GRAPHQL_URL = '$API_URL_PRODUCTION/graphql';
 
 const String FILE_UPLOAD_URL_PRODUCTION = 'https://api.rousseau.movimento5stelle.it/files/direct_uploads';
 
