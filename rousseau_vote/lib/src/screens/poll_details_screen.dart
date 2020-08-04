@@ -122,8 +122,8 @@ class PollDetailsScreen extends StatelessWidget {
   Widget _floatingActionButton(BuildContext context) {
     return Provider.of<VoteOptionsProvider>(context, listen: false).hasSelectedOptions()
         ? Container(
-            width: 110,
-            height: 110,
+            width: 150,
+            height: 150,
             child: FittedBox(
                 child: FloatingActionButton.extended(
               label:
