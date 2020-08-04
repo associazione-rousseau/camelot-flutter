@@ -38,12 +38,10 @@ class VerifyIdentityScreen extends StatelessWidget {
     final ImageUploadHandler handler = getIt<ImageUploadHandler>();
     handler.uploadImage(pickedFile).then((bool success) {
       if (!success) {
-        print("SUCCESS but error");
         _onImagePickingError(context);
       }
-      print("SUCCESS!!!");
+
     }).catchError((dynamic error) {
-      print(error);
       _onImagePickingError(context);
     });
   }
