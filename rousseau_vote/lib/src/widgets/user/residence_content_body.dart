@@ -60,7 +60,17 @@ class _ResidenceContentBodyState extends State<ResidenceContentBody> {
     bool buttonEnabled = true;
 
     if(currentUser.lastResidenceChangeRequest != null && currentUser.lastResidenceChangeRequest.status == 'PENDING'){
-      return ResidenceRequestWidget(currentUser.lastResidenceChangeRequest);
+      return Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            ResidenceRequestWidget(currentUser.lastResidenceChangeRequest),
+            Expanded(
+              child: Container(),
+            )
+          ],
+        ),
+      );
     }
 
     for(String division in DIVISIONS) { 

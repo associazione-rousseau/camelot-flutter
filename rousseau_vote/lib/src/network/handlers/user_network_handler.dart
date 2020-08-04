@@ -67,8 +67,8 @@ class UserNetworkHandler {
 		Map<String, String> residenceData = <String, String>{
 			'countryCode': countryCode,
 			'regioneCode': regioneCode,
-			'provinciaCode': regioneCode,
-			'comuneCode': regioneCode,
+			'provinciaCode': provinciaCode,
+			'comuneCode': comuneCode
 		};
 
 		if(overseaseCity.isNotEmpty){
