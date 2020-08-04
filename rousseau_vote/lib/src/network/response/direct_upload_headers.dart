@@ -13,7 +13,7 @@ class DirectUploadHeaders {
   Map<String, dynamic> toJson() => _$DirectUploadHeadersToJson(this);
 
   @JsonKey(name: 'Content-Type')
-  String contentTyoe;
-  @JsonKey(name: 'Content-MD4')
-  String contentMd4;
+  String contentType;
+  @JsonKey(name: 'Content-MD5')
+  String contentMd5;
 }

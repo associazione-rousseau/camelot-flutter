@@ -8,13 +8,13 @@ part of 'direct_upload_headers.dart';
 
 DirectUploadHeaders _$DirectUploadHeadersFromJson(Map<String, dynamic> json) {
   return DirectUploadHeaders()
-    ..contentTyoe = json['Content-Type'] as String
-    ..contentMd4 = json['Content-MD4'] as String;
+    ..contentType = json['Content-Type'] as String
+    ..contentMd5 = json['Content-MD5'] as String;
 }
 
 Map<String, dynamic> _$DirectUploadHeadersToJson(
         DirectUploadHeaders instance) =>
     <String, dynamic>{
-      'Content-Type': instance.contentTyoe,
-      'Content-MD4': instance.contentMd4,
+      'Content-Type': instance.contentType,
+      'Content-MD5': instance.contentMd5,
     };
