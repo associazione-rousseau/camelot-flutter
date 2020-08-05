@@ -24,8 +24,6 @@ import 'package:rousseau_vote/src/widgets/logged_screen.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
 import 'package:rousseau_vote/src/widgets/vote/poll_details_body.dart';
 
-
-
 class PollDetailsScreen extends StatelessWidget {
   const PollDetailsScreen(this.arguments);
 
@@ -147,10 +145,9 @@ class PollDetailsScreen extends StatelessWidget {
   void _onSend(BuildContext context) {
     final VoteOptionsProvider provider =
         Provider.of<VoteOptionsProvider>(context, listen: false);
-    showDialog<void>(
-        context: context,
-        barrierDismissible: false, // user must tap button!
-        builder: (BuildContext dialogContext) => ConfirmVoteDialog(
+    _showDialog(
+        context,
+        ConfirmVoteDialog(
             selectedOptions: provider.getSelectedOptions(),
             remainingOptions: provider.remainingOptions(),
             pollType: provider.getPollType(),
@@ -168,13 +165,12 @@ class PollDetailsScreen extends StatelessWidget {
     voteNetworkHandler
         .submitVote(arguments.pollId, provider.getSelectedOptions())
         .then((QueryResult result) {
-          if (result.success) {
-            _onVoteConfirmSuccess(context);
-          } else {
-            _onVoteConfirmError(context);
-          }
-        })
-        .catchError((dynamic object) => _onVoteConfirmError(context));
+      if (result.success) {
+        _onVoteConfirmSuccess(context);
+      } else {
+        _onVoteConfirmError(context);
+      }
+    }).catchError((dynamic object) => _onVoteConfirmError(context));
   }
 
   void _onVoteConfirmLoading(BuildContext context) {
@@ -187,6 +183,13 @@ class PollDetailsScreen extends StatelessWidget {
 
   void _onVoteConfirmError(BuildContext context) {
     print("error");
+  }
+
+  void _showDialog(BuildContext context, Widget dialog) {
+    showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext dialogContext) => dialog);
   }
 
   Widget _body(BuildContext context,
