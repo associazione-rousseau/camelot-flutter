@@ -12,6 +12,7 @@ import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/providers/vote_options_provider.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
+import 'package:rousseau_vote/src/widgets/core/icon_text_screen.dart';
 import 'package:rousseau_vote/src/widgets/errors/error_page_widget.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
@@ -33,17 +34,18 @@ class PollDetailsScreen extends StatelessWidget {
     return ChangeNotifierProvider<VoteOptionsProvider>(
       create: (BuildContext context) => VoteOptionsProvider(),
       child: Consumer<VoteOptionsProvider>(
-          builder: (BuildContext context, value, child) => LoggedScreen(GraphqlQueryWidget<PollDetail>(
-                    query: pollDetail,
-                    variables: variables,
-                    builderSuccess: (PollDetail pollDetail) =>
-                        _page(context, pollDetail: pollDetail),
-                    builderError: (List<GraphQLError> errors) =>
-                        _page(context, errors: errors),
-                    builderLoading: () => _page(context, isLoading: true),
-                  ),
-                ),
-              ),
+        builder: (BuildContext context, value, child) => LoggedScreen(
+          GraphqlQueryWidget<PollDetail>(
+            query: pollDetail,
+            variables: variables,
+            builderSuccess: (PollDetail pollDetail) =>
+                _page(context, pollDetail: pollDetail),
+            builderError: (List<GraphQLError> errors) =>
+                _page(context, errors: errors),
+            builderLoading: () => _page(context, isLoading: true),
+          ),
+        ),
+      ),
     );
   }
 
@@ -52,7 +54,8 @@ class PollDetailsScreen extends StatelessWidget {
       bool isLoading = false,
       List<GraphQLError> errors}) {
     if (pollDetail != null) {
-      Provider.of<VoteOptionsProvider>(context, listen: false).onPollFetched(pollDetail.poll);
+      Provider.of<VoteOptionsProvider>(context, listen: false)
+          .onPollFetched(pollDetail.poll);
     }
     return RousseauAnimatedScreen(
       extendedAppBar: _header(context,
@@ -91,8 +94,8 @@ class PollDetailsScreen extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Padding(
-              padding:
-                  const EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
+              padding: const EdgeInsets.only(
+                  left: 70, right: 70, top: 10, bottom: 10),
               child: Divider(
                 thickness: 2,
                 color: Colors.white,
@@ -120,7 +123,8 @@ class PollDetailsScreen extends StatelessWidget {
   }
 
   Widget _floatingActionButton(BuildContext context) {
-    return Provider.of<VoteOptionsProvider>(context, listen: false).hasSelectedOptions()
+    return Provider.of<VoteOptionsProvider>(context, listen: false)
+            .hasSelectedOptions()
         ? Container(
             width: 150,
             height: 150,
@@ -145,6 +149,34 @@ class PollDetailsScreen extends StatelessWidget {
     }
     if (errors != null) {
       return const ErrorPageWidget();
+    }
+    final Poll poll = pollDetail.poll;
+    if (poll.closed) {
+      final IconData iconData =
+          poll.alreadyVoted ? Icons.event_available : Icons.event_busy;
+      final String messageKey = poll.alreadyVoted
+          ? 'poll-closed-already-voted'
+          : 'poll-closed-did-not-vote';
+      return IconTextScreen(
+        iconData: iconData,
+        messageKey: messageKey,
+      );
+    }
+
+    if (poll.alreadyVoted) {
+      return IconTextScreen(
+        iconData: Icons.event_available,
+        messageKey: 'poll-voted',
+        textColor: Colors.green,
+        iconColor: Colors.green,
+      );
+    }
+
+    if (poll.open && !poll.hasRequirements) {
+      return IconTextScreen(
+        iconData: Icons.error_outline,
+        messageKey: 'poll-alert',
+      );
     }
 
     return PollDetailsBody(pollDetail.poll);

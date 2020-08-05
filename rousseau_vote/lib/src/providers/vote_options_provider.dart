@@ -15,9 +15,11 @@ class VoteOptionsProvider extends ChangeNotifier {
     _poll ??= poll;
   }
 
-
-
   void onOptionSelected(BuildContext context, Option option) {
+    if(_poll.scheduled) {
+      showSimpleSnackbar(context, textKey: 'vote-published', duration: 5);
+      return;
+    }
     if(_poll.maxSelectableOptionsNumber > 1) {
       onOptionSelectedMultiple(context, option);
     } else {

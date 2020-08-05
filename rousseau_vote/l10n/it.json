@@ -38,6 +38,8 @@
     "poll-published": "Anteprima",
     "poll-open": "Votazione in corso",
     "poll-closed": "Votazione terminata",
+    "poll-closed-already-voted": "Votazione terminata. Hai già votato!",
+    "poll-closed-did-not-vote": "Votazione terminata. Non hai votato!",
     "poll-closed-no-results": "Votazione terminata. Risultati non ancora disponibili.",
     "poll-result-available": "Risultati disponibili",
     "poll-no-result": "Risultati non ancora disponibili",
