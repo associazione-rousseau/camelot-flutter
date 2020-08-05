@@ -15,6 +15,14 @@ class VoteOptionsProvider extends ChangeNotifier {
     _poll ??= poll;
   }
 
+  PollType getPollType() {
+    return _poll.type;
+  }
+
+  bool isCandidatePoll() {
+    return getPollType() == PollType.CANDIDATE;
+  }
+
   void onOptionSelected(BuildContext context, Option option) {
     if(_poll.scheduled) {
       showSimpleSnackbar(context, textKey: 'vote-published', duration: 5);
@@ -57,6 +65,14 @@ class VoteOptionsProvider extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  int selectedOptionsCount() {
+    return _selectedOptions.length;
+  }
+
+  List<Option> getSelectedOptions() {
+    return _selectedOptions;
   }
 
   void _showRemainingSnackbar(BuildContext context) {

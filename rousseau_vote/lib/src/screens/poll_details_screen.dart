@@ -13,6 +13,7 @@ import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/providers/vote_options_provider.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/core/icon_text_screen.dart';
+import 'package:rousseau_vote/src/widgets/dialog/confirm_vote_dialog.dart';
 import 'package:rousseau_vote/src/widgets/errors/error_page_widget.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
@@ -138,7 +139,24 @@ class PollDetailsScreen extends StatelessWidget {
         : null;
   }
 
-  void _onSend(BuildContext context) {}
+  void _onSend(BuildContext context) {
+    final VoteOptionsProvider provider = Provider.of<VoteOptionsProvider>(context, listen: false);
+    showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) => ConfirmVoteDialog(
+            selectedOptions: provider.getSelectedOptions(),
+            remainingOptions: provider.remainingOptions(),
+            pollType: provider.getPollType(),
+            onConfirm: () {
+              _onVoteConfirm(context);
+            }));
+  }
+
+  void _onVoteConfirm(BuildContext context) {
+    Navigator.of(context).pop();
+    print("Confirmed");
+  }
 
   Widget _body(BuildContext context,
       {PollDetail pollDetail,

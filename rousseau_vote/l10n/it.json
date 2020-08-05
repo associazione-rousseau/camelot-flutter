@@ -65,8 +65,14 @@
     "vote-complete": "Il tuo voto è stato acquisito correttamente",
     "vote-select": "Seleziona",
 
+    "vote-confirm-title": "Confermi il voto?",
+    "vote-confirm-warning": "ATTENZIONE! Dopo non sarà possibile cambiare",
+    "vote-confirm-warning-missing-options": "Dopo non sarà possibile cambiare, nè aggiungere alcuna preferenza",
+
     "vote-preferences-s": "Hai ancora 1 preferenza",
     "vote-preferences-p": "Hai ancora %d preferenze",
+    "vote-preferences-missing-s": "Ti manca 1 preferenza",
+    "vote-preferences-missing-p": "Ti mancano %d preferenze",
     "vote-preferences-done": "Hai espresso le preferenze a disposizione. Invia il tuo voto!",
 
     "vote-preferences-v2-s": "Puoi esprimere 1 preferenza",

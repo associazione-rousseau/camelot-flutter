@@ -24,9 +24,9 @@ class PollDetailsBody extends StatelessWidget {
         itemCount: _poll.options.length,
         itemBuilder: (BuildContext context, int index) {
           final Option option = _poll.options[index];
-          final bool selected = Provider.of<VoteOptionsProvider>(context, listen: false)
-              .isOptionSelected(option);
-          if (_poll.type == PollType.CANDIDATE) {
+          final VoteOptionsProvider provider = Provider.of<VoteOptionsProvider>(context, listen: false);
+          final bool selected = provider.isOptionSelected(option);
+          if (provider.isCandidatePoll()) {
             return CandidateOptionCard(option, selected);
           } else {
             return TextOptionCard(option, selected);
