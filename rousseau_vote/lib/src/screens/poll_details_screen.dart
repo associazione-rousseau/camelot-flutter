@@ -174,7 +174,7 @@ class PollDetailsScreen extends StatelessWidget {
             _onVoteConfirmError(context);
           }
         })
-        .catchError(() => _onVoteConfirmError(context));
+        .catchError((dynamic object) => _onVoteConfirmError(context));
   }
 
   void _onVoteConfirmLoading(BuildContext context) {
