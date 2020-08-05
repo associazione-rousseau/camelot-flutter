@@ -52,7 +52,9 @@ class Poll {
 
   bool get mightVote => open && !alreadyVoted;
 
-  bool get canVote => open && !alreadyVoted && options != null && options.isNotEmpty && (alerts == null || alerts.isEmpty);
+  bool get canVote => open && !alreadyVoted && hasRequirements;
+
+  bool get hasRequirements => options != null && options.isNotEmpty && (alerts == null || alerts.isEmpty);
 
   bool get hasResults => resultsLink != null;
   bool get hasOptions => options != null && options.isNotEmpty;
