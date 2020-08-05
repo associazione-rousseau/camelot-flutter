@@ -18,7 +18,7 @@ class IconTextScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 75),
+      padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 75),
       child: Column(
         children: <Widget>[
           _icon(context),
