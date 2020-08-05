@@ -25,6 +25,7 @@ import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:rousseau_vote/src/network/handlers/verification_request_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/vote_network_handler.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:get_it/get_it.dart';
 
@@ -71,6 +72,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerSingleton<UserNetworkHandler>(
       UserNetworkHandler(g<GraphQLClient>()));
   g.registerSingleton<VerificationRequestHandler>(VerificationRequestHandler());
+  g.registerSingleton<VoteNetworkHandler>(VoteNetworkHandler());
   g.registerSingleton<Login>(Login(
     g<LoginNetworkHandler>(),
     g<TokenStore>(),

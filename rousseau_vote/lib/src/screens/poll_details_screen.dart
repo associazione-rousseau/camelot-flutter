@@ -5,12 +5,15 @@ import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
+import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_detail.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
+import 'package:rousseau_vote/src/network/handlers/vote_network_handler.dart';
 import 'package:rousseau_vote/src/providers/vote_options_provider.dart';
+import 'package:rousseau_vote/src/util/graphql_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/core/icon_text_screen.dart';
 import 'package:rousseau_vote/src/widgets/dialog/confirm_vote_dialog.dart';
@@ -20,6 +23,8 @@ import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/logged_screen.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
 import 'package:rousseau_vote/src/widgets/vote/poll_details_body.dart';
+
+
 
 class PollDetailsScreen extends StatelessWidget {
   const PollDetailsScreen(this.arguments);
@@ -140,22 +145,48 @@ class PollDetailsScreen extends StatelessWidget {
   }
 
   void _onSend(BuildContext context) {
-    final VoteOptionsProvider provider = Provider.of<VoteOptionsProvider>(context, listen: false);
+    final VoteOptionsProvider provider =
+        Provider.of<VoteOptionsProvider>(context, listen: false);
     showDialog<void>(
         context: context,
         barrierDismissible: false, // user must tap button!
-        builder: (BuildContext context) => ConfirmVoteDialog(
+        builder: (BuildContext dialogContext) => ConfirmVoteDialog(
             selectedOptions: provider.getSelectedOptions(),
             remainingOptions: provider.remainingOptions(),
             pollType: provider.getPollType(),
             onConfirm: () {
+              Navigator.of(context).pop();
               _onVoteConfirm(context);
             }));
   }
 
   void _onVoteConfirm(BuildContext context) {
-    Navigator.of(context).pop();
-    print("Confirmed");
+    final VoteNetworkHandler voteNetworkHandler = getIt<VoteNetworkHandler>();
+    final VoteOptionsProvider provider =
+        Provider.of<VoteOptionsProvider>(context, listen: false);
+    _onVoteConfirmLoading(context);
+    voteNetworkHandler
+        .submitVote(arguments.pollId, provider.getSelectedOptions())
+        .then((QueryResult result) {
+          if (result.success) {
+            _onVoteConfirmSuccess(context);
+          } else {
+            _onVoteConfirmError(context);
+          }
+        })
+        .catchError(() => _onVoteConfirmError(context));
+  }
+
+  void _onVoteConfirmLoading(BuildContext context) {
+    print("submitting");
+  }
+
+  void _onVoteConfirmSuccess(BuildContext context) {
+    print("success");
+  }
+
+  void _onVoteConfirmError(BuildContext context) {
+    print("error");
   }
 
   Widget _body(BuildContext context,

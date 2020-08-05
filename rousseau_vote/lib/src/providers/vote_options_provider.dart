@@ -75,6 +75,10 @@ class VoteOptionsProvider extends ChangeNotifier {
     return _selectedOptions;
   }
 
+  Poll getPoll() {
+    return _poll;
+  }
+
   void _showRemainingSnackbar(BuildContext context) {
     final String text = RousseauLocalizations.getTextPluralized(context,
         'vote-preferences-s', 'vote-preferences-p', remainingOptions());
