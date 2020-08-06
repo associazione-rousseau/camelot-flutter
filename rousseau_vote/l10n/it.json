@@ -142,7 +142,8 @@
 
     "view_profile": "Vedi Profilo",
     "profile": "Profilo",
-    "vote-search-candidate": "Ricerca candidato",
+    "vote-search-candidate": "Cerca candidato",
+    "vote-search-candidate-hint": "Inserisci il nome",
     "merits": "Meriti",
     "profile-presentation": "Presentazione",
     "profile-curriculum-vitae": "Curriculum Vitae",

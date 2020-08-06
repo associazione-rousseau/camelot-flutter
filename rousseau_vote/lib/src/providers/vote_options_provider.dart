@@ -10,6 +10,7 @@ class VoteOptionsProvider extends ChangeNotifier {
   final List<Option> _selectedOptions = <Option>[];
 
   Poll _poll;
+  String _searchValue = '';
 
   void onPollFetched(Poll poll) {
     _poll ??= poll;
@@ -24,18 +25,24 @@ class VoteOptionsProvider extends ChangeNotifier {
   }
 
   void onOptionSelected(BuildContext context, Option option) {
-    if(_poll.scheduled) {
+    if (_poll.scheduled) {
       showSimpleSnackbar(context, textKey: 'vote-published', duration: 5);
       return;
     }
-    if(_poll.maxSelectableOptionsNumber > 1) {
+    if (_poll.maxSelectableOptionsNumber > 1) {
       onOptionSelectedMultiple(context, option);
     } else {
       onOptionSelectedSingle(context, option);
     }
   }
+
+  void onSearchChanged(String value) {
+    _searchValue = value.toLowerCase();
+    notifyListeners();
+  }
+
   void onOptionSelectedSingle(BuildContext context, Option option) {
-    if(isOptionSelected(option)) {
+    if (isOptionSelected(option)) {
       _selectedOptions.remove(option);
     } else {
       _selectedOptions.clear();
@@ -45,7 +52,7 @@ class VoteOptionsProvider extends ChangeNotifier {
   }
 
   void onOptionSelectedMultiple(BuildContext context, Option option) {
-    if(isOptionSelected(option)) {
+    if (isOptionSelected(option)) {
       _selectedOptions.remove(option);
       _showRemainingSnackbar(context);
       notifyListeners();
@@ -95,6 +102,12 @@ class VoteOptionsProvider extends ChangeNotifier {
 
   bool isOptionSelected(Option option) {
     return _poll != null && _selectedOptions.contains(option);
+  }
+
+  bool isOptionVisible(Option option) {
+    return _poll != null &&
+        isCandidatePoll() &&
+        option.entity.fullName.toLowerCase().contains(_searchValue);
   }
 
   bool hasSelectedOptions() {

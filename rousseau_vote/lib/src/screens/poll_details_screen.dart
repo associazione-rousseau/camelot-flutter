@@ -17,6 +17,7 @@ import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/util/graphql_util.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
+import 'package:rousseau_vote/src/widgets/core/conditional_widget.dart';
 import 'package:rousseau_vote/src/widgets/core/icon_text_screen.dart';
 import 'package:rousseau_vote/src/widgets/dialog/confirm_vote_dialog.dart';
 import 'package:rousseau_vote/src/widgets/dialog/dismissable_dialog.dart';
@@ -97,12 +98,12 @@ class PollDetailsScreen extends StatelessWidget {
           Text(
             poll.title,
             maxLines: 3,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
             textAlign: TextAlign.center,
           ),
-          Padding(
-              padding: const EdgeInsets.only(
+          const Padding(
+              padding: EdgeInsets.only(
                   left: 70, right: 70, top: 10, bottom: 10),
               child: Divider(
                 thickness: 2,
@@ -111,7 +112,7 @@ class PollDetailsScreen extends StatelessWidget {
           Text(
             poll.description,
             maxLines: 10,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
             textAlign: TextAlign.center,
           ),
@@ -140,7 +141,7 @@ class PollDetailsScreen extends StatelessWidget {
                 child: FloatingActionButton.extended(
               label:
                   Text(RousseauLocalizations.getText(context, 'vote-button')),
-              icon: Icon(Icons.send),
+              icon: const Icon(Icons.send),
               onPressed: () => _onSend(context),
             )))
         : null;
@@ -178,7 +179,11 @@ class PollDetailsScreen extends StatelessWidget {
   }
 
   void _onVoteConfirmLoading(BuildContext context) {
-    _showDialog(context, const LoadingDialog(titleKey: 'vote-confirm-sending',));
+    _showDialog(
+        context,
+        const LoadingDialog(
+          titleKey: 'vote-confirm-sending',
+        ));
   }
 
   void _onVoteConfirmSuccess(BuildContext context) {
@@ -188,15 +193,23 @@ class PollDetailsScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         const VerticalSpace(30),
-        const Icon(Icons.done_all, color: Colors.green,),
-        Text(RousseauLocalizations.getText(context, 'vote-already-done'), textAlign: TextAlign.center,)
-      ],);
+        const Icon(
+          Icons.done_all,
+          color: Colors.green,
+        ),
+        Text(
+          RousseauLocalizations.getText(context, 'vote-already-done'),
+          textAlign: TextAlign.center,
+        )
+      ],
+    );
     final List<FlatButton> buttons = <FlatButton>[
       FlatButton(
         child: Text(
           RousseauLocalizations.getText(context, 'back-home'),
         ),
-        onPressed: openRouteAction(context, PollsScreen.ROUTE_NAME, replace: true),
+        onPressed:
+            openRouteAction(context, PollsScreen.ROUTE_NAME, replace: true),
       )
     ];
     final Widget dialog = AlertDialog(
@@ -215,9 +228,13 @@ class PollDetailsScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         const VerticalSpace(30),
-      const Icon(Icons.cloud_off),
-      Text(RousseauLocalizations.getText(context, 'error-network'), textAlign: TextAlign.center,)
-    ],);
+        const Icon(Icons.cloud_off),
+        Text(
+          RousseauLocalizations.getText(context, 'error-network'),
+          textAlign: TextAlign.center,
+        )
+      ],
+    );
     _showDialog(context, DismissableDialog(body: body));
   }
 
@@ -267,6 +284,42 @@ class PollDetailsScreen extends StatelessWidget {
       );
     }
 
-    return PollDetailsBody(pollDetail.poll);
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: <Widget>[
+          ConditionalWidget(
+            child: _searchBar(context),
+            condition: poll.isCandidatePoll,
+          ),
+          ConditionalWidget(
+            child: _meritsFilter(context),
+            condition: poll.isCandidatePoll,
+          ),
+          PollDetailsBody(poll),
+        ],
+      ),
+    );
+  }
+
+  Widget _searchBar(BuildContext context) {
+    final VoteOptionsProvider provider = Provider.of(context);
+    return TextField(
+      onChanged: (String value) {
+        provider.onSearchChanged(value);
+      },
+      decoration: InputDecoration(
+          labelText:
+              RousseauLocalizations.getText(context, 'vote-search-candidate'),
+          hintText: RousseauLocalizations.getText(
+              context, 'vote-search-candidate-hint'),
+          prefixIcon: const Icon(Icons.search),
+          border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+    );
+  }
+
+  Widget _meritsFilter(BuildContext context) {
+    return Container();
   }
 }
