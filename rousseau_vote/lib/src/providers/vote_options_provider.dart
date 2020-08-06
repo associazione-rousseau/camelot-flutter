@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
+import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 
 class VoteOptionsProvider extends ChangeNotifier {
@@ -11,10 +12,18 @@ class VoteOptionsProvider extends ChangeNotifier {
 
   Poll _poll;
   String _searchValue = '';
+  final List<bool> selectedBadges = List<bool>.filled(BADGES_NUMBER, false, growable: false);
 
   void onPollFetched(Poll poll) {
     _poll ??= poll;
   }
+
+  void onBadgeTapped(int badgeNumber) {
+    selectedBadges[badgeNumber] = !selectedBadges[badgeNumber];
+    notifyListeners();
+  }
+
+  bool isBadgeSelected(int i) => selectedBadges[i];
 
   PollType getPollType() {
     return _poll.type;
@@ -105,9 +114,18 @@ class VoteOptionsProvider extends ChangeNotifier {
   }
 
   bool isOptionVisible(Option option) {
-    return _poll != null &&
-        isCandidatePoll() &&
-        option.entity.fullName.toLowerCase().contains(_searchValue);
+    if (_poll == null ||
+        !isCandidatePoll() ||
+        !option.entity.fullName.toLowerCase().contains(_searchValue)) {
+      return false;
+    }
+    // badges check
+    for(int i = 0; i < selectedBadges.length; i++) {
+      if(selectedBadges[i] && !option.entity.hasBadge(i)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   bool hasSelectedOptions() {

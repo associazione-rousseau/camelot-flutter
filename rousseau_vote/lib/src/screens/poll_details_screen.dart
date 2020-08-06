@@ -15,6 +15,7 @@ import 'package:rousseau_vote/src/network/handlers/vote_network_handler.dart';
 import 'package:rousseau_vote/src/providers/vote_options_provider.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/util/graphql_util.dart';
+import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/core/conditional_widget.dart';
@@ -26,6 +27,7 @@ import 'package:rousseau_vote/src/widgets/errors/error_page_widget.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/logged_screen.dart';
+import 'package:rousseau_vote/src/widgets/profile/badge_image.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
 import 'package:rousseau_vote/src/widgets/vote/poll_details_body.dart';
 
@@ -103,8 +105,8 @@ class PollDetailsScreen extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const Padding(
-              padding: EdgeInsets.only(
-                  left: 70, right: 70, top: 10, bottom: 10),
+              padding:
+                  EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
               child: Divider(
                 thickness: 2,
                 color: Colors.white,
@@ -291,12 +293,9 @@ class PollDetailsScreen extends StatelessWidget {
           ConditionalWidget(
             condition: poll.isCandidatePoll,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 30.0, left: 5, right: 5),
+              padding: const EdgeInsets.only(bottom: 45, left: 5, right: 5),
               child: Column(
-                children: <Widget>[
-                  _searchBar(context),
-                  _meritsFilter(context)
-                ],
+                children: <Widget>[_searchBar(context), const VerticalSpace(30), _meritsFilter(context)],
               ),
             ),
           ),
@@ -324,6 +323,24 @@ class PollDetailsScreen extends StatelessWidget {
   }
 
   Widget _meritsFilter(BuildContext context) {
-    return Container();
+    final VoteOptionsProvider provider = Provider.of(context);
+    final List<Widget> badges = <Widget>[];
+    for (int i = 0; i < BADGES_NUMBER; i++) {
+      final bool active = provider.isBadgeSelected(i);
+      badges.add(Padding(
+        padding: const EdgeInsets.only(left: 2, right: 2),
+        child: BadgeImage(
+          badgeNumber: i,
+          size: 35,
+          active: active,
+          onTap: () => provider.onBadgeTapped(i),
+        ),
+      ));
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: badges,
+    );
   }
 }
