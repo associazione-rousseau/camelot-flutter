@@ -40,7 +40,7 @@ abstract class LoginRestClient {
 
   @POST('/login-actions/authenticate')
   @FormUrlEncoded()
-  Future<String> twoFactorExtraAction(
+  Future<CredentialsLoginResponse> twoFactorExtraAction(
       @Query('session_code') String sessionCode,
       @Query('execution') String execution,
       @Query('tab_id') String tabId,

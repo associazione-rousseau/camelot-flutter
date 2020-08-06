@@ -130,7 +130,7 @@ class _LoginRestClient implements LoginRestClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(body ?? <String, dynamic>{});
-    final Response<String> _result = await _dio.request(
+    final Response<Map<String, dynamic>> _result = await _dio.request(
         '/login-actions/authenticate',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -140,7 +140,7 @@ class _LoginRestClient implements LoginRestClient {
             contentType: 'application/x-www-form-urlencoded',
             baseUrl: baseUrl),
         data: _data);
-    final value = _result.data;
+    final value = CredentialsLoginResponse.fromJson(_result.data);
     return value;
   }
 

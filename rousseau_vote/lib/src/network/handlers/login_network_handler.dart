@@ -60,8 +60,19 @@ class LoginNetworkHandler {
     if (_loginSession == null) {
       throw NoSessionException();
     }
-    final String response = await _loginRestClient.twoFactorExtraAction(
-      _loginSession.sessionCode, _loginSession.execution, _loginSession.tabId, {'action': 'resend'});
+    final CredentialsLoginResponse response = await _loginRestClient.twoFactorExtraAction(
+        _loginSession.sessionCode, _loginSession.execution, _loginSession.tabId, <String, String>{'action': 'resend'});
+    _loginSession = LoginSession.fromLoginResponse(response);
+    return response != null;
+  }
+
+  Future<bool> voiceCall() async{
+    if (_loginSession == null) {
+      throw NoSessionException();
+    }
+    final CredentialsLoginResponse response = await _loginRestClient.twoFactorExtraAction(
+        _loginSession.sessionCode, _loginSession.execution, _loginSession.tabId, {'action': 'voice_call'});
+    _loginSession = LoginSession.fromLoginResponse(response);
     return response != null;
   }
 

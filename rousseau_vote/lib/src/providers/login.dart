@@ -115,7 +115,13 @@ class Login with ChangeNotifier {
 
   Future<bool> voiceCall() async {
     _moveToState(loginState: LoginState.CODE_VOICE_CALL_LOADING);
-    return true;
+    try {
+      return await _loginNetworkHandler.voiceCall();
+    } catch (_) {
+      return false;
+    } finally {
+      _moveToState(loginState: LoginState.CREDENTIALS_AUTHENTICATED);
+    }
   }
 
   void cancelCode() {
