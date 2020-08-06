@@ -7,6 +7,7 @@ import 'package:rousseau_vote/src/network/exceptions/session_expired_exception.d
 import 'package:rousseau_vote/src/network/graphql/parser/query_response_parser.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/query_response_parsers.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
 
 // callback function called to render a widget in case of query error
 typedef GraphqlErrorWidgetBuilder = Widget Function(List<GraphQLError> errors);
@@ -73,18 +74,29 @@ class _GraphqlQueryWidgetState<T> extends State<GraphqlQueryWidget<T>> {
   }
 
   Future<void> _onPullToRefresh() async {
-    setState(() {
-      _fetch(fetchPolicy: FetchPolicy.networkOnly);
-    });
+    try {
+      final QueryResult result = await _doFetch(fetchPolicy: FetchPolicy.networkOnly);
+      if (result.hasException) {
+        _onError(null);
+        return;
+      }
+      _onResults(result);
+    } catch (error) {
+      _onError(error);
+    }
   }
 
   void _fetch({FetchPolicy fetchPolicy}) {
+    final Future<QueryResult> future = _doFetch(fetchPolicy: fetchPolicy);
+    future.then((QueryResult result) => _onResults(result))
+        .catchError((Object error) => _onError(error));
+  }
+
+  Future<QueryResult> _doFetch({FetchPolicy fetchPolicy}) {
     fetchPolicy ??= widget.fetchPolicy;
     final GraphQLClient client = getIt();
     final QueryOptions queryOptions = QueryOptions(documentNode: gql(widget.query), variables: widget.variables, fetchPolicy: fetchPolicy);
-    final Future<QueryResult> future = client.query(queryOptions);
-    future.then((QueryResult result) => _onResults(result))
-        .catchError((Object error) => _onError(error));
+    return client.query(queryOptions);
   }
   
   void _onResults(QueryResult result) {
@@ -110,8 +122,7 @@ class _GraphqlQueryWidgetState<T> extends State<GraphqlQueryWidget<T>> {
   }
   
   void _onError(Object error) {
-    // TODO Diversify the error
-    _onSessionExpired();
+    showSimpleSnackbar(context, textKey: 'error-network');
   }
 
   void _onSessionExpired() {
