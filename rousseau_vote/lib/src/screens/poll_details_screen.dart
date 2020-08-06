@@ -308,6 +308,7 @@ class PollDetailsScreen extends StatelessWidget {
   Widget _searchBar(BuildContext context) {
     final VoteOptionsProvider provider = Provider.of(context);
     return TextField(
+      keyboardType: TextInputType.text,
       onChanged: (String value) {
         provider.onSearchChanged(value);
       },
