@@ -20,7 +20,7 @@ class VoteOptionsProvider extends ChangeNotifier {
   }
 
   bool isCandidatePoll() {
-    return getPollType() == PollType.CANDIDATE;
+    return _poll.isCandidatePoll;
   }
 
   void onOptionSelected(BuildContext context, Option option) {

@@ -50,6 +50,8 @@ class Poll {
     return PollStatus.CLOSED;
   }
 
+  bool get isCandidatePoll => type == PollType.CANDIDATE;
+
   bool get mightVote => open && !alreadyVoted;
 
   bool get canVote => open && !alreadyVoted && hasRequirements;
