@@ -31,10 +31,7 @@ Poll _$PollFromJson(Map<String, dynamic> json) {
         ?.map(
             (e) => e == null ? null : Alert.fromJson(e as Map<String, dynamic>))
         ?.toList()
-    ..options = (json['options'] as List)
-        ?.map((e) =>
-            e == null ? null : Option.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..options = Poll.sortOptions(json['options'] as List);
 }
 
 Map<String, dynamic> _$PollToJson(Poll instance) => <String, dynamic>{

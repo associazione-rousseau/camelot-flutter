@@ -18,6 +18,8 @@ class Option {
   @JsonKey(name: '__typename')
   String type;
 
+  bool get isEntityUserType => type == 'EntityOption' && entity.type == 'User';
+
   @override
   bool operator ==(dynamic other) => other is Option && id != null && id == other.id;
 

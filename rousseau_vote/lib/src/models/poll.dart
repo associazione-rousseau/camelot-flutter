@@ -8,13 +8,13 @@ part 'poll.g.dart';
 
 @JsonSerializable()
 class Poll {
-
   Poll();
 
   factory Poll.fromJson(Map<String, dynamic> json) => _$PollFromJson(json);
   Map<String, dynamic> toJson() => _$PollToJson(this);
 
-  static const Map<PollStatus, Color> STATUS_COLOR_MAPPING = <PollStatus, Color>{
+  static const Map<PollStatus, Color> STATUS_COLOR_MAPPING =
+      <PollStatus, Color>{
     PollStatus.PUBLISHED: PUBLISHED_ORANGE,
     PollStatus.OPEN: OPEN_GREEN,
     PollStatus.CLOSED: CLOSED_RED
@@ -34,11 +34,29 @@ class Poll {
   DateTime voteEndingDate;
   int maxSelectableOptionsNumber;
   List<Alert> alerts;
+  @JsonKey(fromJson: sortOptions)
   List<Option> options;
 
   bool get open => status == 'OPEN';
   bool get closed => status == 'CLOSED';
   bool get scheduled => status == 'PUBLISHED';
+
+  static List<Option> sortOptions(List optionsJson) {
+    final List<Option> options = optionsJson
+        ?.map((e) =>
+            e == null ? null : Option.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+    if (options != null &&
+        options.isNotEmpty &&
+        options[0].isEntityUserType) {
+      options.sort((Option a, Option b) {
+        final int lengthA = a.entity.badges != null ? a.entity.badges.length : 0;
+        final int lengthB = b.entity.badges != null ? b.entity.badges.length : 0;
+        return lengthB - lengthA;
+      });
+    }
+    return options;
+  }
 
   PollStatus get pollStatus {
     if (scheduled) {
@@ -56,7 +74,10 @@ class Poll {
 
   bool get canVote => open && !alreadyVoted && hasRequirements;
 
-  bool get hasRequirements => options != null && options.isNotEmpty && (alerts == null || alerts.isEmpty);
+  bool get hasRequirements =>
+      options != null &&
+      options.isNotEmpty &&
+      (alerts == null || alerts.isEmpty);
 
   bool get hasResults => resultsLink != null;
   bool get hasOptions => options != null && options.isNotEmpty;
@@ -66,11 +87,13 @@ class Poll {
     if (!hasOptions) {
       return PollType.UNKNOWN;
     }
-    switch(options[0].type) {
+    switch (options[0].type) {
       case 'TextOption':
         return PollType.TEXT;
       case 'EntityOption':
-        return options[0].entity.type == 'User' ?  PollType.CANDIDATE : PollType.UNKNOWN;
+        return options[0].entity.type == 'User'
+            ? PollType.CANDIDATE
+            : PollType.UNKNOWN;
       default:
         return PollType.UNKNOWN;
     }
@@ -81,7 +104,10 @@ class Poll {
   Color get color => STATUS_COLOR_MAPPING[pollStatus];
 }
 
-const List<PollType> SUPPORTED_TYPES = <PollType>[PollType.TEXT, PollType.CANDIDATE];
+const List<PollType> SUPPORTED_TYPES = <PollType>[
+  PollType.TEXT,
+  PollType.CANDIDATE
+];
 
 enum PollType { TEXT, CANDIDATE, UNKNOWN }
 
