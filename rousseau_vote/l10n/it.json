@@ -68,6 +68,7 @@
     "vote-confirm-title": "Confermi il voto?",
     "vote-confirm-warning": "ATTENZIONE! Dopo non sarà possibile cambiare",
     "vote-confirm-warning-missing-options": "Dopo non sarà possibile cambiare, nè aggiungere alcuna preferenza",
+    "vote-confirm-sending": "Invio...",
 
     "vote-preferences-s": "Hai ancora 1 preferenza",
     "vote-preferences-p": "Hai ancora %d preferenze",

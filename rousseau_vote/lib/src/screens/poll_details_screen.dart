@@ -13,10 +13,14 @@ import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/network/handlers/vote_network_handler.dart';
 import 'package:rousseau_vote/src/providers/vote_options_provider.dart';
+import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/util/graphql_util.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/core/icon_text_screen.dart';
 import 'package:rousseau_vote/src/widgets/dialog/confirm_vote_dialog.dart';
+import 'package:rousseau_vote/src/widgets/dialog/dismissable_dialog.dart';
+import 'package:rousseau_vote/src/widgets/dialog/loading_dialog.dart';
 import 'package:rousseau_vote/src/widgets/errors/error_page_widget.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
@@ -174,21 +178,53 @@ class PollDetailsScreen extends StatelessWidget {
   }
 
   void _onVoteConfirmLoading(BuildContext context) {
-    print("submitting");
+    _showDialog(context, const LoadingDialog(titleKey: 'vote-confirm-sending',));
   }
 
   void _onVoteConfirmSuccess(BuildContext context) {
-    print("success");
+    Navigator.of(context).pop();
+    final Widget body = Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        const VerticalSpace(30),
+        const Icon(Icons.done_all, color: Colors.green,),
+        Text(RousseauLocalizations.getText(context, 'vote-already-done'), textAlign: TextAlign.center,)
+      ],);
+    final List<FlatButton> buttons = <FlatButton>[
+      FlatButton(
+        child: Text(
+          RousseauLocalizations.getText(context, 'back-home'),
+        ),
+        onPressed: openRouteAction(context, PollsScreen.ROUTE_NAME, replace: true),
+      )
+    ];
+    final Widget dialog = AlertDialog(
+      content: SingleChildScrollView(
+        child: body,
+      ),
+      actions: buttons,
+    );
+    _showDialog(context, dialog);
   }
 
   void _onVoteConfirmError(BuildContext context) {
-    print("error");
+    Navigator.of(context).pop();
+    final Widget body = Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        const VerticalSpace(30),
+      const Icon(Icons.cloud_off),
+      Text(RousseauLocalizations.getText(context, 'error-network'), textAlign: TextAlign.center,)
+    ],);
+    _showDialog(context, DismissableDialog(body: body));
   }
 
   void _showDialog(BuildContext context, Widget dialog) {
     showDialog<void>(
         context: context,
-        barrierDismissible: false, // user must tap button!
+        barrierDismissible: false,
         builder: (BuildContext dialogContext) => dialog);
   }
 
@@ -216,7 +252,7 @@ class PollDetailsScreen extends StatelessWidget {
     }
 
     if (poll.alreadyVoted) {
-      return IconTextScreen(
+      return const IconTextScreen(
         iconData: Icons.event_available,
         messageKey: 'poll-voted',
         textColor: Colors.green,
@@ -225,7 +261,7 @@ class PollDetailsScreen extends StatelessWidget {
     }
 
     if (poll.open && !poll.hasRequirements) {
-      return IconTextScreen(
+      return const IconTextScreen(
         iconData: Icons.error_outline,
         messageKey: 'poll-alert',
       );

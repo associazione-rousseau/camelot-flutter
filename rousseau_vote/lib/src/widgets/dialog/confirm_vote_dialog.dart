@@ -10,7 +10,7 @@ class ConfirmVoteDialog extends StatelessWidget {
   const ConfirmVoteDialog(
       {@required this.selectedOptions,
       @required this.onConfirm,
-        @required this.pollType,
+      @required this.pollType,
       @required this.remainingOptions});
 
   final List<Option> selectedOptions;
@@ -34,7 +34,7 @@ class ConfirmVoteDialog extends StatelessWidget {
       FlatButton(
         child: Text(
           confirmText,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         onPressed: onConfirm,
       )
@@ -43,7 +43,7 @@ class ConfirmVoteDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(
         title,
-        style: TextStyle(color: PRIMARY_RED),
+        style: const TextStyle(color: PRIMARY_RED),
       ),
       content: SingleChildScrollView(
         child: Column(
@@ -73,12 +73,22 @@ class ConfirmVoteDialog extends StatelessWidget {
   Widget _selectedPreferences(BuildContext context) {
     final List<Widget> children = <Widget>[];
     for (Option option in selectedOptions) {
-      final String text = pollType == PollType.CANDIDATE ? option.entity.fullName : option.text;
+      final String text =
+          pollType == PollType.CANDIDATE ? option.entity.fullName : option.text;
       children.add(Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Icon(Icons.check, color: Colors.grey,),
-          Text(text),
+          const Icon(
+            Icons.check,
+            color: Colors.grey,
+          ),
+          Container(
+              constraints: const BoxConstraints(maxWidth: 200),
+              child: Text(
+                text,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              )),
         ],
       ));
     }
@@ -90,7 +100,11 @@ class ConfirmVoteDialog extends StatelessWidget {
   Widget _warning(BuildContext context) {
     final String warning =
         RousseauLocalizations.getText(context, 'vote-confirm-warning');
-    return Text(warning, style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),textAlign: TextAlign.center,);
+    return Text(
+      warning,
+      style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),
+      textAlign: TextAlign.center,
+    );
   }
 
   Widget _preferencesWarning(BuildContext context) {
@@ -98,7 +112,10 @@ class ConfirmVoteDialog extends StatelessWidget {
       return Container();
     }
     final String message = RousseauLocalizations.getTextPluralized(
-        context, 'vote-preferences-missing-s', 'vote-preferences-missing-p', remainingOptions);
+        context,
+        'vote-preferences-missing-s',
+        'vote-preferences-missing-p',
+        remainingOptions);
     final Color color = Colors.orange;
     return Padding(
       padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
