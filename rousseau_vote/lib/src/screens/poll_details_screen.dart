@@ -289,12 +289,16 @@ class PollDetailsScreen extends StatelessWidget {
       child: Column(
         children: <Widget>[
           ConditionalWidget(
-            child: _searchBar(context),
             condition: poll.isCandidatePoll,
-          ),
-          ConditionalWidget(
-            child: _meritsFilter(context),
-            condition: poll.isCandidatePoll,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 30.0, left: 5, right: 5),
+              child: Column(
+                children: <Widget>[
+                  _searchBar(context),
+                  _meritsFilter(context)
+                ],
+              ),
+            ),
           ),
           PollDetailsBody(poll),
         ],
