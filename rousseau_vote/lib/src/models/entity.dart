@@ -22,6 +22,15 @@ class Entity {
 
   String get residence => overseaseCity ?? profile.placeOfResidence.comuneName;
 
+  bool hasBadge(int badgeNumber) {
+    for (Badge badge in badges) {
+      if(badge.merit == badgeNumber) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   String getProfilePictureUrl() {
     if(profile == null || profile.picture == null) {
       return null;
