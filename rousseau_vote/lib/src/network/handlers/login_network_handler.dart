@@ -56,6 +56,15 @@ class LoginNetworkHandler {
     return await _getToken(accessCode);
   }
 
+  Future<bool> sendNewCode() async{
+    if (_loginSession == null) {
+      throw NoSessionException();
+    }
+    final String response = await _loginRestClient.twoFactorExtraAction(
+      _loginSession.sessionCode, _loginSession.execution, _loginSession.tabId, {'action': 'resend'});
+    return response != null;
+  }
+
   Future<TokenResponse> refreshToken(String refreshToken) async {
     try {
       return await _refreshToken(refreshToken);

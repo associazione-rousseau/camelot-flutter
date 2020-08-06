@@ -104,7 +104,13 @@ class Login with ChangeNotifier {
 
   Future<bool> resendCode() async {
     _moveToState(loginState: LoginState.CODE_RESEND_LOADING);
-    return true;
+    try {
+      return await _loginNetworkHandler.sendNewCode();
+    } catch (_) {
+      return false;
+    } finally {
+      _moveToState(loginState: LoginState.CREDENTIALS_AUTHENTICATED);
+    }
   }
 
   Future<bool> voiceCall() async {

@@ -114,6 +114,37 @@ class _LoginRestClient implements LoginRestClient {
   }
 
   @override
+  twoFactorExtraAction(sessionCode, execution, tabId, body,
+      {clientId = KEYCLOAK_CLIENT_ID}) async {
+    ArgumentError.checkNotNull(sessionCode, 'sessionCode');
+    ArgumentError.checkNotNull(execution, 'execution');
+    ArgumentError.checkNotNull(tabId, 'tabId');
+    ArgumentError.checkNotNull(body, 'body');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'session_code': sessionCode,
+      r'execution': execution,
+      r'tab_id': tabId,
+      r'client_id': clientId
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(body ?? <String, dynamic>{});
+    final Response<String> _result = await _dio.request(
+        '/login-actions/authenticate',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            contentType: 'application/x-www-form-urlencoded',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
+
+  @override
   getToken(body) async {
     ArgumentError.checkNotNull(body, 'body');
     const _extra = <String, dynamic>{};
