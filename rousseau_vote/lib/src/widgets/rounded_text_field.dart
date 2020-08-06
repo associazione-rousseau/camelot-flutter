@@ -4,6 +4,7 @@ import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 class RoundedTextField extends StatelessWidget {
   const RoundedTextField(
       {this.hintText,
+      this.autofillHints,
       this.obscureText = false,
       this.enabled = true,
       this.controller,
@@ -14,6 +15,7 @@ class RoundedTextField extends StatelessWidget {
   final bool enabled;
   final String labelText;
   final TextEditingController controller;
+  final List<String> autofillHints;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class RoundedTextField extends StatelessWidget {
         obscureText: obscureText,
         enabled: enabled,
         controller: controller,
+        autofillHints: autofillHints,
         style: const TextStyle(fontFamily: 'Roboto', fontSize: 20.0),
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
