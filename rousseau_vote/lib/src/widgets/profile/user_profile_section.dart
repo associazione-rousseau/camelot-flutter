@@ -24,7 +24,7 @@ class UserInfoSection extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       child: Text(
                         title,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
@@ -32,11 +32,14 @@ class UserInfoSection extends StatelessWidget {
                         textAlign: TextAlign.left,
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.black38,
                     ),
-                    Html(data: _text),
+                    Html(data: _getText(context)),
                   ]))),
         ]));
   }
+
+  String _getText(BuildContext context) =>
+      _text ?? RousseauLocalizations.getText(context, 'profile-section-not-available');
 }

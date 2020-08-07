@@ -29,32 +29,36 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
         children: <Widget>[
           RousseauLogoHeader(),
           Consumer<Login>(
-              builder: (BuildContext context, Login login, _) => Column(
-                    children: <Widget>[
-                      RoundedTextField(
-                          hintText:
-                              RousseauLocalizations.getText(context, 'email'),
-                          enabled: !login.isLoading(),
-                          controller: _emailTextController),
-                      const SizedBox(height: 15.0),
-                      RoundedTextField(
-                          hintText: RousseauLocalizations.getText(
-                              context, 'password'),
-                          obscureText: true,
-                          enabled: !login.isLoading(),
-                          controller: _passwordTextController),
-                      const SizedBox(height: 15.0),
-                      RoundedButton(
-                        text: RousseauLocalizations.getText(
-                            context, 'login-button'),
-                        loading: login.isLoading(),
-                        onPressed: () {
-                          login.credentialsLogin(_emailTextController.text,
-                              _passwordTextController.text);
-                        },
-                      ),
-                    ],
-                  )),
+              builder: (BuildContext context, Login login, _) => AutofillGroup(
+                child: Column(
+                      children: <Widget>[
+                        RoundedTextField(
+                            hintText:
+                                RousseauLocalizations.getText(context, 'email'),
+                            autofillHints: const <String>[AutofillHints.username, AutofillHints.email],
+                            enabled: !login.isLoading(),
+                            controller: _emailTextController),
+                        const SizedBox(height: 15.0),
+                        RoundedTextField(
+                            hintText: RousseauLocalizations.getText(
+                                context, 'password'),
+                            autofillHints: const <String>[AutofillHints.password],
+                            obscureText: true,
+                            enabled: !login.isLoading(),
+                            controller: _passwordTextController),
+                        const SizedBox(height: 15.0),
+                        RoundedButton(
+                          text: RousseauLocalizations.getText(
+                              context, 'login-button'),
+                          loading: login.isLoading(),
+                          onPressed: () {
+                            login.credentialsLogin(_emailTextController.text,
+                                _passwordTextController.text);
+                          },
+                        ),
+                      ],
+                    ),
+              )),
           const SizedBox(height: 25.0),
           Text(
             RousseauLocalizations.getText(context, 'password-forgot'),

@@ -28,7 +28,7 @@ class CandidateOptionCard extends StatelessWidget {
         context, user.profile.age, user.residence);
     return Card(
       shape: RoundedRectangleBorder(
-          side: _selected ? BorderSide(color: PRIMARY_RED, width: 2.0) : BorderSide.none,
+          side: _selected ? const BorderSide(color: PRIMARY_RED, width: 2.0) : BorderSide.none,
           borderRadius: BorderRadius.circular(DEFAULT_SPACING)),
       elevation: 5,
       child: InkWell(

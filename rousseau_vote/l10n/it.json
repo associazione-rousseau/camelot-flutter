@@ -38,6 +38,8 @@
     "poll-published": "Anteprima",
     "poll-open": "Votazione in corso",
     "poll-closed": "Votazione terminata",
+    "poll-closed-already-voted": "Votazione terminata. Hai già votato!",
+    "poll-closed-did-not-vote": "Votazione terminata. Non hai votato!",
     "poll-closed-no-results": "Votazione terminata. Risultati non ancora disponibili.",
     "poll-result-available": "Risultati disponibili",
     "poll-no-result": "Risultati non ancora disponibili",
@@ -63,8 +65,15 @@
     "vote-complete": "Il tuo voto è stato acquisito correttamente",
     "vote-select": "Seleziona",
 
+    "vote-confirm-title": "Confermi il voto?",
+    "vote-confirm-warning": "ATTENZIONE! Dopo non sarà possibile cambiare",
+    "vote-confirm-warning-missing-options": "Dopo non sarà possibile cambiare, nè aggiungere alcuna preferenza",
+    "vote-confirm-sending": "Invio...",
+
     "vote-preferences-s": "Hai ancora 1 preferenza",
     "vote-preferences-p": "Hai ancora %d preferenze",
+    "vote-preferences-missing-s": "Ti manca 1 preferenza",
+    "vote-preferences-missing-p": "Ti mancano %d preferenze",
     "vote-preferences-done": "Hai espresso le preferenze a disposizione. Invia il tuo voto!",
 
     "vote-preferences-v2-s": "Puoi esprimere 1 preferenza",
@@ -133,7 +142,8 @@
 
     "view_profile": "Vedi Profilo",
     "profile": "Profilo",
-    "vote-search-candidate": "Ricerca candidato",
+    "vote-search-candidate": "Cerca candidato",
+    "vote-search-candidate-hint": "Inserisci il nome",
     "merits": "Meriti",
     "profile-presentation": "Presentazione",
     "profile-curriculum-vitae": "Curriculum Vitae",
@@ -164,6 +174,8 @@
     "user-cannot-vote": "Non puoi votare",
     "user-cannot-vote-yet": "Non puoi ancora votare",
     "user-will-vote": "Potrai votare da %s",
+
+    "profile-section-not-available": "Non disponibile",
 
     "message-link-copied": "Link copiato",
     "message-profile-not-compiled": "Non hai ancora completato il profilo. Puoi completarlo visitando il sito internet.",

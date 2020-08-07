@@ -56,6 +56,26 @@ class LoginNetworkHandler {
     return await _getToken(accessCode);
   }
 
+  Future<bool> sendNewCode() async{
+    if (_loginSession == null) {
+      throw NoSessionException();
+    }
+    final CredentialsLoginResponse response = await _loginRestClient.twoFactorExtraAction(
+        _loginSession.sessionCode, _loginSession.execution, _loginSession.tabId, <String, String>{'action': 'resend'});
+    _loginSession = LoginSession.fromLoginResponse(response);
+    return response != null;
+  }
+
+  Future<bool> voiceCall() async{
+    if (_loginSession == null) {
+      throw NoSessionException();
+    }
+    final CredentialsLoginResponse response = await _loginRestClient.twoFactorExtraAction(
+        _loginSession.sessionCode, _loginSession.execution, _loginSession.tabId, {'action': 'voice_call'});
+    _loginSession = LoginSession.fromLoginResponse(response);
+    return response != null;
+  }
+
   Future<TokenResponse> refreshToken(String refreshToken) async {
     try {
       return await _refreshToken(refreshToken);

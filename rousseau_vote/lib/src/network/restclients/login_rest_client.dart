@@ -38,6 +38,15 @@ abstract class LoginRestClient {
       @Body() Map<String, String> body,
       {@Query('client_id') String clientId = KEYCLOAK_CLIENT_ID});
 
+  @POST('/login-actions/authenticate')
+  @FormUrlEncoded()
+  Future<CredentialsLoginResponse> twoFactorExtraAction(
+      @Query('session_code') String sessionCode,
+      @Query('execution') String execution,
+      @Query('tab_id') String tabId,
+      @Body() Map<String, String> body,
+      {@Query('client_id') String clientId = KEYCLOAK_CLIENT_ID});
+
   @POST('/protocol/openid-connect/token')
   @FormUrlEncoded()
   Future<TokenResponse> getToken(@Body() Map<String, String> body);
