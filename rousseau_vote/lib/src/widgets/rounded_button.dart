@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 
 class RoundedButton extends StatelessWidget {
@@ -14,7 +15,7 @@ class RoundedButton extends StatelessWidget {
     return Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: onPressed != null ? Theme.of(context).primaryColor : Colors.grey[500],
+      color: onPressed != null ? Theme.of(context).primaryColor : DISABLED_GREY,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),

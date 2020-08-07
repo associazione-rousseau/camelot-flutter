@@ -30,6 +30,7 @@ dependencies:
   url_launcher: ^5.5.0
 
   sentry: ">=3.0.0 <4.0.0"
+  crypto: any
 
   # Firebase (notifications and analytics)
   firebase_core: ^0.4.5
