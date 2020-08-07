@@ -35,7 +35,7 @@ class _ChangeResidenceButtonState extends State<ChangeResidenceButton> {
 
   @override
   Widget build(BuildContext context) {
-    imageUploadHandler = ImageUploadHandler();
+    imageUploadHandler = getIt<ImageUploadHandler>();
     return Padding(
       padding: const EdgeInsets.all(15),
       child: RoundedButton(
