@@ -1,4 +1,4 @@
-package it.movimento5stelle.rousseau.rousseau_vote
+package it.movimento5stelle.rousseau.vote
 
 import android.os.Bundle
 
