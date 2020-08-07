@@ -19,16 +19,28 @@ class Entity {
   List<Badge> badges;
   @JsonKey(name: '__typename')
   String type;
+  Set<int> _merits;
 
   String get residence => overseaseCity ?? profile.placeOfResidence.comuneName;
 
-  bool hasBadge(int badgeNumber) {
-    for (Badge badge in badges) {
-      if(badge.merit == badgeNumber) {
-        return true;
-      }
+  Set<int> get merits {
+    _merits ??= _calculateMerits();
+    return _merits;
+  }
+
+  int get meritCount => merits.length;
+
+  bool hasBadge(int badgeNumber) => merits.contains(badgeNumber);
+
+  Set<int> _calculateMerits() {
+    final Set<int> merits = <int>{};
+    if(badges == null) {
+      return merits;
     }
-    return false;
+    for (Badge badge in badges) {
+      merits.add(badge.merit);
+    }
+    return merits;
   }
 
   String getProfilePictureUrl() {

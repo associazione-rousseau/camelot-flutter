@@ -50,9 +50,7 @@ class Poll {
         options.isNotEmpty &&
         options[0].isEntityUserType) {
       options.sort((Option a, Option b) {
-        final int lengthA = a.entity.badges != null ? a.entity.badges.length : 0;
-        final int lengthB = b.entity.badges != null ? b.entity.badges.length : 0;
-        return lengthB - lengthA;
+        return b.entity.meritCount - a.entity.meritCount;
       });
     }
     return options;
