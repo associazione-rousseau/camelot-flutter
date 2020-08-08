@@ -17,14 +17,14 @@ const List<MainPage> MAIN_PAGES = <MainPage>[
       selectedIconData: MdiIcons.vote,
       page: PollsScreen()),
   MainPage(
+      titleKey: 'elected',
+      iconData: MdiIcons.accountGroupOutline,
+      selectedIconData: MdiIcons.accountGroup,
+      page: ElectedScreen()),
+  MainPage(
       titleKey: 'profile',
       iconData: MdiIcons.accountOutline,
       selectedIconData: MdiIcons.account,
       page: UserProfileScreen(UserProfileArguments('emanuel-mazzilli')),
       hasToolbar: false),
-  MainPage(
-      titleKey: 'elected',
-      iconData: MdiIcons.accountGroupOutline,
-      selectedIconData: MdiIcons.accountGroup,
-      page: ElectedScreen()),
 ];
