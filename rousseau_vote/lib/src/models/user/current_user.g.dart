@@ -9,10 +9,33 @@ part of 'current_user.dart';
 CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
   return CurrentUser()
     ..id = json['id'] as String
-    ..email = json['email'] as String
-    ..fullName = json['fullName'] as String
-    ..statusColor = json['statusColor'] as String
     ..slug = json['slug'] as String
+    ..accountType = json['accountType'] as String
+    ..gender = json['gender'] as String
+    ..fullName = json['fullName'] as String
+    ..lastName = json['lastName'] as String
+    ..firstName = json['firstName'] as String
+    ..badges = (json['badges'] as List)
+        ?.map(
+            (e) => e == null ? null : Badge.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..category = json['category'] == null
+        ? null
+        : Category.fromJson(json['category'] as Map<String, dynamic>)
+    ..tags = (json['tags'] as List)
+        ?.map((e) => e == null ? null : Tag.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..overseaseCity = json['overseaseCity'] as String
+    ..profile = json['profile'] == null
+        ? null
+        : Profile.fromJson(json['profile'] as Map<String, dynamic>)
+    ..userPositions = (json['userPositions'] as List)
+        ?.map((e) => e == null
+            ? null
+            : UserPositions.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..email = json['email'] as String
+    ..statusColor = json['statusColor'] as String
     ..verified = json['verified'] as bool
     ..createdAt = json['createdAt'] == null
         ? null
@@ -20,12 +43,6 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..voteRightStartingCountDate = json['voteRightStartingCountDate'] == null
         ? null
         : DateTime.parse(json['voteRightStartingCountDate'] as String)
-    ..profile = json['profile'] == null
-        ? null
-        : Profile.fromJson(json['profile'] as Map<String, dynamic>)
-    ..gender = json['gender'] as String
-    ..firstName = json['firstName'] as String
-    ..lastName = json['lastName'] as String
     ..codiceFiscale = json['codiceFiscale'] as String
     ..dateOfBirth = json['dateOfBirth'] as String
     ..placeOfBirth = json['placeOfBirth'] as String
@@ -56,11 +73,6 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
         ? null
         : ItalianGeographicalDivision.fromJson(
             json['municipio'] as Map<String, dynamic>)
-    ..overseaseCity = json['overseaseCity'] as String
-    ..badges = (json['badges'] as List)
-        ?.map(
-            (e) => e == null ? null : Badge.fromJson(e as Map<String, dynamic>))
-        ?.toList()
     ..lastResidenceChangeRequest = json['lastResidenceChangeRequest'] == null
         ? null
         : ResidenceChangeRequest.fromJson(
@@ -70,18 +82,24 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'email': instance.email,
-      'fullName': instance.fullName,
-      'statusColor': instance.statusColor,
       'slug': instance.slug,
+      'accountType': instance.accountType,
+      'gender': instance.gender,
+      'fullName': instance.fullName,
+      'lastName': instance.lastName,
+      'firstName': instance.firstName,
+      'badges': instance.badges,
+      'category': instance.category,
+      'tags': instance.tags,
+      'overseaseCity': instance.overseaseCity,
+      'profile': instance.profile,
+      'userPositions': instance.userPositions,
+      'email': instance.email,
+      'statusColor': instance.statusColor,
       'verified': instance.verified,
       'createdAt': instance.createdAt?.toIso8601String(),
       'voteRightStartingCountDate':
           instance.voteRightStartingCountDate?.toIso8601String(),
-      'profile': instance.profile,
-      'gender': instance.gender,
-      'firstName': instance.firstName,
-      'lastName': instance.lastName,
       'codiceFiscale': instance.codiceFiscale,
       'dateOfBirth': instance.dateOfBirth,
       'placeOfBirth': instance.placeOfBirth,
@@ -97,7 +115,5 @@ Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
       'provincia': instance.provincia,
       'comune': instance.comune,
       'municipio': instance.municipio,
-      'overseaseCity': instance.overseaseCity,
-      'badges': instance.badges,
       'lastResidenceChangeRequest': instance.lastResidenceChangeRequest,
     };
