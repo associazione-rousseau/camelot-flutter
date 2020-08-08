@@ -139,9 +139,12 @@
     "merit8": "L'attivista presenta nel suo Curriculum Vitae esperienze lavorative di eccellenza o un alto livello di specializzazione professionale",
     "merit9": "L'attivista è stato, o è tuttora, portavoce del MoVimento 5 Stelle",
 
+    "blog": "Blog",
+    "vote": "Vota",
+    "profile": "Profilo",
+    "elected": "Eletti",
 
     "view_profile": "Vedi Profilo",
-    "profile": "Profilo",
     "vote-search-candidate": "Cerca candidato",
     "vote-search-candidate-hint": "Inserisci il nome",
     "merits": "Meriti",

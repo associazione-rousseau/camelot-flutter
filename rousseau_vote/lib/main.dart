@@ -23,6 +23,7 @@ import 'package:rousseau_vote/src/screens/account/delete_account_action_screen.d
 import 'package:rousseau_vote/src/screens/account/login_info_screen.dart';
 import 'package:rousseau_vote/src/screens/account/residence_screen.dart';
 import 'package:rousseau_vote/src/screens/feedback_screen.dart';
+import 'package:rousseau_vote/src/screens/main/main_screen.dart';
 import 'package:rousseau_vote/src/screens/success_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
@@ -100,9 +101,11 @@ class RousseauVoteApp extends StatelessWidget {
                   ],
                   routes: <String, WidgetBuilder>{
                     '/': (BuildContext context) =>
-                        InitScreen(PollsScreen.ROUTE_NAME, getIt()),
+                        InitScreen(MainScreen.ROUTE_NAME, getIt()),
+                    MainScreen.ROUTE_NAME: (BuildContext context) =>
+                        const MainScreen(),
                     PollsScreen.ROUTE_NAME: (BuildContext context) =>
-                        PollsScreen(),
+                        const PollsScreen(),
                     LoginScreen.ROUTE_NAME: (BuildContext context) =>
                         LoginScreen(),
                     RegisterScreen.ROUTE_NAME: (BuildContext context) =>

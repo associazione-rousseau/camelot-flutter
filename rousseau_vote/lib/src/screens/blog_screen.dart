@@ -40,9 +40,6 @@ class _BlogScreenState extends State<BlogScreen> {
     final String title = RousseauLocalizations.getText(context, 'drawer-blog');
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
       body: NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification scrollInfo) {
           if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {

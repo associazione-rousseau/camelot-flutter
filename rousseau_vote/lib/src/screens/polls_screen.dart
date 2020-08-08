@@ -11,9 +11,10 @@ import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/polls_list_widget.dart';
 
 import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
-import 'package:rousseau_vote/src/widgets/rousseau_app_bar.dart';
 
 class PollsScreen extends StatelessWidget {
+  const PollsScreen();
+
   static const String ROUTE_NAME = '/polls';
 
   @override
@@ -26,7 +27,6 @@ class PollsScreen extends StatelessWidget {
     }
 
     return RousseauLoggedScaffold(
-      appBar: RousseauAppBar(),
       body: GraphqlQueryWidget<PollList>(
         query: listPolls,
         fetchPolicy: fetchPolicy,

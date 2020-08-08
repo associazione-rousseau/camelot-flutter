@@ -48,7 +48,7 @@ class UserProfileScreen extends StatelessWidget {
 
 class UserProfileArguments {
 
-  UserProfileArguments(this.slug);
+  const UserProfileArguments(this.slug);
 
   final String slug;
 }
