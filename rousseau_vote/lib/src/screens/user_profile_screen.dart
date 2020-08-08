@@ -21,11 +21,12 @@ class UserProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HashMap<String, String> variables = HashMap<String, String>.of({'id': _arguments.slug});
+    final HashMap<String, String> variables = _arguments.currentUser ? null : HashMap<String, String>.of({'id': _arguments.slug});
+    final String query = _arguments.currentUser ? currentUserFull : profileDetail;
 
     return Scaffold(
       body: GraphqlQueryWidget<UserProfile>(
-      query: profileDetail,
+      query: query,
       variables: variables,
       fetchPolicy: FetchPolicy.cacheFirst,
       builderSuccess: (UserProfile userProfile) {
@@ -48,7 +49,9 @@ class UserProfileScreen extends StatelessWidget {
 
 class UserProfileArguments {
 
-  const UserProfileArguments(this.slug);
+  const UserProfileArguments({ this.slug });
 
   final String slug;
+
+  bool get currentUser => slug == null;
 }

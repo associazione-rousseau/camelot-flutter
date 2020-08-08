@@ -123,7 +123,7 @@ Function openLinkAction(BuildContext context, BrowserArguments arguments) {
 
 void openProfile(BuildContext context, String slug) {
   openRoute(context, UserProfileScreen.ROUTE_NAME,
-      arguments: UserProfileArguments(slug));
+      arguments: UserProfileArguments(slug: slug));
 }
 
 Function openProfileAction(BuildContext context, String slug) {

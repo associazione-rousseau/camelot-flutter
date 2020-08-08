@@ -66,7 +66,7 @@ class PollEntityInfoRow extends StatelessWidget {
                           fontWeight: FontWeight.w600
                         )
                       ),
-                      onPressed: openRouteAction(context, UserProfileScreen.ROUTE_NAME, arguments: UserProfileArguments(_entity.slug))
+                      onPressed: openRouteAction(context, UserProfileScreen.ROUTE_NAME, arguments: UserProfileArguments(slug: _entity.slug))
                     ),
                   ],
                 )

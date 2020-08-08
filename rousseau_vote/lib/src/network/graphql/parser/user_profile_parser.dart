@@ -6,7 +6,7 @@ import 'package:rousseau_vote/src/network/graphql/parser/query_response_parser.d
 class UserProfileParser implements QueryResponseParser<UserProfile> {
   @override
   UserProfile parse(QueryResult result) {
-    final LazyCacheMap lazyCacheMap = result.data.get('user');
+    final LazyCacheMap lazyCacheMap = result.data['currentUser']?? result.data['user'];
     return UserProfile.fromJson(lazyCacheMap.data);
   }
 }

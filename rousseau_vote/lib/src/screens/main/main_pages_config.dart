@@ -25,6 +25,6 @@ const List<MainPage> MAIN_PAGES = <MainPage>[
       titleKey: 'profile',
       iconData: MdiIcons.accountOutline,
       selectedIconData: MdiIcons.account,
-      page: UserProfileScreen(UserProfileArguments('emanuel-mazzilli')),
+      page: UserProfileScreen(UserProfileArguments()),
       hasToolbar: false),
 ];

@@ -63,61 +63,64 @@ query profileDetail(\$id: ID!) {
             endsAt
         }
         profile {
-            presentation
-            curriculumActivist
-            curriculumVitae
-            yearOfGraduation
-            educationalInstitute
-            studyCourse
-            englishLevel
-            frenchLevel
-            germanLevel
-            spanishLevel
-            qualification
-            politicalExperiences
-            facebookProfile
-            twitterProfile
-            linkedinProfile
-            age
-            placeOfBirth
-            placeOfResidence {
-                comuneName
-            }
-            picture {
-                originalUrl
-            }
-            curriculumVitaeDocument {
-                originalUrl
-            }
-            italiaCinqueStelleVolunteerFlag
-            italiaCinqueStelleVolunteer
-            listRepresentativeFlag
-            listRepresentativeYear
-            listRepresentativeComune
-            opendayParticipantFlag
-            opendayParticipant
-            spokesmanM5sFlag
-            spokesmanM5sYear
-            spokesmanM5sInstitution
-            villaggioRousseauParticipantFlag
-            villaggioRousseauParticipant
-            villaggioRousseauVolunteerFlag
-            villaggioRousseauVolunteer
-            approvedCandidatures {
-                availableForFrontRunning
-                poll {
-                    title
-                    features {
-                        frontRunners
-                        frontRunnersLabel
-                    }
-                }
-            }
+            $_orofileFields
         }
     }
 }
 ''';
 
+String _orofileFields = '''
+  presentation
+  curriculumActivist
+  curriculumVitae
+  yearOfGraduation
+  educationalInstitute
+  studyCourse
+  englishLevel
+  frenchLevel
+  germanLevel
+  spanishLevel
+  qualification
+  politicalExperiences
+  facebookProfile
+  twitterProfile
+  linkedinProfile
+  age
+  placeOfBirth
+  placeOfResidence {
+      comuneName
+  }
+  picture {
+      originalUrl
+  }
+  curriculumVitaeDocument {
+      originalUrl
+  }
+  italiaCinqueStelleVolunteerFlag
+  italiaCinqueStelleVolunteer
+  listRepresentativeFlag
+  listRepresentativeYear
+  listRepresentativeComune
+  opendayParticipantFlag
+  opendayParticipant
+  spokesmanM5sFlag
+  spokesmanM5sYear
+  spokesmanM5sInstitution
+  villaggioRousseauParticipantFlag
+  villaggioRousseauParticipant
+  villaggioRousseauVolunteerFlag
+  villaggioRousseauVolunteer
+  approvedCandidatures {
+      availableForFrontRunning
+      poll {
+          title
+          features {
+              frontRunners
+              frontRunnersLabel
+          }
+      }
+  }
+''';
 
 String pollDetail = '''
   query pollDetail(\$pollId: ID!) {
@@ -262,39 +265,7 @@ String currentUserFull = '''
     }
     overseaseCity
     profile {
-        presentation
-        curriculumActivist
-        curriculumVitae
-        yearOfGraduation
-        educationalInstitute
-        studyCourse
-        englishLevel
-        frenchLevel
-        germanLevel
-        spanishLevel
-        otherLanguages
-        qualification
-        politicalExperiences
-        facebookProfile
-        twitterProfile
-        linkedinProfile
-        italiaCinqueStelleVolunteer
-        italiaCinqueStelleVolunteerFlag
-        villaggioRousseauVolunteer
-        villaggioRousseauVolunteerFlag
-        listRepresentativeFlag
-        listRepresentativeYear
-        listRepresentativeComune
-        spokesmanM5sFlag
-        spokesmanM5sYear
-        spokesmanM5sInstitution
-        opendayParticipantFlag
-        opendayParticipant
-        villaggioRousseauParticipant
-        villaggioRousseauParticipantFlag
-        picture {
-            originalUrl
-        }
+        $_orofileFields
     }
     identityVerificationRequests(last: 15){
 			nodes {
