@@ -63,13 +63,13 @@ query profileDetail(\$id: ID!) {
             endsAt
         }
         profile {
-            $_orofileFields
+            $_profileFields
         }
     }
 }
 ''';
 
-String _orofileFields = '''
+String _profileFields = '''
   presentation
   curriculumActivist
   curriculumVitae
@@ -265,7 +265,7 @@ String currentUserFull = '''
     }
     overseaseCity
     profile {
-        $_orofileFields
+        $_profileFields
     }
     identityVerificationRequests(last: 15){
 			nodes {
