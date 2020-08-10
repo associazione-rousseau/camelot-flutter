@@ -21,7 +21,7 @@ class RousseauAnimatedScreen extends StatefulWidget {
 }
 
 class _RousseauAnimatedScreenState extends State<RousseauAnimatedScreen> {
-  static const double APP_BAR_HEIGHT = 100;
+  static const double APP_BAR_HEIGHT = 90;
   static const double FADE_IN_THREHOLD = 150;
 
   final ScrollController _scrollController = ScrollController();
