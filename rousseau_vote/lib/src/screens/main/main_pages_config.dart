@@ -10,21 +10,25 @@ const List<MainPage> MAIN_PAGES = <MainPage>[
       titleKey: 'blog',
       iconData: MdiIcons.newspaperVariantOutline,
       selectedIconData: MdiIcons.newspaperVariant,
+      type: MainPageType.BLOG,
       page: BlogScreen()),
   MainPage(
       titleKey: 'vote',
       iconData: MdiIcons.voteOutline,
       selectedIconData: MdiIcons.vote,
+      type: MainPageType.VOTE,
       page: PollsScreen()),
   MainPage(
       titleKey: 'elected',
       iconData: MdiIcons.accountGroupOutline,
       selectedIconData: MdiIcons.accountGroup,
+      type: MainPageType.ELECTED,
       page: ElectedScreen()),
   MainPage(
       titleKey: 'profile',
       iconData: MdiIcons.accountOutline,
       selectedIconData: MdiIcons.account,
+      type: MainPageType.PROFILE,
       page: UserProfileScreen(UserProfileArguments()),
       hasToolbar: false),
 ];

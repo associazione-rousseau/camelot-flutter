@@ -6,6 +6,7 @@ class MainPage {
       @required this.iconData,
       @required this.selectedIconData,
       @required this.page,
+      @required this.type,
       this.hasToolbar = true});
 
   final String titleKey;
@@ -13,4 +14,9 @@ class MainPage {
   final IconData selectedIconData;
   final Widget page;
   final bool hasToolbar;
+  final MainPageType type;
+}
+
+enum MainPageType {
+  BLOG, VOTE, ELECTED, PROFILE
 }
