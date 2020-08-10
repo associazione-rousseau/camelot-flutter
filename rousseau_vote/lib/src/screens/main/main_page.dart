@@ -18,5 +18,5 @@ class MainPage {
 }
 
 enum MainPageType {
-  BLOG, VOTE, ELECTED, PROFILE
+  BLOG, POLLS, ELECTED, PROFILE
 }

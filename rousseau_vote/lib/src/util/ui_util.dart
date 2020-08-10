@@ -121,6 +121,11 @@ Function openLinkAction(BuildContext context, BrowserArguments arguments) {
   };
 }
 
+void openCurrentUserProfile(BuildContext context) {
+  openRoute(context, UserProfileScreen.ROUTE_NAME,
+      arguments: const UserProfileArguments(), replace: true);
+}
+
 void openProfile(BuildContext context, String slug) {
   openRoute(context, UserProfileScreen.ROUTE_NAME,
       arguments: UserProfileArguments(slug: slug));

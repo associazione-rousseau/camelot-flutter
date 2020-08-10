@@ -23,6 +23,7 @@ import 'package:rousseau_vote/src/screens/account/delete_account_action_screen.d
 import 'package:rousseau_vote/src/screens/account/login_info_screen.dart';
 import 'package:rousseau_vote/src/screens/account/residence_screen.dart';
 import 'package:rousseau_vote/src/screens/feedback_screen.dart';
+import 'package:rousseau_vote/src/screens/main/main_page.dart';
 import 'package:rousseau_vote/src/screens/main/main_screen.dart';
 import 'package:rousseau_vote/src/screens/success_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
@@ -105,7 +106,7 @@ class RousseauVoteApp extends StatelessWidget {
                     MainScreen.ROUTE_NAME: (BuildContext context) =>
                         const MainScreen(),
                     PollsScreen.ROUTE_NAME: (BuildContext context) =>
-                        const PollsScreen(),
+                        const MainScreen(arguments: MainScreenArguments(type: MainPageType.POLLS),),
                     LoginScreen.ROUTE_NAME: (BuildContext context) =>
                         LoginScreen(),
                     RegisterScreen.ROUTE_NAME: (BuildContext context) =>
@@ -132,7 +133,7 @@ class RousseauVoteApp extends StatelessWidget {
                       return InAppBrowser(arguments);
                     },
                     BlogScreen.ROUTE_NAME: (BuildContext context) {
-                      return BlogScreen();
+                      return const MainScreen(arguments: MainScreenArguments(type: MainPageType.BLOG),);
                     },
                     BlogInstantArticleScreen.ROUTE_NAME: (BuildContext context) {
                       final BlogInstantArticleArguments arguments =
@@ -142,6 +143,10 @@ class RousseauVoteApp extends StatelessWidget {
                     UserProfileScreen.ROUTE_NAME: (BuildContext context) {
                       final UserProfileArguments arguments =
                         ModalRoute.of(context).settings.arguments;
+                      // open current user profile in main screen
+                      if (arguments.currentUser) {
+                        return MainScreen(arguments: MainScreenArguments(type: MainPageType.PROFILE, pageArguments: arguments),);
+                      }
                       return UserProfileScreen(arguments);
                     },
                     FeedbackScreen.ROUTE_NAME:(BuildContext context) {

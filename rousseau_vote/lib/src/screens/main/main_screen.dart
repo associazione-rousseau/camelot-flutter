@@ -8,16 +8,18 @@ import 'package:rousseau_vote/src/widgets/logged_screen.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_app_bar.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key key}) : super(key: key);
+  const MainScreen({Key key, this.arguments}) : super(key: key);
 
   static const String ROUTE_NAME = '/main_screen';
+
+  final MainScreenArguments arguments;
 
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -28,6 +30,14 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    _selectedIndex = 0;
+    if(widget.arguments != null) {
+      for(int i = 0; i < MAIN_PAGES.length; i++) {
+        if(MAIN_PAGES[i].type == widget.arguments.type) {
+          _selectedIndex = i;
+        }
+      }
+    }
   }
 
   @override
@@ -63,4 +73,12 @@ class _MainScreenState extends State<MainScreen> {
       onTap: _onItemTapped,
     );
   }
+}
+
+class MainScreenArguments {
+
+  const MainScreenArguments({ @required this.type, this.pageArguments});
+
+  final MainPageType type;
+  final Object pageArguments;
 }

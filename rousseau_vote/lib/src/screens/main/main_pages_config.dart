@@ -16,7 +16,7 @@ const List<MainPage> MAIN_PAGES = <MainPage>[
       titleKey: 'vote',
       iconData: MdiIcons.voteOutline,
       selectedIconData: MdiIcons.vote,
-      type: MainPageType.VOTE,
+      type: MainPageType.POLLS,
       page: PollsScreen()),
   MainPage(
       titleKey: 'elected',

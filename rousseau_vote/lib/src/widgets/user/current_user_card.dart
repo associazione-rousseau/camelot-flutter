@@ -119,7 +119,7 @@ class CurrentUserCard extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pop();
             if (currentUser.profile != null) {
-              openProfile(context, currentUser.slug);
+              openCurrentUserProfile(context);
             } else {
               showSimpleSnackbar(context, textKey: 'message-profile-not-compiled');
             }
