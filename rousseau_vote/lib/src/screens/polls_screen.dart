@@ -19,17 +19,10 @@ class PollsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PrefetchManager prefetchManager = getIt<PrefetchManager>();
-    FetchPolicy fetchPolicy = FetchPolicy.cacheAndNetwork;
-    if (prefetchManager.hasPrefetchedData(listPolls)) {
-      prefetchManager.invalidateQuery(listPolls);
-      fetchPolicy = FetchPolicy.cacheFirst;
-    }
-
     return RousseauLoggedScaffold(
       body: GraphqlQueryWidget<PollList>(
         query: listPolls,
-        fetchPolicy: fetchPolicy,
+        fetchPolicy: FetchPolicy.cacheFirst,
         builderSuccess: (PollList pollList) {
           return AskForVerificationWidget(child: PollsListWidget(pollList));
         },
