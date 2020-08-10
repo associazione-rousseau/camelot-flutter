@@ -42,17 +42,6 @@ class RousseauDrawer extends StatelessWidget {
             onTap: () => openVerifyIdentityScreen(context),
           ) : Container(),
           DrawerItem(
-            textKey: 'drawer-vote',
-            iconData: Icons.account_balance,
-            onTap:
-                openRouteAction(context, PollsScreen.ROUTE_NAME, replace: true),
-          ),
-          DrawerItem(
-            textKey: 'drawer-blog',
-            iconData: Icons.star,
-            onTap: openRouteAction(context, BlogScreen.ROUTE_NAME),
-          ),
-          DrawerItem(
             textKey: 'drawer-feedback',
             iconData: Icons.feedback,
             onTap: openRouteAction(context, FeedbackScreen.ROUTE_NAME)
