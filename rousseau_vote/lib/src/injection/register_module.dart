@@ -15,6 +15,7 @@ import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/init/startup_prefetcher.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
+import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:rousseau_vote/src/util/debug_util.dart';
 
@@ -31,6 +32,7 @@ abstract class RegisterModule {
     getIt<TokenStore>(),
     StartupPrefetcher([listPolls, currentUserShort]),
     getIt<PushNotificationManager>(),
+    getIt<BlogInstantArticleProvider>(),
   ], 3000);
 
   FirebaseMessaging get firebaseMessaging => FirebaseMessaging();

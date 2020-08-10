@@ -2,13 +2,14 @@
 import 'dart:collection';
 
 import 'package:injectable/injectable.dart';
+import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
 import 'package:rousseau_vote/src/models/blog/blog_instant_article.dart';
 import 'package:rousseau_vote/src/network/handlers/blog_instant_article_network_handler.dart';
 
 import 'network_change_notifier.dart';
 
 @singleton
-class BlogInstantArticleProvider extends NetworkChangeNotifier {
+class BlogInstantArticleProvider extends NetworkChangeNotifier with InitializeOnStartup {
   BlogInstantArticleProvider(this._networkHandler);
 
   final BlogInstantArticleNetworkHandler _networkHandler;
@@ -64,6 +65,11 @@ class BlogInstantArticleProvider extends NetworkChangeNotifier {
 
   void addInstantArticleToCache(BlogInstantArticle instantArticle) {
     _instantArticleCache[instantArticle.slug] = instantArticle;
+  }
+
+  @override
+  Future<void> doInitialize() async {
+    await loadMoreInstantArticles();
   }
 
 }
