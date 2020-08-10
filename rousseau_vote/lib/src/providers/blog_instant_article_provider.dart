@@ -20,12 +20,23 @@ class BlogInstantArticleProvider extends NetworkChangeNotifier with InitializeOn
     return _instantArticles;
   }
 
+  Future<List<BlogInstantArticle>> loadInstantArticles() async {
+    return _loadInstantArticles(offset: 0, replaceExisting: true);
+  }
+
   Future<List<BlogInstantArticle>> loadMoreInstantArticles() async {
+    return _loadInstantArticles(offset: _instantArticles.length);
+  }
+
+  Future<List<BlogInstantArticle>> _loadInstantArticles({ int offset = 0, bool replaceExisting = false}) async {
     startLoading(notify: false);
-    final List<BlogInstantArticle> newArticles = await _networkHandler.getPosts(_instantArticles.length);
+    final List<BlogInstantArticle> newArticles = await _networkHandler.getPosts(offset);
     if (newArticles == null || newArticles.isEmpty) {
       setError();
       return null;
+    }
+    if (replaceExisting) {
+      _instantArticles.clear();
     }
     _instantArticles.addAll(newArticles);
     addInstantArticlesToCache(newArticles);
@@ -69,7 +80,7 @@ class BlogInstantArticleProvider extends NetworkChangeNotifier with InitializeOn
 
   @override
   Future<void> doInitialize() async {
-    await loadMoreInstantArticles();
+    await loadInstantArticles();
   }
 
 }

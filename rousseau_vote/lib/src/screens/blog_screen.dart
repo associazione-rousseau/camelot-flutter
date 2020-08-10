@@ -46,27 +46,40 @@ class _BlogScreenState extends State<BlogScreen> {
             _loadMore();
           }
         },
-        child: ListView.separated(
-          separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 20),
-          padding: const EdgeInsets.all(20),
-          itemCount: _instantArticles.length + 1,
-          itemBuilder: (BuildContext context, int index) {
-            return (index == _instantArticles.length)
-                ? const LoadingIndicator()
-                : BlogInstantArticleCard(_instantArticles[index]);
-          },
+        child: RefreshIndicator(
+          onRefresh: () { return _onPullToRefresh(context); },
+          child: ListView.separated(
+            separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 20),
+            padding: const EdgeInsets.all(20),
+            itemCount: _instantArticles.length + 1,
+            itemBuilder: (BuildContext context, int index) {
+              return (index == _instantArticles.length)
+                  ? const LoadingIndicator()
+                  : BlogInstantArticleCard(_instantArticles[index]);
+            },
+          ),
         ),
       ),
     );
   }
 
-  void _loadArticles() {
+  Future<void> _onPullToRefresh(BuildContext context) async {
+    final BlogInstantArticleProvider provider = Provider.of<BlogInstantArticleProvider>(context, listen: false);
+    final List<BlogInstantArticle> articles = await provider.loadInstantArticles();
+    if (articles != null) {
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
+
+  void _loadArticles({ bool replace = false }) {
     if (_loading) {
       return;
     }
     _loading = true;
     final BlogInstantArticleProvider provider = Provider.of<BlogInstantArticleProvider>(context, listen: false);
-    final Future<List<BlogInstantArticle>> future = provider.loadMoreInstantArticles();
+    final Future<List<BlogInstantArticle>> future = replace ? provider.loadInstantArticles() : provider.loadMoreInstantArticles();
     future.then((List<BlogInstantArticle> articles) => _onResults(articles))
         .catchError((Object error) => _onError(error));
   }
