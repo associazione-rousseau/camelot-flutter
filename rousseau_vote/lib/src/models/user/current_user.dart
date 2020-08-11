@@ -42,6 +42,8 @@ class CurrentUser extends UserProfile {
 
   bool get shouldVerifyIdentity => statusColor == 'GREY' || statusColor == 'RED';
 
+  bool get hasCompiledProfile => profile != null;
+
   bool get canVote {
     return statusColor == 'GREEN';
   }
