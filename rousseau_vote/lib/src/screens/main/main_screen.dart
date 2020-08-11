@@ -1,6 +1,9 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
+import 'package:rousseau_vote/src/providers/notification_badge_provider.dart';
 import 'package:rousseau_vote/src/screens/main/main_page.dart';
 import 'package:rousseau_vote/src/screens/main/main_pages_config.dart';
 import 'package:rousseau_vote/src/widgets/drawer/rousseau_drawer.dart';
@@ -44,23 +47,29 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final MainPage mainPage = MAIN_PAGES[_selectedIndex];
     return LoggedScreen(
-      Scaffold(
-        appBar: mainPage.hasToolbar ? const RousseauAppBar(white: true) : null,
-        body: Center(
-          child: mainPage.page,
+      ChangeNotifierProvider<NotificationBadgeProvider>(
+        create: (BuildContext context) => NotificationBadgeProvider(),
+        child: Consumer<NotificationBadgeProvider>(
+          builder: (BuildContext context, NotificationBadgeProvider provider, Widget child) =>
+            Scaffold(
+              appBar: mainPage.hasToolbar ? RousseauAppBar(white: true, hasBadge: provider.shouldShowDrawerBadge(),) : null,
+              body: Center(
+                child: mainPage.page,
+              ),
+              drawer: RousseauDrawer(),
+              bottomNavigationBar: _bottomNavigationBar(context, provider),
+            ),
         ),
-        drawer: RousseauDrawer(),
-        bottomNavigationBar: _bottomNavigationBar(context),
       ),
     );
   }
 
-  BottomNavigationBar _bottomNavigationBar(BuildContext context) {
+  BottomNavigationBar _bottomNavigationBar(BuildContext context, NotificationBadgeProvider provider) {
     final List<BottomNavigationBarItem> items = <BottomNavigationBarItem>[];
     for(MainPage mainPage in MAIN_PAGES) {
       final String title = RousseauLocalizations.of(context).text(mainPage.titleKey);
       items.add(BottomNavigationBarItem(
-        icon: Icon(mainPage.iconData),
+        icon: Badge(child: Icon(mainPage.iconData), showBadge: provider.shouldShowBadge(mainPage.type), position: BadgePosition.topRight(top: -3, right: -3),),
         title: Text(title),
         activeIcon: Icon(mainPage.selectedIconData),
       ));

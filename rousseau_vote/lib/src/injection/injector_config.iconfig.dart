@@ -17,6 +17,7 @@ import 'package:rousseau_vote/src/network/handlers/image_upload_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/ita_geo_divisions_network_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
+import 'package:rousseau_vote/src/network/handlers/poll_network_handler.dart';
 import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
@@ -64,6 +65,8 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerSingleton<ItaGeoDivisionsNetworkHandler>(
       ItaGeoDivisionsNetworkHandler(g<GraphQLClient>()));
   g.registerSingleton<LoginNetworkHandler>(LoginNetworkHandler(g<Dio>()));
+  g.registerSingleton<PollNetworkHandler>(
+      PollNetworkHandler(g<GraphQLClient>()));
   g.registerSingleton<PrefetchManager>(PrefetchManager());
   g.registerSingleton<PushNotificationManager>(
       registerModule.getPushNotificationManager());
