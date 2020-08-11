@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_list.dart';
@@ -8,6 +9,7 @@ import 'package:rousseau_vote/src/network/handlers/poll_network_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:rousseau_vote/src/screens/main/main_page.dart';
 
+@lazySingleton
 class NotificationBadgeProvider extends ChangeNotifier {
   NotificationBadgeProvider() {
     fetchCurrentUser();
@@ -20,7 +22,7 @@ class NotificationBadgeProvider extends ChangeNotifier {
   bool shouldShowBadge(MainPageType mainPageType) {
     switch (mainPageType) {
       case MainPageType.POLLS:
-        return !_canVoteNow();
+        return _canVoteNow();
       case MainPageType.PROFILE:
         return !_hasProfile();
     }
@@ -41,7 +43,7 @@ class NotificationBadgeProvider extends ChangeNotifier {
         .then((CurrentUser currentUser) {
       _currentUser = currentUser;
       notifyListeners();
-    });
+    }).catchError((Object ignore) {});
   }
 
   void fetchPolls() {
@@ -51,7 +53,7 @@ class NotificationBadgeProvider extends ChangeNotifier {
         .then((PollList pollList) {
       _polls = pollList.polls;
       notifyListeners();
-    });
+    }).catchError((Object ignore) {});
   }
 
   void onCurrentUserUpdated() {
