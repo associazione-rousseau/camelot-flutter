@@ -22,9 +22,7 @@ class VerificationRequestHandler {
         documentNode: gql(submitIdentityVerificationRequest),
         variables: ids,
         update: (Cache cache, QueryResult result) {
-          if(!result.hasException) {
-            invalidateCurrentUser(cache);
-          }
+          invalidateCurrentUser(cache, result);
         });
     final QueryResult result = await client.mutate(options);
 

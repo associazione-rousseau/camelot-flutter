@@ -21,9 +21,7 @@ class VoteNetworkHandler {
         documentNode: gql(pollAnswerSubmit),
         variables: variables,
         update: (Cache cache, QueryResult result) {
-          if(!result.hasException) {
-            invalidatePollsList(cache);
-          }
+          invalidatePollsList(cache, result);
         }));
   }
 }
