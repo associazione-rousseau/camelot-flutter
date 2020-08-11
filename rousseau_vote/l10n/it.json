@@ -144,6 +144,9 @@
     "profile": "Profilo",
     "elected": "Eletti",
 
+    "elected-coming-soon": "Work in progress...",
+    "elected-full-title": "I miei eletti",
+
     "view_profile": "Vedi Profilo",
     "vote-search-candidate": "Cerca candidato",
     "vote-search-candidate-hint": "Inserisci il nome",
