@@ -39,7 +39,7 @@ class NotificationBadgeProvider extends ChangeNotifier {
   void fetchCurrentUser() {
     final UserNetworkHandler userNetworkHandler = getIt<UserNetworkHandler>();
     userNetworkHandler
-        .fetchCurrentUser(fetchPolicy: FetchPolicy.cacheOnly)
+        .fetchCurrentUser(fetchPolicy: FetchPolicy.cacheFirst)
         .then((CurrentUser currentUser) {
       _currentUser = currentUser;
       notifyListeners();
@@ -49,7 +49,7 @@ class NotificationBadgeProvider extends ChangeNotifier {
   void fetchPolls() {
     final PollNetworkHandler pollNetworkHandler = getIt<PollNetworkHandler>();
     pollNetworkHandler
-        .fetchPolls(fetchPolicy: FetchPolicy.cacheOnly)
+        .fetchPolls(fetchPolicy: FetchPolicy.cacheFirst)
         .then((PollList pollList) {
       _polls = pollList.polls;
       notifyListeners();

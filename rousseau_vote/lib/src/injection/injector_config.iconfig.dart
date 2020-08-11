@@ -17,6 +17,7 @@ import 'package:rousseau_vote/src/network/handlers/image_upload_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/ita_geo_divisions_network_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
+import 'package:rousseau_vote/src/providers/notification_badge_provider.dart';
 import 'package:rousseau_vote/src/network/handlers/poll_network_handler.dart';
 import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
@@ -36,6 +37,8 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerFactory<FirebaseMessaging>(() => registerModule.firebaseMessaging);
   g.registerFactory<NoOpPushNotificationManager>(
       () => NoOpPushNotificationManager());
+  g.registerLazySingleton<NotificationBadgeProvider>(
+      () => NotificationBadgeProvider());
   g.registerLazySingleton<SecureStorage>(
       () => SecureStorage(g<FlutterSecureStorage>()));
   g.registerFactory<StartupInitializer>(
