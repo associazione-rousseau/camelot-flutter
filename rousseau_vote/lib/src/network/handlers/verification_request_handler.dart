@@ -6,6 +6,7 @@ import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
 import 'package:rousseau_vote/src/network/handlers/image_upload_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
+import 'package:rousseau_vote/src/network/util/graphql_cache_util.dart';
 import 'package:rousseau_vote/src/util/graphql_util.dart';
 
 @singleton
@@ -19,7 +20,12 @@ class VerificationRequestHandler {
     final Map<String, List<String>> ids = { 'documentIds': <String>[signedId] };
     final MutationOptions options = MutationOptions(
         documentNode: gql(submitIdentityVerificationRequest),
-        variables: ids);
+        variables: ids,
+        update: (Cache cache, QueryResult result) {
+          if(!result.hasException) {
+            invalidateCurrentUser(cache);
+          }
+        });
     final QueryResult result = await client.mutate(options);
 
     // prefetch current user

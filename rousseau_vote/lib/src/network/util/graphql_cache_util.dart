@@ -7,6 +7,11 @@ void invalidatePollsList(Cache cache) {
   invalidateQueryCache(cache, listPolls);
 }
 
+void invalidateCurrentUser(Cache cache) {
+  invalidateQueryCache(cache, currentUserShort);
+  invalidateQueryCache(cache, currentUserFull);
+}
+
 void invalidateQueryCache(Cache cache, String query) {
   final QueryOptions options = QueryOptions(documentNode: gql(query));
   final Operation operation = Operation.fromOptions(options)
