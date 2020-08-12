@@ -47,6 +47,12 @@ String badgeAsset(int badgeNumber, bool active) {
 }
 
 String getUserSubtitleShort(BuildContext context, int age, String residence) {
+  if (age == null) {
+    return residence ?? '';
+  }
+  if (residence == null) {
+    return getAgeString(context, age);
+  }
   return '${getAgeString(context, age)}, $residence';
 }
 
