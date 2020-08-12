@@ -169,12 +169,10 @@ class PollCard extends StatelessWidget {
   }
 
   Icon _getIcon(BuildContext context) {
-//    return Icon(STATUS_ICON_MAPPING[_poll.pollStatus],
-//        color: _poll.color, size: 40);
     if (_poll.alreadyVoted) {
       return Icon(Icons.event_available, color: _poll.color, size: 40);
     }
-    return _poll.open
+    return _poll.open || _poll.scheduled
         ? Icon(Icons.calendar_today, color: _poll.color, size: 35)
         : Icon(Icons.event_busy, color: _poll.color, size: 40);
   }
