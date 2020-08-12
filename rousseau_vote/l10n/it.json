@@ -228,5 +228,13 @@
     "send": "Invia",
     "feedback-thanks": "Grazie per averci inviato il tuo feedback!",
 
+    "menu-share": "Condividi",
+    "menu-copy-link": "Copia il link",
+    "menu-open-in-browser": "Apri nel browser",
+    "share-text": "Leggi: %s",
+    "share-subject":  "Articolo dal Blog Delle Stelle",
+
+    "link-copied": "Link copiato",
+
     "back-home": "Torna alla home"
 }

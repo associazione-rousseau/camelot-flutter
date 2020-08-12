@@ -7,6 +7,7 @@ class RousseauAnimatedScreen extends StatefulWidget {
       {@required this.appBar,
       @required this.extendedAppBar,
       @required this.body,
+      this.actions,
       this.backgroundColor,
       this.floatingActionButton});
 
@@ -15,6 +16,7 @@ class RousseauAnimatedScreen extends StatefulWidget {
   final Widget body;
   final Widget floatingActionButton;
   final Color backgroundColor;
+  final List<Widget> actions;
 
   @override
   _RousseauAnimatedScreenState createState() => _RousseauAnimatedScreenState();
@@ -108,6 +110,7 @@ class _RousseauAnimatedScreenState extends State<RousseauAnimatedScreen> {
             iconTheme: IconThemeData(color: Colors.white),
             elevation: 0,
             backgroundColor: Colors.transparent,
+            actions: widget.actions,
           ),
         ),
       ],
