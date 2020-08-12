@@ -8,6 +8,7 @@ import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
 
 abstract class PushNotificationManager with InitializeOnStartup {
   Future<void> onLogin(String userId);
@@ -66,10 +67,16 @@ class FirebaseNotificationManager extends PushNotificationManager {
         print('onLaunch: $message');
       },
       onResume: (Map<String, dynamic> message) async {
-        print('onResume: $message');
+        maybeOpenRoute(message);
       },
     );
     await _registerToken();
+  }
+  
+  void maybeOpenRoute(Map<String, dynamic> message) {
+    if(message.containsKey('data') && message['data']['route'] != null) {
+      openRouteNoContext(message['data']['route'], replace: true);
+    }
   }
 
   Future<void> _unregisterToken() async {

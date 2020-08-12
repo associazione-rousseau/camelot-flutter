@@ -8,6 +8,7 @@ import 'package:rousseau_vote/src/models/arguments/blog_instant_article_argument
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
+import 'package:rousseau_vote/src/navigation/navigation_service.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
@@ -149,6 +150,11 @@ Function openPollDetailsAction(BuildContext context, Poll poll) {
   return () {
     openPollDetails(context, poll);
   };
+}
+
+void openRouteNoContext(String route,
+    {Object arguments, bool replace = false}) {
+  getIt<NavigationService>().navigateTo(route, arguments: arguments, replace: replace);
 }
 
 void openRoute(BuildContext context, String route,

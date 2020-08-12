@@ -12,6 +12,7 @@ import 'package:rousseau_vote/src/models/arguments/blog_instant_article_argument
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
+import 'package:rousseau_vote/src/navigation/navigation_service.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
@@ -100,6 +101,7 @@ class RousseauVoteApp extends StatelessWidget {
                   supportedLocales: <Locale>[
                     const Locale('it'),
                   ],
+                  navigatorKey: getIt<NavigationService>().navigatorKey,
                   routes: <String, WidgetBuilder>{
                     '/': (BuildContext context) =>
                         InitScreen(MainScreen.ROUTE_NAME, getIt()),
