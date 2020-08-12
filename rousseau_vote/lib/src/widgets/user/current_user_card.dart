@@ -118,11 +118,7 @@ class CurrentUserCard extends StatelessWidget {
           subtitle: Text(currentUser.residence),
           onTap: () {
             Navigator.of(context).pop();
-            if (currentUser.profile != null) {
-              openCurrentUserProfile(context);
-            } else {
-              showSimpleSnackbar(context, textKey: 'message-profile-not-compiled');
-            }
+            openCurrentUserProfile(context);
           }
       ),
     );

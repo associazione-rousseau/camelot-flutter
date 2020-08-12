@@ -183,6 +183,10 @@
 
     "profile-section-not-available": "Non disponibile",
 
+    "profile-not-compiled": "Profilo non compilato",
+    "profile-not-compiled-alert-message": "Non hai ancora compilato il Profilo Attivista. Puoi compilarlo dalla pagina web.",
+    "profile-compile-now": "Compila ora",
+
     "message-link-copied": "Link copiato",
     "message-profile-not-compiled": "Non hai ancora completato il profilo. Puoi completarlo visitando il sito internet.",
 

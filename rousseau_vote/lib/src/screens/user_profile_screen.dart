@@ -7,6 +7,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/models/profile/user_profile.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
+import 'package:rousseau_vote/src/widgets/ask_for_profile_widget.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/profile/user_profile_widget.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_app_bar.dart';
@@ -30,6 +31,9 @@ class UserProfileScreen extends StatelessWidget {
       variables: variables,
       fetchPolicy: FetchPolicy.cacheFirst,
       builderSuccess: (UserProfile userProfile) {
+        if (_arguments.currentUser) {
+          return AskForProfileWidget(child: UserProfileWidget(userProfile: userProfile));
+        }
         return UserProfileWidget(userProfile: userProfile);
       },
       builderLoading: () {
