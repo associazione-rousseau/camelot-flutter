@@ -18,11 +18,15 @@ class SocialBadgesSection extends StatelessWidget {
     final List<Widget> badges = <Widget>[];
 
     _maybeAddBadgeWidget(
-        context, badges, userProfile.profile.facebookProfile, FACEBOOK_LOGO);
+        context, badges, userProfile.profile?.facebookProfile, FACEBOOK_LOGO);
     _maybeAddBadgeWidget(
-        context, badges, userProfile.profile.twitterProfile, TWITTER_LOGO);
+        context, badges, userProfile.profile?.twitterProfile, TWITTER_LOGO);
     _maybeAddBadgeWidget(
-        context, badges, userProfile.profile.linkedinProfile, LINKEDIN_LOGO);
+        context, badges, userProfile.profile?.linkedinProfile, LINKEDIN_LOGO);
+
+    if (badges.isEmpty) {
+      return Container();
+    }
 
     return Row(
       children: badges,

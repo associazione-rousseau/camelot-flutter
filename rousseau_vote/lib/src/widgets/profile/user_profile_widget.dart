@@ -5,6 +5,7 @@ import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/profile/user_profile.dart';
 import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
+import 'package:rousseau_vote/src/widgets/core/conditional_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/profile/user_profile_section.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
@@ -51,7 +52,7 @@ class UserProfileWidget extends StatelessWidget {
             : <Widget>[
                 const VerticalSpace(50),
                 ProfilePicture(
-                    url: userProfile.profile.picture.originalUrl, radius: 50),
+                    url: userProfile.profile?.picture?.originalUrl, radius: 50),
                 const VerticalSpace(10),
                 Text(
                   userProfile.fullName,
@@ -70,7 +71,7 @@ class UserProfileWidget extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const VerticalSpace(20),
-                _badgesCard(context),
+                ConditionalWidget(child: _badgesCard(context), condition: userProfile.badges.isNotEmpty,),
               ],
       ),
     ]);
@@ -94,13 +95,13 @@ class UserProfileWidget extends StatelessWidget {
         children: <Widget>[
           SocialBadgesSection(userProfile),
           UserInfoSection(
-              'profile-presentation', userProfile.profile.presentation),
+              'profile-presentation', userProfile.profile?.presentation),
           UserInfoSection(
-              'profile-curriculum-vitae', userProfile.profile.curriculumVitae),
+              'profile-curriculum-vitae', userProfile.profile?.curriculumVitae),
           UserInfoSection('profile-curriculum-activitst',
-              userProfile.profile.curriculumActivist),
+              userProfile.profile?.curriculumActivist),
           UserInfoSection('profile-political-experiences',
-              userProfile.profile.politicalExperiences),
+              userProfile.profile?.politicalExperiences),
         ],
       ),
     );
@@ -109,7 +110,7 @@ class UserProfileWidget extends StatelessWidget {
   String _subtitle(BuildContext context) {
     return getUserSubtitleShort(
         context,
-        userProfile.profile.age,
+        userProfile.profile?.age,
         userProfile.residence);
   }
 
