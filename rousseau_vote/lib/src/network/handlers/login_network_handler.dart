@@ -11,6 +11,7 @@ import 'package:rousseau_vote/src/network/response/has_login_response.dart';
 import 'package:rousseau_vote/src/network/response/init_login_response.dart';
 import 'package:rousseau_vote/src/network/response/token_response.dart';
 import 'package:rousseau_vote/src/network/restclients/login_rest_client.dart';
+import 'package:rousseau_vote/src/network/result/credentials_login_result.dart';
 import 'package:rousseau_vote/src/network/util/open_id_util.dart';
 
 @singleton
@@ -21,7 +22,7 @@ class LoginNetworkHandler {
   final LoginRestClient _loginRestClient;
   LoginSession _loginSession;
 
-  Future<LoginSession> credentialsLogin(String username, String password) async {
+  Future<CredentialsLoginResult> credentialsLogin(String username, String password) async {
     final String nonce = generateNonce();
     final String state = generateState();
 
@@ -34,17 +35,29 @@ class LoginNetworkHandler {
       'username': username,
       'password': password,
       'rememberMe': 'on'};
-    final CredentialsLoginResponse credentialsLoginResponse = await _loginRestClient.login(
-        loginSession.sessionCode,
-        loginSession.execution,
-        loginSession.tabId,
-        body);
-    if (credentialsLoginResponse.hasErrors()) {
-      // TODO check all the possible errors
-      throw WrongCredentialsException();
+    try {
+      final CredentialsLoginResponse credentialsLoginResponse = await _loginRestClient
+          .login(
+          loginSession.sessionCode,
+          loginSession.execution,
+          loginSession.tabId,
+          body);
+      if (credentialsLoginResponse.hasErrors()) {
+        // TODO check all the possible errors
+        throw WrongCredentialsException();
+      }
+      _loginSession = LoginSession.fromLoginResponse(credentialsLoginResponse);
+      return CredentialsLoginResult(loginSession: _loginSession);
+    } on DioError catch(e) {
+      // it succeed if it redirects passing the code as url params
+      if (e.response.statusCode == 302) {
+        final String redirectUrl = e.response.headers.value('Location');
+        final String accessCode = _extractAccessCode(redirectUrl);
+        final TokenResponse tokenResponse = await _getToken(accessCode);
+        return CredentialsLoginResult(tokenResponse: tokenResponse);
+      }
+      rethrow;
     }
-    _loginSession = LoginSession.fromLoginResponse(credentialsLoginResponse);
-    return _loginSession;
   }
 
   Future<TokenResponse> submitTwoFactorCode(String smsCode) async {

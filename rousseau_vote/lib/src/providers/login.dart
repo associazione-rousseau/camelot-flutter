@@ -8,6 +8,7 @@ import 'package:rousseau_vote/src/network/exceptions/wrong_credentials_exception
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
 import 'package:rousseau_vote/src/network/response/token_response.dart';
+import 'package:rousseau_vote/src/network/result/credentials_login_result.dart';
 import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
@@ -48,15 +49,22 @@ class Login with ChangeNotifier {
     _moveToState(loginState: LoginState.CREDENTIALS_LOADING);
 
     try {
-      final LoginSession loginSession =
+      final CredentialsLoginResult result =
           await _loginNetworkHandler.credentialsLogin(email, password);
-      assert(loginSession != null);
-      _moveToState(loginState: LoginState.CREDENTIALS_AUTHENTICATED);
+      if (result.loginSession != null) {
+        _moveToState(loginState: LoginState.CREDENTIALS_AUTHENTICATED);
+      } else if (result.tokenResponse != null) {
+        _onTokenResponse(result.tokenResponse);
+      } else {
+        _moveToState(
+            loginState: LoginState.LOGGED_OUT,
+            errorState: ErrorState.NETWORK_ERROR);
+      }
     } on WrongCredentialsException {
       _moveToState(
           loginState: LoginState.LOGGED_OUT,
           errorState: ErrorState.CREDENTIALS_ERROR);
-    } on DioError {
+    } on DioError catch (e) {
       _moveToState(
           loginState: LoginState.LOGGED_OUT,
           errorState: ErrorState.NETWORK_ERROR);
@@ -69,21 +77,7 @@ class Login with ChangeNotifier {
     try {
       final TokenResponse tokenResponse =
           await _loginNetworkHandler.submitTwoFactorCode(code);
-      if (tokenResponse.hasErrors()) {
-        return false;
-      }
-      final Token token = Token.fromTokenResponse(tokenResponse);
-      _tokenStore.onTokenFetched(token);
-      if (_tokenStore.hasValidToken()) {
-        _onLogin(token);
-        _moveToState(
-            loginState: LoginState.LOGGED_IN, errorState: ErrorState.NO_ERRORS);
-      } else {
-        _moveToState(
-            loginState: LoginState.CREDENTIALS_AUTHENTICATED,
-            errorState: ErrorState.INVALID_TOKEN);
-      }
-      return true;
+      return _onTokenResponse(tokenResponse);
     } on WrongCredentialsException {
       _moveToState(
           loginState: LoginState.CREDENTIALS_AUTHENTICATED,
@@ -98,6 +92,26 @@ class Login with ChangeNotifier {
       _moveToState(
           loginState: LoginState.CREDENTIALS_AUTHENTICATED,
           errorState: ErrorState.NETWORK_ERROR);
+      return false;
+    }
+  }
+
+  bool _onTokenResponse(TokenResponse tokenResponse) {
+    if (tokenResponse.hasErrors()) {
+      return false;
+    }
+
+    final Token token = Token.fromTokenResponse(tokenResponse);
+    _tokenStore.onTokenFetched(token);
+    if (_tokenStore.hasValidToken()) {
+      _onLogin(token);
+      _moveToState(
+          loginState: LoginState.LOGGED_IN, errorState: ErrorState.NO_ERRORS);
+      return true;
+    } else {
+      _moveToState(
+          loginState: LoginState.CREDENTIALS_AUTHENTICATED,
+          errorState: ErrorState.INVALID_TOKEN);
       return false;
     }
   }
