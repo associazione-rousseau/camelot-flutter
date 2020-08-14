@@ -4,5 +4,10 @@
 <dict>
 	<key>aps-environment</key>
 	<string>development</string>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>webcredentials:sso.rousseau.movimento5stelle.it</string>
+		<string>applinks:sso.rousseau.movimento5stelle.it</string>
+	</array>
 </dict>
 </plist>
