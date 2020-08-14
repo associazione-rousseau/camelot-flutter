@@ -15,9 +15,8 @@ VERSION_NUMBER=$2
 
 cd rousseau_vote
 git-crypt unlock
-flutter build appbundle --obfuscate --split-debug-info=/tmp/ --build-name $VERSION_NAME --build-number $VERSION_NUMBER
+flutter build appbundle --build-name $VERSION_NAME --build-number $VERSION_NUMBER
 
 # Cleanup
-git checkout .
 cd ..
 

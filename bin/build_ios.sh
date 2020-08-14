@@ -16,8 +16,8 @@ VERSION_NUMBER=$2
 cd rousseau_vote
 git-crypt unlock
 cp ios/Runner/GoogleService-Info.plist.release ios/Runner/GoogleService-Info.plist
-flutter build ios --obfuscate --split-debug-info=/tmp/ --build-name $VERSION_NAME --build-number $VERSION_NUMBER
+flutter build ios --build-name $VERSION_NAME --build-number $VERSION_NUMBER
 
 # Cleanup
-git checkout .
+git checkout ios/Runner/GoogleService-Info.plist
 cd ..
