@@ -28,9 +28,9 @@ class PollCard extends StatelessWidget {
     final String startDateString = RousseauLocalizations.getTextFormatted(
         context,
         'poll-start-full',
-        <String>[formatDate(context, _poll.voteStartingDate)]);
+        <String>[formatDate(context, _poll.voteStartingDate.toLocal())]);
     final String endDateString = RousseauLocalizations.getTextFormatted(context,
-        'poll-end-full', <String>[formatDate(context, _poll.voteEndingDate)]);
+        'poll-end-full', <String>[formatDate(context, _poll.voteEndingDate.toLocal())]);
     return Card(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(DEFAULT_SPACING)),
