@@ -13,5 +13,7 @@ VERSION_NUMBER=$2
 
 echo_colored "Building Version $VERSION_NUMBER ($VERSION_NAME)" $GREEN
 
-bin/build_ios.sh $VERSION_NAME $VERSION_NUMBER
-bin/build_android.sh $VERSION_NAME $VERSION_NUMBER
+bin/build_ios.sh $VERSION_NAME $VERSION_NUMBER && \
+bin/build_android.sh $VERSION_NAME $VERSION_NUMBER && \
+
+# git commit -a -m "Build $VERSION_NAME ($VERSION_NUMBER)"
