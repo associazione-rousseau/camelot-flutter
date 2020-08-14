@@ -40,7 +40,7 @@ abstract class RegisterModule {
   @singleton
   @Injectable(as: PushNotificationManager)
   PushNotificationManager getPushNotificationManager() {
-    if (Platform.isIOS && isInDebugMode) {
+    if (isInDebugMode) {
       return getIt<NoOpPushNotificationManager>();
     }
     return getIt<FirebaseNotificationManager>();
