@@ -42,6 +42,10 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Inviare il documento per la verifica</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Non serve questo permesso. C'è un problema con una libreria.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Non serve questo permesso. C'è un problema con una libreria.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Caricamento documenti per verifica identità</string>
 	<key>UIBackgroundModes</key>
