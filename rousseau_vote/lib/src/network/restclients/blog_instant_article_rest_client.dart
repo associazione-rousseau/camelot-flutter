@@ -5,7 +5,7 @@ import 'package:rousseau_vote/src/models/blog/blog_instant_article.dart';
 
 part 'blog_instant_article_rest_client.g.dart';
 
-@RestApi(baseUrl: '$BLOG_URL')
+@RestApi(baseUrl: BLOG_URL)
 abstract class BlogInstantArticleRestClient {
   factory BlogInstantArticleRestClient(Dio dio) = _BlogInstantArticleRestClient;
 
