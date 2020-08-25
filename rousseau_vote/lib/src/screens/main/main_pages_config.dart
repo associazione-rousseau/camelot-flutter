@@ -1,6 +1,7 @@
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:rousseau_vote/src/screens/blog_screen.dart';
 import 'package:rousseau_vote/src/screens/elected_screen.dart';
+import 'package:rousseau_vote/src/screens/events_screen.dart';
 import 'package:rousseau_vote/src/screens/main/main_page.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
@@ -25,10 +26,10 @@ const List<MainPage> MAIN_PAGES = <MainPage>[
       type: MainPageType.ELECTED,
       page: ElectedScreen()),
   MainPage(
-      titleKey: 'profile',
-      iconData: MdiIcons.accountOutline,
-      selectedIconData: MdiIcons.account,
-      type: MainPageType.PROFILE,
-      page: UserProfileScreen(UserProfileArguments()),
-      hasToolbar: false),
+      titleKey: 'events',
+      iconData: MdiIcons.calendarOutline,
+      selectedIconData: MdiIcons.calendar,
+      type: MainPageType.EVENTS,
+      page: EventsScreen(),
+      hasToolbar: true),
 ];
