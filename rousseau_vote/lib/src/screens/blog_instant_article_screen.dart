@@ -181,7 +181,7 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-              child: Html(data: _instantArticle.text),
+              child: Html(data: _instantArticle.text, onLinkTap: (url) => openUrlExternal(context, url),),
             ),
           ]),
     );
