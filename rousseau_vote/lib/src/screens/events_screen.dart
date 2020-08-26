@@ -33,8 +33,7 @@ class _EventsScreenState extends State<EventsScreen> {
       _isLoading = false;
     } else {
       _isLoading = true;
-      _eventsNetworkHandler.fetchEvents('abruzzo')
-      .then((List<Event> events) {
+      fetchEvents().then((List<Event> events) {
         setState(() {
           _isLoading = false;
           _hasErrors = false;
@@ -43,7 +42,7 @@ class _EventsScreenState extends State<EventsScreen> {
         print(onError);
         setState(() {
           _isLoading = false;
-          _hasErrors = !_eventsNetworkHandler.hasEvents;
+          _hasErrors = true;
         });
       });
     }
@@ -56,14 +55,32 @@ class _EventsScreenState extends State<EventsScreen> {
       return const LoadingIndicator();
     }
     if(_hasErrors) {
-      return const ErrorPageWidget();
+      return const IconTextScreen(iconData: MdiIcons.calendar, messageKey: 'no-events',);;
     }
-    return ListView.separated(
-      itemCount: _eventsNetworkHandler.events.length,
-      separatorBuilder: (BuildContext context, int index) => const VerticalSpace(10),
-        itemBuilder: (BuildContext context, int index) {
-          return EventCard(event: _eventsNetworkHandler.events[index]);
-        }
+    return RefreshIndicator(
+      onRefresh: _onPullToRefresh,
+      child: Padding(
+        padding: const EdgeInsets.all(30),
+        child: ListView.separated(
+          itemCount: _eventsNetworkHandler.events.length,
+          separatorBuilder: (BuildContext context, int index) => const VerticalSpace(30),
+            itemBuilder: (BuildContext context, int index) {
+              return EventCard(event: _eventsNetworkHandler.events[index]);
+            }
+        ),
+      ),
     );
+  }
+
+  Future<List<Event>> _onPullToRefresh() async {
+    final List<Event> events = await fetchEvents();
+    setState(() {
+      _isLoading = false;
+      _hasErrors = false;
+    });
+  }
+
+  Future<List<Event>> fetchEvents() {
+    return _eventsNetworkHandler.fetchEvents('abruzzo');
   }
 }
