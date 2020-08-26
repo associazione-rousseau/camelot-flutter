@@ -145,10 +145,6 @@ class RousseauVoteApp extends StatelessWidget {
                     UserProfileScreen.ROUTE_NAME: (BuildContext context) {
                       final UserProfileArguments arguments =
                         ModalRoute.of(context).settings.arguments;
-                      // open current user profile in main screen
-                      if (arguments.currentUser) {
-                        return MainScreen(arguments: MainScreenArguments(type: MainPageType.PROFILE, pageArguments: arguments),);
-                      }
                       return UserProfileScreen(arguments);
                     },
                     FeedbackScreen.ROUTE_NAME:(BuildContext context) {

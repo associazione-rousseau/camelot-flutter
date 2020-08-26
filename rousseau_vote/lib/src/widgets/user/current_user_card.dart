@@ -118,7 +118,7 @@ class CurrentUserCard extends StatelessWidget {
           subtitle: Text(currentUser.residence),
           onTap: () {
             Navigator.of(context).pop();
-            openCurrentUserProfile(context);
+            openCurrentUserProfile(context, currentUser);
           }
       ),
     );

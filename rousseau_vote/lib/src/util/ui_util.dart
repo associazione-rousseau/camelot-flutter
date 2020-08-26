@@ -8,6 +8,7 @@ import 'package:rousseau_vote/src/models/arguments/blog_instant_article_argument
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
+import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/navigation/navigation_service.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
@@ -15,6 +16,7 @@ import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/success_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
+import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rousseau_vote/src/widgets/error_dialog.dart';
@@ -122,9 +124,8 @@ Function openLinkAction(BuildContext context, BrowserArguments arguments) {
   };
 }
 
-void openCurrentUserProfile(BuildContext context) {
-  openRoute(context, UserProfileScreen.ROUTE_NAME,
-      arguments: const UserProfileArguments(), replace: true);
+void openCurrentUserProfile(BuildContext context, CurrentUser currentUser) {
+  openRoute(context, UserProfileScreen.ROUTE_NAME, arguments: const UserProfileArguments());
 }
 
 void openProfile(BuildContext context, String slug) {
