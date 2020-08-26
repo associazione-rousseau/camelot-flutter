@@ -9,6 +9,7 @@ import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/injection/register_module.dart';
 import 'package:dio/dio.dart';
 import 'package:rousseau_vote/src/error_reporting/error_logger.dart';
+import 'package:rousseau_vote/src/network/handlers/events_network_handler.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -60,6 +61,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerSingleton<BlogInstantArticleProvider>(
       BlogInstantArticleProvider(g<BlogInstantArticleNetworkHandler>()));
   g.registerSingleton<Dio>(registerModule.dioForNative());
+  g.registerSingleton<EventsNetworkHandler>(EventsNetworkHandler(g<Dio>()));
   g.registerSingletonAsync<ExternalPreselection>(
       () => ExternalPreselection.create());
   g.registerSingleton<FlutterSecureStorage>(
