@@ -71,7 +71,7 @@ class RousseauDrawer extends StatelessWidget {
           DrawerItem(
             textKey: 'drawer-privacy',
             iconData: Icons.security,
-            onTap: openUrlInternalAction(context, PRIVACY_LINK),
+            onTap: openUrlExternalAction(context, PRIVACY_LINK),
           ),
           const Divider(height: 4),
           DrawerItem(
