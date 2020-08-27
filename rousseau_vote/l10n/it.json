@@ -149,6 +149,8 @@
     "elected-full-title": "I miei eletti",
 
     "no-events": "Nessun evento nella tua regione per ora. Riprova più tardi.",
+    "event-date": "%s dalle %s alle %s",
+    "event-date-no-end": "%s alle %s",
 
     "view_profile": "Vedi Profilo",
     "vote-search-candidate": "Cerca candidato",

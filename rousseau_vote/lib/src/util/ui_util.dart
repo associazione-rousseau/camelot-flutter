@@ -65,6 +65,11 @@ String formatDate(BuildContext context, DateTime dateTime) {
       .format(dateTime);
 }
 
+String formatDateDayMonth(BuildContext context, DateTime dateTime) {
+  return DateFormat.MMMMd(RousseauLocalizations.of(context).currentLanguage)
+      .format(dateTime);
+}
+
 Future<void> openUrlExternal(BuildContext context, String url) async {
   if (await canLaunch(url)) {
     await launch(url);

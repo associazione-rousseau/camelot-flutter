@@ -1,12 +1,14 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/events/event.dart';
+import 'package:rousseau_vote/src/models/events/event_date.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/events/event_picture_placeholder.dart';
 
 class EventCard extends StatelessWidget {
-
-  const EventCard({ @required this.event });
+  const EventCard({@required this.event});
 
   final Event event;
 
@@ -18,54 +20,56 @@ class EventCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       elevation: 5,
       child: InkWell(
-        onTap: openEvent,
-        child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ClipRRect(
-                borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(RADIUS)),
-                child: CachedNetworkImage(
-                  imageUrl: event.image,
-                  placeholder: (BuildContext context, String url) =>
-                      EventPicturePlaceholder(),
-                  errorWidget:
-                      (BuildContext context, String url, dynamic error) =>
-                          EventPicturePlaceholder(),
+          onTap: openEvent,
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(RADIUS)),
+                  child: CachedNetworkImage(
+                    imageUrl: event.coverImage,
+                    placeholder: (BuildContext context, String url) =>
+                        EventPicturePlaceholder(),
+                    errorWidget:
+                        (BuildContext context, String url, dynamic error) =>
+                            EventPicturePlaceholder(),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0, top: 15.0, right: 15.0),
-                child: Row(
-                  children: [
-                    Text(event.place.formattedAddress.toUpperCase()),
-                  ],
-                ),
-              ),
-              ListTile(
-                contentPadding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                title: Text(
-                  event.title,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20, fontFamily: 'Roboto '),
-                ),
-              ),
-              ListTile(
-                contentPadding: const EdgeInsets.only(left: 15.0, bottom: 15.00, right: 15.0),
-                title: Text(
-                  "Domani dalle 20",
-                  maxLines: 3,
-                  style: const TextStyle(fontSize: 15, fontFamily: 'Roboto '),
-                ),
-              ),
-            ]),
-      ),
+                Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(event.location.toUpperCase()),
+                        Text(
+                          event.title,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              fontFamily: 'Roboto '),
+                        ),
+                        _timeSection(context),
+                      ],
+                    )),
+              ])),
     );
   }
 
-  void openEvent() {
-
+  Widget _timeSection(BuildContext context) {
+    final List<Widget> times = <Widget>[];
+    for(EventDate date in event.dates) {
+      final String dateString = formatDateDayMonth(context, date.timestamp);
+      final String text = date.end != null && date.end.isNotEmpty ?
+        RousseauLocalizations.getTextFormatted(context, 'event-date', [dateString, date.start, date.end]) :
+        RousseauLocalizations.getTextFormatted(context, 'event-date-no-end', [dateString, date.start]);
+      times.add(Text(text));
+    }
+    return Column(
+      children: times,
+    );
   }
 
+  void openEvent() {}
 }
