@@ -81,6 +81,6 @@ class _EventsScreenState extends State<EventsScreen> {
   }
 
   Future<List<Event>> fetchEvents() {
-    return _eventsNetworkHandler.fetchEvents('abruzzo');
+    return _eventsNetworkHandler.fetchEvents();
   }
 }

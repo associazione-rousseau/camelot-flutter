@@ -198,6 +198,10 @@ String currentUserShort = '''
         code
         active
     }
+    regione{
+      code
+      name
+    }
   }
 }
 ''';
