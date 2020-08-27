@@ -16,13 +16,16 @@ class Event {
 
   String title;
   String subtitle;
-  String description;
   String campaign;
   @JsonKey(name: 'image')
   String squareImage;
   String coverImage;
   String permalink;
   String marker;
+  @JsonKey(name: 'description')
+  String newDescription;
+  @JsonKey(name: '0')
+  String legacyDescription;
 
   @JsonKey(fromJson: parseDates)
   List<EventDate> dates;
@@ -30,6 +33,8 @@ class Event {
   EventPlace place;
 
   String get location => place.formattedAddress;
+  String get description =>
+      newDescription == null || newDescription.isEmpty ? legacyDescription : newDescription;
 
   static List<EventDate> parseDates(Map<String, dynamic> datesJson) {
     final List<EventDate> dates = <EventDate>[];

@@ -5,12 +5,15 @@ import 'package:intl/intl.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/arguments/blog_instant_article_arguments.dart';
+import 'package:rousseau_vote/src/models/arguments/event_details_arguments.dart';
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
+import 'package:rousseau_vote/src/models/events/event.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/navigation/navigation_service.dart';
 import 'package:rousseau_vote/src/screens/blog_instant_article_screen.dart';
+import 'package:rousseau_vote/src/screens/events/event_details_screen.dart';
 import 'package:rousseau_vote/src/screens/in_app_browser.dart';
 import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
@@ -98,6 +101,17 @@ Function openUrlInternalAction(BuildContext context, String url) {
   return () {
     openUrlInternal(context, url);
   };
+}
+Function openEventDetailsAction(BuildContext context, Event event) {
+  return () {
+    openEventDetails(context, event);
+  };
+}
+
+void openEventDetails(BuildContext context, Event event) {
+  final EventDetailsArgument arguments = EventDetailsArgument(event: event);
+  Navigator.of(context)
+      .pushNamed(EventDetailsScreen.ROUTE_NAME, arguments: arguments);
 }
 
 Function openBlogInstantArticleAction(

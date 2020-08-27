@@ -9,9 +9,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rousseau_vote/src/error_reporting/error_logger.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/models/arguments/blog_instant_article_arguments.dart';
+import 'package:rousseau_vote/src/models/arguments/event_details_arguments.dart';
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
-import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/navigation/navigation_service.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
@@ -23,6 +23,7 @@ import 'package:rousseau_vote/src/screens/account/delete_account_disclaimer_scre
 import 'package:rousseau_vote/src/screens/account/delete_account_action_screen.dart';
 import 'package:rousseau_vote/src/screens/account/login_info_screen.dart';
 import 'package:rousseau_vote/src/screens/account/residence_screen.dart';
+import 'package:rousseau_vote/src/screens/events/event_details_screen.dart';
 import 'package:rousseau_vote/src/screens/feedback_screen.dart';
 import 'package:rousseau_vote/src/screens/main/main_page.dart';
 import 'package:rousseau_vote/src/screens/main/main_screen.dart';
@@ -141,6 +142,11 @@ class RousseauVoteApp extends StatelessWidget {
                       final BlogInstantArticleArguments arguments =
                           ModalRoute.of(context).settings.arguments;
                       return BlogInstantArticleScreen(arguments);
+                    },
+                    EventDetailsScreen.ROUTE_NAME: (BuildContext context) {
+                      final EventDetailsArgument arguments =
+                          ModalRoute.of(context).settings.arguments;
+                      return EventDetailsScreen(arguments: arguments,);
                     },
                     UserProfileScreen.ROUTE_NAME: (BuildContext context) {
                       final UserProfileArguments arguments =

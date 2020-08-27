@@ -20,7 +20,7 @@ class EventCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       elevation: 5,
       child: InkWell(
-          onTap: openEvent,
+          onTap: openEventDetailsAction(context, event),
           child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,6 +70,4 @@ class EventCard extends StatelessWidget {
       children: times,
     );
   }
-
-  void openEvent() {}
 }
