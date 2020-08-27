@@ -78,7 +78,6 @@ class PollDetailsScreen extends StatelessWidget {
       floatingActionButton: _floatingActionButton(context),
       body: _body(context,
           pollDetail: pollDetail, isLoading: isLoading, errors: errors),
-      backgroundColor: BACKGROUND_GREY,
     );
   }
 

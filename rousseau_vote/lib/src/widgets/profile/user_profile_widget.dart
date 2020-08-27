@@ -24,7 +24,6 @@ class UserProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RousseauAnimatedScreen(
-      backgroundColor: BACKGROUND_GREY,
       appBar: Padding(
         padding: const EdgeInsets.only(top: 20),
         child: isLoading ? Container() : Text(userProfile.fullName, style: TextStyle(color: Colors.white, fontSize: 20), textAlign: TextAlign.center,),

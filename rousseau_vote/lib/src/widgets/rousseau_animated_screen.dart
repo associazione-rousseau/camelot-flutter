@@ -8,7 +8,7 @@ class RousseauAnimatedScreen extends StatefulWidget {
       @required this.extendedAppBar,
       @required this.body,
       this.actions,
-      this.backgroundColor,
+      this.backgroundColor = BACKGROUND_GREY,
       this.floatingActionButton});
 
   final Widget extendedAppBar;
