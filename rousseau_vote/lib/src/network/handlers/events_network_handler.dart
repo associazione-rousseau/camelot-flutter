@@ -22,7 +22,7 @@ class EventsNetworkHandler {
 
   Future<List<Event>> fetchEvents() async {
     final CurrentUser currentUser = await getIt<UserNetworkHandler>().fetchCurrentUser(fetchPolicy: FetchPolicy.cacheFirst);
-    final List<Event> events = await _client.getEventList(currentUser.regione.name.toLowerCase());
+    final List<Event> events = await _client.getEventList(currentUser.regione.eventsCode);
     if (events == null) {
       return _events;
     }
