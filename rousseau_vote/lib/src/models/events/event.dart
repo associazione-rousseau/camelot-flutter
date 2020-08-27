@@ -15,6 +15,8 @@ class Event {
   Map<String, dynamic> toJson() => _$EventToJson(this);
 
   String title;
+  String subtitle;
+  String description;
   String campaign;
   @JsonKey(name: 'image')
   String squareImage;
