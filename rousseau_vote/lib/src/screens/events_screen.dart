@@ -60,10 +60,10 @@ class _EventsScreenState extends State<EventsScreen> {
     return RefreshIndicator(
       onRefresh: _onPullToRefresh,
       child: Padding(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.all(20),
         child: ListView.separated(
           itemCount: _eventsNetworkHandler.events.length,
-          separatorBuilder: (BuildContext context, int index) => const VerticalSpace(30),
+          separatorBuilder: (BuildContext context, int index) => const VerticalSpace(20),
             itemBuilder: (BuildContext context, int index) {
               return EventCard(event: _eventsNetworkHandler.events[index]);
             }
