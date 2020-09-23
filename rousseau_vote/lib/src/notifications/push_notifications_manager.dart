@@ -52,7 +52,7 @@ class FirebaseNotificationManager extends PushNotificationManager {
   Future<void> doInitialize() async {
     final Login login = getIt<Login>();
     if(login.isLoggedIn()) {
-      await _initFirebase();
+      _initFirebase();
     }
   }
 
