@@ -6,6 +6,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:rousseau_vote/src/models/arguments/event_details_arguments.dart';
 import 'package:rousseau_vote/src/models/events/event.dart';
 import 'package:rousseau_vote/src/widgets/events/event_picture_placeholder.dart';
+import 'package:rousseau_vote/src/widgets/menu/web_menu_button.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
 
 class EventDetailsScreen extends StatelessWidget {
@@ -26,6 +27,7 @@ class EventDetailsScreen extends StatelessWidget {
       extendedAppBar: _header(),
       backgroundColor: Colors.white,
       body: _body(),
+      actions: [WebMenuButton(url: arguments.event.permalink)],
     );
   }
 

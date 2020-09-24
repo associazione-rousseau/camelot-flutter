@@ -12,6 +12,7 @@ import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/blog/blog_instant_article_placeholder.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/menu/rousseau_menu_item.dart';
+import 'package:rousseau_vote/src/widgets/menu/web_menu_button.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
 import 'package:share/share.dart';
 
@@ -86,56 +87,10 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
     return <Widget>[
       Builder(
         builder: (BuildContext scaffoldContext) {
-          return PopupMenuButton<RousseauMenuItemType>(
-            onSelected: (RousseauMenuItemType type) {_onMenuItemSelected(scaffoldContext, type); },
-            itemBuilder: (BuildContext context) {
-              return const <PopupMenuEntry<RousseauMenuItemType>>[
-                PopupMenuItem<RousseauMenuItemType>(
-                  value: RousseauMenuItemType.SHARE,
-                  child: RousseauMenuItem(
-                    textKey: 'menu-share',
-                    iconData: Icons.share,
-                  ),
-                ),
-                PopupMenuItem<RousseauMenuItemType>(
-                  value: RousseauMenuItemType.COPY_LINK,
-                  child: RousseauMenuItem(
-                    textKey: 'menu-copy-link',
-                    iconData: Icons.link,
-                  ),
-                ),
-                PopupMenuItem<RousseauMenuItemType>(
-                  value: RousseauMenuItemType.OPEN_IN_BROWSER,
-                  child: RousseauMenuItem(
-                    textKey: 'menu-open-in-browser',
-                    iconData: Icons.open_in_new,
-                  ),
-                ),
-              ];
-            },
-          );
+          return WebMenuButton(url: _instantArticle.url);
         },
       ),
     ];
-  }
-
-  void _onMenuItemSelected(BuildContext scaffoldContext, RousseauMenuItemType item) {
-    switch (item) {
-      case RousseauMenuItemType.SHARE:
-        final String text = RousseauLocalizations.getTextFormatted(
-            context, 'share-text', <String>[_instantArticle.url]);
-        final String subject =
-            RousseauLocalizations.getText(context, 'share-subject');
-        Share.share(text, subject: subject);
-        break;
-      case RousseauMenuItemType.COPY_LINK:
-        Clipboard.setData(ClipboardData(text: _instantArticle.url));
-        showSimpleSnackbar(scaffoldContext, duration: 3, textKey: 'link-copied');
-        break;
-      case RousseauMenuItemType.OPEN_IN_BROWSER:
-        openUrlExternal(context, _instantArticle.url);
-        break;
-    }
   }
 
   void loadArticle() {
