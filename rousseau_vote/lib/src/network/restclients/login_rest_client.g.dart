@@ -9,8 +9,7 @@ part of 'login_rest_client.dart';
 class _LoginRestClient implements LoginRestClient {
   _LoginRestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??=
-        'https://sso.rousseau.movimento5stelle.it/auth/realms/rousseau';
+    baseUrl ??= 'https://sso.rousseau.movimento5stelle.it/auth/realms/rousseau';
   }
 
   final Dio _dio;
@@ -18,7 +17,7 @@ class _LoginRestClient implements LoginRestClient {
   String baseUrl;
 
   @override
-  initLogin(nonce, state,
+  Future<InitLoginResponse> initLogin(nonce, state,
       {clientId = KEYCLOAK_CLIENT_ID,
       redirectUri = KEYCLOAK_REDIRECT_URI,
       responseMode = 'fragment',
@@ -38,7 +37,7 @@ class _LoginRestClient implements LoginRestClient {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
+    final _result = await _dio.request<Map<String, dynamic>>(
         '/protocol/openid-connect/auth',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -52,7 +51,7 @@ class _LoginRestClient implements LoginRestClient {
   }
 
   @override
-  login(sessionCode, execution, tabId, body,
+  Future<CredentialsLoginResponse> login(sessionCode, execution, tabId, body,
       {clientId = KEYCLOAK_CLIENT_ID}) async {
     ArgumentError.checkNotNull(sessionCode, 'sessionCode');
     ArgumentError.checkNotNull(execution, 'execution');
@@ -68,7 +67,8 @@ class _LoginRestClient implements LoginRestClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(body ?? <String, dynamic>{});
-    final Response<Map<String, dynamic>> _result = await _dio.request(
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>(
         '/login-actions/authenticate',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -83,7 +83,8 @@ class _LoginRestClient implements LoginRestClient {
   }
 
   @override
-  submitTwoFactorCode(sessionCode, execution, tabId, body,
+  Future<CredentialsLoginResponse> submitTwoFactorCode(
+      sessionCode, execution, tabId, body,
       {clientId = KEYCLOAK_CLIENT_ID}) async {
     ArgumentError.checkNotNull(sessionCode, 'sessionCode');
     ArgumentError.checkNotNull(execution, 'execution');
@@ -99,7 +100,8 @@ class _LoginRestClient implements LoginRestClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(body ?? <String, dynamic>{});
-    final Response<Map<String, dynamic>> _result = await _dio.request(
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>(
         '/login-actions/authenticate',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -114,7 +116,8 @@ class _LoginRestClient implements LoginRestClient {
   }
 
   @override
-  twoFactorExtraAction(sessionCode, execution, tabId, body,
+  Future<CredentialsLoginResponse> twoFactorExtraAction(
+      sessionCode, execution, tabId, body,
       {clientId = KEYCLOAK_CLIENT_ID}) async {
     ArgumentError.checkNotNull(sessionCode, 'sessionCode');
     ArgumentError.checkNotNull(execution, 'execution');
@@ -130,7 +133,8 @@ class _LoginRestClient implements LoginRestClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(body ?? <String, dynamic>{});
-    final Response<Map<String, dynamic>> _result = await _dio.request(
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>(
         '/login-actions/authenticate',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -145,13 +149,14 @@ class _LoginRestClient implements LoginRestClient {
   }
 
   @override
-  getToken(body) async {
+  Future<TokenResponse> getToken(body) async {
     ArgumentError.checkNotNull(body, 'body');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body ?? <String, dynamic>{});
-    final Response<Map<String, dynamic>> _result = await _dio.request(
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>(
         '/protocol/openid-connect/token',
         queryParameters: queryParameters,
         options: RequestOptions(

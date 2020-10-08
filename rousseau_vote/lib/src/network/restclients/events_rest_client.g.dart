@@ -9,7 +9,7 @@ part of 'events_rest_client.dart';
 class _EventsRestClient implements EventsRestClient {
   _EventsRestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??= 'https://partecipa.ilblogdellestelle.it';
+    baseUrl ??= 'https://partecipa.ilblogdellestelle.it';
   }
 
   final Dio _dio;
@@ -17,13 +17,12 @@ class _EventsRestClient implements EventsRestClient {
   String baseUrl;
 
   @override
-  getEventList(region) async {
+  Future<List<Event>> getEventList(region) async {
     ArgumentError.checkNotNull(region, 'region');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'region': region};
     final _data = <String, dynamic>{};
-    final Response<List<dynamic>> _result = await _dio.request(
-        '/wp-json/app/iniziative',
+    final _result = await _dio.request<List<dynamic>>('/wp-json/app/iniziative',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

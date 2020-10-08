@@ -9,7 +9,7 @@ part of 'blog_instant_article_rest_client.dart';
 class _BlogInstantArticleRestClient implements BlogInstantArticleRestClient {
   _BlogInstantArticleRestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??= 'https://www.ilblogdellestelle.it';
+    baseUrl ??= 'https://www.ilblogdellestelle.it';
   }
 
   final Dio _dio;
@@ -17,7 +17,8 @@ class _BlogInstantArticleRestClient implements BlogInstantArticleRestClient {
   String baseUrl;
 
   @override
-  getPosts({offset = 0, perPage = DEFAULT_ARTICLES_PER_PAGE}) async {
+  Future<List<BlogInstantArticle>> getPosts(
+      {offset = 0, perPage = DEFAULT_ARTICLES_PER_PAGE}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'offset': offset,
@@ -25,7 +26,7 @@ class _BlogInstantArticleRestClient implements BlogInstantArticleRestClient {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    final Response<List<dynamic>> _result = await _dio.request(
+    final _result = await _dio.request<List<dynamic>>(
         '/wp-json/mobile_api/v1/ia_posts',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -42,12 +43,12 @@ class _BlogInstantArticleRestClient implements BlogInstantArticleRestClient {
   }
 
   @override
-  getPost(slug) async {
+  Future<BlogInstantArticle> getPost(slug) async {
     ArgumentError.checkNotNull(slug, 'slug');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'slug': slug};
     final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
+    final _result = await _dio.request<Map<String, dynamic>>(
         '/wp-json/mobile_api/v1/ia_post',
         queryParameters: queryParameters,
         options: RequestOptions(

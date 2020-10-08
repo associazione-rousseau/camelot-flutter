@@ -9,7 +9,7 @@ part of 'direct_uploads_rest_client.dart';
 class _DirectUploadsRestClient implements DirectUploadsRestClient {
   _DirectUploadsRestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??= 'https://api.rousseau.movimento5stelle.it';
+    baseUrl ??= 'https://api.rousseau.movimento5stelle.it';
   }
 
   final Dio _dio;
@@ -17,12 +17,12 @@ class _DirectUploadsRestClient implements DirectUploadsRestClient {
   String baseUrl;
 
   @override
-  post(blob) async {
+  Future<DirectUploadsResponse> post(blob) async {
     ArgumentError.checkNotNull(blob, 'blob');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'blob': blob?.toJson()};
     final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
+    final _result = await _dio.request<Map<String, dynamic>>(
         '/files/direct_uploads',
         queryParameters: queryParameters,
         options: RequestOptions(
