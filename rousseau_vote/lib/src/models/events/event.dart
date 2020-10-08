@@ -32,7 +32,7 @@ class Event {
 
   EventPlace place;
 
-  String get location => place.formattedAddress;
+  String get location => place != null ? place.formattedAddress : 'ONLINE';
   String get description =>
       newDescription == null || newDescription.isEmpty ? legacyDescription : newDescription;
 

@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
-import 'package:rousseau_vote/src/models/events/event.dart';
+import 'package:rousseau_vote/src/models/events/event_list.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:rousseau_vote/src/network/restclients/events_rest_client.dart';
@@ -13,21 +13,21 @@ class EventsNetworkHandler {
 
   EventsNetworkHandler(Dio dio) : _client = EventsRestClient(dio);
 
-  final List<Event> _events = <Event>[];
+  final List<EventList> _eventList = <EventList>[];
   final EventsRestClient _client;
 
-  bool get hasEvents => events.isNotEmpty;
+  bool get hasEvents => eventList.isNotEmpty;
 
-  List<Event> get events => _events;
+  List<EventList> get eventList => _eventList;
 
-  Future<List<Event>> fetchEvents() async {
+  Future<List<EventList>> fetchEvents() async {
     final CurrentUser currentUser = await getIt<UserNetworkHandler>().fetchCurrentUser(fetchPolicy: FetchPolicy.cacheFirst);
-    final List<Event> events = await _client.getEventList(currentUser.regione.eventsCode);
+    final List<EventList> events = await _client.getEventList(currentUser.regione.eventsCode);
     if (events == null) {
-      return _events;
+      return _eventList;
     }
-    _events.clear();
-    _events.addAll(events);
-    return _events;
+    _eventList.clear();
+    _eventList.addAll(events);
+    return _eventList;
   }
 }

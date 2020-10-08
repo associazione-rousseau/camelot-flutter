@@ -149,6 +149,7 @@
     "elected-full-title": "I miei eletti",
 
     "no-events": "Nessun evento nella tua regione per ora. Riprova più tardi.",
+    "no-events-message": "Nessun evento al momento.",
     "event-date": "%s dalle %s alle %s",
     "event-date-no-end": "%s alle %s",
 

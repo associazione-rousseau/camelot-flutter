@@ -17,12 +17,13 @@ class _EventsRestClient implements EventsRestClient {
   String baseUrl;
 
   @override
-  Future<List<Event>> getEventList(region) async {
+  Future<List<EventList>> getEventList(region) async {
     ArgumentError.checkNotNull(region, 'region');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'region': region};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<List<dynamic>>('/wp-json/app/iniziative',
+    final _result = await _dio.request<List<dynamic>>(
+        '/wp-json/app/events_feed',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -31,7 +32,7 @@ class _EventsRestClient implements EventsRestClient {
             baseUrl: baseUrl),
         data: _data);
     var value = _result.data
-        .map((dynamic i) => Event.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => EventList.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
