@@ -116,6 +116,10 @@ void showCompileProfileDialog(BuildContext context) {
       buttonAction1: () => Navigator.pop(context),
       buttonAction2: () {
         Navigator.pop(context);
-        openUrlExternal(context, ROUSSEAU_EDIT_PROFILE_URL);
+        openEditProfileExternal(context);
       });
+}
+
+void openEditProfileExternal(BuildContext context) {
+  openUrlExternal(context, ROUSSEAU_EDIT_PROFILE_URL);
 }
