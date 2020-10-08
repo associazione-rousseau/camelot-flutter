@@ -69,7 +69,7 @@ class _MainScreenState extends State<MainScreen> {
     for(MainPage mainPage in MAIN_PAGES) {
       final String title = RousseauLocalizations.of(context).text(mainPage.titleKey);
       items.add(BottomNavigationBarItem(
-        icon: Badge(child: Icon(mainPage.iconData), showBadge: provider.shouldShowBadge(mainPage.type), position: BadgePosition.topRight(top: -3, right: -3),),
+        icon: Badge(child: Icon(mainPage.iconData), showBadge: provider.shouldShowBadge(mainPage.type), position: BadgePosition.topEnd(top: -3, end: -3),),
         title: Text(title),
         activeIcon: Icon(mainPage.selectedIconData),
       ));
