@@ -195,8 +195,8 @@
     "message-link-copied": "Link copiato",
     "message-profile-not-compiled": "Non hai ancora completato il profilo. Puoi completarlo visitando il sito internet.",
 
-    "unsubscribe-title": "Sei sicuro di voler eliminare il profilo?",
-    "unsubscribe-text": "Eliminando il tuo profilo, non ti sarà consentito l' accesso a tutte le funzioni di Rousseau compreso il voto.",
+    "unsubscribe-title": "Sei sicuro di voler cancellare il tuo account?",
+    "unsubscribe-text": "Questa azione è irrevocabile. Eliminando il tuo account non potrai più accedere alle funzioni della piattaforma compreso il voto.",
     "understand": "Ho capito",
 
     "unsubscribe-political": "Motivi politici",
