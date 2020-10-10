@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:html_unescape/html_unescape.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
@@ -19,7 +20,6 @@ import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/success_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
-import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rousseau_vote/src/widgets/error_dialog.dart';
@@ -32,6 +32,8 @@ SnackBarAction createSnackBarAction(
     onPressed: onPressed,
   );
 }
+
+String parseHtml(String htmlString) => HtmlUnescape().convert(htmlString);
 
 void showSimpleSnackbar(BuildContext context,
     {SnackBarAction action, bool dismissable = false, String textKey, String text, int duration = 7}) {

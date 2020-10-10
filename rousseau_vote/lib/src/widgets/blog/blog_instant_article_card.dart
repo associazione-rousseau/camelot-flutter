@@ -56,7 +56,7 @@ class BlogInstantArticleCard extends StatelessWidget {
               ListTile(
                 contentPadding: const EdgeInsets.only(left: 15.0, bottom: 15.00, right: 15.0),
                 title: Text(
-                  _article.summary,
+                  parseHtml(_article.summary),
                   maxLines: 3,
                   style: const TextStyle(fontSize: 15, fontFamily: 'Roboto '),
                 ),

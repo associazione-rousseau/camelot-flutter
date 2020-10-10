@@ -28,6 +28,7 @@ dependencies:
   graphql_flutter: ^3.0.1
   uni_links: ^0.4.0
   url_launcher: ^5.5.0
+  html_unescape: ^1.0.2
 
   sentry: ">=3.0.0 <4.0.0"
   crypto: any
