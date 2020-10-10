@@ -112,6 +112,7 @@ flutter:
     - l10n/it.json
     - assets/images/
     - assets/images/badges/
+    - assets/images/identity_verification/
     - assets/images/placeholders/
     - assets/images/socials/
     - assets/secrets/

@@ -4,11 +4,12 @@ import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 
 class RoundedButton extends StatelessWidget {
 
-  const RoundedButton({this.text, this.onPressed, this.loading = false});
+  const RoundedButton({this.text, this.onPressed, this.loading = false, this.wrapContent = false});
 
   final String text;
   final VoidCallback onPressed;
   final bool loading;
+  final bool wrapContent;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class RoundedButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(30.0),
       color: onPressed != null ? Theme.of(context).primaryColor : DISABLED_GREY,
       child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
+        minWidth: wrapContent ? 0 : MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         onPressed: loading ? null : onPressed,
         child: loading ? LoadingIndicator(color: Colors.white) : _buttonTextWidget(text),
