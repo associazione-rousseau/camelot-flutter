@@ -18,7 +18,7 @@ class RousseauAppBar extends StatelessWidget implements PreferredSizeWidget {
           showBadge: hasBadge,
           position: BadgePosition.topEnd(top: 10, end: 10),
           child: IconButton(
-            icon: Icon(Icons.menu),
+            icon: const Icon(Icons.menu),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
@@ -27,6 +27,7 @@ class RousseauAppBar extends StatelessWidget implements PreferredSizeWidget {
         image: white ? RED_LOGO : WHITE_LOGO,
         height: 60,
       ),
+      centerTitle: true,
       backgroundColor: white ? Colors.white : PRIMARY_RED,
     );
   }
