@@ -149,6 +149,7 @@ class _ResidenceContentBodyState extends State<ResidenceContentBody> {
                                   child: RoundedTextField(
                                     controller: overseasCityTextController,
                                     labelText: 'overseas-city',
+                                    enabled: false,
                                   ),
                                 ),
                                 Padding(
@@ -177,12 +178,12 @@ class _ResidenceContentBodyState extends State<ResidenceContentBody> {
                   }),
             ),
           ),
-          ChangeResidenceButton(
-              buttonEnabled,
-              selectedDivisions,
-              overseasCityTextController.text,
-              currentUser.slug,
-              setResidenceRequest)
+//          ChangeResidenceButton(
+//              buttonEnabled,
+//              selectedDivisions,
+//              overseasCityTextController.text,
+//              currentUser.slug,
+//              setResidenceRequest)
         ],
       ),
     );

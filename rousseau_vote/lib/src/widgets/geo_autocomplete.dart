@@ -22,9 +22,10 @@ class GeoAutocomplete extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: TypeAheadFormField<dynamic>(   
+      child: TypeAheadFormField<dynamic>(
         loadingBuilder: (context) => LoadingIndicator(),
         textFieldConfiguration: TextFieldConfiguration<dynamic>(
+          enabled: false,
           controller: textController,
           style: TextStyle(
             fontSize: 20,
