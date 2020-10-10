@@ -100,6 +100,9 @@
     "verify-identity-title": "Documento d'identità richiesto",
     "verify-identity-subtitle": "Per accedere a tutte le funzionalità è richiesta la verifica dell'identità. I documenti d'identità validi sono: Carta d'Identità, Passaporto e Patente.",
     "verify-identity-warning": "Dati anagrafici e foto devono essere evidenti",
+    "verify-identity-dialog-title": "Ci siamo quasi...",
+    "verify-identity-dialog-message": "Mi raccomando! Assicurati che dati anagrafici e foto siano chiari",
+    "verify-identity-send-success": "Documento inviato!",
 
     "noNationalEventsEmail": "Non voglio ricevere email sugli eventi nazionali",
     "noLocalEventsEmail": "Non voglio ricevere email sugli eventi locali",
