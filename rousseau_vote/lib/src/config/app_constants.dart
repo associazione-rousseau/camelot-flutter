@@ -56,4 +56,4 @@ const Color PUBLISHED_ORANGE = Color(0xFFE78853);
 
 //images
 const AssetImage WHITE_LOGO = AssetImage('assets/images/rousseau_white.png');
-const AssetImage RED_LOGO = AssetImage('assets/images/rousseau_red.png');
+const AssetImage RED_LOGO = AssetImage('assets/images/rousseau_red_beta.png');

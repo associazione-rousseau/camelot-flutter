@@ -25,7 +25,7 @@ class RousseauAppBar extends StatelessWidget implements PreferredSizeWidget {
       iconTheme: white ? const IconThemeData(color: PRIMARY_RED) : null,
       title: Image(
         image: white ? RED_LOGO : WHITE_LOGO,
-        height: 50,
+        height: 60,
       ),
       backgroundColor: white ? Colors.white : PRIMARY_RED,
     );
