@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:rousseau_vote/src/config/links.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/network/util/open_id_util.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
@@ -60,9 +61,12 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
                     ),
               )),
           const SizedBox(height: 25.0),
-          Text(
-            RousseauLocalizations.getText(context, 'password-forgot'),
-            style: const TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
+          GestureDetector(
+            child: Text(
+              RousseauLocalizations.getText(context, 'password-forgot'),
+              style: const TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
+            ),
+            onTap: openUrlExternalAction(context, RESET_PASSWORD),
           ),
           const SizedBox(height: 25.0),
           Row(children: <Widget>[
