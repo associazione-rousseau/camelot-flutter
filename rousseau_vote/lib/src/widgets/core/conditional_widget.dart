@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 /// Otherwise it returns an empty Container
 class ConditionalWidget extends StatelessWidget {
 
-  const ConditionalWidget({Key key, this.condition, this.child}) : super(key: key);
+  const ConditionalWidget({Key key, @required this.condition, @required this.child}) : super(key: key);
 
   final bool condition;
   final Widget child;
