@@ -26,6 +26,11 @@ class Event {
   String newDescription;
   @JsonKey(name: '0')
   String legacyDescription;
+  String slug;
+  String signupUrl;
+
+  @JsonKey(fromJson: parseSignupStatus)
+  SignupStatus signupStatus;
 
   @JsonKey(fromJson: parseDates)
   List<EventDate> dates;
@@ -36,6 +41,9 @@ class Event {
   String get description =>
       newDescription == null || newDescription.isEmpty ? legacyDescription : newDescription;
 
+  bool get canSignup => signupStatus == SignupStatus.ACTIVE;
+  bool get isSoldout => signupStatus == SignupStatus.SOLDOUT;
+
   static List<EventDate> parseDates(Map<String, dynamic> datesJson) {
     final List<EventDate> dates = <EventDate>[];
     for(String key in datesJson.keys) {
@@ -43,4 +51,18 @@ class Event {
     }
     return dates;
   }
+
+  static SignupStatus parseSignupStatus(String signupStatus) {
+    switch(signupStatus) {
+      case 'active': return SignupStatus.ACTIVE;
+      case 'disabled': return SignupStatus.DISABLED;
+      case 'soldout': return SignupStatus.SOLDOUT;
+      case 'closed': return SignupStatus.CLOSED;
+    }
+    return SignupStatus.UNKNOWN;
+  }
+}
+
+enum SignupStatus {
+  ACTIVE, DISABLED, SOLDOUT, CLOSED, UNKNOWN
 }

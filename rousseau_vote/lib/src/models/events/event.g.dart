@@ -17,6 +17,9 @@ Event _$EventFromJson(Map<String, dynamic> json) {
     ..marker = json['marker'] as String
     ..newDescription = json['description'] as String
     ..legacyDescription = json['0'] as String
+    ..slug = json['slug'] as String
+    ..signupUrl = json['signup_url'] as String
+    ..signupStatus = Event.parseSignupStatus(json['signup_status'] as String)
     ..dates = Event.parseDates(json['dates'] as Map<String, dynamic>)
     ..place = json['place'] == null
         ? null
@@ -33,6 +36,17 @@ Map<String, dynamic> _$EventToJson(Event instance) => <String, dynamic>{
       'marker': instance.marker,
       'description': instance.newDescription,
       '0': instance.legacyDescription,
+      'slug': instance.slug,
+      'signup_url': instance.signupUrl,
+      'signup_status': _$SignupStatusEnumMap[instance.signupStatus],
       'dates': instance.dates,
       'place': instance.place,
     };
+
+const _$SignupStatusEnumMap = {
+  SignupStatus.ACTIVE: 'ACTIVE',
+  SignupStatus.DISABLED: 'DISABLED',
+  SignupStatus.SOLDOUT: 'SOLDOUT',
+  SignupStatus.CLOSED: 'CLOSED',
+  SignupStatus.UNKNOWN: 'UNKNOWN',
+};

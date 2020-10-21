@@ -159,6 +159,7 @@
     "no-events-message": "Nessun evento al momento.",
     "event-date": "%s dalle %s alle %s",
     "event-date-no-end": "%s alle %s",
+    "event-partecipate-button": "Partecipa",
 
     "view_profile": "Vedi Profilo",
     "vote-search-candidate": "Cerca candidato",

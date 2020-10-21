@@ -12,6 +12,7 @@ import 'package:rousseau_vote/src/models/events/event_date.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/util/widget/horizontal_space.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
+import 'package:rousseau_vote/src/widgets/core/conditional_widget.dart';
 import 'package:rousseau_vote/src/widgets/events/event_picture_placeholder.dart';
 import 'package:rousseau_vote/src/widgets/menu/web_menu_button.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
@@ -31,11 +32,22 @@ class EventDetailsScreen extends StatelessWidget {
         padding: const EdgeInsets.only(top: 20),
         child: Container(),
       ),
+      floatingActionButton: ConditionalWidget(condition: arguments.event.canSignup, child: _fab(context)),
       extendedAppBar: _header(),
       backgroundColor: Colors.white,
       body: _body(context),
       actions: [WebMenuButton(url: arguments.event.permalink)],
     );
+  }
+
+  Widget _fab(BuildContext context) {
+    return FittedBox(
+        child: FloatingActionButton.extended(
+          label:
+          Text(RousseauLocalizations.getText(context, 'event-partecipate-button')),
+          icon: const Icon(MdiIcons.calendarPlus),
+          onPressed: openUrlExternalAction(context, arguments.event.signupUrl),
+        ));
   }
 
   Widget _header() {
