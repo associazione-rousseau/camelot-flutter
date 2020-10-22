@@ -4,14 +4,16 @@ Cross platform Flutter application to subscribe and vote on [Rousseau](https://w
 
 ## Scope
 The goal of this first wave is to build a voting app. The functionality we are interested in implementing are:
-1. Login
-1. Registration
-1. Edit Profile
+1. Login (with 2FA via SMS)
+1. Edit Account
 1. ID documents upload
 1. Polls listing
-1. Voting (text options)
+1. Voting (text and candidate options)
 1. Notification (and deeplink handling)
-1. [Stretch goal] Voting with candidate entities
+1. Blog Instant Articles
+1. Events Portal
+1. Send Feedback
+1. User profile
 
 ## Backend
 We are relying on the current backend used by the webapp (single page application) and on our [keycloak](https://www.keycloak.org/) server as a single sign on. This is the SSO root url: https://sso.rousseau.movimento5stelle.it. Keycloak uses the Open ID Connect protocol. For more info about the login and registration flow, refer to the [official guide](https://www.keycloak.org/docs/latest/securing_apps/index.html). For the login we are using a secret client. 
