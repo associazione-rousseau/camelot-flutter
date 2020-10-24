@@ -1,0 +1,92 @@
+on:
+  push:
+    branches:
+      - beta
+name: Test, Build and Release Alpha
+jobs:
+  release:
+    name: Test, build and release alpha
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '10.x'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: stable
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Cache pub dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.FLUTTER_HOME }}/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: ${{ runner.os }}-pub-
+
+      # - name: Run analyzer
+      #   run: flutter analyze
+
+      # - name: Run tests
+      #   run: flutter test
+
+      - name: Unlock secrets
+        run: sudo apt-get install -y git-crypt && echo $GIT_CRYPT_KEY | base64 -d > $KEY_FILE && git-crypt unlock $KEY_FILE
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
+          KEY_FILE: /tmp/github-jobs.key
+
+      - name: Copying firebase config
+        run: cp rousseau_vote/ios/Runner/GoogleService-Info.plist.release rousseau_vote/ios/Runner/GoogleService-Info.plist
+
+
+      - name: Download pub dependencies
+        working-directory: ./rousseau_vote
+        run: flutter pub get
+
+      - name: Build Android App Bundle
+        working-directory: ./rousseau_vote
+        run: |
+          source currentVersion.txt
+          flutter build appbundle --obfuscate --split-debug-info=/tmp/ --build-name $VERSION_NAME --build-number $VERSION_NUMBER
+
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+
+      - name: Cache bundle dependencies
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: ${{ runner.os }}-gems-
+
+      - name: Download bundle dependencies
+        run: |
+          gem install bundler:2.0.2
+          bundle config path vendor/bundle
+          bundle install
+      - name: Release to Google Play (internal)
+        env:
+          SUPPLY_PACKAGE_NAME: it.movimento5stelle.rousseau.vote
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+        run: |
+          bundle exec fastlane supply \
+          --aab rousseau_vote/build/app/outputs/bundle/release/app.aab \
+          --track internal
+      - name: Release to Google Play (beta)
+        env:
+          SUPPLY_PACKAGE_NAME: it.movimento5stelle.rousseau.vote
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+        run: |
+          bundle exec fastlane supply --track internal --track_promote_to beta
