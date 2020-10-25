@@ -7,7 +7,6 @@
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
     <application
-        android:name="io.flutter.app.FlutterApplication"
         android:label="Rousseau X"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,6 +15,8 @@
                 android:name="com.google.firebase.messaging.default_notification_color"
                 android:resource="@color/colorPrimary" />
         <meta-data android:name="asset_statements" android:resource="@string/asset_statements" />
+
+        <meta-data android:name="flutterEmbedding" android:value="2" />
 
         <activity
             android:name=".MainActivity"
@@ -28,9 +29,9 @@
                  until Flutter renders its first frame. It can be removed if
                  there is no splash screen (such as the default splash screen
                  defined in @style/LaunchTheme). -->
-            <meta-data
-                android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
-                android:value="true" />
+            <!--style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
+                <item name="android:windowBackground">@drawable/[your_launch_drawable_here]</item>
+            </style-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
