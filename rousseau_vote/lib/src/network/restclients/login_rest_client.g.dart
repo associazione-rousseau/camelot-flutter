@@ -169,4 +169,24 @@ class _LoginRestClient implements LoginRestClient {
     final value = TokenResponse.fromJson(_result.data);
     return value;
   }
+
+  @override
+  Future<void> logout(refreshToken, {clientId = KEYCLOAK_CLIENT_ID}) async {
+    ArgumentError.checkNotNull(refreshToken, 'refreshToken');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = {'refresh_token': refreshToken, 'client_id': clientId};
+    _data.removeWhere((k, v) => v == null);
+    await _dio.request<void>('/protocol/openid-connect/logout',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            contentType: 'application/x-www-form-urlencoded',
+            baseUrl: baseUrl),
+        data: _data);
+    return null;
+  }
 }

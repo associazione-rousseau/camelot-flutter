@@ -50,4 +50,10 @@ abstract class LoginRestClient {
   @POST('/protocol/openid-connect/token')
   @FormUrlEncoded()
   Future<TokenResponse> getToken(@Body() Map<String, String> body);
+
+  @POST('/protocol/openid-connect/logout')
+  @FormUrlEncoded()
+  Future<void> logout(
+      @Field('refresh_token') String refreshToken,
+      {@Field('client_id') String clientId = KEYCLOAK_CLIENT_ID});
 }
