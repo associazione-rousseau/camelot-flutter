@@ -70,7 +70,7 @@ dependencies:
   jaguar_jwt: ^2.1.6
 
   # Storage
-  flutter_secure_storage: ^3.3.3
+  flutter_secure_storage: ^3.3.5
 
   # File upload
   md5_plugin: ^1.0.2
