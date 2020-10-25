@@ -97,6 +97,8 @@
     "drawer-privacy": "Privacy",
     "drawer-logout": "Logout",
 
+    "message-logging-out": "Logout...",
+
     "verify-identity-title": "Documento d'identità richiesto",
     "verify-identity-subtitle": "Per accedere a tutte le funzionalità è richiesta la verifica dell'identità. I documenti d'identità validi sono: Carta d'Identità, Passaporto e Patente.",
     "verify-identity-warning": "Dati anagrafici e foto devono essere evidenti",

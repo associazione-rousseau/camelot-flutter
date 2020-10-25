@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
@@ -150,16 +152,18 @@ class Login with ChangeNotifier {
     _moveToState(loginState: LoginState.LOGGED_OUT);
   }
 
-  void logout() {
-    _onLogout();
-    // TODO invalidate session here
-    _moveToState(loginState: LoginState.LOGGED_OUT);
-  }
+  Future<void> logout() async {
+    await _pushNotificationManager.onLogout();
+    try {
+      await _loginNetworkHandler.logout(_tokenStore.getRefreshToken());
+    } on DioError catch(e) {
+      if (e.error is !FormatException) {
+        rethrow;
+      }
+    }
+    await _tokenStore.deleteToken();
 
-  void _onLogout() {
-    _pushNotificationManager.onLogout().whenComplete(() {
-      _tokenStore.deleteToken();
-    });
+    _moveToState(loginState: LoginState.LOGGED_OUT);
   }
 
   void _onLogin(Token token) {

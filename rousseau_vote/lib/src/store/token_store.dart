@@ -24,9 +24,9 @@ class TokenStore with InitializeOnStartup {
     return _secureStorage.storeToken(token);
   }
 
-  void deleteToken() {
+  Future<void> deleteToken() async {
     _token = null;
-    _secureStorage.deleteToken();
+    await _secureStorage.deleteToken();
   }
 
   void setToken(Token token) {
@@ -37,6 +37,8 @@ class TokenStore with InitializeOnStartup {
   bool hasValidToken() {
     return _token != null && _token.isValid();
   }
+
+  String getRefreshToken() => _token?.refreshToken;
 
   Future<String> getAccessToken() async {
     if (_accessTokenInfo.isExpired()) {

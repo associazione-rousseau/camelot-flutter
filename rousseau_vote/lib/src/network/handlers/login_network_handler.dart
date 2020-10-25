@@ -100,6 +100,10 @@ class LoginNetworkHandler {
     }
   }
 
+  Future<void> logout(String refreshToken) async {
+    await _loginRestClient.logout(refreshToken);
+  }
+
   Future<String> _getAccessCode(String smsCode) async {
     final Map<String, String> body = <String, String>{ 'smsCode': smsCode };
 

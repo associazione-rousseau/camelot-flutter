@@ -14,6 +14,7 @@ import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/util/verify_identity_util.dart';
+import 'package:rousseau_vote/src/widgets/dialog/loading_dialog.dart';
 import 'package:rousseau_vote/src/widgets/drawer/drawer_item.dart';
 import 'package:rousseau_vote/src/widgets/drawer/rousseau_drawer_header.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
@@ -24,34 +25,47 @@ class RousseauDrawer extends StatelessWidget {
     return GraphqlQueryWidget<CurrentUser>(
         query: currentUserShort,
         fetchPolicy: FetchPolicy.cacheFirst,
-        builderSuccess: (CurrentUser currentUser) => _drawer(context, currentUser: currentUser),
+        builderSuccess: (CurrentUser currentUser) =>
+            _drawer(context, currentUser: currentUser),
         builderLoading: () => _drawer(context, isLoading: true),
-        builderError: (List<GraphQLError> errors) => _drawer(context, errors: errors)
-    );
+        builderError: (List<GraphQLError> errors) =>
+            _drawer(context, errors: errors));
   }
 
-  Widget _drawer(BuildContext context, { CurrentUser currentUser, bool isLoading = false, List<GraphQLError> errors }) {
+  Widget _drawer(BuildContext context,
+      {CurrentUser currentUser,
+      bool isLoading = false,
+      List<GraphQLError> errors}) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          Container(height: 230,child: RousseauDrawerHeader(currentUser: currentUser, isLoading: isLoading, errors: errors,)),
-          currentUser != null && currentUser.shouldVerifyIdentity ? DrawerItem(
-            textKey: 'drawer-verify-identity',
-            iconData: Icons.verified_user,
-            color: PRIMARY_RED,
-            onTap: () => openVerifyIdentityScreen(context),
-          ) : Container(),
+          Container(
+              height: 230,
+              child: RousseauDrawerHeader(
+                currentUser: currentUser,
+                isLoading: isLoading,
+                errors: errors,
+              )),
+          currentUser != null && currentUser.shouldVerifyIdentity
+              ? DrawerItem(
+                  textKey: 'drawer-verify-identity',
+                  iconData: Icons.verified_user,
+                  color: PRIMARY_RED,
+                  onTap: () => openVerifyIdentityScreen(context),
+                )
+              : Container(),
           DrawerItem(
             textKey: 'profile',
             iconData: Icons.person,
-            onTap: () { openCurrentUserProfile(context, currentUser); },
+            onTap: () {
+              openCurrentUserProfile(context, currentUser);
+            },
           ),
           DrawerItem(
-            textKey: 'drawer-feedback',
-            iconData: Icons.feedback,
-            onTap: openRouteAction(context, FeedbackScreen.ROUTE_NAME)
-          ),
+              textKey: 'drawer-feedback',
+              iconData: Icons.feedback,
+              onTap: openRouteAction(context, FeedbackScreen.ROUTE_NAME)),
           DrawerItem(
             textKey: 'drawer-edit-account',
             iconData: Icons.settings,
@@ -77,12 +91,29 @@ class RousseauDrawer extends StatelessWidget {
           DrawerItem(
             textKey: 'drawer-logout',
             iconData: Icons.exit_to_app,
-            onTap: () {
-              Provider.of<Login>(context, listen: false).logout();
-            },
+            onTap: () => _onLogoutTapped(context),
           ),
         ],
       ),
     );
+  }
+
+  void _onLogoutTapped(BuildContext context) {
+    showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext dialogContext) {
+          Provider.of<Login>(context, listen: false)
+              .logout()
+              .then((dynamic result) =>
+                  Navigator.of(dialogContext, rootNavigator: true).pop())
+              .catchError((dynamic error) {
+            Navigator.of(dialogContext, rootNavigator: true).pop();
+            showSimpleSnackbar(context, textKey: 'error-network');
+          });
+          return const LoadingDialog(
+            titleKey: 'message-logging-out',
+          );
+        });
   }
 }
