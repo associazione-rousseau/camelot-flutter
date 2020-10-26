@@ -76,15 +76,8 @@ String _profileFields = '''
   yearOfGraduation
   educationalInstitute
   studyCourse
-  englishLevel
-  frenchLevel
-  germanLevel
-  spanishLevel
   qualification
   politicalExperiences
-  facebookProfile
-  twitterProfile
-  linkedinProfile
   age
   placeOfBirth
   placeOfResidence {
@@ -96,20 +89,6 @@ String _profileFields = '''
   curriculumVitaeDocument {
       originalUrl
   }
-  italiaCinqueStelleVolunteerFlag
-  italiaCinqueStelleVolunteer
-  listRepresentativeFlag
-  listRepresentativeYear
-  listRepresentativeComune
-  opendayParticipantFlag
-  opendayParticipant
-  spokesmanM5sFlag
-  spokesmanM5sYear
-  spokesmanM5sInstitution
-  villaggioRousseauParticipantFlag
-  villaggioRousseauParticipant
-  villaggioRousseauVolunteerFlag
-  villaggioRousseauVolunteer
   approvedCandidatures {
       availableForFrontRunning
       poll {
