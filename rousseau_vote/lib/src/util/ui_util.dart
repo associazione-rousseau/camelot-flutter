@@ -20,6 +20,8 @@ import 'package:rousseau_vote/src/screens/poll_details_screen.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
 import 'package:rousseau_vote/src/screens/success_screen.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
+import 'package:rousseau_vote/src/widgets/feedback/send_feedback_arguments.dart';
+import 'package:rousseau_vote/src/widgets/feedback/send_feedback_screen.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rousseau_vote/src/widgets/error_dialog.dart';
@@ -54,9 +56,9 @@ void showSimpleSnackbar(BuildContext context,
 }
 
 void showRousseauSnackbar(BuildContext context,
-    GlobalKey<ScaffoldState> scaffoldState, String message) {
+    GlobalKey<ScaffoldState> scaffoldState, String messageKey) {
   final SnackBar snackBar = SnackBar(
-      content: Text(RousseauLocalizations.getText(context, message)),
+      content: Text(RousseauLocalizations.getText(context, messageKey)),
       duration: const Duration(seconds: 5),
       behavior: SnackBarBehavior.floating);
 
@@ -158,6 +160,14 @@ Function openProfileAction(BuildContext context, String slug) {
   return () {
     openProfile(context, slug);
   };
+}
+
+void openSendFeedback(BuildContext context, String category) {
+  openRoute(
+    context,
+    SendFeedbackScreen.ROUTE_NAME,
+    arguments: SendFeedbackArguments(category: category),
+  );
 }
 
 void openPollDetails(BuildContext context, Poll poll) {

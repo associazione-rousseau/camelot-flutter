@@ -40,6 +40,8 @@ import 'package:rousseau_vote/src/screens/register_screen.dart';
 import 'package:rousseau_vote/src/screens/account/anagraph_screen.dart';
 import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
 import 'package:rousseau_vote/src/screens/verify_identity_screen.dart';
+import 'package:rousseau_vote/src/widgets/feedback/send_feedback_arguments.dart';
+import 'package:rousseau_vote/src/widgets/feedback/send_feedback_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -153,8 +155,10 @@ class RousseauVoteApp extends StatelessWidget {
                         ModalRoute.of(context).settings.arguments;
                       return UserProfileScreen(arguments);
                     },
-                    FeedbackScreen.ROUTE_NAME:(BuildContext context) {
-                      return FeedbackScreen();
+                    SendFeedbackScreen.ROUTE_NAME:(BuildContext context) {
+                      final SendFeedbackArguments arguments =
+                          ModalRoute.of(context).settings.arguments;
+                      return SendFeedbackScreen(arguments: arguments,);
                     },
                     SuccessScreen.ROUTE_NAME:(BuildContext context) {
                       return SuccessScreen();

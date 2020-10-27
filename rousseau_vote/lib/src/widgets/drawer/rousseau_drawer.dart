@@ -7,16 +7,13 @@ import 'package:rousseau_vote/src/config/links.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
-import 'package:rousseau_vote/src/screens/blog_screen.dart';
 import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
-import 'package:rousseau_vote/src/screens/feedback_screen.dart';
-import 'package:rousseau_vote/src/screens/polls_screen.dart';
-import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/util/verify_identity_util.dart';
 import 'package:rousseau_vote/src/widgets/dialog/loading_dialog.dart';
 import 'package:rousseau_vote/src/widgets/drawer/drawer_item.dart';
 import 'package:rousseau_vote/src/widgets/drawer/rousseau_drawer_header.dart';
+import 'package:rousseau_vote/src/widgets/feedback/feedback_category_dialog.dart';
 import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 
 class RousseauDrawer extends StatelessWidget {
@@ -65,7 +62,7 @@ class RousseauDrawer extends StatelessWidget {
           DrawerItem(
               textKey: 'drawer-feedback',
               iconData: Icons.feedback,
-              onTap: openRouteAction(context, FeedbackScreen.ROUTE_NAME)),
+              onTap: () => _onSendFeedbackTapped(context)),
           DrawerItem(
             textKey: 'drawer-edit-account',
             iconData: Icons.settings,
@@ -96,6 +93,15 @@ class RousseauDrawer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _onSendFeedbackTapped(BuildContext context) {
+    showDialog<void>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext dialogContext) {
+          return FeedbackCategoryDialog();
+        });
   }
 
   void _onLogoutTapped(BuildContext context) {
