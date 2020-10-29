@@ -43,11 +43,12 @@ class ErrorLogger {
       if (sentryDsn != null && sentryDsn.startsWith('http')) {
         final PackageInfo packageInfo =
             await getIt<PackageInfoManager>().loadPackageInfo();
+        final String releaseInfo = '${Platform.operatingSystem}@${packageInfo.version}';
         return ErrorLogger(SentryClient(
             dsn: sentryDsn,
             environmentAttributes: Event(
-                release: packageInfo?.version,
-                tags: <String, String>{'platform': Platform.operatingSystem})));
+                release: releaseInfo,
+                tags: <String, String>{'platform': Platform.operatingSystem, 'version': packageInfo.version})));
       }
     } catch (_) {}
 
