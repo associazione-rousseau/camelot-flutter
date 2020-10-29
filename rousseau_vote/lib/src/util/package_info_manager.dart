@@ -12,4 +12,11 @@ class PackageInfoManager with InitializeOnStartup {
   Future<void> doInitialize() async {
     packageInfo = await PackageInfo.fromPlatform();
   }
+
+  Future<PackageInfo> loadPackageInfo() async {
+    if(packageInfo == null) {
+      await doInitialize();
+    }
+    return packageInfo;
+  }
 }
