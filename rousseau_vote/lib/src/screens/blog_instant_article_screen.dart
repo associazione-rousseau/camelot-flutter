@@ -9,6 +9,7 @@ import 'package:rousseau_vote/src/models/arguments/blog_instant_article_argument
 import 'package:rousseau_vote/src/models/blog/blog_instant_article.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
+import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/blog/blog_instant_article_placeholder.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/menu/rousseau_menu_item.dart';
@@ -132,7 +133,15 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
                     fontSize: 20,
                     fontFamily: 'Roboto '),
               ),
-              subtitle: Text('DI ' + _instantArticle.author.name.toUpperCase()),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const VerticalSpace(5),
+                  Text('DI ' + _instantArticle.author.name.toUpperCase()),
+                  const VerticalSpace(5),
+                  Text(formatDateDayMonth(context, _instantArticle.date)),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10.0),
