@@ -11,6 +11,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
+import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/init/startup_prefetcher.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
@@ -18,6 +19,7 @@ import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart'
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:rousseau_vote/src/util/debug_util.dart';
+import 'package:rousseau_vote/src/util/package_info_manager.dart';
 
 import 'injector_config.dart';
 
@@ -28,7 +30,8 @@ abstract class RegisterModule {
   FlutterSecureStorage get flutterSecureStorage;
 
   // all the initializer here are going to be executed at startup time
-  StartupInitializer get startupInitializer => StartupInitializer([
+  StartupInitializer get startupInitializer => StartupInitializer(<InitializeOnStartup>[
+    getIt<PackageInfoManager>(),
     getIt<TokenStore>(),
     StartupPrefetcher([listPolls, currentUserShort]),
     getIt<PushNotificationManager>(),

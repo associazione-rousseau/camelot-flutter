@@ -29,6 +29,7 @@ dependencies:
   uni_links: ^0.4.0
   url_launcher: ^5.5.0
   html_unescape: ^1.0.2
+  package_info: ^0.4.3
 
   sentry: ">=3.0.0 <4.0.0"
   crypto: any
