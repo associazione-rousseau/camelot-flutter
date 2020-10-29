@@ -2,7 +2,7 @@
 <resources>
     <string name="asset_statements" translatable="false">
         [{
-        \"include\": \"https://vote.rousseau.movimento5stelle.it/.well-known/assetLinks.json\"
+        \"include\": \"https://vote.rousseau.movimento5stelle.it/.well-known/assetlinks.json\"
         }]
     </string>
 </resources>
