@@ -75,7 +75,7 @@ class RousseauDrawer extends StatelessWidget {
             onTap: openUrlExternalAction(context, SUPPORT_LINK),
           ),
           DrawerItem(
-            textKey: 'drawer-other-functionalities',
+            textKey: 'drawer-web-version',
             iconData: Icons.devices,
             onTap: openUrlExternalAction(context, ROUSSEAU_WEB_LINK),
           ),
