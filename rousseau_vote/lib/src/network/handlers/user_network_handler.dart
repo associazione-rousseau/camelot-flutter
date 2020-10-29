@@ -16,6 +16,7 @@ class UserNetworkHandler {
 	UserNetworkHandler(this._graphQLClient);
 
 	final GraphQLClient _graphQLClient;
+	CurrentUser currentUser;
 
 	Future<CurrentUser> fetchCurrentUser({ FetchPolicy fetchPolicy = FetchPolicy.networkOnly, bool fullVersion = false}) async {
 		final String query = fullVersion ? currentUserFull : currentUserShort;
@@ -24,7 +25,8 @@ class UserNetworkHandler {
 		if (result.hasException) {
 			throw result.exception;
 		}
-		return getParser<CurrentUser>().parse(result);
+		currentUser = getParser<CurrentUser>().parse(result);
+		return currentUser;
 	}
 
 	Future<CurrentUser> updateCurrentUser(CurrentUser currentUser) async {
