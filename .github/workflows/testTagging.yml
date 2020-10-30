@@ -26,7 +26,7 @@ jobs:
         token: ${{secrets.github_token}}   
 
     - name: Print values
-      run: echo $BUILD_NUMBER && echo $BUILD_NAME && echo "ciao"
+      run: echo $BUILD_NUMBER && echo $BUILD_NAME
       env:
         BUILD_NUMBER: ${{ steps.buildnumber.outputs.build_number }}
         BUILD_NAME: ${{ steps.buildname.outputs.new_tag }}  
