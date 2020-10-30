@@ -94,24 +94,24 @@ jobs:
           gem install bundler:2.0.2
           bundle config path vendor/bundle
           bundle install
-      # - name: Release to Google Play (internal)
-      #   env:
-      #     SUPPLY_PACKAGE_NAME: it.movimento5stelle.rousseau.vote
-      #     SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
-      #   run: |
-      #     bundle exec fastlane supply \
-      #     --aab rousseau_vote/build/app/outputs/bundle/release/app.aab \
-      #     --track internal
-      # - name: Release to Google Play (beta)
-      #   env:
-      #     SUPPLY_PACKAGE_NAME: it.movimento5stelle.rousseau.vote
-      #     SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
-      #   run: |
-      #     bundle exec fastlane supply --track internal --track_promote_to beta
-
-      - name: Build iOS App Bundle
-        working-directory: ./rousseau_vote
+      - name: Release to Google Play (internal)
         env:
-          BUILD_NUMBER: ${{ steps.buildnumber.outputs.build_number }}
-          BUILD_NAME: ${{ steps.buildname.outputs.new_tag }}  
-        run: flutter build ios --obfuscate --split-debug-info=/tmp/ --build-name $BUILD_NAME --build-number $BUILD_NUMBER
+          SUPPLY_PACKAGE_NAME: it.movimento5stelle.rousseau.vote
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+        run: |
+          bundle exec fastlane supply \
+          --aab rousseau_vote/build/app/outputs/bundle/release/app.aab \
+          --track internal
+      - name: Release to Google Play (beta)
+        env:
+          SUPPLY_PACKAGE_NAME: it.movimento5stelle.rousseau.vote
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+        run: |
+          bundle exec fastlane supply --track internal --track_promote_to beta
+
+      # - name: Build iOS App Bundle
+      #   working-directory: ./rousseau_vote
+      #   env:
+      #     BUILD_NUMBER: ${{ steps.buildnumber.outputs.build_number }}
+      #     BUILD_NAME: ${{ steps.buildname.outputs.new_tag }}  
+      #   run: flutter build ios --obfuscate --split-debug-info=/tmp/ --build-name $BUILD_NAME --build-number $BUILD_NUMBER
