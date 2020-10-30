@@ -2,16 +2,18 @@ on:
   push:
     branches:
       - beta
-name: Test, Build and Release Alpha
+name: Test, Build and Release Beta
 jobs:
   release:
-    name: Test, build and release alpha
+    name: Test, Build and Release Beta
 
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
 
       - name: Setup Java
         uses: actions/setup-java@v1
@@ -53,11 +55,27 @@ jobs:
         working-directory: ./rousseau_vote
         run: flutter pub get
 
+      - name: Bump version and push tag
+        id: buildname
+        uses: anothrNick/github-tag-action@1.26.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
+          RELEASE_BRANCHES: testTagging
+          INITIAL_VERSION: 1.1.0
+          DEFAULT_BUMP: patch
+      - name: Generate build number
+        id: buildnumber
+        uses: einaregilsson/build-number@v2
+        with:
+          token: ${{secrets.github_token}}
+
       - name: Build Android App Bundle
         working-directory: ./rousseau_vote
-        run: |
-          source currentVersion.txt
-          flutter build appbundle --obfuscate --split-debug-info=/tmp/ --build-name $VERSION_NAME --build-number $VERSION_NUMBER
+        env:
+          BUILD_NUMBER: ${{ steps.buildnumber.outputs.build_number }}
+          BUILD_NAME: ${{ steps.buildname.outputs.new_tag }}  
+        run: flutter build appbundle --obfuscate --split-debug-info=/tmp/ --build-name $BUILD_NAME --build-number $BUILD_NUMBER
 
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
