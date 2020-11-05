@@ -75,7 +75,7 @@ jobs:
         env:
           BUILD_NUMBER: ${{ steps.buildnumber.outputs.build_number }}
           BUILD_NAME: ${{ steps.buildname.outputs.new_tag }}  
-        run: flutter build appbundle --obfuscate --split-debug-info=/tmp/ --build-name $BUILD_NAME --build-number $BUILD_NUMBER
+        run: flutter build appbundle --build-name $BUILD_NAME --build-number $BUILD_NUMBER
 
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
@@ -114,4 +114,4 @@ jobs:
       #   env:
       #     BUILD_NUMBER: ${{ steps.buildnumber.outputs.build_number }}
       #     BUILD_NAME: ${{ steps.buildname.outputs.new_tag }}  
-      #   run: flutter build ios --obfuscate --split-debug-info=/tmp/ --build-name $BUILD_NAME --build-number $BUILD_NUMBER
+      #   run: flutter build ios --build-name $BUILD_NAME --build-number $BUILD_NUMBER
