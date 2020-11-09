@@ -10,4 +10,5 @@ class Alert {
   Map<String, dynamic> toJson() => _$AlertToJson(this);
 
   String message;
+  List<String> path;
 }

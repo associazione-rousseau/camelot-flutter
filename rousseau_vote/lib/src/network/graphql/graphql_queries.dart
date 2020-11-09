@@ -13,6 +13,7 @@ String listPolls = '''
       resultsLink
       alerts {
         message
+        path
       }
       options {
         id
