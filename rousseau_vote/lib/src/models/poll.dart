@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/models/alert.dart';
 import 'package:rousseau_vote/src/models/option.dart';
+import 'package:rousseau_vote/src/models/options_connection.dart';
 
 part 'poll.g.dart';
 
@@ -34,27 +35,18 @@ class Poll {
   DateTime voteEndingDate;
   int maxSelectableOptionsNumber;
   List<Alert> alerts;
-  @JsonKey(fromJson: sortOptions)
-  List<Option> options;
+  OptionsConnection optionsConnection;
+
+  List<Option> get options => optionsConnection != null ? optionsConnection.options : null;
+
+  void mergePreviousOptions(List<Option> previousOptions) {
+    previousOptions.addAll(optionsConnection.options);
+    optionsConnection.options = previousOptions;
+  }
 
   bool get open => status == 'OPEN';
   bool get closed => status == 'CLOSED';
   bool get scheduled => status == 'PUBLISHED';
-
-  static List<Option> sortOptions(List optionsJson) {
-    final List<Option> options = optionsJson
-        ?.map((e) =>
-            e == null ? null : Option.fromJson(e as Map<String, dynamic>))
-        ?.toList();
-    if (options != null &&
-        options.isNotEmpty &&
-        options[0].isEntityUserType) {
-      options.sort((Option a, Option b) {
-        return b.entity.meritCount - a.entity.meritCount;
-      });
-    }
-    return options;
-  }
 
   PollStatus get pollStatus {
     if (scheduled) {
@@ -72,14 +64,13 @@ class Poll {
 
   bool get canVote => open && !alreadyVoted && hasRequirements;
 
-  bool get hasRequirements =>
-      options != null &&
-      options.isNotEmpty &&
-      (alerts == null || alerts.isEmpty);
+  bool get hasRequirements => alerts == null || alerts.isEmpty;
 
   bool get hasResults => resultsLink != null;
   bool get hasOptions => options != null && options.isNotEmpty;
   bool get isSupported => SUPPORTED_TYPES.contains(type);
+
+  bool get hasNextPage => optionsConnection != null && optionsConnection.pageInfo != null && optionsConnection.pageInfo.hasNextPage;
 
   PollType get type {
     if (!hasOptions) {

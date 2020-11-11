@@ -15,14 +15,20 @@ String listPolls = '''
         message
         path
       }
-      options {
-        id
-        __typename
-        ...on EntityOption {
-          entity {
+      optionsConnection(first: 1) {
+          nodes {
+            id
             __typename
+            ...on TextOption {
+              text
+            }
+            ...on EntityOption {
+              entity {
+                __typename
+              }
+            }
           }
-        }
+          totalCount
       }
     }
   }
@@ -139,39 +145,48 @@ String pollDetail = '''
       resultsLink
       optionType
       maxSelectableOptionsNumber
-      options {
-        id
-        __typename
-        ...on TextOption {
-          text
+      optionsConnection(first: 20) {
+        pageInfo {
+          startCursor
+          endCursor
+          hasNextPage
+          hasPreviousPage
         }
-        ...on EntityOption {
-          entity {
-            __typename
-            ...on User {
-              id
-              slug
-              fullName
-              overseaseCity
-              profile {
-                age
-                placeOfResidence {
-                  comuneName
-                  provinciaName
+        totalCount
+        nodes {
+          id
+          __typename
+          ...on TextOption {
+            text
+          }
+          ...on EntityOption {
+            entity {
+              __typename
+              ...on User {
+                id
+                slug
+                fullName
+                overseaseCity
+                profile {
+                  age
+                  placeOfResidence {
+                    comuneName
+                    provinciaName
+                  }
+                  picture {
+                    originalUrl
+                  }
                 }
-                picture {
-                  originalUrl
+                badges {
+                  code
+                  active
+                  name
                 }
-              }
-              badges {
-                code
-                active
-                name
               }
             }
           }
         }
-      }
+       }
     }
   }
 ''';

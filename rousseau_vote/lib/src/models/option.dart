@@ -25,6 +25,4 @@ class Option {
 
   @override
   int get hashCode => id.hashCode;
-
-
 }
