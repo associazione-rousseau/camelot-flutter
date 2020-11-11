@@ -37,6 +37,8 @@ class Poll {
   List<Alert> alerts;
   OptionsConnection optionsConnection;
 
+  String get currentEndCursor => optionsConnection?.pageInfo?.endCursor;
+
   List<Option> get options => optionsConnection != null ? optionsConnection.options : null;
 
   void mergePreviousOptions(List<Option> previousOptions) {
