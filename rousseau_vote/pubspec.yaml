@@ -50,6 +50,7 @@ dependencies:
   material_design_icons_flutter: ^4.0.5345
   badges: ^1.1.1
   share: ^0.6.4+3
+  visibility_detector: ^0.1.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
