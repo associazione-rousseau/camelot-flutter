@@ -30,6 +30,24 @@ const Map<String, int> BADGE_MERIT_MAPPING = <String, int>{
 
 const int BADGES_NUMBER = 9;
 
+List<String> getActiveBadgeNames(List<bool> badgeNumber) {
+  final List<String> badgeNames = <String>[];
+  for(int i = 0; i < badgeNumber.length; i++) {
+    if(badgeNumber[i]) {
+      badgeNames.add(getBadgeName(i));
+    }
+  }
+  return badgeNames;
+}
+
+String getBadgeName(int badgeNumber) {
+  for(MapEntry<String, int> badge in BADGE_MERIT_MAPPING.entries) {
+    if(badge.value == badgeNumber) {
+      return badge.key;
+    }
+  }
+}
+
 List<String> getBadgesImages(List<Badge> badges, {bool showInactive = false}) {
   final List<bool> isBadgeActive =
       List<bool>.filled(BADGES_NUMBER, false, growable: false);
