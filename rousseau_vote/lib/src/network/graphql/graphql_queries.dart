@@ -130,7 +130,7 @@ String _profileFields = '''
 ''';
 
 String pollDetail = '''
-  query pollDetail(\$pollId: ID!) {
+  query pollDetail(\$pollId: ID!, \$first: Int, \$after: String, \$fullName: String, \$badges: [[String!]!]) {
     poll(id: \$pollId) {
       id
       slug
@@ -145,7 +145,7 @@ String pollDetail = '''
       resultsLink
       optionType
       maxSelectableOptionsNumber
-      optionsConnection(first: 20) {
+      optionsConnection(first: \$first, after: \$after, fullName: \$fullName, badges: \$badges, scored: true) {
         pageInfo {
           startCursor
           endCursor
