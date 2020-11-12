@@ -74,7 +74,12 @@ class Poll {
 
   bool get hasNextPage => optionsConnection != null && optionsConnection.pageInfo != null && optionsConnection.pageInfo.hasNextPage;
 
+  PollType cachedType;
+
   PollType get type {
+    if(cachedType != null) {
+      return cachedType;
+    }
     if (!hasOptions) {
       return PollType.UNKNOWN;
     }
