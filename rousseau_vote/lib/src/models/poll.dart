@@ -74,6 +74,8 @@ class Poll {
 
   bool get hasNextPage => optionsConnection != null && optionsConnection.pageInfo != null && optionsConnection.pageInfo.hasNextPage;
 
+  bool get isFullyFetched => optionsConnection != null && optionsConnection.totalCount > 0 && optionsConnection.totalCount == options.length;
+
   PollType cachedType;
 
   PollType get type {

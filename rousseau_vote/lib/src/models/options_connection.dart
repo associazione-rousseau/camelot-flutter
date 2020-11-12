@@ -27,6 +27,7 @@ class OptionsConnection {
     if (options != null &&
         options.isNotEmpty &&
         options[0].isEntityUserType) {
+      options.shuffle();
       options.sort((Option a, Option b) {
         return b.entity.meritCount - a.entity.meritCount;
       });

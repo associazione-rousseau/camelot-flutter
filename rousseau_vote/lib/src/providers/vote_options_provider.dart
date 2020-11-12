@@ -1,32 +1,89 @@
 import 'package:flutter/cupertino.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/option.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
+import 'package:rousseau_vote/src/models/poll_detail.dart';
+import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
+import 'package:rousseau_vote/src/network/graphql/parser/query_response_parsers.dart';
+import 'package:rousseau_vote/src/network/handlers/poll_network_handler.dart';
 import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 
 class VoteOptionsProvider extends ChangeNotifier {
-  VoteOptionsProvider();
+  VoteOptionsProvider({@required String pollId}) {
+    _fetchPollDetails(pollId: pollId);
+  }
+
+  bool get isLoading => _loading;
 
   final List<Option> _selectedOptions = <Option>[];
 
+  bool _loading = false;
+  dynamic error;
   Poll _poll;
+  PollType pollType;
+  int optionsCount = 0;
   String _searchValue = '';
-  final List<bool> selectedBadges = List<bool>.filled(BADGES_NUMBER, false, growable: false);
+  final List<bool> selectedBadges =
+      List<bool>.filled(BADGES_NUMBER, false, growable: false);
 
-  void onPollFetched(Poll poll) {
-    _poll ??= poll;
+  void onLoadMoreOptions() {
+    _fetchPollDetails(pollId: _poll.id, after: _poll.currentEndCursor, fullName: _searchValue);
+  }
+
+  void _fetchPollDetails(
+      {@required String pollId,
+      String after,
+      String fullName,
+      List<String> badges}) {
+    if(_loading) {
+      return;
+    }
+    _loading = true;
+
+    getIt<PollNetworkHandler>()
+        .fetchPollDetails(
+      pollId: pollId,
+      after: after,
+      fullName: fullName,
+      badges: badges,
+    )
+        .then((Poll poll) {
+      if (after != null) {
+        poll.mergePreviousOptions(_poll.options);
+      }
+      if (optionsCount == 0) {
+        optionsCount = poll.optionsConnection.totalCount;
+      }
+      if (_poll != null) {
+        poll.cachedType = _poll.type;
+      }
+      _poll = poll;
+      error = null;
+      _loading = false;
+      notifyListeners();
+    }).catchError((dynamic error) {
+      error = error;
+      _loading = false;
+      notifyListeners();
+    });
   }
 
   void onBadgeTapped(int badgeNumber) {
     selectedBadges[badgeNumber] = !selectedBadges[badgeNumber];
+    if(serverSideFilter) {
+      _fetchPollDetails(pollId: poll.id, fullName: _searchValue, badges: getActiveBadgeNames(selectedBadges));
+    }
     notifyListeners();
   }
 
   bool isBadgeSelected(int i) => selectedBadges[i];
 
   PollType getPollType() {
-    return _poll.type;
+    pollType ??= _poll.type;
+    return pollType;
   }
 
   bool isCandidatePoll() {
@@ -45,10 +102,16 @@ class VoteOptionsProvider extends ChangeNotifier {
     }
   }
 
-  void onSearchChanged(String value) {
+  void onSearchSubmitted(String value) {
     _searchValue = value.toLowerCase();
+
+    if(serverSideFilter) {
+      _fetchPollDetails(pollId: poll.id, fullName: _searchValue, badges: getActiveBadgeNames(selectedBadges));
+    }
     notifyListeners();
   }
+
+  bool get serverSideFilter => poll == null || poll.options == null || poll.options.length == null || poll.options.length < optionsCount;
 
   void onOptionSelectedSingle(BuildContext context, Option option) {
     if (isOptionSelected(option)) {
@@ -91,9 +154,7 @@ class VoteOptionsProvider extends ChangeNotifier {
     return _selectedOptions;
   }
 
-  Poll getPoll() {
-    return _poll;
-  }
+  Poll get poll => _poll;
 
   void _showRemainingSnackbar(BuildContext context) {
     final String text = RousseauLocalizations.getTextPluralized(context,
@@ -120,8 +181,8 @@ class VoteOptionsProvider extends ChangeNotifier {
       return false;
     }
     // badges check
-    for(int i = 0; i < selectedBadges.length; i++) {
-      if(selectedBadges[i] && !option.entity.hasBadge(i)) {
+    for (int i = 0; i < selectedBadges.length; i++) {
+      if (selectedBadges[i] && !option.entity.hasBadge(i)) {
         return false;
       }
     }

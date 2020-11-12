@@ -8,7 +8,6 @@ import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
-import 'package:rousseau_vote/src/models/poll_detail.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/network/handlers/vote_network_handler.dart';
@@ -24,12 +23,12 @@ import 'package:rousseau_vote/src/widgets/dialog/confirm_vote_dialog.dart';
 import 'package:rousseau_vote/src/widgets/dialog/dismissable_dialog.dart';
 import 'package:rousseau_vote/src/widgets/dialog/loading_dialog.dart';
 import 'package:rousseau_vote/src/widgets/errors/error_page_widget.dart';
-import 'package:rousseau_vote/src/widgets/graphql_query_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/logged_screen.dart';
 import 'package:rousseau_vote/src/widgets/profile/badge_image.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
 import 'package:rousseau_vote/src/widgets/vote/poll_details_body.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class PollDetailsScreen extends StatelessWidget {
   const PollDetailsScreen(this.arguments);
@@ -40,57 +39,40 @@ class PollDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> variables = HashMap<String, dynamic>();
-    variables.putIfAbsent('pollId', () => arguments.pollId);
     return ChangeNotifierProvider<VoteOptionsProvider>(
-      create: (BuildContext context) => VoteOptionsProvider(),
+      create: (BuildContext context) => VoteOptionsProvider(pollId: arguments.pollId),
       child: Consumer<VoteOptionsProvider>(
-        builder: (BuildContext context, value, child) => LoggedScreen(
-          GraphqlQueryWidget<PollDetail>(
-            query: pollDetail,
-            variables: variables,
-            builderSuccess: (PollDetail pollDetail) =>
-                _page(context, pollDetail: pollDetail),
-            builderError: (List<GraphQLError> errors) =>
-                _page(context, errors: errors),
-            builderLoading: () => _page(context, isLoading: true),
-          ),
+        builder: (BuildContext context, VoteOptionsProvider provider, Widget child) => LoggedScreen(
+          _page(context),
         ),
       ),
     );
   }
 
-  Widget _page(BuildContext context,
-      {PollDetail pollDetail,
-      bool isLoading = false,
-      List<GraphQLError> errors}) {
-    if (pollDetail != null) {
-      Provider.of<VoteOptionsProvider>(context, listen: false)
-          .onPollFetched(pollDetail.poll);
-    }
+  Widget _page(BuildContext context) {
+    final VoteOptionsProvider provider = Provider.of(context);
     return RousseauAnimatedScreen(
       extendedAppBar: _header(context,
-          pollDetail: pollDetail, isLoading: isLoading, errors: errors),
+          poll: provider.poll, isLoading: provider.isLoading, error: provider.error),
       appBar: const Image(
         image: WHITE_LOGO,
         height: 50,
       ),
       floatingActionButton: _floatingActionButton(context),
       body: _body(context,
-          pollDetail: pollDetail, isLoading: isLoading, errors: errors),
+          poll: provider.poll, isLoading: provider.isLoading, error: provider.error),
     );
   }
 
   Widget _header(BuildContext context,
-      {PollDetail pollDetail,
+      {Poll poll,
       bool isLoading = false,
-      List<GraphQLError> errors}) {
-    if (isLoading || errors != null || pollDetail == null) {
+      dynamic error}) {
+    if (poll == null) {
       return Container(
         height: 200,
       );
     }
-    final Poll poll = pollDetail.poll;
     return Padding(
       padding: const EdgeInsets.only(left: 10.0, right: 10),
       child: Column(
@@ -247,17 +229,13 @@ class PollDetailsScreen extends StatelessWidget {
   }
 
   Widget _body(BuildContext context,
-      {PollDetail pollDetail,
+      {Poll poll,
       bool isLoading = false,
-      List<GraphQLError> errors}) {
-    if (isLoading) {
-      return const LoadingIndicator();
-    }
-    if (errors != null) {
+      dynamic error}) {
+    if (error != null) {
       return const ErrorPageWidget();
     }
-    final Poll poll = pollDetail.poll;
-    if (poll.closed) {
+    if (poll != null && poll.closed) {
       final IconData iconData =
           poll.alreadyVoted ? Icons.event_available : Icons.event_busy;
       final String messageKey = poll.alreadyVoted
@@ -269,7 +247,7 @@ class PollDetailsScreen extends StatelessWidget {
       );
     }
 
-    if (poll.alreadyVoted) {
+    if (poll != null && poll.alreadyVoted) {
       return const IconTextScreen(
         iconData: Icons.event_available,
         messageKey: 'poll-voted',
@@ -278,7 +256,7 @@ class PollDetailsScreen extends StatelessWidget {
       );
     }
 
-    if (poll.open && !poll.hasRequirements) {
+    if (poll != null && poll.open && !poll.hasRequirements) {
       return const IconTextScreen(
         iconData: Icons.error_outline,
         messageKey: 'poll-alert',
@@ -289,8 +267,8 @@ class PollDetailsScreen extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: Column(
         children: <Widget>[
-          ConditionalWidget(
-            condition: poll.isCandidatePoll,
+            ConditionalWidget(
+            condition: poll != null && poll.isCandidatePoll,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 45, left: 5, right: 5),
               child: Column(
@@ -298,18 +276,41 @@ class PollDetailsScreen extends StatelessWidget {
               ),
             ),
           ),
-          PollDetailsBody(poll),
+          ConditionalWidget(condition: isLoading, child: const LoadingIndicator()),
+          ConditionalWidget(condition: !isLoading, child: PollDetailsBody(poll)),
+          Padding(
+            padding: const EdgeInsets.only(top: 15),
+            child: ConditionalWidget(condition: !isLoading && poll != null && poll.hasNextPage, child: _loadMoreIndicator(context)),
+          ),
         ],
       ),
     );
+  }
+
+  Widget _loadMoreIndicator(BuildContext context) {
+    return VisibilityDetector(
+      key: const Key('poll-loading-indicator'),
+      onVisibilityChanged: (VisibilityInfo visibilityInfo) {
+        if(visibilityInfo.visibleFraction == 1) {
+          _loadMore(context);
+        }
+      },
+      child: const LoadingIndicator(),
+    );
+  }
+
+  void _loadMore(BuildContext context) {
+    final VoteOptionsProvider provider = Provider.of(context, listen: false);
+    provider.onLoadMoreOptions();
   }
 
   Widget _searchBar(BuildContext context) {
     final VoteOptionsProvider provider = Provider.of(context);
     return TextField(
       keyboardType: TextInputType.text,
-      onChanged: (String value) {
-        provider.onSearchChanged(value);
+      textInputAction: TextInputAction.search,
+      onSubmitted: (String value) {
+        provider.onSearchSubmitted(value);
       },
       decoration: InputDecoration(
           labelText:
