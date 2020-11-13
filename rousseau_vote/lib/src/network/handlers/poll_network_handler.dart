@@ -24,8 +24,7 @@ class PollNetworkHandler {
     return getParser<PollList>().parse(result);
   }
 
-  // TODO remove = 5
-  Future<Poll> fetchPollDetails({ @required String pollId, int first = 5, String after, String fullName, List<String> badges}) async {
+  Future<Poll> fetchPollDetails({ @required String pollId, int first = 50, String after, String fullName, List<String> badges}) async {
     badges ??= const <String>[]; // badges cannot be null. It has to be empty or non present
     final Map<String, dynamic> variables = {'pollId': pollId, 'first': first, 'after': after, 'fullName': fullName, 'badges': badges};
     final QueryOptions queryOptions = QueryOptions(documentNode: gql(pollDetail), variables: variables, fetchPolicy: FetchPolicy.networkOnly);
