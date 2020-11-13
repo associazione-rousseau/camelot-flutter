@@ -34,7 +34,8 @@ Poll _$PollFromJson(Map<String, dynamic> json) {
     ..optionsConnection = json['optionsConnection'] == null
         ? null
         : OptionsConnection.fromJson(
-            json['optionsConnection'] as Map<String, dynamic>);
+            json['optionsConnection'] as Map<String, dynamic>)
+    ..pollEntityType = json['pollEntityType'] as String;
 }
 
 Map<String, dynamic> _$PollToJson(Poll instance) => <String, dynamic>{
@@ -53,4 +54,5 @@ Map<String, dynamic> _$PollToJson(Poll instance) => <String, dynamic>{
       'maxSelectableOptionsNumber': instance.maxSelectableOptionsNumber,
       'alerts': instance.alerts,
       'optionsConnection': instance.optionsConnection,
+      'pollEntityType': instance.pollEntityType,
     };

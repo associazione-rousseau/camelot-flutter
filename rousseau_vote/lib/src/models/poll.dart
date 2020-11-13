@@ -60,7 +60,7 @@ class Poll {
     return PollStatus.CLOSED;
   }
 
-  bool get isCandidatePoll => type == PollType.CANDIDATE;
+  bool get isCandidatePoll => type == PollType.USER;
 
   bool get mightVote => open && !alreadyVoted;
 
@@ -76,22 +76,14 @@ class Poll {
 
   bool get isFullyFetched => optionsConnection != null && optionsConnection.totalCount > 0 && optionsConnection.totalCount == options.length;
 
-  PollType cachedType;
+  String pollEntityType;
 
   PollType get type {
-    if(cachedType != null) {
-      return cachedType;
-    }
-    if (!hasOptions) {
-      return PollType.UNKNOWN;
-    }
-    switch (options[0].type) {
+    switch (pollEntityType) {
       case 'TextOption':
         return PollType.TEXT;
-      case 'EntityOption':
-        return options[0].entity.type == 'User'
-            ? PollType.CANDIDATE
-            : PollType.UNKNOWN;
+      case 'User':
+        return PollType.USER;
       default:
         return PollType.UNKNOWN;
     }
@@ -104,9 +96,9 @@ class Poll {
 
 const List<PollType> SUPPORTED_TYPES = <PollType>[
   PollType.TEXT,
-  PollType.CANDIDATE
+  PollType.USER
 ];
 
-enum PollType { TEXT, CANDIDATE, UNKNOWN }
+enum PollType { TEXT, USER, UNKNOWN }
 
 enum PollStatus { PUBLISHED, OPEN, CLOSED }

@@ -74,7 +74,7 @@ class ConfirmVoteDialog extends StatelessWidget {
     final List<Widget> children = <Widget>[];
     for (Option option in selectedOptions) {
       final String text =
-          pollType == PollType.CANDIDATE ? option.entity.fullName : option.text;
+          pollType == PollType.USER ? option.entity.fullName : option.text;
       children.add(Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

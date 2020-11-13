@@ -57,9 +57,6 @@ class VoteOptionsProvider extends ChangeNotifier {
       if (optionsCount == 0) {
         optionsCount = poll.optionsConnection.totalCount;
       }
-      if (_poll != null) {
-        poll.cachedType = _poll.type;
-      }
       _poll = poll;
       error = null;
       _loading = false;

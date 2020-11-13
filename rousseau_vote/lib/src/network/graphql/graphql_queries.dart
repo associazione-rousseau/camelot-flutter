@@ -5,6 +5,7 @@ String listPolls = '''
       slug
       title
       status
+      pollEntityType
       alreadyVoted
       showStartingDate
       voteStartingDate
@@ -14,21 +15,6 @@ String listPolls = '''
       alerts {
         message
         path
-      }
-      optionsConnection(first: 1) {
-          nodes {
-            id
-            __typename
-            ...on TextOption {
-              text
-            }
-            ...on EntityOption {
-              entity {
-                __typename
-              }
-            }
-          }
-          totalCount
       }
     }
   }
@@ -137,6 +123,7 @@ String pollDetail = '''
       title
       status
       description
+      pollEntityType
       alreadyVoted
       showStartingDate
       voteStartingDate
@@ -145,7 +132,7 @@ String pollDetail = '''
       resultsLink
       optionType
       maxSelectableOptionsNumber
-      optionsConnection(first: \$first, after: \$after, fullName: \$fullName, badges: \$badges, scored: true) {
+      optionsConnection(first: \$first, after: \$after, fullName: \$fullName, badges: \$badges) {
         pageInfo {
           startCursor
           endCursor
