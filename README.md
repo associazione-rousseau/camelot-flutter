@@ -29,7 +29,7 @@ In the [project canvas](https://github.com/associazione-rousseau/camelot-flutter
 ## Coding patterns
 - We are using the provider pattern, watching [this video](https://www.youtube.com/watch?v=d_m5csmrf7I) is a must!
 - We are using Dependency Injection with [injectable](https://pub.dev/packages/injectable). Familiarize with the design pattern and add your class to RegisterModule when possible. We want to avoid direct invocation of the constructors at least for important objects.
-- Run `flutter pub run build_runner watch --delete-conflicting-outputs` if you plan to change compile time generated classes. For example, you'll need it if you want to add a new injected class.
+- Run `flutter pub run build_runner watch --delete-conflicting-outputs` if you plan to change compile time generated classes. For example, you'll need it if you want to add a new injected class. You can build the changes once with `bin/generate_code.sh`
 
 ## Submitting your PR
 For the PR flow we are referring to [this flow](https://gist.github.com/Chaser324/ce0505fbed06b947d962). In order to be considered, PR have to be written in english, pass all the tests and pass all the lint checks. For substantial UI changes you should add a screenshot to the PR. In order to be merged, they have to be approved by an owner.
