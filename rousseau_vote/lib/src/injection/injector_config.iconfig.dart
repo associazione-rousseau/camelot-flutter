@@ -23,6 +23,7 @@ import 'package:rousseau_vote/src/providers/notification_badge_provider.dart';
 import 'package:rousseau_vote/src/util/package_info_manager.dart';
 import 'package:rousseau_vote/src/network/handlers/poll_network_handler.dart';
 import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
+import 'package:rousseau_vote/src/config/remote/remote_config_manager.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
@@ -79,6 +80,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerSingleton<PrefetchManager>(PrefetchManager());
   g.registerSingleton<PushNotificationManager>(
       registerModule.getPushNotificationManager());
+  g.registerSingleton<RemoteConfigManager>(RemoteConfigManager());
   g.registerSingleton<TokenStore>(
       TokenStore(g<SecureStorage>(), g<LoginNetworkHandler>()));
   g.registerSingleton<UserNetworkHandler>(
