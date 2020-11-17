@@ -35,10 +35,10 @@ dependencies:
   crypto: any
 
   # Firebase (notifications and analytics)
-  firebase_core: ^0.4.5
-  firebase_messaging: ^6.0.16
-  firebase_analytics: ^5.0.16
-  firebase_remote_config: ^0.3.1+1
+  firebase_core: ^0.5.2
+  firebase_messaging: ^7.0.3
+  firebase_analytics: ^6.2.0
+  firebase_remote_config: ^0.4.2
 
   # UI
   pinput: ^0.2.4
