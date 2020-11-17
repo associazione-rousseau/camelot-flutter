@@ -1,6 +1,8 @@
 import 'dart:async' show Future;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rousseau_vote/src/config/remote/remote_config_manager.dart';
+import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/util/dialog_util.dart';
@@ -76,10 +78,13 @@ class PollCard extends StatelessWidget {
           if (_poll.alreadyVoted) {
             showSimpleSnackbar(context, textKey: 'poll-voted');
           } else if (_poll.canVote) {
-            if (_poll.isSupported) {
-              openPollDetails(context, _poll);
-            } else {
+            final RemoteConfigManager remoteConfigManager = getIt<RemoteConfigManager>();
+            if (!_poll.isSupported || remoteConfigManager.isWebOnlyVote) {
               _showPollNotSupported(context);
+            } else if (remoteConfigManager.needsUpgradeToVote) {
+              _showNeedsUpgrade(context);
+            } else {
+              openPollDetails(context, _poll);
             }
           } else {
             showSimpleSnackbar(context, textKey: 'poll-alert', duration: 5);
@@ -99,6 +104,19 @@ class PollCard extends StatelessWidget {
           break;
       }
     };
+  }
+
+  void _showNeedsUpgrade(BuildContext context) {
+    showAlertDialog(context,
+        titleKey: 'vote-needs-upgrade-title',
+        messageKey: 'vote-needs-upgrade-message',
+        buttonKey1: 'back',
+        buttonKey2: 'vote-not-supported-button',
+        buttonAction1: () => Navigator.pop(context),
+        buttonAction2: () {
+          Navigator.pop(context);
+          openUrlExternal(context, _poll.url);
+    });
   }
 
   Widget _alreadyVoted(BuildContext context) {

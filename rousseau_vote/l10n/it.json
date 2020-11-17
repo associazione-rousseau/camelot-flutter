@@ -85,6 +85,8 @@
 
     "vote-not-supported-title": "Votazione non supportata",
     "vote-not-supported-message": "Ops! La votazione non è ancora supportata nell'app. Puoi votare dal sito internet.",
+    "vote-needs-upgrade-title": "App non aggiornata",
+    "vote-needs-upgrade-message": "Ops! La tua app non è aggiornata. Puoi aggiornare l'app e votare oppure usare il sito internet.",
     "vote-not-supported-button": "Versione Web",
 
     "drawer-vote": "Vota",

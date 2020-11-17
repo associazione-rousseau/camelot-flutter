@@ -19,4 +19,7 @@ class PackageInfoManager with InitializeOnStartup {
     }
     return packageInfo;
   }
+
+  bool isOlderThan(String version) => packageInfo.version.compareTo(version) < 0;
 }
+
