@@ -1,0 +1,72 @@
+on:
+  push:
+    branches:
+      - testTag
+name: Release Beta on Android and iOS
+jobs:
+  tags:
+    name: Bump version and tag commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Bump version and push tag
+        id: buildname
+        uses: anothrNick/github-tag-action@1.26.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
+          RELEASE_BRANCHES: beta
+          INITIAL_VERSION: 1.1.0
+          DEFAULT_BUMP: patch
+      - name: Generate build number
+        id: buildnumber
+        uses: einaregilsson/build-number@v2
+        with:
+          token: ${{secrets.github_token}}
+  android:
+    name: Android Beta Release
+    needs: [tags]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: 'Get Tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@master"
+      - name: Generate build number
+        id: buildnumber
+        uses: einaregilsson/build-number@v2
+        with:
+          token: ${{secrets.github_token}}
+      - name: Print Tag
+        run: echo $BUILD_NAME $BUILD_NUMBER
+        env:
+          BUILD_NAME: ${{ steps.previoustag.outputs.tag }}
+          BUILD_NUMBER: ${{ steps.buildnumber.outputs.build_number }}
+  ios:
+    name: IOS Beta Release
+    needs: [tags]
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: 'Get Tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@master"
+      - name: Generate build number
+        id: buildnumber
+        uses: einaregilsson/build-number@v2
+        with:
+          token: ${{secrets.github_token}}
+      - name: Print Tag
+        run: echo $BUILD_NAME $BUILD_NUMBER
+        env:
+          BUILD_NAME: ${{ steps.previoustag.outputs.tag }}
+          BUILD_NUMBER: ${{ steps.buildnumber.outputs.build_number }}
