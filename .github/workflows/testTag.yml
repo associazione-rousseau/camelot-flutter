@@ -23,7 +23,7 @@ jobs:
           DEFAULT_BUMP: patch
       - name: Generate build number
         id: buildnumber
-        uses: einaregilsson/build-number@v2
+        uses: einaregilsson/build-number@v3
         with:
           token: ${{secrets.github_token}}
   android:
@@ -40,7 +40,7 @@ jobs:
         uses: "WyriHaximus/github-action-get-previous-tag@master"
       - name: Generate build number
         id: buildnumber
-        uses: einaregilsson/build-number@v2
+        uses: einaregilsson/build-number@v3
         with:
           token: ${{secrets.github_token}}
       - name: Print Tag
@@ -62,7 +62,7 @@ jobs:
         uses: "WyriHaximus/github-action-get-previous-tag@master"
       - name: Generate build number
         id: buildnumber
-        uses: einaregilsson/build-number@v2
+        uses: einaregilsson/build-number@v3
         with:
           token: ${{secrets.github_token}}
       - name: Print Tag
