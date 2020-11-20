@@ -6,6 +6,8 @@ name: Release Beta on Android and iOS
 jobs:
   tags:
     name: Bump version and tag commit
+    outputs:
+      build_number: ${{ steps.buildnumber.outputs.build_number }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
