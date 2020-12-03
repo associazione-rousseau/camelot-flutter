@@ -1,4 +1,3 @@
-
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/models/poll_list.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/query_response_parser.dart';

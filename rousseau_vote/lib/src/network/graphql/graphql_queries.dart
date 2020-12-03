@@ -1,23 +1,29 @@
 String listPolls = '''
-  query listPolls {
-    polls(orderAttribute: show_starting_date, orderDirection: DESC) {
-      id
-      slug
-      title
-      status
-      pollEntityType
-      alreadyVoted
-      showStartingDate
-      voteStartingDate
-      voteEndingDate
-      announcementLink
+query listPolls(\$first: Int, \$after: String) {
+	pollsConnection(orderAttribute: show_starting_date, orderDirection: DESC, first: \$first, after: \$after) {
+		nodes {
+		  id
+		  slug
+		  title
+		  status
+		  pollEntityType
+		  alreadyVoted
+		  showStartingDate
+		  voteStartingDate
+		  voteEndingDate
+		  announcementLink
       resultsLink
       alerts {
         message
         path
       }
-    }
-  }
+		}
+		pageInfo {
+            hasNextPage
+            endCursor
+        }
+	}
+}
 ''';
 
 String profileDetail = '''
