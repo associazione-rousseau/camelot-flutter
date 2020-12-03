@@ -7,7 +7,7 @@ import 'vote/poll_card.dart';
 
 class PollsListWidget extends StatelessWidget {
 
-  PollsListWidget(PollList list) : _polls = sortedPolls(list);
+  PollsListWidget(PollList list) : _polls = list.polls;
 
   final List<Poll> _polls;
   @override
@@ -20,13 +20,5 @@ class PollsListWidget extends StatelessWidget {
           return PollCard(_polls[index]);
         }
     );
-  }
-
-  static List<Poll> sortedPolls(PollList list) {
-    final List<Poll> result = <Poll>[];
-    result.addAll(list.polls.where((Poll p) => p.pollStatus == PollStatus.OPEN));
-    result.addAll(list.polls.where((Poll p) => p.pollStatus == PollStatus.PUBLISHED));
-    result.addAll(list.polls.where((Poll p) => p.pollStatus == PollStatus.CLOSED));
-    return result;
   }
 }

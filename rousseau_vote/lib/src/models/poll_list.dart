@@ -9,10 +9,29 @@ part 'poll_list.g.dart';
 class PollList {
   PollList();
 
-  factory PollList.fromJson(Map<String, dynamic> json) => _$PollListFromJson(json);
+  factory PollList.fromJson(Map<String, dynamic> json) =>
+      _$PollListFromJson(json);
   Map<String, dynamic> toJson() => _$PollListToJson(this);
 
+  @JsonKey(fromJson: sortPolls)
   Paginated<Poll> pollsConnection;
 
   List<Poll> get polls => pollsConnection.nodes;
+
+  static Paginated<Poll> sortPolls(Map<String, dynamic> json) {
+    final Paginated<Poll> pollsConnection = Paginated<Poll>.fromJson(
+        json,
+        (Object value) => value == null
+            ? null
+            : Poll.fromJson(value as Map<String, dynamic>));
+
+
+    final List<Poll> sortedNodes = <Poll>[];
+    sortedNodes.addAll(pollsConnection.nodes.where((Poll p) => p.pollStatus == PollStatus.OPEN));
+    sortedNodes.addAll(pollsConnection.nodes.where((Poll p) => p.pollStatus == PollStatus.PUBLISHED));
+    sortedNodes.addAll(pollsConnection.nodes.where((Poll p) => p.pollStatus == PollStatus.CLOSED));
+    pollsConnection.nodes = sortedNodes;
+
+    return pollsConnection;
+  }
 }
