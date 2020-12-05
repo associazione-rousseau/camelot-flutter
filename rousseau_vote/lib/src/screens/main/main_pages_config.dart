@@ -1,10 +1,9 @@
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:rousseau_vote/src/screens/blog_screen.dart';
-import 'package:rousseau_vote/src/screens/elected_screen.dart';
+import 'package:rousseau_vote/src/screens/activists_screen.dart';
 import 'package:rousseau_vote/src/screens/events_screen.dart';
 import 'package:rousseau_vote/src/screens/main/main_page.dart';
 import 'package:rousseau_vote/src/screens/polls_screen.dart';
-import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
 
 const List<MainPage> MAIN_PAGES = <MainPage>[
   MainPage(
@@ -20,11 +19,11 @@ const List<MainPage> MAIN_PAGES = <MainPage>[
       type: MainPageType.POLLS,
       page: PollsScreen()),
   MainPage(
-      titleKey: 'elected',
+      titleKey: 'activists',
       iconData: MdiIcons.accountGroupOutline,
       selectedIconData: MdiIcons.accountGroup,
-      type: MainPageType.ELECTED,
-      page: ElectedScreen()),
+      type: MainPageType.ACTIVISTS,
+      page: ActivistsScreen()),
   MainPage(
       titleKey: 'events',
       iconData: MdiIcons.calendarOutline,

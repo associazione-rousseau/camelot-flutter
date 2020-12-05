@@ -5,9 +5,9 @@ import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/core/icon_text_screen.dart';
 
-class ElectedScreen extends StatelessWidget {
+class ActivistsScreen extends StatelessWidget {
 
-  const ElectedScreen();
+  const ActivistsScreen();
 
   @override
   Widget build(BuildContext context) {
