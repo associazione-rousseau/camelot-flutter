@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/network/fetcher/fetcher.dart';
 import 'package:rousseau_vote/src/models/interface/has_list.dart';
 import 'package:rousseau_vote/src/providers/interface/list_provider.dart';
+import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/errors/error_page_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -32,17 +33,33 @@ class RousseauList<T extends HasList<I>, I> extends StatelessWidget {
           if (provider.isLoading) {
             return const LoadingIndicator();
           }
-          if (provider.hasError) {
-            return const ErrorPageWidget();
-          }
           return pullToRefresh
               ? RefreshIndicator(
-                  onRefresh: provider.pullToRefresh, child: _body(provider))
+                  onRefresh: provider.pullToRefresh,
+                  child: provider.hasError ? _errorBody() : _body(provider))
               : _body(provider);
         }),
       ),
     );
   }
+
+  // hack to allow the pull to refresh without moving the error message
+  Widget _errorBody() {
+    return Stack(
+      children: [
+        const ErrorPageWidget(),
+        SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          children: <Widget>[
+            Container(height: 2000, width: 2000, color: Colors.transparent,)
+          ],
+        ),
+      ),
+    ]
+    );
+  }
+
 
   Widget _body(ListProvider<T, I> provider) {
     return ListView.separated(
