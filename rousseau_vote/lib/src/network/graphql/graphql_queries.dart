@@ -68,6 +68,62 @@ query profileDetail(\$id: ID!) {
 }
 ''';
 
+String profileSearch = '''
+query profileSearch(
+    \$first: Int,
+    \$fullName: String,
+    \$badges: [[String!]!],
+    \$tagCodes: [String!],
+    \$categoryCodes: [String!],
+    \$after: String
+) {
+    profiles(
+        first: \$first,
+        fullName: \$fullName,
+        badges: \$badges,
+        tagCodes: \$tagCodes,
+        categoryCodes: \$categoryCodes,
+        after: \$after
+    ) {
+        nodes {
+            id
+            slug
+            fullName
+            overseaseCity
+            profile {
+              age
+              placeOfResidence {
+                comuneName
+                provinciaName
+              }
+              picture {
+                originalUrl
+              }
+            }
+            badges {
+              code
+              active
+              name
+            }
+            tags {
+                code
+            }
+            category {
+                code
+            }
+            badges {
+                active
+                code
+            }
+        }
+        pageInfo {
+            hasNextPage
+            endCursor
+        }
+    }
+}
+''';
+
 String _profileFields = '''
   presentation
   curriculumActivist
