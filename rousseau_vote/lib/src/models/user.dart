@@ -2,14 +2,14 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:rousseau_vote/src/models/user/profile.dart';
 import 'package:rousseau_vote/src/models/profile/badge.dart';
 
-part 'entity.g.dart';
+part 'user.g.dart';
 
 @JsonSerializable()
-class Entity {
-  Entity();
+class User {
+  User();
 
-  factory Entity.fromJson(Map<String, dynamic> json) => _$EntityFromJson(json);
-  Map<String, dynamic> toJson() => _$EntityToJson(this);
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 
   String id;
   String fullName;

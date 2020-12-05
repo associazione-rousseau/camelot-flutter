@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'entity.dart';
+part of 'user.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Entity _$EntityFromJson(Map<String, dynamic> json) {
-  return Entity()
+User _$UserFromJson(Map<String, dynamic> json) {
+  return User()
     ..id = json['id'] as String
     ..fullName = json['fullName'] as String
     ..slug = json['slug'] as String
@@ -22,7 +22,7 @@ Entity _$EntityFromJson(Map<String, dynamic> json) {
     ..type = json['__typename'] as String;
 }
 
-Map<String, dynamic> _$EntityToJson(Entity instance) => <String, dynamic>{
+Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'id': instance.id,
       'fullName': instance.fullName,
       'slug': instance.slug,

@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rousseau_vote/src/models/entity.dart';
+import 'package:rousseau_vote/src/models/user.dart';
 
 part 'option.g.dart';
 
@@ -13,7 +12,7 @@ class Option {
 
   String id;
   String text;
-  Entity entity;
+  User entity;
 
   @JsonKey(name: '__typename')
   String type;
