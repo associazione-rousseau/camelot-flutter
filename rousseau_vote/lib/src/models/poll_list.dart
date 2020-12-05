@@ -7,7 +7,7 @@ import 'interface/paginated.dart';
 part 'poll_list.g.dart';
 
 @JsonSerializable()
-class PollList implements HasPagination<Poll> {
+class PollList extends HasPagination<Poll> {
   PollList();
 
   factory PollList.fromJson(Map<String, dynamic> json) =>
@@ -37,20 +37,5 @@ class PollList implements HasPagination<Poll> {
   }
 
   @override
-  String afterCursor() => pollsConnection.afterCursor();
-
-  @override
-  bool hasNext() => pollsConnection.hasNext();
-
-  @override
-  void mergePreviousPage(HasPagination<Poll> newData) => pollsConnection.mergePreviousPage(newData.getPaginatedData());
-
-  @override
   Paginated<Poll> getPaginatedData() => pollsConnection;
-
-  @override
-  int getItemCount() => pollsConnection != null && pollsConnection.nodes != null ? pollsConnection.nodes.length : 0;
-
-  @override
-  Poll getItem(int index) => pollsConnection.nodes[index];
 }

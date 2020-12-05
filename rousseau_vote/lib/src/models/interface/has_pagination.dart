@@ -6,9 +6,15 @@ abstract class HasPagination<T> extends HasList<T> {
 
   Paginated<T> getPaginatedData();
 
-  void mergePreviousPage(HasPagination<T> newData);
+  String afterCursor() => getPaginatedData().afterCursor();
 
-  bool hasNext();
+  bool hasNext() => getPaginatedData().hasNext();
 
-  String afterCursor();
+  void mergePreviousPage(HasPagination<T> newData) => getPaginatedData().mergePreviousPage(newData.getPaginatedData());
+
+  @override
+  int getItemCount() => getPaginatedData() != null && getPaginatedData().nodes != null ? getPaginatedData().nodes.length : 0;
+
+  @override
+  T getItem(int index) => getPaginatedData().nodes[index];
 }
