@@ -14,9 +14,7 @@ class Paginated<T> {
   PageInfo pageInfo;
   List<T> nodes;
 
-  void merge(Paginated<T> newData) {
-    nodes.addAll(newData.nodes);
-  }
+  void mergePreviousPage(Paginated<T> previousPage) => nodes = previousPage.nodes + nodes;
 
   bool hasNext() => pageInfo.hasNextPage;
   

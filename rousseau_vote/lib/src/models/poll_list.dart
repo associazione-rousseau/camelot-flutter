@@ -1,12 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 
+import 'interface/has_pagination.dart';
 import 'interface/paginated.dart';
 
 part 'poll_list.g.dart';
 
 @JsonSerializable()
-class PollList {
+class PollList implements HasPagination<Poll> {
   PollList();
 
   factory PollList.fromJson(Map<String, dynamic> json) =>
@@ -34,4 +35,22 @@ class PollList {
 
     return pollsConnection;
   }
+
+  @override
+  String afterCursor() => pollsConnection.afterCursor();
+
+  @override
+  bool hasNext() => pollsConnection.hasNext();
+
+  @override
+  void mergePreviousPage(HasPagination<Poll> newData) => pollsConnection.mergePreviousPage(newData.getPaginatedData());
+
+  @override
+  Paginated<Poll> getPaginatedData() => pollsConnection;
+
+  @override
+  int getItemCount() => pollsConnection != null && pollsConnection.nodes != null ? pollsConnection.nodes.length : 0;
+
+  @override
+  Poll getItem(int index) => pollsConnection.nodes[index];
 }
