@@ -1,6 +1,6 @@
 String listPolls = '''
-query listPolls(\$first: Int, \$after: String) {
-	pollsConnection(orderAttribute: show_starting_date, orderDirection: DESC, first: \$first, after: \$after) {
+query listPolls(\$after: String) {
+	pollsConnection(orderAttribute: show_starting_date, orderDirection: DESC, first: 20, after: \$after) {
 		nodes {
 		  id
 		  slug
@@ -70,7 +70,6 @@ query profileDetail(\$id: ID!) {
 
 String profileSearch = '''
 query profileSearch(
-    \$first: Int,
     \$fullName: String,
     \$badges: [[String!]!],
     \$tagCodes: [String!],
@@ -78,7 +77,7 @@ query profileSearch(
     \$after: String
 ) {
     profiles(
-        first: \$first,
+        first: 20,
         fullName: \$fullName,
         badges: \$badges,
         tagCodes: \$tagCodes,
