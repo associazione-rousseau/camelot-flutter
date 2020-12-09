@@ -23,7 +23,7 @@ class RousseauList<P extends ListProvider<T>, T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ListProvider<T> provider = Provider.of(context);
+    final P provider = Provider.of(context);
     if (provider.isLoading()) {
       return const LoadingIndicator();
     }

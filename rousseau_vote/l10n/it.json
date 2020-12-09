@@ -180,6 +180,9 @@
     "profile-location-same-female": "nata e residente a %s",
     "profile-location-same-male": "nato e residente a %s",
 
+    "activist-search-by-name": "Cerca attivista",
+    "activist-search-by-name-hint": "Inserisci il nome",
+
     "overseas-city": "Città di residenza estera",
     "last-italian-residence": "Ultima residenza in Italia",
     "residence-pending": "Richiesta in attesa di approvazione",
