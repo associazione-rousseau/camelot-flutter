@@ -25,7 +25,10 @@ class RousseauList<P extends ListProvider<T>, T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final P provider = Provider.of(context);
     if (provider.isLoading()) {
-      return const LoadingIndicator();
+      return const Padding(
+        padding: EdgeInsets.only(top: 20),
+        child: LoadingIndicator(),
+      );
     }
     if (provider.hasErrors()) {
       return RefreshIndicator(onRefresh: provider.pullToRefresh, child: _errorBody());

@@ -16,6 +16,7 @@ class SearchWidget extends StatelessWidget {
     return TextField(
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.search,
+      enableSuggestions: false,
       onSubmitted: onSubmitted,
       decoration: InputDecoration(
           labelText:

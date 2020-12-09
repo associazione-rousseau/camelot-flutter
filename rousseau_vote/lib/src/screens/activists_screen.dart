@@ -49,7 +49,7 @@ class ActivistsScreen extends StatelessWidget {
   Widget _filtersHeader(
       BuildContext context, ActivistsSearchProvider provider) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: <Widget>[
           SearchWidget(
@@ -57,7 +57,7 @@ class ActivistsScreen extends StatelessWidget {
             hintTextKey: 'activist-search-by-name-hint',
             onSubmitted: (String word) => provider.onSearch(word),
           ),
-          const VerticalSpace(10),
+          const VerticalSpace(15),
           _meritsFilter(context),
         ],
       ),
