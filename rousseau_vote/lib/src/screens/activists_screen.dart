@@ -10,6 +10,7 @@ import 'package:rousseau_vote/src/providers/activists_search_provider.dart';
 import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
+import 'package:rousseau_vote/src/widgets/activist/activist_search_widget.dart';
 import 'package:rousseau_vote/src/widgets/core/rousseau_list.dart';
 import 'package:rousseau_vote/src/widgets/core/search_widget.dart';
 import 'package:rousseau_vote/src/widgets/profile/badge_image.dart';
@@ -31,9 +32,7 @@ class ActivistsScreen extends StatelessWidget {
                 physics: const ClampingScrollPhysics(),
                 child: Column(
             children: <Widget>[
-                const VerticalSpace(20),
-                _filtersHeader(context, provider),
-                const VerticalSpace(20),
+                ActivistSearchWidget(),
                 RousseauList<ActivistsSearchProvider, User>(
                       primary: false,
                       itemBuilder: (BuildContext context, User user) =>
@@ -44,46 +43,6 @@ class ActivistsScreen extends StatelessWidget {
               ),
         ),
       ),
-    );
-  }
-
-  Widget _filtersHeader(
-      BuildContext context, ActivistsSearchProvider provider) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        children: <Widget>[
-          SearchWidget(
-            labelTextKey: 'activist-search-by-name',
-            hintTextKey: 'activist-search-by-name-hint',
-            onSubmitted: (String word) => provider.onSearch(word),
-          ),
-          const VerticalSpace(15),
-          _meritsFilter(context),
-        ],
-      ),
-    );
-  }
-
-  Widget _meritsFilter(BuildContext context) {
-    final ActivistsSearchProvider provider = Provider.of(context);
-    final List<Widget> badges = <Widget>[];
-    for (int i = 0; i < BADGES_NUMBER; i++) {
-      final bool active = provider.isBadgeSelected(i);
-      badges.add(Padding(
-        padding: const EdgeInsets.only(left: 2, right: 2),
-        child: BadgeImage(
-          badgeNumber: i,
-          size: 35,
-          active: active,
-          onTap: () => provider.onBadgeTapped(i),
-        ),
-      ));
-    }
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: badges,
     );
   }
 }
