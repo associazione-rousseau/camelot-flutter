@@ -28,6 +28,7 @@ class ActivistsScreen extends StatelessWidget {
           builder: (BuildContext context, ActivistsSearchProvider provider,
                   Widget child) =>
               SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
                 child: Column(
             children: <Widget>[
                 const VerticalSpace(20),
