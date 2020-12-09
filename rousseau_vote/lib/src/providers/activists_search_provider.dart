@@ -1,17 +1,15 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:rousseau_vote/src/lists/filter/search_filter.dart';
 import 'package:rousseau_vote/src/lists/filter/toggle_filter.dart';
 import 'package:rousseau_vote/src/models/user.dart';
 import 'package:rousseau_vote/src/models/user/profile_search.dart';
-import 'package:rousseau_vote/src/network/fetcher/fetcher.dart';
-import 'package:rousseau_vote/src/network/fetcher/graphql_variables_provider.dart';
+import 'package:rousseau_vote/src/network/fetcher/graphql_fetcher.dart';
+import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/providers/interface/generic_list_provider.dart';
 import 'package:rousseau_vote/src/util/profile_util.dart';
 
-class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> implements GraphqlVariablesProvider {
+class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
 
-  ActivistsSearchProvider({ @required Fetcher<ProfileSearch> fetcher }) : super(fetcher: fetcher);
+  ActivistsSearchProvider() : super(fetcher: GraphqlFetcher<ProfileSearch>(query: profileSearch));
 
   final SearchFilter fullNameSearchFilter = SearchFilter();
   final ToggleFilter badgeFilter = ToggleFilter(BADGES_NUMBER);
@@ -19,6 +17,7 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> i
   void onBadgeTapped(int badgeNumber) {
     badgeFilter.toggle(badgeNumber);
     notifyListeners();
+    onFetcherUpdated(buildFetcher());
   }
 
   bool isBadgeSelected(int i) => badgeFilter.isActive(i);
@@ -26,9 +25,9 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> i
   void onSearch(String fullName) {
     fullNameSearchFilter.setWord(fullName.toLowerCase());
     notifyListeners();
+    onFetcherUpdated(buildFetcher());
   }
 
-  @override
   Map<String, dynamic> getQueryVariables() {
     final Map<String, dynamic> variables = <String, dynamic>{};
 
@@ -43,4 +42,6 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> i
 
     return variables;
   }
+
+  GraphqlFetcher<ProfileSearch> buildFetcher() => GraphqlFetcher<ProfileSearch>(query: profileSearch, variables: getQueryVariables());
 }

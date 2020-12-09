@@ -2,16 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/network/fetcher/fetcher.dart';
-import 'package:rousseau_vote/src/network/fetcher/graphql_variables_provider.dart';
 import 'package:rousseau_vote/src/models/interface/has_pagination.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/query_response_parsers.dart';
 
 class GraphqlFetcher<T> implements Fetcher<T> {
-  GraphqlFetcher(
-      {@required this.query, this.variablesProvider, this.pageSize = 20});
+  GraphqlFetcher({@required this.query, this.variables, this.pageSize = 20});
 
   final String query;
-  final GraphqlVariablesProvider variablesProvider;
+  final Map<String, dynamic> variables;
   final int pageSize;
 
   final GraphQLClient _graphQLClient = getIt<GraphQLClient>();
@@ -40,8 +38,6 @@ class GraphqlFetcher<T> implements Fetcher<T> {
   }
 
   Map<String, dynamic> _getVariables({String after}) {
-    final Map<String, dynamic> variables =
-        variablesProvider?.getQueryVariables();
     final Map<String, dynamic> paginationVariables = after != null
         ? <String, dynamic>{'after': after, 'first': pageSize}
         : null;

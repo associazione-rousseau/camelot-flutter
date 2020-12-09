@@ -23,7 +23,7 @@ class ActivistsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RousseauLoggedScaffold(
       body: ChangeNotifierProvider<ActivistsSearchProvider>(
-        create: (BuildContext context) => ActivistsSearchProvider(fetcher: GraphqlFetcher<ProfileSearch>(query: profileSearch)),
+        create: (BuildContext context) => ActivistsSearchProvider(),
         child: Consumer<ActivistsSearchProvider>(
           builder: (BuildContext context, ActivistsSearchProvider provider,
                   Widget child) =>

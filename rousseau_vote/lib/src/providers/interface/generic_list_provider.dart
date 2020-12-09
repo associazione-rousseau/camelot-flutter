@@ -45,10 +45,6 @@ class GenericListProvider<T extends HasList<I>, I> extends ListProvider<I> {
   I getItem(int index) => data.getItem(index);
 
   void _fetchAndNotify(Future<T> fetchFuture, {bool isLoadMore = false}) {
-    if (_isLoading) {
-      return;
-    }
-
     _isLoading = true;
     if (!isLoadMore) {
       notifyListeners();
