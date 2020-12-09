@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/network/fetcher/fetcher.dart';
 import 'package:rousseau_vote/src/models/interface/has_list.dart';
 import 'package:rousseau_vote/src/providers/interface/list_provider.dart';
-import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/errors/error_page_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -16,17 +15,18 @@ class RousseauList<T extends HasList<I>, I> extends StatelessWidget {
       {@required this.fetcher,
       @required this.itemBuilder,
       this.pullToRefresh = false,
+      this.primary = true,
       this.padding = 20});
 
   final Fetcher<T> fetcher;
   final ItemBuilder<I> itemBuilder;
   final bool pullToRefresh;
   final double padding;
+  final bool primary;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ChangeNotifierProvider<ListProvider<T, I>>(
+    return ChangeNotifierProvider<ListProvider<T, I>>(
         create: (BuildContext context) => ListProvider<T, I>(fetcher: fetcher),
         child: Consumer<ListProvider<T, I>>(builder:
             (BuildContext context, ListProvider<T, I> provider, Widget child) {
@@ -39,7 +39,6 @@ class RousseauList<T extends HasList<I>, I> extends StatelessWidget {
                   child: provider.hasError ? _errorBody() : _body(provider))
               : _body(provider);
         }),
-      ),
     );
   }
 
@@ -63,6 +62,8 @@ class RousseauList<T extends HasList<I>, I> extends StatelessWidget {
 
   Widget _body(ListProvider<T, I> provider) {
     return ListView.separated(
+      primary: primary,
+      shrinkWrap: !primary,
       separatorBuilder: (BuildContext context, int index) =>
           SizedBox(height: padding),
       padding: EdgeInsets.all(padding),
