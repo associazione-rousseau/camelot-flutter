@@ -3,13 +3,15 @@ import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
+import 'package:rousseau_vote/src/search/rousseau_search_delegate.dart';
 
 class RousseauAppBar extends StatelessWidget implements PreferredSizeWidget {
 
-  const RousseauAppBar({ this.white = false, this.hasBadge = false});
+  const RousseauAppBar({ this.white = false, this.hasBadge = false, this.hasSearch = false});
 
   final bool white;
   final bool hasBadge;
+  final bool hasSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,14 @@ class RousseauAppBar extends StatelessWidget implements PreferredSizeWidget {
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
+      actions: hasSearch ? <Widget>[
+        IconButton(
+          icon: const Icon(Icons.search),
+          iconSize: 30,
+          onPressed: () => showSearch(context: context, delegate: RousseauSearchDelegate()),
+        )
+      ]
+      : null,
       iconTheme: white ? const IconThemeData(color: PRIMARY_RED) : null,
       title: Image(
         image: white ? RED_LOGO : WHITE_LOGO,

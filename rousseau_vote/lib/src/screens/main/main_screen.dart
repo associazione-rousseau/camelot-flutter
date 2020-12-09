@@ -52,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
         child: Consumer<NotificationBadgeProvider>(
           builder: (BuildContext context, NotificationBadgeProvider provider, Widget child) =>
             Scaffold(
-              appBar: mainPage.hasToolbar ? RousseauAppBar(white: true, hasBadge: provider.shouldShowDrawerBadge(),) : null,
+              appBar: mainPage.hasToolbar ? RousseauAppBar(white: true, hasBadge: provider.shouldShowDrawerBadge(), hasSearch: true,) : null,
               body: Center(
                 child: mainPage.page,
               ),
