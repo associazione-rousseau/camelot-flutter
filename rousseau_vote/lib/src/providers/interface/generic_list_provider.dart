@@ -1,26 +1,35 @@
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:rousseau_vote/src/network/fetcher/fetcher.dart';
 import 'package:rousseau_vote/src/models/interface/has_list.dart';
 import 'package:rousseau_vote/src/models/interface/has_pagination.dart';
+import 'package:rousseau_vote/src/widgets/core/list_provider.dart';
 
-class ListProvider<T extends HasList<I>, I> extends ChangeNotifier {
-
-  ListProvider({ @required this.fetcher }) {
-    init();
+class GenericListProvider<T extends HasList<I>, I> extends ListProvider<I> {
+  GenericListProvider({ @required Fetcher<T> fetcher }) {
+    onFetcherUpdated(fetcher);
   }
 
-  final Fetcher<T> fetcher;
+  Fetcher<T> fetcher;
   T data;
-  bool isLoading = false;
-  bool hasError = false;
+  bool _isLoading = false;
+  bool _hasErrors = false;
 
-  void init() => _fetchAndNotify(fetcher.fetch());
+  void onFetcherUpdated(Fetcher<T> fetcher) {
+    this.fetcher = fetcher;
+    load();
+  }
 
-  bool canLoadMore() => data is HasPagination && (data as HasPagination).hasNext();
+  @override
+  void load() => _fetchAndNotify(fetcher.fetch());
 
+  @override
+  bool canLoadMore() =>
+      data is HasPagination && (data as HasPagination).hasNext();
+
+  @override
   void loadMore() => _fetchAndNotify(fetcher.loadMore(data), isLoadMore: true);
 
+  @override
   Future<void> pullToRefresh() async {
     final T data = await fetcher.refresh();
     if (data != null) {
@@ -29,16 +38,18 @@ class ListProvider<T extends HasList<I>, I> extends ChangeNotifier {
     }
   }
 
+  @override
   int getItemCount() => data.getItemCount();
 
-  I getItem(int index) => data.getItem(index) ;
+  @override
+  I getItem(int index) => data.getItem(index);
 
   void _fetchAndNotify(Future<T> fetchFuture, {bool isLoadMore = false}) {
-    if (isLoading) {
+    if (_isLoading) {
       return;
     }
 
-    isLoading = true;
+    _isLoading = true;
     if (!isLoadMore) {
       notifyListeners();
     }
@@ -48,12 +59,18 @@ class ListProvider<T extends HasList<I>, I> extends ChangeNotifier {
         (data as HasPagination).mergePreviousPage(this.data as HasPagination);
       }
       this.data = data;
-      hasError = false;
+      _hasErrors = false;
     }).catchError((Object error) {
-      hasError = true;
+      _hasErrors = true;
     }).whenComplete(() {
-      isLoading = false;
+      _isLoading = false;
       notifyListeners();
     });
   }
+
+  @override
+  bool hasErrors() => _hasErrors;
+
+  @override
+  bool isLoading() => _isLoading;
 }
