@@ -8,15 +8,18 @@ import 'package:visibility_detector/visibility_detector.dart';
 import 'list_provider.dart';
 
 typedef ItemBuilder<T> = Widget Function(BuildContext context, T object);
+typedef NoResultsBuilder = Widget Function(BuildContext context);
 
 class RousseauList<P extends ListProvider<T>, T> extends StatelessWidget {
   const RousseauList(
       {@required this.itemBuilder,
+        this.noResultsBuilder,
         this.pullToRefresh = false,
         this.primary = true,
         this.padding = 20});
 
   final ItemBuilder<T> itemBuilder;
+  final NoResultsBuilder noResultsBuilder;
   final bool pullToRefresh;
   final double padding;
   final bool primary;
@@ -32,6 +35,9 @@ class RousseauList<P extends ListProvider<T>, T> extends StatelessWidget {
     }
     if (provider.hasErrors()) {
       return RefreshIndicator(onRefresh: provider.pullToRefresh, child: _errorBody());
+    }
+    if (provider.getItemCount() == 0) {
+      return noResultsBuilder != null ? noResultsBuilder(context) : Container();
     }
     return pullToRefresh
         ? RefreshIndicator(onRefresh: provider.pullToRefresh, child: _body(provider))

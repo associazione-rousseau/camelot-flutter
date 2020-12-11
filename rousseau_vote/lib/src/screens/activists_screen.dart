@@ -5,6 +5,7 @@ import 'package:rousseau_vote/src/providers/activists_search_provider.dart';
 import 'package:rousseau_vote/src/providers/search_suggestions_provider.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/activist/activist_search_widget.dart';
+import 'package:rousseau_vote/src/widgets/core/icon_text_screen.dart';
 import 'package:rousseau_vote/src/widgets/core/rousseau_list.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_logged_scaffold.dart';
 import 'package:rousseau_vote/src/widgets/user/user_card.dart';
@@ -24,6 +25,12 @@ class ActivistsScreen extends StatelessWidget {
 //            ActivistSearchWidget(),
             RousseauList<ActivistsSearchProvider, User>(
               primary: false,
+              noResultsBuilder: (BuildContext context) => const Center(
+                child: IconTextScreen(
+                  iconData: Icons.search,
+                  messageKey: 'no-activists-found',
+                ),
+              ),
               itemBuilder: (BuildContext context, User user) => UserCard(
                   user: user,
                   onTap: (BuildContext context) {
