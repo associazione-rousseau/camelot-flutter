@@ -39,6 +39,9 @@ class CurrentUser extends UserProfile {
   ItalianGeographicalDivision comune;
   ItalianGeographicalDivision municipio;
   ResidenceChangeRequest lastResidenceChangeRequest;
+  String overseaseCity;
+
+  String get currentUserResidence => overseaseCity ?? residence;
 
   bool get shouldVerifyIdentity => statusColor == 'GREY' || statusColor == 'RED';
 

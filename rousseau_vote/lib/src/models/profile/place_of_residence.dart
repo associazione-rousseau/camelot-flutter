@@ -10,4 +10,5 @@ class PlaceOfResidence {
   Map<String, dynamic> toJson() => _$PlaceOfResidenceToJson(this);
 
   String comuneName;
+  String overseaseCity;
 }

@@ -30,7 +30,6 @@ String profileDetail = '''
 query profileDetail(\$id: ID!) {
     user(id: \$id) {
         id
-        overseaseCity
         slug
         accountType
         badges {
@@ -88,12 +87,12 @@ query profileSearch(
             id
             slug
             fullName
-            overseaseCity
             profile {
               age
               placeOfResidence {
                 comuneName
                 provinciaName
+                overseaseCity
               }
               picture {
                 originalUrl
@@ -143,6 +142,7 @@ String _profileFields = '''
   placeOfBirth
   placeOfResidence {
       comuneName
+      overseaseCity
   }
   picture {
       originalUrl
@@ -214,12 +214,12 @@ String pollDetail = '''
                 id
                 slug
                 fullName
-                overseaseCity
                 profile {
                   age
                   placeOfResidence {
                     comuneName
                     provinciaName
+                    overseaseCity
                   }
                   picture {
                     originalUrl
@@ -256,6 +256,7 @@ String currentUserShort = '''
         }
         placeOfResidence {
             comuneName
+        overseaseCity
         }
     }
     badges {
@@ -278,6 +279,7 @@ String currentUserFull = '''
     firstName
     fullName
     lastName
+    overseaseCity
     gender
     placeOfBirth
     dateOfBirth
@@ -331,7 +333,6 @@ String currentUserFull = '''
       code 
       name
     }
-    overseaseCity
     profile {
         $_profileFields
     }
@@ -355,6 +356,7 @@ String currentUserResidence = '''
 query currentUser {
   currentUser {
     slug
+    overseaseCity
     comune{
       code
       name
@@ -375,7 +377,6 @@ query currentUser {
       code 
       name
     }
-    overseaseCity
     lastResidenceChangeRequest{
       comune{
           code
@@ -389,7 +390,6 @@ query currentUser {
           code
           name
       }
-      overseaseCity
       provincia{
           code
           name

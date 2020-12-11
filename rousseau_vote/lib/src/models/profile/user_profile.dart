@@ -24,17 +24,17 @@ class UserProfile {
   List<Badge> badges;
   Category category;
   List<Tag> tags;
-  String overseaseCity;
   Profile profile;
   List<UserPositions> userPositions;
 
   String get residence {
-    if(overseaseCity != null) {
-      return overseaseCity;
+    if (profile?.placeOfResidence == null) {
+      return '';
     }
-    return profile != null && profile.placeOfResidence != null ?
-    profile.placeOfResidence.comuneName
-        : '';
+    if(profile.placeOfResidence.overseaseCity != null) {
+      return profile.placeOfResidence.overseaseCity;
+    }
+    return profile.placeOfResidence.comuneName;
   }
 
   String get profilePictureUrl {

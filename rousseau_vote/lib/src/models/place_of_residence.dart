@@ -12,5 +12,5 @@ class PlaceOfResidence {
 
   String comuneName;
   String provinciaName;
-
+  String overseaseCity;
 }

@@ -9,11 +9,13 @@ part of 'place_of_residence.dart';
 PlaceOfResidence _$PlaceOfResidenceFromJson(Map<String, dynamic> json) {
   return PlaceOfResidence()
     ..comuneName = json['comuneName'] as String
-    ..provinciaName = json['provinciaName'] as String;
+    ..provinciaName = json['provinciaName'] as String
+    ..overseaseCity = json['overseaseCity'] as String;
 }
 
 Map<String, dynamic> _$PlaceOfResidenceToJson(PlaceOfResidence instance) =>
     <String, dynamic>{
       'comuneName': instance.comuneName,
       'provinciaName': instance.provinciaName,
+      'overseaseCity': instance.overseaseCity,
     };

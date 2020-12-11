@@ -25,7 +25,6 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..tags = (json['tags'] as List)
         ?.map((e) => e == null ? null : Tag.fromJson(e as Map<String, dynamic>))
         ?.toList()
-    ..overseaseCity = json['overseaseCity'] as String
     ..profile = json['profile'] == null
         ? null
         : Profile.fromJson(json['profile'] as Map<String, dynamic>)
@@ -91,7 +90,6 @@ Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
       'badges': instance.badges,
       'category': instance.category,
       'tags': instance.tags,
-      'overseaseCity': instance.overseaseCity,
       'profile': instance.profile,
       'userPositions': instance.userPositions,
       'email': instance.email,

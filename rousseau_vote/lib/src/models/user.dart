@@ -14,14 +14,13 @@ class User {
   String id;
   String fullName;
   String slug;
-  String overseaseCity;
   Profile profile;
   List<Badge> badges;
   @JsonKey(name: '__typename')
   String type;
   Set<int> _merits;
 
-  String get residence => overseaseCity ?? profile.placeOfResidence.comuneName;
+  String get residence => profile.placeOfResidence.overseaseCity ?? profile.placeOfResidence.comuneName;
 
   Set<int> get merits {
     _merits ??= _calculateMerits();
