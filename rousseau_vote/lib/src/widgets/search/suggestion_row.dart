@@ -13,7 +13,13 @@ class SuggestionRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => suggestionType.onTapped(context),
+      onTap: () {
+        final SearchSuggestionsProvider provider =
+        Provider.of<SearchSuggestionsProvider>(context,
+            listen: false);
+        provider.onSuggestionTapped(suggestionType);
+        suggestionType.onTapped(context);
+      },
       child: Row(
         children: <Widget>[
           Row(
