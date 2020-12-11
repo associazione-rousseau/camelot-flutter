@@ -1,7 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rousseau_vote/src/lists/filter/geographical_filter.dart';
 import 'package:rousseau_vote/src/lists/filter/search_filter.dart';
 import 'package:rousseau_vote/src/lists/filter/toggle_filter.dart';
+import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
 import 'package:rousseau_vote/src/models/user.dart';
 import 'package:rousseau_vote/src/models/user/profile_search.dart';
 import 'package:rousseau_vote/src/network/fetcher/graphql_fetcher.dart';
@@ -20,6 +22,7 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
 
   final SearchFilter fullNameSearchFilter = SearchFilter();
   final ToggleFilter badgeFilter = ToggleFilter(BADGES_NUMBER);
+  final GeographicalFilter geographicalFilter = GeographicalFilter();
 
   void onBadgeTapped(int badgeNumber) {
     badgeFilter.toggle(badgeNumber);
@@ -39,6 +42,17 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
     onFetcherUpdated(buildFetcher());
   }
 
+  void onSearchByGeographicalDivision(BuildContext context, ItalianGeographicalDivision geographicalDivision) {
+    _resetState();
+    geographicalFilter.geographicalDivision = geographicalDivision;
+    notifyListeners();
+
+    _maybeOpenActivistsTab(context);
+
+    onFetcherUpdated(buildFetcher());
+
+  }
+
   void _maybeOpenActivistsTab(BuildContext context) {
     openRoute(context, ActivistsScreen.ROUTE_NAME, replace: true);
   }
@@ -46,6 +60,7 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
   void _resetState() {
     fullNameSearchFilter.reset();
     badgeFilter.reset();
+    geographicalFilter.reset();
   }
 
   Map<String, dynamic> getQueryVariables() {
@@ -58,6 +73,18 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
 
     if (badgeFilter.hasActives) {
       variables['badges'] = getActiveBadgeNames(badgeFilter.values);
+    }
+
+    if (geographicalFilter.isSet) {
+      if (geographicalFilter.isCountry) {
+        variables['countryCode'] =
+            geographicalFilter.geographicalCode;
+      } else {
+        variables['italianGeographicalDivisionCode'] =
+            geographicalFilter.geographicalCode;
+        variables['italianGeographicalDivisionType'] =
+            geographicalFilter.geographicalType;
+      }
     }
 
     return variables;

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
 import 'package:rousseau_vote/src/models/user.dart';
 import 'package:rousseau_vote/src/providers/activists_search_provider.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
@@ -66,12 +67,12 @@ class ProfileSuggestion extends SuggestionType<User> {
   }
 }
 
-class GeographicalSuggestion extends SuggestionType<String> {
-  GeographicalSuggestion(String suggestion) : super(suggestion);
+class GeographicalSuggestion extends SuggestionType<ItalianGeographicalDivision> {
+  GeographicalSuggestion(ItalianGeographicalDivision suggestion) : super(suggestion);
 
   @override
   Widget title(BuildContext context) {
-    return Text(suggestion);
+    return Text(suggestion.name);
   }
 
   @override
@@ -82,6 +83,7 @@ class GeographicalSuggestion extends SuggestionType<String> {
 
   @override
   void onTapped(BuildContext context) {
-
+    final ActivistsSearchProvider activistsSearchProvider = Provider.of<ActivistsSearchProvider>(context, listen: false);
+    activistsSearchProvider.onSearchByGeographicalDivision(context, suggestion);
   }
 }
