@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/lists/filter/search_filter.dart';
 import 'package:rousseau_vote/src/lists/filter/toggle_filter.dart';
@@ -26,10 +27,23 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
 
   bool isBadgeSelected(int i) => badgeFilter.isActive(i);
 
-  void onSearch(String fullName) {
+  void onSearch(BuildContext context, String fullName) {
+    _resetState();
     fullNameSearchFilter.setWord(fullName.toLowerCase());
     notifyListeners();
+
+    _maybeOpenActivistsTab(context);
+
     onFetcherUpdated(buildFetcher());
+  }
+
+  void _maybeOpenActivistsTab(BuildContext context) {
+
+  }
+
+  void _resetState() {
+    fullNameSearchFilter.reset();
+    badgeFilter.reset();
   }
 
   Map<String, dynamic> getQueryVariables() {

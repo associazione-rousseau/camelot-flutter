@@ -18,6 +18,12 @@ class ToggleFilter {
     return false;
   }
 
+  bool reset() {
+    for(int i = 0; i < _toggles.length; i++) {
+      _toggles[i] = false;
+    }
+  }
+
   List<bool> get values => _toggles;
 
   bool isActive(int i) => _toggles[i];

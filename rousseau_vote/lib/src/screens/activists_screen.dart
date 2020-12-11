@@ -16,8 +16,6 @@ class ActivistsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ActivistsSearchProvider provider =
-        Provider.of<ActivistsSearchProvider>(context);
     return RousseauLoggedScaffold(
       body: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),

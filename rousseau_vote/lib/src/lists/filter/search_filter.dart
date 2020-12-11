@@ -5,4 +5,6 @@ class SearchFilter {
   void setWord(String word) => _word = word;
 
   String getWord() => _word;
+
+  void reset() => _word = null;
 }

@@ -11,7 +11,7 @@ class NameSearchWidget extends StatelessWidget {
     return SearchWidget(
       labelTextKey: 'activist-search-by-name',
       hintTextKey: 'activist-search-by-name-hint',
-      onSubmitted: (String word) => provider.onSearch(word),
+      onSubmitted: (String word) => provider.onSearch(context, word),
     );
   }
 }

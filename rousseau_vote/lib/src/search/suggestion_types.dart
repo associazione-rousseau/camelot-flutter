@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/models/user.dart';
+import 'package:rousseau_vote/src/providers/activists_search_provider.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
 
@@ -34,7 +36,9 @@ class WordSearchSuggestion extends SuggestionType<String> {
 
   @override
   void onTapped(BuildContext context) {
-
+    Navigator.pop(context);
+    final ActivistsSearchProvider activistsSearchProvider = Provider.of<ActivistsSearchProvider>(context, listen: false);
+    activistsSearchProvider.onSearch(context, suggestion);
   }
 }
 
