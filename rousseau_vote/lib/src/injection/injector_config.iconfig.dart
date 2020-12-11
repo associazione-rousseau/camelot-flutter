@@ -24,6 +24,7 @@ import 'package:rousseau_vote/src/util/package_info_manager.dart';
 import 'package:rousseau_vote/src/network/handlers/poll_network_handler.dart';
 import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
 import 'package:rousseau_vote/src/config/remote/remote_config_manager.dart';
+import 'package:rousseau_vote/src/providers/search_suggestions_provider.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
@@ -43,6 +44,8 @@ void $initGetIt(GetIt g, {String environment}) {
       () => NoOpPushNotificationManager());
   g.registerLazySingleton<NotificationBadgeProvider>(
       () => NotificationBadgeProvider());
+  g.registerFactory<SearchSuggestionsProvider>(
+      () => SearchSuggestionsProvider());
   g.registerLazySingleton<SecureStorage>(
       () => SecureStorage(g<FlutterSecureStorage>()));
   g.registerFactory<StartupInitializer>(

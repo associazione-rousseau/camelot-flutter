@@ -5,9 +5,6 @@ import 'package:rousseau_vote/src/models/interface/has_pagination.dart';
 import 'package:rousseau_vote/src/widgets/core/list_provider.dart';
 
 class GenericListProvider<T extends HasList<I>, I> extends ListProvider<I> {
-  GenericListProvider({ @required Fetcher<T> fetcher }) {
-    onFetcherUpdated(fetcher);
-  }
 
   Fetcher<T> fetcher;
   T data;

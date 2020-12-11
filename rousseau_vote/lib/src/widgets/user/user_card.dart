@@ -6,16 +6,18 @@ import 'package:rousseau_vote/src/models/user.dart';
 import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
+import 'package:rousseau_vote/src/widgets/core/conditional_widget.dart';
 import 'package:rousseau_vote/src/widgets/profile/badges_widget.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
 
 typedef CardTapCallback = void Function(BuildContext);
 
 class UserCard extends StatelessWidget {
-  const UserCard({ @required this.user, this.selected = false, this.onTap});
+  const UserCard({ @required this.user, this.selected = false, this.onTap, this.showProfileButton = false});
 
   final User user;
   final bool selected;
+  final bool showProfileButton;
   final CardTapCallback onTap;
 
   static const double DEFAULT_SPACING = 30;
@@ -46,7 +48,7 @@ class UserCard extends StatelessWidget {
               ),
               BadgesWidget(user.badges, 25),
               const VerticalSpace(10),
-              _profileButton(context),
+              ConditionalWidget(condition: showProfileButton, child: _profileButton(context)),
             ],
           ),
         ),

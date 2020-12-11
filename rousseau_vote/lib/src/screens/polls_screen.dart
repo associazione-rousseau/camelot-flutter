@@ -23,7 +23,11 @@ class PollsScreen extends StatelessWidget {
     return RousseauLoggedScaffold(
       body: AskForVerificationWidget(
         child: ChangeNotifierProvider<ListProvider<Poll>>(
-          create: (_) => GenericListProvider<PollList, Poll>(fetcher: GraphqlFetcher<PollList>(query: listPolls)),
+          create: (_) {
+            final GenericListProvider<PollList, Poll> provider = GenericListProvider<PollList, Poll>();
+            provider.onFetcherUpdated(GraphqlFetcher<PollList>(query: listPolls));
+            return provider;
+          },
           child: RousseauList<ListProvider<Poll>, Poll>(
             pullToRefresh: true,
             itemBuilder: (BuildContext context, Poll poll) => PollCard(poll),

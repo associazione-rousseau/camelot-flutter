@@ -24,7 +24,7 @@ class CandidateOptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UserCard(user: _option.entity, onTap: _onTap, selected: _selected,);
+    return UserCard(user: _option.entity, onTap: _onTap, selected: _selected, showProfileButton: true,);
   }
 
   void _onTap(BuildContext context) {
