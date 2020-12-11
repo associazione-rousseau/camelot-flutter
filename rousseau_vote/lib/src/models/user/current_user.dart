@@ -1,4 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rousseau_vote/src/models/geo/comune.dart';
+import 'package:rousseau_vote/src/models/geo/country.dart';
+import 'package:rousseau_vote/src/models/geo/municipio.dart';
+import 'package:rousseau_vote/src/models/geo/provincia.dart';
+import 'package:rousseau_vote/src/models/geo/regione.dart';
 import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
 import 'package:rousseau_vote/src/models/residence_change_request.dart';
 import 'package:rousseau_vote/src/models/profile/badge.dart';
@@ -33,11 +38,11 @@ class CurrentUser extends UserProfile {
   bool noRousseauEventsEmail;
   bool noVoteEmail;
   bool noSms;
-  ItalianGeographicalDivision country;
-  ItalianGeographicalDivision regione;
-  ItalianGeographicalDivision provincia;
-  ItalianGeographicalDivision comune;
-  ItalianGeographicalDivision municipio;
+  Country country;
+  Regione regione;
+  Provincia provincia;
+  Comune comune;
+  Municipio municipio;
   ResidenceChangeRequest lastResidenceChangeRequest;
   String overseaseCity;
 

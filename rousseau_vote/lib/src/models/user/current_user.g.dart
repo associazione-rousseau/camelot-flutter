@@ -54,24 +54,19 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..noSms = json['noSms'] as bool
     ..country = json['country'] == null
         ? null
-        : ItalianGeographicalDivision.fromJson(
-            json['country'] as Map<String, dynamic>)
+        : Country.fromJson(json['country'] as Map<String, dynamic>)
     ..regione = json['regione'] == null
         ? null
-        : ItalianGeographicalDivision.fromJson(
-            json['regione'] as Map<String, dynamic>)
+        : Regione.fromJson(json['regione'] as Map<String, dynamic>)
     ..provincia = json['provincia'] == null
         ? null
-        : ItalianGeographicalDivision.fromJson(
-            json['provincia'] as Map<String, dynamic>)
+        : Provincia.fromJson(json['provincia'] as Map<String, dynamic>)
     ..comune = json['comune'] == null
         ? null
-        : ItalianGeographicalDivision.fromJson(
-            json['comune'] as Map<String, dynamic>)
+        : Comune.fromJson(json['comune'] as Map<String, dynamic>)
     ..municipio = json['municipio'] == null
         ? null
-        : ItalianGeographicalDivision.fromJson(
-            json['municipio'] as Map<String, dynamic>)
+        : Municipio.fromJson(json['municipio'] as Map<String, dynamic>)
     ..lastResidenceChangeRequest = json['lastResidenceChangeRequest'] == null
         ? null
         : ResidenceChangeRequest.fromJson(

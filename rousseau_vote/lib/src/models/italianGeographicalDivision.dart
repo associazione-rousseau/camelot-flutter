@@ -4,7 +4,7 @@ part 'italianGeographicalDivision.g.dart';
 @JsonSerializable()
 class ItalianGeographicalDivision {
 
-  ItalianGeographicalDivision(this.id, this.name, this.code, this.type, this.descendants);
+  ItalianGeographicalDivision();
 
   factory ItalianGeographicalDivision.fromJson(Map<String, dynamic> json) =>
       _$ItalianGeographicalDivisionFromJson(json);
@@ -15,6 +15,8 @@ class ItalianGeographicalDivision {
   String code;
   String type;
   List<ItalianGeographicalDivision> descendants;
+
+  String getType() => type;
 
   String get eventsCode => name.toLowerCase().replaceAll(' ', '-').replaceFirst("'", '-');
 }

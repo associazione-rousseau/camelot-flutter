@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'italianGeographicalDivision.dart';
+part of 'comune.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ItalianGeographicalDivision _$ItalianGeographicalDivisionFromJson(
-    Map<String, dynamic> json) {
-  return ItalianGeographicalDivision()
+Comune _$ComuneFromJson(Map<String, dynamic> json) {
+  return Comune()
     ..id = json['id'] as String
     ..name = json['name'] as String
     ..code = json['code'] as String
@@ -20,9 +19,7 @@ ItalianGeographicalDivision _$ItalianGeographicalDivisionFromJson(
         ?.toList();
 }
 
-Map<String, dynamic> _$ItalianGeographicalDivisionToJson(
-        ItalianGeographicalDivision instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ComuneToJson(Comune instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'code': instance.code,

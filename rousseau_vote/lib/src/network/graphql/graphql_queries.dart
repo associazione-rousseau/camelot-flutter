@@ -73,41 +73,40 @@ query profileSearch(
     \$badges: [[String!]!],
     \$tagCodes: [String!],
     \$categoryCodes: [String!],
+    \$positionCodes: [String!],
+    \$countryCode: String,
+    \$italianGeographicalDivisionCode: String,
+    \$italianGeographicalDivisionType: ItalianGeographicalDivisionTypes,
     \$after: String
 ) {
     profiles(
-        first: 20,
+        first: 24,
         fullName: \$fullName,
         badges: \$badges,
         tagCodes: \$tagCodes,
         categoryCodes: \$categoryCodes,
+        positionCodes: \$positionCodes,
+        italianGeographicalDivisionCode: \$italianGeographicalDivisionCode,
+        italianGeographicalDivisionType: \$italianGeographicalDivisionType,
+        countryCode: \$countryCode
         after: \$after
     ) {
         nodes {
             id
             slug
             fullName
+            gender
             profile {
-              age
-              placeOfResidence {
-                comuneName
-                provinciaName
-                overseaseCity
-              }
-              picture {
-                originalUrl
-              }
-            }
-            badges {
-              code
-              active
-              name
-            }
-            tags {
-                code
-            }
-            category {
-                code
+                age
+                placeOfBirth
+                placeOfResidence {
+                    comuneName
+                    countryName
+                    countryCode
+                }
+                picture {
+                    originalUrl
+                }
             }
             badges {
                 active
@@ -256,15 +255,31 @@ String currentUserShort = '''
         }
         placeOfResidence {
             comuneName
-        overseaseCity
+            overseaseCity
         }
     }
     badges {
         code
         active
     }
+    municipio{
+      code
+      name
+    }
+    comune{
+      code
+      name
+    }
+    provincia{
+      code
+      name
+    }
     regione{
       code
+      name
+    }
+    country{
+      code 
       name
     }
   }
