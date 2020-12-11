@@ -36,7 +36,7 @@ class GenericListProvider<T extends HasList<I>, I> extends ListProvider<I> {
   }
 
   @override
-  int getItemCount() => data.getItemCount();
+  int getItemCount() => data != null ? data.getItemCount() : 0;
 
   @override
   I getItem(int index) => data.getItem(index);
