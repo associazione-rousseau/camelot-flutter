@@ -6,9 +6,10 @@ import 'package:rousseau_vote/src/search/suggestion_types.dart';
 import 'package:rousseau_vote/src/widgets/core/conditional_widget.dart';
 
 class SuggestionRow extends StatelessWidget {
-  const SuggestionRow({@required this.suggestionType});
+  const SuggestionRow({ @required this.suggestionType, this.dismissible = false });
 
   final SuggestionType<dynamic> suggestionType;
+  final bool dismissible;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +27,7 @@ class SuggestionRow extends StatelessWidget {
         visualDensity: const VisualDensity(vertical: -4),
         title: suggestionType.title(context),
         subtitle: suggestionType.subtitle(context),
-        trailing: ConditionalWidget(
-            condition: suggestionType.dismissible(),
-            child: IconButton(
+        trailing: dismissible ? IconButton(
               icon: const Icon(Icons.close),
               onPressed: () {
                 final SearchSuggestionsProvider provider =
@@ -36,7 +35,7 @@ class SuggestionRow extends StatelessWidget {
                     listen: false);
                 provider.onSuggestionRemoved(suggestionType);
               },
-            )),
+            ) : null,
       ),
     );
   }

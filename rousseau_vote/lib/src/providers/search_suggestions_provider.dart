@@ -20,6 +20,7 @@ class SearchSuggestionsProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   bool get hasErrors => _hasErrors;
   List<SuggestionType<dynamic>> get recentSearches => _suggestions.toList();
+  List<SuggestionType<dynamic>> get geographicalSuggestions => [GeographicalSuggestion('Nella tua regione')];
 
   void onType(String word) {}
 
@@ -33,7 +34,7 @@ class SearchSuggestionsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onProfileOpened(User user) => _addSuggestion(ProfileSuggestion(user, isDismissible: true));
+  void onProfileOpened(User user) => _addSuggestion(ProfileSuggestion(user));
 
   void _addSuggestion(SuggestionType<dynamic> suggestionType) {
     for (SuggestionType<dynamic> currentSuggestion in _suggestions) {

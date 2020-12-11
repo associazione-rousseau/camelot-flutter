@@ -6,7 +6,9 @@ import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/providers/activists_search_provider.dart';
 import 'package:rousseau_vote/src/providers/search_suggestions_provider.dart';
 import 'package:rousseau_vote/src/search/suggestion_types.dart';
+import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/search/suggestion_row.dart';
+import 'package:rousseau_vote/src/widgets/search/suggestion_section_widget.dart';
 
 class RousseauSearchDelegate extends SearchDelegate {
   @override
@@ -14,12 +16,14 @@ class RousseauSearchDelegate extends SearchDelegate {
     if (query != null || query.isNotEmpty) {
       return <Widget>[];
     }
-    return <Widget>[IconButton(
-      icon: const Icon(
-        Icons.clear,
-      ),
-      onPressed: () => query = '',
-    )];
+    return <Widget>[
+      IconButton(
+        icon: const Icon(
+          Icons.clear,
+        ),
+        onPressed: () => query = '',
+      )
+    ];
   }
 
   @override
@@ -31,49 +35,51 @@ class RousseauSearchDelegate extends SearchDelegate {
       ),
       onPressed: () {
         close(context, null);
-        Provider.of<ActivistsSearchProvider>(context, listen: false).onSearch(context, null);
+        Provider.of<ActivistsSearchProvider>(context, listen: false)
+            .onSearch(context, null);
       },
     );
   }
 
   @override
   void showResults(BuildContext context) {
-    if(query == null || query.isEmpty) {
+    if (query == null || query.isEmpty) {
       return;
     }
 
     close(context, null);
 
     final SearchSuggestionsProvider provider =
-    Provider.of<SearchSuggestionsProvider>(context, listen: false);
+        Provider.of<SearchSuggestionsProvider>(context, listen: false);
     provider.onSearch(query);
 
-    final ActivistsSearchProvider activistsSearchProvider = Provider.of<ActivistsSearchProvider>(context, listen: false);
+    final ActivistsSearchProvider activistsSearchProvider =
+        Provider.of<ActivistsSearchProvider>(context, listen: false);
     activistsSearchProvider.onSearch(context, query);
   }
 
   @override
-  Widget buildResults(BuildContext context) => null; // never executed since we are opening the tab
+  Widget buildResults(BuildContext context) =>
+      null; // never executed since we are opening the tab
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    if(query?.isNotEmpty == true) {
+    if (query?.isNotEmpty == true) {
       return Container();
     }
     final SearchSuggestionsProvider provider =
         Provider.of<SearchSuggestionsProvider>(context);
-    final List<SuggestionType<dynamic>> recentSearches = provider.recentSearches;
-    if (recentSearches == null) {
-      return Container();
-    }
 
-    return Consumer<SearchSuggestionsProvider>(
-      builder: (BuildContext context, SearchSuggestionsProvider provider, Widget child) => ListView.builder(
-        itemCount: recentSearches.length,
-        itemBuilder: (BuildContext buildContext, int position) {
-          return SuggestionRow(suggestionType: recentSearches[position]);
-        },
-      ),
+    return ListView(
+      children: <Widget>[
+        const VerticalSpace(10),
+        SuggestionSectionWidget(
+            suggestionTypes: provider.recentSearches, labelKey: 'recent', dismissible: true,),
+        const VerticalSpace(10),
+        SuggestionSectionWidget(
+            suggestionTypes: provider.geographicalSuggestions,
+            labelKey: 'near-you'),
+      ],
     );
   }
 }

@@ -17,8 +17,6 @@ abstract class SuggestionType<T> {
 
   Widget subtitle(BuildContext context);
 
-  bool dismissible();
-
   void onTapped(BuildContext context);
 }
 
@@ -34,23 +32,17 @@ class WordSearchSuggestion extends SuggestionType<String> {
   Widget subtitle(BuildContext context) => null;
 
   @override
-  bool dismissible() => true;
-
-  @override
   Widget icon(BuildContext context) => const Icon(Icons.history);
 
   @override
   void onTapped(BuildContext context) {
-    Navigator.pop(context);
     final ActivistsSearchProvider activistsSearchProvider = Provider.of<ActivistsSearchProvider>(context, listen: false);
     activistsSearchProvider.onSearch(context, suggestion);
   }
 }
 
 class ProfileSuggestion extends SuggestionType<User> {
-  ProfileSuggestion(User suggestion, { this.isDismissible }) : super(suggestion);
-
-  final bool isDismissible;
+  ProfileSuggestion(User suggestion) : super(suggestion);
 
   @override
   Widget title(BuildContext context) {
@@ -63,9 +55,6 @@ class ProfileSuggestion extends SuggestionType<User> {
   }
 
   @override
-  bool dismissible() => isDismissible;
-
-  @override
   Widget icon(BuildContext context) => ProfilePicture(
         url: suggestion.getProfilePictureUrl(),
         radius: 15,
@@ -74,5 +63,25 @@ class ProfileSuggestion extends SuggestionType<User> {
   @override
   void onTapped(BuildContext context) {
     openProfile(context, suggestion.slug);
+  }
+}
+
+class GeographicalSuggestion extends SuggestionType<String> {
+  GeographicalSuggestion(String suggestion) : super(suggestion);
+
+  @override
+  Widget title(BuildContext context) {
+    return Text(suggestion);
+  }
+
+  @override
+  Widget subtitle(BuildContext context) => null;
+
+  @override
+  Widget icon(BuildContext context) => const Icon(Icons.person_pin_circle_outlined);
+
+  @override
+  void onTapped(BuildContext context) {
+
   }
 }
