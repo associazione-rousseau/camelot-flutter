@@ -13,6 +13,7 @@ import 'package:rousseau_vote/src/models/arguments/event_details_arguments.dart'
 import 'package:rousseau_vote/src/models/browser_arguments.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
 import 'package:rousseau_vote/src/navigation/navigation_service.dart';
+import 'package:rousseau_vote/src/providers/activists_search_provider.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
@@ -24,6 +25,7 @@ import 'package:rousseau_vote/src/screens/account/delete_account_disclaimer_scre
 import 'package:rousseau_vote/src/screens/account/delete_account_action_screen.dart';
 import 'package:rousseau_vote/src/screens/account/login_info_screen.dart';
 import 'package:rousseau_vote/src/screens/account/residence_screen.dart';
+import 'package:rousseau_vote/src/screens/activists_screen.dart';
 import 'package:rousseau_vote/src/screens/events/event_details_screen.dart';
 import 'package:rousseau_vote/src/screens/main/main_page.dart';
 import 'package:rousseau_vote/src/screens/main/main_screen.dart';
@@ -80,6 +82,7 @@ class RousseauVoteApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => getIt<Login>()),
           ChangeNotifierProvider<ExternalPreselection>(create: (_) => getIt<ExternalPreselection>()),
           ChangeNotifierProvider<BlogInstantArticleProvider>(create: (_) => getIt<BlogInstantArticleProvider>()),
+          ChangeNotifierProvider<ActivistsSearchProvider>(create: (_) => getIt<ActivistsSearchProvider>()),
           ChangeNotifierProvider<SearchSuggestionsProvider>(create: (_) => getIt<SearchSuggestionsProvider>()),
         ],
         child: GraphQLProvider(
@@ -139,6 +142,9 @@ class RousseauVoteApp extends StatelessWidget {
                     },
                     BlogScreen.ROUTE_NAME: (BuildContext context) {
                       return const MainScreen(arguments: MainScreenArguments(type: MainPageType.BLOG),);
+                    },
+                    ActivistsScreen.ROUTE_NAME: (BuildContext context) {
+                      return const MainScreen(arguments: MainScreenArguments(type: MainPageType.ACTIVISTS),);
                     },
                     BlogInstantArticleScreen.ROUTE_NAME: (BuildContext context) {
                       final BlogInstantArticleArguments arguments =

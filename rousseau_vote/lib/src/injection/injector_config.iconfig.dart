@@ -4,6 +4,7 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+import 'package:rousseau_vote/src/providers/activists_search_provider.dart';
 import 'package:rousseau_vote/src/network/handlers/blog_instant_article_network_handler.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/injection/register_module.dart';
@@ -38,6 +39,7 @@ import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
   final registerModule = _$RegisterModule();
+  g.registerFactory<ActivistsSearchProvider>(() => ActivistsSearchProvider());
   g.registerFactoryAsync<ErrorLogger>(() => ErrorLogger.create());
   g.registerFactory<FirebaseMessaging>(() => registerModule.firebaseMessaging);
   g.registerFactory<NoOpPushNotificationManager>(

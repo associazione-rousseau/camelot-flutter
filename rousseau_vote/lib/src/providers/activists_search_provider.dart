@@ -1,6 +1,6 @@
+import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/lists/filter/search_filter.dart';
 import 'package:rousseau_vote/src/lists/filter/toggle_filter.dart';
-import 'package:rousseau_vote/src/models/arguments/activist_search_arguments.dart';
 import 'package:rousseau_vote/src/models/user.dart';
 import 'package:rousseau_vote/src/models/user/profile_search.dart';
 import 'package:rousseau_vote/src/network/fetcher/graphql_fetcher.dart';
@@ -8,12 +8,10 @@ import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/providers/interface/generic_list_provider.dart';
 import 'package:rousseau_vote/src/util/profile_util.dart';
 
+@injectable
 class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
 
-  ActivistsSearchProvider({ ActivistSearchArguments arguments}) {
-    if (arguments != null) {
-      fullNameSearchFilter.setWord(arguments.name);
-    }
+  ActivistsSearchProvider() {
     onFetcherUpdated(buildFetcher());
   }
 
