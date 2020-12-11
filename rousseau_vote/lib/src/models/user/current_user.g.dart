@@ -75,7 +75,8 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..lastResidenceChangeRequest = json['lastResidenceChangeRequest'] == null
         ? null
         : ResidenceChangeRequest.fromJson(
-            json['lastResidenceChangeRequest'] as Map<String, dynamic>);
+            json['lastResidenceChangeRequest'] as Map<String, dynamic>)
+    ..overseaseCity = json['overseaseCity'] as String;
 }
 
 Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
@@ -114,4 +115,5 @@ Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
       'comune': instance.comune,
       'municipio': instance.municipio,
       'lastResidenceChangeRequest': instance.lastResidenceChangeRequest,
+      'overseaseCity': instance.overseaseCity,
     };
