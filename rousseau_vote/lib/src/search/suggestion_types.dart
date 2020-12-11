@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/models/user.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
 
 abstract class SuggestionType<T> {
@@ -14,7 +15,7 @@ abstract class SuggestionType<T> {
 
   bool dismissible();
 
-  void onTapped();
+  void onTapped(BuildContext context);
 }
 
 class WordSearchSuggestion extends SuggestionType<String> {
@@ -32,7 +33,7 @@ class WordSearchSuggestion extends SuggestionType<String> {
   Widget icon(BuildContext context) => const Icon(Icons.history);
 
   @override
-  void onTapped() {
+  void onTapped(BuildContext context) {
 
   }
 }
@@ -57,7 +58,7 @@ class ProfileSuggestion extends SuggestionType<User> {
       );
 
   @override
-  void onTapped() {
-
+  void onTapped(BuildContext context) {
+    openProfile(context, suggestion.slug);
   }
 }
