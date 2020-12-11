@@ -13,34 +13,30 @@ class SuggestionRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        final SearchSuggestionsProvider provider =
-        Provider.of<SearchSuggestionsProvider>(context,
-            listen: false);
-        provider.onSuggestionTapped(suggestionType);
-        suggestionType.onTapped(context);
-      },
-      child: Row(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              suggestionType.icon(context),
-              suggestionType.body(context),
-            ],
-          ),
-          const Spacer(),
-          ConditionalWidget(
-              condition: suggestionType.dismissible(),
-              child: IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () {
-                  final SearchSuggestionsProvider provider =
-                      Provider.of<SearchSuggestionsProvider>(context,
-                          listen: false);
-                  provider.onSuggestionRemoved(suggestionType);
-                },
-              ))
-        ],
+        onTap: () {
+          final SearchSuggestionsProvider provider =
+          Provider.of<SearchSuggestionsProvider>(context,
+              listen: false);
+          provider.onSuggestionTapped(suggestionType);
+          suggestionType.onTapped(context);
+        },
+      child: ListTile(
+        leading: suggestionType.icon(context),
+        dense: true,
+        visualDensity: const VisualDensity(vertical: -4),
+        title: suggestionType.title(context),
+        subtitle: suggestionType.subtitle(context),
+        trailing: ConditionalWidget(
+            condition: suggestionType.dismissible(),
+            child: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () {
+                final SearchSuggestionsProvider provider =
+                Provider.of<SearchSuggestionsProvider>(context,
+                    listen: false);
+                provider.onSuggestionRemoved(suggestionType);
+              },
+            )),
       ),
     );
   }

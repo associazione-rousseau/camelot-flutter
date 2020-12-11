@@ -13,7 +13,9 @@ abstract class SuggestionType<T> {
 
   Widget icon(BuildContext context);
 
-  Widget body(BuildContext context);
+  Widget title(BuildContext context);
+
+  Widget subtitle(BuildContext context);
 
   bool dismissible();
 
@@ -24,9 +26,12 @@ class WordSearchSuggestion extends SuggestionType<String> {
   WordSearchSuggestion(String suggestion) : super(suggestion);
 
   @override
-  Widget body(BuildContext context) {
+  Widget title(BuildContext context) {
     return Text(suggestion);
   }
+
+  @override
+  Widget subtitle(BuildContext context) => null;
 
   @override
   bool dismissible() => true;
@@ -48,8 +53,13 @@ class ProfileSuggestion extends SuggestionType<User> {
   final bool isDismissible;
 
   @override
-  Widget body(BuildContext context) {
+  Widget title(BuildContext context) {
     return Text(suggestion.fullName);
+  }
+
+  @override
+  Widget subtitle(BuildContext context) {
+    return Text(suggestion.residence);
   }
 
   @override

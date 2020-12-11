@@ -31,7 +31,7 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
 
   void onSearch(BuildContext context, String fullName) {
     _resetState();
-    fullNameSearchFilter.setWord(fullName.toLowerCase());
+    fullNameSearchFilter.setWord(fullName);
     notifyListeners();
 
     _maybeOpenActivistsTab(context);
@@ -40,7 +40,7 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
   }
 
   void _maybeOpenActivistsTab(BuildContext context) {
-    openRoute(context, ActivistsScreen.ROUTE_NAME);
+    openRoute(context, ActivistsScreen.ROUTE_NAME, replace: true);
   }
 
   void _resetState() {

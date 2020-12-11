@@ -5,14 +5,15 @@ import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/providers/activists_search_provider.dart';
 import 'package:rousseau_vote/src/providers/search_suggestions_provider.dart';
-import 'package:rousseau_vote/src/screens/activists_screen.dart';
 import 'package:rousseau_vote/src/search/suggestion_types.dart';
-import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/widgets/search/suggestion_row.dart';
 
 class RousseauSearchDelegate extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
+    if (query != null || query.isNotEmpty) {
+      return <Widget>[];
+    }
     return <Widget>[IconButton(
       icon: const Icon(
         Icons.clear,
@@ -30,6 +31,7 @@ class RousseauSearchDelegate extends SearchDelegate {
       ),
       onPressed: () {
         close(context, null);
+        Provider.of<ActivistsSearchProvider>(context, listen: false).onSearch(context, null);
       },
     );
   }
