@@ -21,7 +21,7 @@ class ActivistsScreen extends StatelessWidget {
         physics: const ClampingScrollPhysics(),
         child: Column(
           children: <Widget>[
-            ActivistSearchWidget(),
+//            ActivistSearchWidget(),
             RousseauList<ActivistsSearchProvider, User>(
               primary: false,
               itemBuilder: (BuildContext context, User user) => UserCard(

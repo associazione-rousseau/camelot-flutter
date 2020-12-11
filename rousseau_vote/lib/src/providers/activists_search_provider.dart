@@ -7,7 +7,9 @@ import 'package:rousseau_vote/src/models/user/profile_search.dart';
 import 'package:rousseau_vote/src/network/fetcher/graphql_fetcher.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/providers/interface/generic_list_provider.dart';
+import 'package:rousseau_vote/src/screens/activists_screen.dart';
 import 'package:rousseau_vote/src/util/profile_util.dart';
+import 'package:rousseau_vote/src/util/ui_util.dart';
 
 @injectable
 class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
@@ -38,7 +40,7 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
   }
 
   void _maybeOpenActivistsTab(BuildContext context) {
-
+    openRoute(context, ActivistsScreen.ROUTE_NAME);
   }
 
   void _resetState() {

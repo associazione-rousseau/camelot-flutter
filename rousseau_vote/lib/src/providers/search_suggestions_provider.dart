@@ -35,12 +35,17 @@ class SearchSuggestionsProvider extends ChangeNotifier {
 
   void onProfileOpened(User user) => _addSuggestion(ProfileSuggestion(user, isDismissible: true));
 
-  void _addSuggestion(SuggestionType<dynamic> suggestion) {
-    _suggestions.remove(suggestion);
+  void _addSuggestion(SuggestionType<dynamic> suggestionType) {
+    for (SuggestionType<dynamic> currentSuggestion in _suggestions) {
+      if (currentSuggestion.suggestion == suggestionType.suggestion) {
+        _suggestions.remove(currentSuggestion);
+        break;
+      }
+    }
     if (_suggestions.length == MAX_SIZE) {
       _suggestions.removeLast();
     }
-    _suggestions.addFirst(suggestion);
+    _suggestions.addFirst(suggestionType);
     notifyListeners();
   }
 
