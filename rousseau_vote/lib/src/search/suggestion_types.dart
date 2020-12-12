@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
 import 'package:rousseau_vote/src/models/user.dart';
 import 'package:rousseau_vote/src/providers/activists_search_provider.dart';
@@ -37,7 +38,8 @@ class WordSearchSuggestion extends SuggestionType<String> {
 
   @override
   void onTapped(BuildContext context) {
-    final ActivistsSearchProvider activistsSearchProvider = Provider.of<ActivistsSearchProvider>(context, listen: false);
+    final ActivistsSearchProvider activistsSearchProvider =
+        Provider.of<ActivistsSearchProvider>(context, listen: false);
     activistsSearchProvider.onSearch(context, suggestion);
   }
 }
@@ -67,23 +69,29 @@ class ProfileSuggestion extends SuggestionType<User> {
   }
 }
 
-class GeographicalSuggestion extends SuggestionType<ItalianGeographicalDivision> {
-  GeographicalSuggestion(ItalianGeographicalDivision suggestion) : super(suggestion);
+class GeographicalSuggestion
+    extends SuggestionType<ItalianGeographicalDivision> {
+  GeographicalSuggestion(ItalianGeographicalDivision suggestion)
+      : super(suggestion);
 
   @override
   Widget title(BuildContext context) {
-    return Text(suggestion.name);
+    final String text = RousseauLocalizations.getTextFormatted(
+        context, '${suggestion.getType()}-full', <String>[suggestion.name]);
+    return Text(text);
   }
 
   @override
   Widget subtitle(BuildContext context) => null;
 
   @override
-  Widget icon(BuildContext context) => const Icon(Icons.person_pin_circle_outlined);
+  Widget icon(BuildContext context) =>
+      const Icon(Icons.person_pin_circle_outlined);
 
   @override
   void onTapped(BuildContext context) {
-    final ActivistsSearchProvider activistsSearchProvider = Provider.of<ActivistsSearchProvider>(context, listen: false);
+    final ActivistsSearchProvider activistsSearchProvider =
+        Provider.of<ActivistsSearchProvider>(context, listen: false);
     activistsSearchProvider.onSearchByGeographicalDivision(context, suggestion);
   }
 }

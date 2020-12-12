@@ -260,6 +260,12 @@
     "near-you": "Vicino a te",
     "no-activists-found": "Nessun attivista trovato",
 
+    "country-full": "%s",
+    "regione-full": "Regione %s",
+    "provincia-full": "Provincia di %s",
+    "comune-full": "Comune di %s",
+    "municipio-full": "%s",
+
     "link-copied": "Link copiato",
 
     "back-home": "Torna alla home"
