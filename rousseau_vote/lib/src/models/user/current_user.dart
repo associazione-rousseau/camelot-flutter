@@ -4,13 +4,11 @@ import 'package:rousseau_vote/src/models/geo/country.dart';
 import 'package:rousseau_vote/src/models/geo/municipio.dart';
 import 'package:rousseau_vote/src/models/geo/provincia.dart';
 import 'package:rousseau_vote/src/models/geo/regione.dart';
-import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
 import 'package:rousseau_vote/src/models/residence_change_request.dart';
 import 'package:rousseau_vote/src/models/profile/badge.dart';
 import 'package:rousseau_vote/src/models/profile/category.dart';
 import 'package:rousseau_vote/src/models/profile/profile.dart';
 import 'package:rousseau_vote/src/models/profile/tag.dart';
-import 'package:rousseau_vote/src/models/profile/user_positions.dart';
 import 'package:rousseau_vote/src/models/profile/user_profile.dart';
 
 part 'current_user.g.dart';

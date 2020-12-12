@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_positions.dart';
+part of 'user_position.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserPositions _$UserPositionsFromJson(Map<String, dynamic> json) {
-  return UserPositions()
+UserPosition _$UserPositionFromJson(Map<String, dynamic> json) {
+  return UserPosition()
     ..description = json['description'] as String
     ..geographicalScope = json['geographicalScope'] == null
         ? null
@@ -24,7 +24,7 @@ UserPositions _$UserPositionsFromJson(Map<String, dynamic> json) {
         : DateTime.parse(json['endsAt'] as String);
 }
 
-Map<String, dynamic> _$UserPositionsToJson(UserPositions instance) =>
+Map<String, dynamic> _$UserPositionToJson(UserPosition instance) =>
     <String, dynamic>{
       'description': instance.description,
       'geographicalScope': instance.geographicalScope,

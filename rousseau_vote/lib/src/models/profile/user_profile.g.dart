@@ -29,9 +29,8 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
         ? null
         : Profile.fromJson(json['profile'] as Map<String, dynamic>)
     ..userPositions = (json['userPositions'] as List)
-        ?.map((e) => e == null
-            ? null
-            : UserPositions.fromJson(e as Map<String, dynamic>))
+        ?.map((e) =>
+            e == null ? null : UserPosition.fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
 
