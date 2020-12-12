@@ -58,7 +58,7 @@ class SearchSuggestionsProvider extends ChangeNotifier {
 
   void _loadGeographicalSuggestions() {
     final UserNetworkHandler userNetworkHandler = getIt<UserNetworkHandler>();
-    userNetworkHandler.fetchCurrentUser(fetchPolicy: FetchPolicy.cacheOnly, fullVersion: false).then((CurrentUser currentUser) {
+    userNetworkHandler.fetchCurrentUser(fetchPolicy: FetchPolicy.cacheFirst, fullVersion: false).then((CurrentUser currentUser) {
       if (currentUser != null) {
         geographicalSuggestions = <GeographicalSuggestion>[];
         if(currentUser.country != null && currentUser.country.name != 'Italy') {
