@@ -30,6 +30,7 @@ dependencies:
   url_launcher: ^5.5.0
   html_unescape: ^1.0.2
   package_info: ^0.4.3
+  async: ^2.4.2
 
   sentry: ">=3.0.0 <4.0.0"
   crypto: any
