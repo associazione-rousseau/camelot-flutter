@@ -33,7 +33,7 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
   bool isBadgeSelected(int i) => badgeFilter.isActive(i);
 
   void onSearch(BuildContext context, String fullName) {
-    _resetState();
+    resetState();
     fullNameSearchFilter.setWord(fullName);
     notifyListeners();
 
@@ -43,7 +43,7 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
   }
 
   void onSearchByGeographicalDivision(BuildContext context, ItalianGeographicalDivision geographicalDivision) {
-    _resetState();
+    resetState();
     geographicalFilter.geographicalDivision = geographicalDivision;
     notifyListeners();
 
@@ -57,10 +57,13 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
     openRoute(context, ActivistsScreen.ROUTE_NAME, replace: true);
   }
 
-  void _resetState() {
+  void resetState({ bool notify = false }) {
     fullNameSearchFilter.reset();
     badgeFilter.reset();
     geographicalFilter.reset();
+    if (notify) {
+      notifyListeners();
+    }
   }
 
   Map<String, dynamic> getQueryVariables() {

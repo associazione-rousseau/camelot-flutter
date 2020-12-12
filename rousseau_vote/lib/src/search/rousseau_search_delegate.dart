@@ -36,7 +36,7 @@ class RousseauSearchDelegate extends SearchDelegate {
       onPressed: () {
         close(context, null);
         Provider.of<ActivistsSearchProvider>(context, listen: false)
-            .onSearch(context, null);
+            .resetState(notify: true);
       },
     );
   }
