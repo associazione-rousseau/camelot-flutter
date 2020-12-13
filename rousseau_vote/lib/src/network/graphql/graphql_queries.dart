@@ -67,6 +67,17 @@ query profileDetail(\$id: ID!) {
 }
 ''';
 
+String positions = '''
+query positions {
+  positions {
+    code
+    name
+    type
+    __typename
+  }
+}
+''';
+
 String profileSearch = '''
 query profileSearch(
     \$fullName: String,

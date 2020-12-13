@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
+import 'package:rousseau_vote/src/models/profile/position.dart';
 import 'package:rousseau_vote/src/models/user.dart';
 import 'package:rousseau_vote/src/providers/activists_search_provider.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
@@ -91,7 +93,30 @@ class GeographicalSuggestion
   @override
   void onTapped(BuildContext context) {
     final ActivistsSearchProvider activistsSearchProvider =
-        Provider.of<ActivistsSearchProvider>(context, listen: false);
+    Provider.of<ActivistsSearchProvider>(context, listen: false);
     activistsSearchProvider.onSearchByGeographicalDivision(context, suggestion);
+  }
+}
+
+class PositionSuggestion
+    extends SuggestionType<Position> {
+  PositionSuggestion(Position suggestion)
+      : super(suggestion);
+
+  @override
+  Widget title(BuildContext context) => Text(suggestion.name);
+
+  @override
+  Widget subtitle(BuildContext context) => null;
+
+  @override
+  Widget icon(BuildContext context) =>
+      const Icon(MdiIcons.accountCheckOutline);
+
+  @override
+  void onTapped(BuildContext context) {
+    final ActivistsSearchProvider activistsSearchProvider =
+    Provider.of<ActivistsSearchProvider>(context, listen: false);
+    activistsSearchProvider.onSearchByPosition(context, suggestion);
   }
 }

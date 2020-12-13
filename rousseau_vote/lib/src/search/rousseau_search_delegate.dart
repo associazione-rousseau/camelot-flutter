@@ -5,9 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/providers/activists_search_provider.dart';
 import 'package:rousseau_vote/src/providers/search_suggestions_provider.dart';
-import 'package:rousseau_vote/src/search/suggestion_types.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
-import 'package:rousseau_vote/src/widgets/search/suggestion_row.dart';
 import 'package:rousseau_vote/src/widgets/search/suggestion_section_widget.dart';
 
 class RousseauSearchDelegate extends SearchDelegate {
@@ -71,6 +69,7 @@ class RousseauSearchDelegate extends SearchDelegate {
         Provider.of<SearchSuggestionsProvider>(context);
 
     return ListView(
+      physics: const ClampingScrollPhysics(),
       children: <Widget>[
         const VerticalSpace(10),
         SuggestionSectionWidget(
@@ -79,6 +78,10 @@ class RousseauSearchDelegate extends SearchDelegate {
         SuggestionSectionWidget(
             suggestionTypes: provider.geographicalSuggestions,
             labelKey: 'near-you'),
+        const VerticalSpace(10),
+        SuggestionSectionWidget(
+            suggestionTypes: provider.positionSuggestions,
+            labelKey: 'roles'),
       ],
     );
   }

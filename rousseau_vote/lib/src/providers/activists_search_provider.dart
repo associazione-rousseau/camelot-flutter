@@ -1,9 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/lists/filter/geographical_filter.dart';
+import 'package:rousseau_vote/src/lists/filter/position_filter.dart';
 import 'package:rousseau_vote/src/lists/filter/search_filter.dart';
 import 'package:rousseau_vote/src/lists/filter/toggle_filter.dart';
 import 'package:rousseau_vote/src/models/italianGeographicalDivision.dart';
+import 'package:rousseau_vote/src/models/profile/position.dart';
 import 'package:rousseau_vote/src/models/user.dart';
 import 'package:rousseau_vote/src/models/user/profile_search.dart';
 import 'package:rousseau_vote/src/network/fetcher/graphql_fetcher.dart';
@@ -23,6 +25,7 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
   final SearchFilter fullNameSearchFilter = SearchFilter();
   final ToggleFilter badgeFilter = ToggleFilter(BADGES_NUMBER);
   final GeographicalFilter geographicalFilter = GeographicalFilter();
+  final PositionFilter positionFilter = PositionFilter();
 
   void onBadgeTapped(int badgeNumber) {
     badgeFilter.toggle(badgeNumber);
@@ -50,7 +53,16 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
     _maybeOpenActivistsTab(context);
 
     onFetcherUpdated(buildFetcher());
+  }
 
+  void onSearchByPosition(BuildContext context, Position position) {
+    resetState();
+    positionFilter.position = position;
+    notifyListeners();
+
+    _maybeOpenActivistsTab(context);
+
+    onFetcherUpdated(buildFetcher());
   }
 
   void _maybeOpenActivistsTab(BuildContext context) {
@@ -61,6 +73,7 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
     fullNameSearchFilter.reset();
     badgeFilter.reset();
     geographicalFilter.reset();
+    positionFilter.reset();
     if (notify) {
       notifyListeners();
     }
@@ -88,6 +101,10 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
         variables['italianGeographicalDivisionType'] =
             geographicalFilter.geographicalType;
       }
+    }
+
+    if (positionFilter.isSet) {
+      variables['positionCodes'] = positionFilter.positionCodes;
     }
 
     return variables;
