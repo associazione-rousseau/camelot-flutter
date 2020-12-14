@@ -21,7 +21,8 @@ class _MiFidoIconWidgetState extends State<MiFidoIconWidget> {
 
   @override
   void initState() {
-    _subscribed = widget.userProfile.isSubscripted;
+    super.initState();
+    _subscribed = widget.userProfile.isSubscripted ?? false;
   }
 
   @override

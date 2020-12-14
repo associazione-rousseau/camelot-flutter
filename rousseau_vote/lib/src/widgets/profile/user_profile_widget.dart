@@ -15,11 +15,11 @@ import 'mi_fido_section.dart';
 import 'social_badges_section.dart';
 
 class UserProfileWidget extends StatelessWidget {
-  const UserProfileWidget({this.userProfile, this.isLoading = false, this.canEdit = false });
+  const UserProfileWidget({this.userProfile, this.isLoading = false, this.isCurrentUser = false });
 
   final UserProfile userProfile;
   final bool isLoading;
-  final bool canEdit;
+  final bool isCurrentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class UserProfileWidget extends StatelessWidget {
         padding: const EdgeInsets.only(top: 20),
         child: isLoading ? Container() : Text(userProfile.fullName, style: TextStyle(color: Colors.white, fontSize: 20), textAlign: TextAlign.center,),
       ),
-      floatingActionButton: ConditionalWidget(condition: canEdit, child: _floatingActionButton(context)),
+      floatingActionButton: ConditionalWidget(condition: isCurrentUser, child: _floatingActionButton(context)),
       extendedAppBar: _header(context),
       body: _body(),
     );
@@ -101,7 +101,7 @@ class UserProfileWidget extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: Column(
         children: <Widget>[
-          MiFidoSection(userProfile: userProfile),
+          MiFidoSection(userProfile: userProfile, isCurrentUser: isCurrentUser,),
           UserInfoSection(
               'profile-presentation', userProfile.profile?.presentation),
           SocialBadgesSection(userProfile),
