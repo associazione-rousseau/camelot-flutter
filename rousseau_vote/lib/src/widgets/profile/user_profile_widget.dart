@@ -11,6 +11,7 @@ import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
 
 import 'badges_widget.dart';
+import 'mi_fido_section.dart';
 import 'social_badges_section.dart';
 
 class UserProfileWidget extends StatelessWidget {
@@ -100,9 +101,10 @@ class UserProfileWidget extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: Column(
         children: <Widget>[
-          SocialBadgesSection(userProfile),
+          MiFidoSection(userProfile: userProfile),
           UserInfoSection(
               'profile-presentation', userProfile.profile?.presentation),
+          SocialBadgesSection(userProfile),
           UserInfoSection(
               'profile-curriculum-vitae', userProfile.profile?.curriculumVitae),
           UserInfoSection('profile-curriculum-activitst',

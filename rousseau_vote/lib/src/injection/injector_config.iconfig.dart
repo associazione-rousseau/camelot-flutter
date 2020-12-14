@@ -18,6 +18,7 @@ import 'package:graphql/client.dart';
 import 'package:rousseau_vote/src/network/handlers/image_upload_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/ita_geo_divisions_network_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/login_network_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/mi_fido_network_handler.dart';
 import 'package:rousseau_vote/src/navigation/navigation_service.dart';
 import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:rousseau_vote/src/providers/notification_badge_provider.dart';
@@ -42,6 +43,8 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerFactory<ActivistsSearchProvider>(() => ActivistsSearchProvider());
   g.registerFactoryAsync<ErrorLogger>(() => ErrorLogger.create());
   g.registerFactory<FirebaseMessaging>(() => registerModule.firebaseMessaging);
+  g.registerFactory<MiFidoNetworkHandler>(
+      () => MiFidoNetworkHandler(g<GraphQLClient>()));
   g.registerFactory<NoOpPushNotificationManager>(
       () => NoOpPushNotificationManager());
   g.registerLazySingleton<NotificationBadgeProvider>(

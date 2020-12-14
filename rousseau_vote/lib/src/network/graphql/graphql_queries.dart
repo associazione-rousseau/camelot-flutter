@@ -456,6 +456,26 @@ query currentUser {
 }
 ''';
 
+String subscriptionAdd = '''
+mutation subscriptionAdd(\$subscriptionableId: ID!) {
+    user {
+        subscriptionAdd(subscriptionableId: \$subscriptionableId) {
+            errors
+        }
+    }
+}
+''';
+
+String subscriptionDelete = '''
+mutation subscriptionDelete(\$subscriptionableId: ID!) {
+    user {
+        subscriptionDelete(subscriptionableId: \$subscriptionableId) {
+            errors
+        }
+    }
+}
+''';
+
 String italianGeographicalDivisions = '''
 query italianGeographicalDivisions(
     \$after:String,
