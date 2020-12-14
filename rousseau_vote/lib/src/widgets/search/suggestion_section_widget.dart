@@ -14,7 +14,9 @@ class SuggestionSectionWidget extends StatelessWidget {
       {@required this.suggestionTypes,
       @required this.labelKey,
         this.dismissible = false,
-      this.maxSize = 4});
+      this.maxSize = DEFAULT_MAX_SIZE});
+
+  static const int DEFAULT_MAX_SIZE = 4;
 
   final List<SuggestionType<dynamic>> suggestionTypes;
   final String labelKey;

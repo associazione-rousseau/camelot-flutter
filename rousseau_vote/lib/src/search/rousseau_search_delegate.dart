@@ -1,10 +1,13 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
+import 'package:rousseau_vote/src/models/profile/position.dart';
 import 'package:rousseau_vote/src/providers/activists_search_provider.dart';
 import 'package:rousseau_vote/src/providers/search_suggestions_provider.dart';
+import 'package:rousseau_vote/src/search/suggestion_types.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/search/suggestion_section_widget.dart';
 
@@ -80,9 +83,18 @@ class RousseauSearchDelegate extends SearchDelegate {
             labelKey: 'near-you'),
         const VerticalSpace(10),
         SuggestionSectionWidget(
-            suggestionTypes: provider.positionSuggestions,
+            suggestionTypes: _randomPositionSuggestions(provider.positionSuggestions, SuggestionSectionWidget.DEFAULT_MAX_SIZE),
+            maxSize: SuggestionSectionWidget.DEFAULT_MAX_SIZE,
             labelKey: 'roles'),
       ],
     );
+  }
+
+  List<SuggestionType<Position>> _randomPositionSuggestions(List<SuggestionType<Position>> positionSuggestions, int size) {
+    if (positionSuggestions == null || positionSuggestions.length < size) {
+      return positionSuggestions;
+    }
+    final int startIndex = Random().nextInt(positionSuggestions.length - size - 1);
+    return positionSuggestions.sublist(startIndex, startIndex + size);
   }
 }
