@@ -11,6 +11,9 @@ class UserInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_text == null || _text.isEmpty) {
+      return Container();
+    }
     final String title = RousseauLocalizations.of(context).text(_titleKey);
     return Container(
         padding: const EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
@@ -35,11 +38,8 @@ class UserInfoSection extends StatelessWidget {
                     const Divider(
                       color: Colors.black38,
                     ),
-                    Html(data: _getText(context)),
+                    Html(data: _text),
                   ]))),
         ]));
   }
-
-  String _getText(BuildContext context) =>
-      _text ?? RousseauLocalizations.getText(context, 'profile-section-not-available');
 }
