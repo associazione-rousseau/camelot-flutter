@@ -10,7 +10,7 @@ class TirendicontoData {
       _$TirendicontoDataFromJson(json);
   Map<String, dynamic> toJson() => _$TirendicontoDataToJson(this);
 
-  String value;
+  int value;
   bool isOk;
   String lastMonth;
 }

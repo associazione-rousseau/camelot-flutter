@@ -8,7 +8,7 @@ part of 'tirendiconto_data.dart';
 
 TirendicontoData _$TirendicontoDataFromJson(Map<String, dynamic> json) {
   return TirendicontoData()
-    ..value = json['value'] as String
+    ..value = json['value'] as int
     ..isOk = json['isOk'] as bool
     ..lastMonth = json['lastMonth'] as String;
 }
