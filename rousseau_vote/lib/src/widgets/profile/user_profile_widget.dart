@@ -6,6 +6,7 @@ import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/core/conditional_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
+import 'package:rousseau_vote/src/widgets/menu/web_menu_button.dart';
 import 'package:rousseau_vote/src/widgets/profile/user_profile_section.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
@@ -26,11 +27,12 @@ class UserProfileWidget extends StatelessWidget {
     return RousseauAnimatedScreen(
       appBar: Padding(
         padding: const EdgeInsets.only(top: 20),
-        child: isLoading ? Container() : Text(userProfile.fullName, style: TextStyle(color: Colors.white, fontSize: 20), textAlign: TextAlign.center,),
+        child: isLoading ? Container() : Text(userProfile.fullName, style: const TextStyle(color: Colors.white, fontSize: 20), textAlign: TextAlign.center,),
       ),
       floatingActionButton: ConditionalWidget(condition: isCurrentUser, child: _floatingActionButton(context)),
       extendedAppBar: _header(context),
       body: _body(),
+      actions: isLoading ? null : [WebMenuButton(url: userProfile.url)]
     );
   }
 

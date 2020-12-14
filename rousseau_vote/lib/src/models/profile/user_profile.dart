@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/models/interface/paginated.dart';
 import 'package:rousseau_vote/src/models/profile/badge.dart';
 import 'package:rousseau_vote/src/models/profile/category.dart';
@@ -56,6 +57,8 @@ class UserProfile {
     }
     return resumeDocument.files[0].originalUrl;
   }
+
+  String get url => '$ROUSSEAU_PUBLIC_PROFILE_URL/$slug';
 
   bool get female => gender == 'F';
   bool get male => gender == 'M';

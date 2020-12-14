@@ -15,6 +15,7 @@ const String ROUSSEAU_URL_PRODUCTION = 'https://vote.rousseau.movimento5stelle.i
 const String ROUSSEAU_URL = ROUSSEAU_URL_PRODUCTION;
 const String ROUSSEAU_VOTE_URL = ROUSSEAU_URL_PRODUCTION + '/polls';
 const String ROUSSEAU_EDIT_PROFILE_URL = ROUSSEAU_URL + '/profile';
+const String ROUSSEAU_PUBLIC_PROFILE_URL = 'https://rousseau.movimento5stelle.it/profiles/detail';
 
 const String EVENT_PORTAL_URL = 'https://partecipa.ilblogdellestelle.it';
 
