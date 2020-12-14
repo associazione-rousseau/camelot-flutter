@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rousseau_vote/src/models/profile/language_level.dart';
 import 'package:rousseau_vote/src/models/profile/place_of_residence.dart';
+import 'package:rousseau_vote/src/models/profile/social_link.dart';
 import 'package:rousseau_vote/src/models/user/picture.dart';
 
 part 'profile.g.dart';
@@ -11,37 +13,35 @@ class Profile {
   factory Profile.fromJson(Map<String, dynamic> json) => _$ProfileFromJson(json);
   Map<String, dynamic> toJson() => _$ProfileToJson(this);
 
+  int age;
+  String placeOfBirth;
+  PlaceOfResidence placeOfResidence;
+  Picture picture;
+
   String presentation;
   String curriculumActivist;
   String curriculumVitae;
-  String yearOfGraduation;
-  String educationalInstitute;
-  String studyCourse;
-  String englishLevel;
-  String frenchLevel;
-  String germanLevel;
-  String spanishLevel;
-  String qualification;
   String politicalExperiences;
-  String facebookProfile;
-  String twitterProfile;
-  String linkedinProfile;
-  int age;
-  String placeOfBirth;
-  bool italiaCinqueStelleVolunteerFlag;
-  String italiaCinqueStelleVolunteer;
-  bool listRepresentativeFlag;
-  String listRepresentativeYear;
-  String listRepresentativeComune;
-  bool opendayParticipantFlag;
-  String opendayParticipant;
-  bool spokesmanM5sFlag;
-  String spokesmanM5sYear;
-  String spokesmanM5sInstitution;
-  bool villaggioRousseauParticipantFlag;
-  String villaggioRousseauParticipant;
-  bool villaggioRousseauVolunteerFlag;
-  String villaggioRousseauVolunteer;
-  Picture picture;
-  PlaceOfResidence placeOfResidence;
+  String studyCourse;
+  String yearOfGraduation;
+  String qualification;
+  String educationalInstitute;
+  List<LanguageLevel> languageLevels;
+  List<SocialLink> socialLinks;
+
+  String get facebookProfile => getSocialLink('fb');
+  String get twitterProfile => getSocialLink('tw');
+  String get linkedinProfile => getSocialLink('ln');
+
+  String getSocialLink(String code) {
+    if (socialLinks == null) {
+      return null;
+    }
+    for (SocialLink socialLink in socialLinks) {
+      if (socialLink.social.code == code) {
+        return socialLink.url;
+      }
+    }
+    return null;
+  }
 }

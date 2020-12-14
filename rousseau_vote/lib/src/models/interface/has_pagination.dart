@@ -17,4 +17,6 @@ abstract class HasPagination<T> extends HasList<T> {
 
   @override
   T getItem(int index) => getPaginatedData().nodes[index];
+
+  int getTotalCount() => getPaginatedData().totalCount;
 }

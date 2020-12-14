@@ -1,9 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rousseau_vote/src/models/interface/paginated.dart';
 import 'package:rousseau_vote/src/models/profile/badge.dart';
 import 'package:rousseau_vote/src/models/profile/category.dart';
+import 'package:rousseau_vote/src/models/profile/participation.dart';
 import 'package:rousseau_vote/src/models/profile/profile.dart';
+import 'package:rousseau_vote/src/models/profile/resume_document.dart';
 import 'package:rousseau_vote/src/models/profile/tag.dart';
+import 'package:rousseau_vote/src/models/profile/tirendiconto_data.dart';
 import 'package:rousseau_vote/src/models/profile/user_position.dart';
+import 'package:rousseau_vote/src/models/profile/user_public_subscriptions.dart';
 
 part 'user_profile.g.dart';
 
@@ -17,31 +22,39 @@ class UserProfile {
   String id;
   String slug;
   String accountType;
-  String gender;
   String fullName;
   String lastName;
   String firstName;
+  String gender;
+  bool isSubscripted;
+  int subscriptionCount;
+  UserPublicSubscriptions userPublicSubscriptions;
+  Profile profile;
+  Paginated<Participation> participations;
+  ResumeDocument resumeDocument;
   List<Badge> badges;
+  List<UserPosition> userPositions;
   Category category;
   List<Tag> tags;
-  Profile profile;
-  List<UserPosition> userPositions;
+  TirendicontoData tirendiconto;
 
-  String get residence {
-    if (profile?.placeOfResidence == null) {
-      return '';
-    }
-    if(profile.placeOfResidence.overseaseCity != null) {
-      return profile.placeOfResidence.overseaseCity;
-    }
-    return profile.placeOfResidence.comuneName;
-  }
+  String get residence =>
+          profile?.placeOfResidence?.overseaseCity ??
+              profile?.placeOfResidence?.comuneName ??
+          '';
 
   String get profilePictureUrl {
     if (profile == null || profile.picture == null) {
       return null;
     }
     return profile.picture.originalUrl;
+  }
+
+  String get resumeUrl {
+    if (resumeDocument == null || resumeDocument.files == null || resumeDocument.files.isEmpty) {
+      return null;
+    }
+    return resumeDocument.files[0].originalUrl;
   }
 
   bool get female => gender == 'F';

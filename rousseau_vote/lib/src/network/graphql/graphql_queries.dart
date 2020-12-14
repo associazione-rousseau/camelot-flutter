@@ -32,36 +32,80 @@ query profileDetail(\$id: ID!) {
         id
         slug
         accountType
+        fullName
+        gender
+        isSubscripted
+        subscriptionCount
+        userPublicSubscriptions(first: 3) {
+            nodes {
+                id
+                slug
+                fullName
+                profile {
+                    picture {
+                        originalUrl
+                    }
+                }
+            }
+            totalCount
+            
+        }
+        profile {
+          $_profileFields
+        }
+        participations {
+            nodes {
+                event {
+                    title
+                    typology
+                    startsAt
+                    endsAt
+                }
+                geographicalScope {
+                    name
+                }
+                staff
+            }
+        }
+        resumeDocument {
+            files {
+                originalUrl
+            }
+        }
         badges {
             code
             active
         }
-        category {
-            code
-        }
-        tags {
-            code
-        }
-        gender
-        firstName
-        fullName
-        lastName
         userPositions {
             description
-            geographicalScope {
+            position {
+                code
                 name
                 type
             }
-            position {
-                code
-                type
+            geographicalScope {
                 name
             }
             startsAt
             endsAt
         }
-        profile {
-            $_profileFields
+        tirendiconto {
+            value
+            isOk
+            lastMonth
+        }
+        category {
+            id
+            name
+            code
+        }
+        tags {
+            id
+            code
+            name
+            parent {
+                code
+            }
         }
     }
 }
@@ -133,56 +177,37 @@ query profileSearch(
 ''';
 
 String _profileFields = '''
-  presentation
-  curriculumActivist
-  curriculumVitae
-  yearOfGraduation
-  educationalInstitute
-  studyCourse
-  englishLevel
-  frenchLevel
-  germanLevel
-  spanishLevel
-  qualification
-  politicalExperiences
-  facebookProfile
-  twitterProfile
-  linkedinProfile
   age
   placeOfBirth
   placeOfResidence {
       comuneName
+      countryName
+      countryCode
       overseaseCity
   }
   picture {
       originalUrl
   }
-  curriculumVitaeDocument {
-      originalUrl
-  }
-  italiaCinqueStelleVolunteerFlag
-  italiaCinqueStelleVolunteer
-  listRepresentativeFlag
-  listRepresentativeYear
-  listRepresentativeComune
-  opendayParticipantFlag
-  opendayParticipant
-  spokesmanM5sFlag
-  spokesmanM5sYear
-  spokesmanM5sInstitution
-  villaggioRousseauParticipantFlag
-  villaggioRousseauParticipant
-  villaggioRousseauVolunteerFlag
-  villaggioRousseauVolunteer
-  approvedCandidatures {
-      availableForFrontRunning
-      poll {
-          title
-          features {
-              frontRunners
-              frontRunnersLabel
-          }
+  presentation
+  curriculumVitae
+  curriculumActivist
+  politicalExperiences
+  studyCourse
+  qualification
+  yearOfGraduation
+  educationalInstitute
+  languageLevels {
+      language {
+          code
+          name
       }
+      level
+  }
+  socialLinks {
+      social {
+          code
+      }
+      url
   }
 ''';
 

@@ -12,6 +12,7 @@ class Paginated<T> {
   Map<String, dynamic> toJson(Object Function(T value) toJsonT) => _$PaginatedToJson(this, toJsonT);
 
   PageInfo pageInfo;
+  int totalCount;
   List<T> nodes;
 
   void mergePreviousPage(Paginated<T> previousPage) => nodes = previousPage.nodes + nodes;

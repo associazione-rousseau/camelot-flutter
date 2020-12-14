@@ -14,6 +14,7 @@ Paginated<T> _$PaginatedFromJson<T>(
     ..pageInfo = json['pageInfo'] == null
         ? null
         : PageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>)
+    ..totalCount = json['totalCount'] as int
     ..nodes = (json['nodes'] as List)?.map(fromJsonT)?.toList();
 }
 
@@ -23,5 +24,6 @@ Map<String, dynamic> _$PaginatedToJson<T>(
 ) =>
     <String, dynamic>{
       'pageInfo': instance.pageInfo,
+      'totalCount': instance.totalCount,
       'nodes': instance.nodes?.map(toJsonT)?.toList(),
     };

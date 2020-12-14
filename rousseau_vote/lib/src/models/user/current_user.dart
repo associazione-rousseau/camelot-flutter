@@ -4,13 +4,18 @@ import 'package:rousseau_vote/src/models/geo/country.dart';
 import 'package:rousseau_vote/src/models/geo/municipio.dart';
 import 'package:rousseau_vote/src/models/geo/provincia.dart';
 import 'package:rousseau_vote/src/models/geo/regione.dart';
+import 'package:rousseau_vote/src/models/interface/paginated.dart';
 import 'package:rousseau_vote/src/models/profile/user_position.dart';
 import 'package:rousseau_vote/src/models/residence_change_request.dart';
 import 'package:rousseau_vote/src/models/profile/badge.dart';
 import 'package:rousseau_vote/src/models/profile/category.dart';
+import 'package:rousseau_vote/src/models/profile/participation.dart';
 import 'package:rousseau_vote/src/models/profile/profile.dart';
+import 'package:rousseau_vote/src/models/profile/resume_document.dart';
 import 'package:rousseau_vote/src/models/profile/tag.dart';
+import 'package:rousseau_vote/src/models/profile/tirendiconto_data.dart';
 import 'package:rousseau_vote/src/models/profile/user_profile.dart';
+import 'package:rousseau_vote/src/models/profile/user_public_subscriptions.dart';
 
 part 'current_user.g.dart';
 
@@ -45,7 +50,7 @@ class CurrentUser extends UserProfile {
   ResidenceChangeRequest lastResidenceChangeRequest;
   String overseaseCity;
 
-  String get currentUserResidence => overseaseCity ?? residence;
+  String get currentUserResidence => overseaseCity ?? comune?.name ?? residence;
 
   bool get shouldVerifyIdentity => statusColor == 'GREY' || statusColor == 'RED';
 
