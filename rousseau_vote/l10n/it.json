@@ -270,6 +270,12 @@
     "confirm-mi-fido-message": "Mettendo \"Mi Fido\" garantisci per questo attivista.\n\nSarai garante del fatto che questa persona rispetta le regole e i principi del MoVimento 5 Stelle, partecipa alle attività politiche e civiche e contribuisce attivamente alla crescita del nostro movimento.\n\nL’obiettivo di questo strumento è quello di far emergere gli attivisti che la comunità riconosce come tali.\n\nUna volta fatto, il tuo nome comparirà nell'elenco pubblico dei garanti di questo attivista che è visibile a tutti gli iscritti.",
     "mi-fido-count": "%d Mi Fido",
 
+    "tirendiconto-header": "Ha restituito allo Stato",
+    "tirendiconto-amount": "€ %s",
+    "tirendiconto-ok": "È in regola",
+    "tirendiconto-ko": "Non è in regola",
+    "tirendiconto-last-report": "Ultima rendicontazione a %s",
+
     "link-copied": "Link copiato",
 
     "back-home": "Torna alla home"

@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
@@ -141,3 +143,5 @@ void showCompileProfileDialog(BuildContext context) {
 void openEditProfileExternal(BuildContext context) {
   openUrlExternal(context, ROUSSEAU_EDIT_PROFILE_URL);
 }
+
+String formatMoney(int amount) => NumberFormat.simpleCurrency(decimalDigits: 0, locale: 'it_IT').format(amount);
