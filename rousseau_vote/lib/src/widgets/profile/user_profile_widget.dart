@@ -7,6 +7,7 @@ import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/core/conditional_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/menu/web_menu_button.dart';
+import 'package:rousseau_vote/src/widgets/profile/tirendiconto_section.dart';
 import 'package:rousseau_vote/src/widgets/profile/user_profile_section.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
 import 'package:rousseau_vote/src/widgets/user/profile_picture.dart';
@@ -103,10 +104,11 @@ class UserProfileWidget extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: Column(
         children: <Widget>[
+          SocialBadgesSection(userProfile),
           MiFidoSection(userProfile: userProfile, isCurrentUser: isCurrentUser,),
+          TirendicontoSection(userProfile: userProfile),
           UserInfoSection(
               'profile-presentation', userProfile.profile?.presentation),
-          SocialBadgesSection(userProfile),
           UserInfoSection(
               'profile-curriculum-vitae', userProfile.profile?.curriculumVitae),
           UserInfoSection('profile-curriculum-activitst',
