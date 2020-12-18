@@ -221,6 +221,18 @@ query profileSearch(
 }
 ''';
 
+String countrySearch = '''
+query countries(\$search: String) {
+  countriesConnection(search: \$search) {
+    nodes {
+      id
+      name
+      code
+    }
+  }
+}
+''';
+
 String _profileFields = '''
   age
   placeOfBirth

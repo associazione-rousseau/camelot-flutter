@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 import 'package:rousseau_vote/src/models/interface/has_pagination.dart';
 import 'package:rousseau_vote/src/models/interface/paginated.dart';
-import 'package:rousseau_vote/src/models/user.dart';
 
 import '../italianGeographicalDivision.dart';
 
