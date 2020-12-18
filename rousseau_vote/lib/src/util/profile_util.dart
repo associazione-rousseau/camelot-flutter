@@ -6,6 +6,7 @@ import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/profile/badge.dart';
+import 'package:rousseau_vote/src/models/profile/user_profile.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
@@ -138,6 +139,14 @@ void showCompileProfileDialog(BuildContext context) {
         Navigator.pop(context);
         openEditProfileExternal(context);
       });
+}
+
+bool isCurrentUser(UserProfile userProfile) {
+  if (userProfile == null) {
+    return false;
+  }
+  final CurrentUser currentUser = getIt<UserNetworkHandler>().currentUser;
+  return currentUser != null && currentUser.slug != null && currentUser.slug == userProfile.slug;
 }
 
 void openEditProfileExternal(BuildContext context) {

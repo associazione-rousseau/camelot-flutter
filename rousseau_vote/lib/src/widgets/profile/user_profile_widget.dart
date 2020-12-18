@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
+import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/models/profile/user_profile.dart';
+import 'package:rousseau_vote/src/models/user/current_user.dart';
+import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:rousseau_vote/src/util/profile_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/core/conditional_widget.dart';
@@ -17,11 +20,10 @@ import 'mi_fido_section.dart';
 import 'social_badges_section.dart';
 
 class UserProfileWidget extends StatelessWidget {
-  const UserProfileWidget({this.userProfile, this.isLoading = false, this.isCurrentUser = false });
+  const UserProfileWidget({this.userProfile, this.isLoading = false });
 
   final UserProfile userProfile;
   final bool isLoading;
-  final bool isCurrentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class UserProfileWidget extends StatelessWidget {
         padding: const EdgeInsets.only(top: 20),
         child: isLoading ? Container() : Text(userProfile.fullName, style: const TextStyle(color: Colors.white, fontSize: 20), textAlign: TextAlign.center,),
       ),
-      floatingActionButton: ConditionalWidget(condition: isCurrentUser, child: _floatingActionButton(context)),
+      floatingActionButton: ConditionalWidget(condition: isCurrentUser(userProfile), child: _floatingActionButton(context)),
       extendedAppBar: _header(context),
       body: _body(),
       actions: isLoading ? null : [WebMenuButton(url: userProfile.url)]
@@ -105,7 +107,7 @@ class UserProfileWidget extends StatelessWidget {
       child: Column(
         children: <Widget>[
           SocialBadgesSection(userProfile),
-          MiFidoSection(userProfile: userProfile, isCurrentUser: isCurrentUser,),
+          MiFidoSection(userProfile: userProfile, isCurrentUser: isCurrentUser(userProfile),),
           TirendicontoSection(userProfile: userProfile),
           UserInfoSection(
               'profile-presentation', userProfile.profile?.presentation),
