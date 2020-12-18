@@ -8,11 +8,9 @@ import 'package:rousseau_vote/src/search/suggestion_types.dart';
 
 @injectable
 class GeographicalSearchHandler implements SearchHandler {
-  static const int RESULTS_LIMIT = 3;
-
   @override
   Future<List<SuggestionType<ItalianGeographicalDivision>>> search(String word) async {
-    final Map<String, dynamic> variables = <String, dynamic>{'first': RESULTS_LIMIT, 'search': word };
+    final Map<String, dynamic> variables = <String, dynamic>{'search': word };
     final GraphqlFetcher<ItalianGeographicalDivisions> graphqlFetcher = GraphqlFetcher<ItalianGeographicalDivisions>(query: italianGeographicalDivisionsSearch, variables: variables);
     final ItalianGeographicalDivisions result = await graphqlFetcher.fetch();
     final List<SuggestionType<ItalianGeographicalDivision>> suggestions = <SuggestionType<ItalianGeographicalDivision>>[];
