@@ -16,6 +16,7 @@ import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/init/startup_prefetcher.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
+import 'package:rousseau_vote/src/network/handlers/search/geographical_search_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/search/position_search_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/search/search_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/search/user_search_handler.dart';
@@ -48,6 +49,7 @@ abstract class RegisterModule {
   SearchSuggestionsProvider get searchSuggestionsProvider => SearchSuggestionsProvider(<SearchHandler>[
     getIt<UserSearchHandler>(),
     getIt<PositionSearchHandler>(),
+    getIt<GeographicalSearchHandler>(),
   ]);
 
   FirebaseMessaging get firebaseMessaging => FirebaseMessaging();

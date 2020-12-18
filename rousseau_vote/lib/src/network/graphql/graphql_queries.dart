@@ -564,6 +564,45 @@ query italianGeographicalDivisions(
 }
 ''';
 
+String italianGeographicalDivisionsSearch = '''
+query italianGeographicalDivisions(
+    \$after:String,
+    \$before:String,
+    \$first:Int,
+    \$last:Int,
+    \$orderAttribute:ItalianGeographicalDivisionOrderAttributes,
+    \$orderDirection:OrderDirection,
+    \$search:String,
+    \$name:String,
+    \$code:String,
+    \$type:ItalianGeographicalDivisionTypes,
+    \$parentType: ItalianGeographicalDivisionTypes,
+    \$parentCode: String
+){
+ italianGeographicalDivisions(
+     after: \$after,
+     before: \$before
+     first:\$first,
+     last:\$last,
+     orderAttribute:\$orderAttribute,
+     orderDirection: \$orderDirection,
+     search:\$search,
+     name:\$name,
+     code:\$code,
+     type:\$type,
+     parentType: \$parentType,
+     parentCode: \$parentCode
+ ){
+    nodes{
+      id
+      name
+      code
+      type
+    }
+  }
+}
+''';
+
 String countries = '''
 query countries{
   countries {

@@ -14,6 +14,7 @@ import 'package:rousseau_vote/src/network/handlers/events_network_handler.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:rousseau_vote/src/network/handlers/search/geographical_search_handler.dart';
 import 'package:graphql/client.dart';
 import 'package:rousseau_vote/src/network/handlers/image_upload_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/ita_geo_divisions_network_handler.dart';
@@ -45,6 +46,8 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerFactory<ActivistsSearchProvider>(() => ActivistsSearchProvider());
   g.registerFactoryAsync<ErrorLogger>(() => ErrorLogger.create());
   g.registerFactory<FirebaseMessaging>(() => registerModule.firebaseMessaging);
+  g.registerFactory<GeographicalSearchHandler>(
+      () => GeographicalSearchHandler());
   g.registerFactory<MiFidoNetworkHandler>(
       () => MiFidoNetworkHandler(g<GraphQLClient>()));
   g.registerFactory<NoOpPushNotificationManager>(
