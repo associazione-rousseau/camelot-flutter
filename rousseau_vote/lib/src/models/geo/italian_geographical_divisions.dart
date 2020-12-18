@@ -15,7 +15,25 @@ class ItalianGeographicalDivisions extends HasPagination<ItalianGeographicalDivi
       _$ItalianGeographicalDivisionsFromJson(json);
   Map<String, dynamic> toJson() => _$ItalianGeographicalDivisionsToJson(this);
 
+  @JsonKey(fromJson: sortDivisions)
   Paginated<ItalianGeographicalDivision> italianGeographicalDivisions;
+
+  static Paginated<ItalianGeographicalDivision> sortDivisions(Map<String, dynamic> json) {
+    final Paginated<
+        ItalianGeographicalDivision> italianGeographicalDivisions = Paginated<
+        ItalianGeographicalDivision>.fromJson(
+        json,
+            (Object value) =>
+        value == null
+            ? null
+            : ItalianGeographicalDivision.fromJson(
+            value as Map<String, dynamic>));
+
+    italianGeographicalDivisions.nodes.sort((ItalianGeographicalDivision a, ItalianGeographicalDivision b) {
+      return b.score - a.score;
+    });
+    return italianGeographicalDivisions;
+  }
 
   @override
   Paginated<ItalianGeographicalDivision> getPaginatedData() => italianGeographicalDivisions;
