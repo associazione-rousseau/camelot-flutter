@@ -82,7 +82,10 @@ class RousseauSearchDelegate extends SearchDelegate {
     return ListView(
       children: <Widget>[
         suggestionListView,
-        ConditionalWidget(condition: provider.isLoading, child: const LoadingIndicator()),
+        ConditionalWidget(condition: provider.isLoading, child: const Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: LoadingIndicator(scale: 0.6,),
+        )),
       ],
     );
   }

@@ -27,8 +27,8 @@ class SearchSuggestionsProvider extends ChangeNotifier {
   Queue<SuggestionType<dynamic>> _suggestions;
 
   bool get isLoading {
-    for (CancelableOperation<dynamic> searchOperation in _searchOperations) {
-      if (!searchOperation.isCompleted) {
+    for (bool completed in _completedSearches) {
+      if (!completed) {
         return true;
       }
     }
@@ -41,6 +41,7 @@ class SearchSuggestionsProvider extends ChangeNotifier {
 
   List<SuggestionType<dynamic>> searchResults;
   List<CancelableOperation<dynamic>> _searchOperations;
+  List<bool> _completedSearches;
 
   void onType(String word) {}
 
@@ -48,12 +49,15 @@ class SearchSuggestionsProvider extends ChangeNotifier {
     cancelCurrentSearches();
     searchResults = <SuggestionType<dynamic>>[];
     _searchOperations = <CancelableOperation<dynamic>>[];
+    _completedSearches = List<bool>.filled(_searchHandlers.length, false, growable: false);
 
-    for (SearchHandler searchHandler in _searchHandlers) {
+    for (int i = 0; i < _searchHandlers.length; i++) {
+      final SearchHandler searchHandler = _searchHandlers[i];
       final CancelableOperation<dynamic> cancelableOperation =
           CancelableOperation<dynamic>.fromFuture(searchHandler.search(word));
       _searchOperations.add(cancelableOperation);
       cancelableOperation.value.then((dynamic suggestions) {
+        _completedSearches[i] = true;
         if (suggestions is List<SuggestionType<dynamic>>) {
           searchResults.addAll(suggestions);
           notifyListeners();
