@@ -337,6 +337,7 @@ String currentUserShort = '''
     id 
     slug
     fullName
+    subscriptionCount
     voteRightStartingCountDate
     verified
     createdAt
@@ -387,6 +388,7 @@ String currentUserFull = '''
     firstName
     fullName
     lastName
+    subscriptionCount
     overseaseCity
     gender
     placeOfBirth
