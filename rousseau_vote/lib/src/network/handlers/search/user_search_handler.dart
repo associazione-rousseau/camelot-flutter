@@ -8,7 +8,7 @@ import 'package:rousseau_vote/src/search/suggestion_types.dart';
 
 @injectable
 class UserSearchHandler implements SearchHandler {
-  static const int RESULTS_LIMIT = 3;
+  static const int RESULTS_LIMIT = 6;
 
   @override
   Future<List<SuggestionType<User>>> search(String word) async {
