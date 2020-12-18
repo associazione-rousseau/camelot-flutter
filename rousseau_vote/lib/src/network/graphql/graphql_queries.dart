@@ -176,6 +176,51 @@ query profileSearch(
 }
 ''';
 
+String profileSearchShort = '''
+query profileSearch(
+    \$fullName: String,
+    \$first: Int,
+    \$badges: [[String!]!],
+    \$tagCodes: [String!],
+    \$categoryCodes: [String!],
+    \$positionCodes: [String!],
+    \$countryCode: String,
+    \$italianGeographicalDivisionCode: String,
+    \$italianGeographicalDivisionType: ItalianGeographicalDivisionTypes,
+    \$after: String
+) {
+    profiles(
+        first: \$first,
+        fullName: \$fullName,
+        badges: \$badges,
+        tagCodes: \$tagCodes,
+        categoryCodes: \$categoryCodes,
+        positionCodes: \$positionCodes,
+        italianGeographicalDivisionCode: \$italianGeographicalDivisionCode,
+        italianGeographicalDivisionType: \$italianGeographicalDivisionType,
+        countryCode: \$countryCode
+        after: \$after
+    ) {
+        nodes {
+            id
+            slug
+            fullName
+            profile {
+                placeOfResidence {
+                    comuneName
+                    countryName
+                    countryCode
+                    overseaseCity
+                }
+                picture {
+                    originalUrl
+                }
+            }
+        }
+    }
+}
+''';
+
 String _profileFields = '''
   age
   placeOfBirth

@@ -16,8 +16,12 @@ import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/init/startup_prefetcher.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
+import 'package:rousseau_vote/src/network/handlers/search/position_search_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/search/search_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/search/user_search_handler.dart';
 import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
+import 'package:rousseau_vote/src/providers/search_suggestions_provider.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:rousseau_vote/src/util/debug_util.dart';
 import 'package:rousseau_vote/src/util/package_info_manager.dart';
@@ -39,6 +43,12 @@ abstract class RegisterModule {
     getIt<BlogInstantArticleProvider>(),
     getIt<RemoteConfigManager>(),
   ], 3000);
+
+
+  SearchSuggestionsProvider get searchSuggestionsProvider => SearchSuggestionsProvider(<SearchHandler>[
+    getIt<UserSearchHandler>(),
+    getIt<PositionSearchHandler>(),
+  ]);
 
   FirebaseMessaging get firebaseMessaging => FirebaseMessaging();
 

@@ -24,6 +24,7 @@ import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart'
 import 'package:rousseau_vote/src/providers/notification_badge_provider.dart';
 import 'package:rousseau_vote/src/util/package_info_manager.dart';
 import 'package:rousseau_vote/src/network/handlers/poll_network_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/search/position_search_handler.dart';
 import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
 import 'package:rousseau_vote/src/config/remote/remote_config_manager.dart';
 import 'package:rousseau_vote/src/providers/search_suggestions_provider.dart';
@@ -31,6 +32,7 @@ import 'package:rousseau_vote/src/storage/secure_storage.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/search/user_search_handler.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:rousseau_vote/src/network/handlers/verification_request_handler.dart';
@@ -49,12 +51,14 @@ void $initGetIt(GetIt g, {String environment}) {
       () => NoOpPushNotificationManager());
   g.registerLazySingleton<NotificationBadgeProvider>(
       () => NotificationBadgeProvider());
+  g.registerFactory<PositionSearchHandler>(() => PositionSearchHandler());
   g.registerFactory<SearchSuggestionsProvider>(
-      () => SearchSuggestionsProvider());
+      () => registerModule.searchSuggestionsProvider);
   g.registerLazySingleton<SecureStorage>(
       () => SecureStorage(g<FlutterSecureStorage>()));
   g.registerFactory<StartupInitializer>(
       () => registerModule.startupInitializer);
+  g.registerFactory<UserSearchHandler>(() => UserSearchHandler());
   g.registerFactoryParam<ValueNotifier<GraphQLClient>, BuildContext, dynamic>(
       (buildContext, _) =>
           registerModule.getGraphqlClientNotifier(buildContext));
