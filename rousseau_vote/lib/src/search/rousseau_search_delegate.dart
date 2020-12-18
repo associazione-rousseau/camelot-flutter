@@ -10,12 +10,15 @@ import 'package:rousseau_vote/src/providers/search_suggestions_provider.dart';
 import 'package:rousseau_vote/src/search/suggestion_types.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/core/conditional_widget.dart';
-import 'package:rousseau_vote/src/widgets/errors/error_page_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/search/suggestion_row.dart';
 import 'package:rousseau_vote/src/widgets/search/suggestion_section_widget.dart';
 
 class RousseauSearchDelegate extends SearchDelegate {
+
+  // unfortunatelly it's not possible to read it from the strings
+  RousseauSearchDelegate() : super(searchFieldLabel: 'Cerca utente, località o ruolo');
+
   @override
   List<Widget> buildActions(BuildContext context) {
     if (query != null || query.isNotEmpty) {
