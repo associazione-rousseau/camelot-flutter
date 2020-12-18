@@ -158,6 +158,7 @@ query profileSearch(
                     comuneName
                     countryName
                     countryCode
+                    overseaseCity
                 }
                 picture {
                     originalUrl
