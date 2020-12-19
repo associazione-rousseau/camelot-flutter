@@ -16,6 +16,7 @@ import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/init/startup_prefetcher.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
+import 'package:rousseau_vote/src/network/handlers/search/blog_articles_search_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/search/countries_search_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/search/geographical_search_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/search/position_search_handler.dart';
@@ -53,6 +54,7 @@ abstract class RegisterModule {
     getIt<GeographicalSearchHandler>(),
     getIt<PositionSearchHandler>(),
     getIt<UserSearchHandler>(),
+    getIt<BlogArticlesSearchHandler>(),
     getIt<SearchAllSearchHandler>(),
   ]);
 
