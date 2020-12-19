@@ -16,9 +16,6 @@ import 'package:rousseau_vote/src/widgets/search/suggestion_section_widget.dart'
 
 class RousseauSearchDelegate extends SearchDelegate {
 
-  // unfortunatelly it's not possible to read it from the strings
-  RousseauSearchDelegate() : super(searchFieldLabel: 'Cerca utente, località o ruolo');
-
   @override
   List<Widget> buildActions(BuildContext context) {
     if (query != null || query.isNotEmpty) {
