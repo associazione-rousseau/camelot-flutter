@@ -6,7 +6,7 @@
 
 import 'package:rousseau_vote/src/providers/activists_search_provider.dart';
 import 'package:rousseau_vote/src/network/handlers/blog_instant_article_network_handler.dart';
-import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
+import 'package:rousseau_vote/src/network/cache/blog_instant_articles_cache.dart';
 import 'package:rousseau_vote/src/network/handlers/search/countries_search_handler.dart';
 import 'package:rousseau_vote/src/injection/register_module.dart';
 import 'package:dio/dio.dart';
@@ -40,6 +40,7 @@ import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:rousseau_vote/src/network/handlers/verification_request_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/vote_network_handler.dart';
+import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
 import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:get_it/get_it.dart';
 
@@ -79,8 +80,7 @@ void $initGetIt(GetIt g, {String environment}) {
   //Eager singletons must be registered in the right order
   g.registerSingleton<BlogInstantArticleNetworkHandler>(
       BlogInstantArticleNetworkHandler());
-  g.registerSingleton<BlogInstantArticleProvider>(
-      BlogInstantArticleProvider(g<BlogInstantArticleNetworkHandler>()));
+  g.registerSingleton<BlogInstantArticlesCache>(BlogInstantArticlesCache());
   g.registerSingleton<Dio>(registerModule.dioForNative());
   g.registerSingleton<EventsNetworkHandler>(EventsNetworkHandler(g<Dio>()));
   g.registerSingletonAsync<ExternalPreselection>(
@@ -106,6 +106,8 @@ void $initGetIt(GetIt g, {String environment}) {
       UserNetworkHandler(g<GraphQLClient>()));
   g.registerSingleton<VerificationRequestHandler>(VerificationRequestHandler());
   g.registerSingleton<VoteNetworkHandler>(VoteNetworkHandler());
+  g.registerSingleton<BlogInstantArticleProvider>(BlogInstantArticleProvider(
+      g<BlogInstantArticleNetworkHandler>(), g<BlogInstantArticlesCache>()));
   g.registerSingleton<Login>(Login(
     g<LoginNetworkHandler>(),
     g<TokenStore>(),
