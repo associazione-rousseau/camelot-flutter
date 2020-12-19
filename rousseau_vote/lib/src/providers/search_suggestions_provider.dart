@@ -57,13 +57,14 @@ class SearchSuggestionsProvider extends ChangeNotifier {
           CancelableOperation<dynamic>.fromFuture(searchHandler.search(word));
       _searchOperations.add(cancelableOperation);
       cancelableOperation.value.then((dynamic suggestions) {
-        _completedSearches[i] = true;
         if (suggestions is List<SuggestionType<dynamic>>) {
           searchResults.addAll(suggestions);
-          notifyListeners();
         }
       }).catchError((Object error) {
         print(error);
+      }).whenComplete(() {
+        _completedSearches[i] = true;
+        notifyListeners();
       });
     }
 
