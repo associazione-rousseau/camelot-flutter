@@ -7,9 +7,9 @@ import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:rousseau_vote/src/search/suggestion_types.dart';
 
 @injectable
-class PositionSearchHandler implements SearchHandler {
+class PositionSearchHandler extends SearchHandler {
   @override
-  Future<List<SuggestionType<Position>>> search(String word) async {
+  Future<List<SuggestionType<Position>>> doSearch(String word) async {
     final UserNetworkHandler userNetworkHandler = getIt<UserNetworkHandler>();
     final Positions positions = await userNetworkHandler.fetchAllPositions();
     final List<SuggestionType<Position>> positionSuggestions = <SuggestionType<Position>>[];

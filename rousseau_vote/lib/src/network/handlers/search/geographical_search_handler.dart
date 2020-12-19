@@ -7,9 +7,9 @@ import 'package:rousseau_vote/src/network/handlers/search/search_handler.dart';
 import 'package:rousseau_vote/src/search/suggestion_types.dart';
 
 @injectable
-class GeographicalSearchHandler implements SearchHandler {
+class GeographicalSearchHandler extends SearchHandler {
   @override
-  Future<List<SuggestionType<ItalianGeographicalDivision>>> search(String word) async {
+  Future<List<SuggestionType<ItalianGeographicalDivision>>> doSearch(String word) async {
     final Map<String, dynamic> variables = <String, dynamic>{'search': word };
     final GraphqlFetcher<ItalianGeographicalDivisions> graphqlFetcher = GraphqlFetcher<ItalianGeographicalDivisions>(query: italianGeographicalDivisionsSearch, variables: variables);
     final ItalianGeographicalDivisions result = await graphqlFetcher.fetch();

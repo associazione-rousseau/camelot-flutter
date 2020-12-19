@@ -49,10 +49,10 @@ abstract class RegisterModule {
 
 
   SearchSuggestionsProvider get searchSuggestionsProvider => SearchSuggestionsProvider(<SearchHandler>[
-    getIt<UserSearchHandler>(),
-    getIt<PositionSearchHandler>(),
-    getIt<GeographicalSearchHandler>(),
     getIt<CountriesSearchHandler>(),
+    getIt<GeographicalSearchHandler>(),
+    getIt<PositionSearchHandler>(),
+    getIt<UserSearchHandler>(),
     getIt<SearchAllSearchHandler>(),
   ]);
 

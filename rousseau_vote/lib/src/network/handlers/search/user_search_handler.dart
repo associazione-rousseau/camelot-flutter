@@ -7,11 +7,11 @@ import 'package:rousseau_vote/src/network/handlers/search/search_handler.dart';
 import 'package:rousseau_vote/src/search/suggestion_types.dart';
 
 @injectable
-class UserSearchHandler implements SearchHandler {
+class UserSearchHandler extends SearchHandler {
   static const int RESULTS_LIMIT = 6;
 
   @override
-  Future<List<SuggestionType<User>>> search(String word) async {
+  Future<List<SuggestionType<User>>> doSearch(String word) async {
     final Map<String, dynamic> variables = <String, dynamic>{'first': RESULTS_LIMIT, 'fullName': word };
     final GraphqlFetcher<ProfileSearch> graphqlFetcher = GraphqlFetcher<ProfileSearch>(query: profileSearchShort, variables: variables);
     final ProfileSearch result = await graphqlFetcher.fetch();

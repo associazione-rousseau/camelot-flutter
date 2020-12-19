@@ -8,11 +8,11 @@ import 'package:rousseau_vote/src/network/handlers/search/search_handler.dart';
 import 'package:rousseau_vote/src/search/suggestion_types.dart';
 
 @injectable
-class CountriesSearchHandler implements SearchHandler {
+class CountriesSearchHandler extends SearchHandler {
   static const int RESULTS_LIMIT = 3;
 
   @override
-  Future<List<SuggestionType<ItalianGeographicalDivision>>> search(String word) async {
+  Future<List<SuggestionType<ItalianGeographicalDivision>>> doSearch(String word) async {
     final Map<String, dynamic> variables = <String, dynamic>{'first': RESULTS_LIMIT, 'search': word };
     final GraphqlFetcher<Countries> graphqlFetcher = GraphqlFetcher<Countries>(query: countrySearch, variables: variables);
     final Countries result = await graphqlFetcher.fetch();

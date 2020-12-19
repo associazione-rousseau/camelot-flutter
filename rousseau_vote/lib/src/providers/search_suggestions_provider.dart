@@ -26,9 +26,18 @@ class SearchSuggestionsProvider extends ChangeNotifier {
 
   Queue<SuggestionType<dynamic>> _suggestions;
 
+  List<SuggestionType<dynamic>> get searchResults {
+    final List<SuggestionType<dynamic>> results = <SuggestionType<dynamic>>[];
+    for (SearchHandler searchHandler in _searchHandlers) {
+      if (searchHandler.lastSearch != null) {
+        results.addAll(searchHandler.lastSearch);
+      }
+    }
+    return results;
+  }
   bool get isLoading {
-    for (bool completed in _completedSearches) {
-      if (!completed) {
+    for (SearchHandler searchHandler in _searchHandlers) {
+      if (searchHandler.isLoading) {
         return true;
       }
     }
@@ -39,31 +48,20 @@ class SearchSuggestionsProvider extends ChangeNotifier {
   List<SuggestionType<ItalianGeographicalDivision>> geographicalSuggestions;
   List<SuggestionType<Position>> positionSuggestions;
 
-  List<SuggestionType<dynamic>> searchResults;
   List<CancelableOperation<dynamic>> _searchOperations;
-  List<bool> _completedSearches;
 
   void onType(String word) {}
 
   void onSearch(String word) {
     cancelCurrentSearches();
-    searchResults = <SuggestionType<dynamic>>[];
     _searchOperations = <CancelableOperation<dynamic>>[];
-    _completedSearches = List<bool>.filled(_searchHandlers.length, false, growable: false);
 
     for (int i = 0; i < _searchHandlers.length; i++) {
       final SearchHandler searchHandler = _searchHandlers[i];
       final CancelableOperation<dynamic> cancelableOperation =
           CancelableOperation<dynamic>.fromFuture(searchHandler.search(word));
       _searchOperations.add(cancelableOperation);
-      cancelableOperation.value.then((dynamic suggestions) {
-        if (suggestions is List<SuggestionType<dynamic>>) {
-          searchResults.addAll(suggestions);
-        }
-      }).catchError((Object error) {
-        print(error);
-      }).whenComplete(() {
-        _completedSearches[i] = true;
+      cancelableOperation.value.whenComplete(() {
         notifyListeners();
       });
     }

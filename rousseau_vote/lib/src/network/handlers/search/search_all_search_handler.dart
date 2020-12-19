@@ -4,8 +4,8 @@ import 'package:rousseau_vote/src/network/handlers/search/search_handler.dart';
 import 'package:rousseau_vote/src/search/suggestion_types.dart';
 
 @injectable
-class SearchAllSearchHandler implements SearchHandler {
+class SearchAllSearchHandler extends SearchHandler {
 
   @override
-  Future<List<WordSearchSuggestion>> search(String word) async => <WordSearchSuggestion>[WordSearchSuggestion(word)];
+  Future<List<WordSearchSuggestion>> doSearch(String word) async => <WordSearchSuggestion>[WordSearchSuggestion(word)];
 }
