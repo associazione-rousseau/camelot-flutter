@@ -36,7 +36,7 @@ class WordSearchSuggestion extends SuggestionType<String> {
   Widget subtitle(BuildContext context) => null;
 
   @override
-  Widget icon(BuildContext context) => const Icon(Icons.history);
+  Widget icon(BuildContext context) => const Icon(Icons.search);
 
   @override
   void onTapped(BuildContext context) {

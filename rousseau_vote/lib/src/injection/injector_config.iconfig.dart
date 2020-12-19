@@ -29,6 +29,7 @@ import 'package:rousseau_vote/src/network/handlers/poll_network_handler.dart';
 import 'package:rousseau_vote/src/network/handlers/search/position_search_handler.dart';
 import 'package:rousseau_vote/src/prefetch/prefetch_manager.dart';
 import 'package:rousseau_vote/src/config/remote/remote_config_manager.dart';
+import 'package:rousseau_vote/src/network/handlers/search/search_all_search_handler.dart';
 import 'package:rousseau_vote/src/providers/search_suggestions_provider.dart';
 import 'package:rousseau_vote/src/storage/secure_storage.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
@@ -57,6 +58,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerLazySingleton<NotificationBadgeProvider>(
       () => NotificationBadgeProvider());
   g.registerFactory<PositionSearchHandler>(() => PositionSearchHandler());
+  g.registerFactory<SearchAllSearchHandler>(() => SearchAllSearchHandler());
   g.registerFactory<SearchSuggestionsProvider>(
       () => registerModule.searchSuggestionsProvider);
   g.registerLazySingleton<SecureStorage>(
