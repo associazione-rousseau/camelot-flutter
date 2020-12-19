@@ -137,7 +137,9 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const VerticalSpace(5),
-                  Text('DI ' + _instantArticle.author.name.toUpperCase()),
+                  InkResponse(
+                    onTap: () => _onAuthorTap(context),
+                      child: Text('DI ' + _instantArticle.author.name.toUpperCase())),
                   const VerticalSpace(5),
                   Text(formatDateDayMonth(context, _instantArticle.date)),
                 ],
@@ -149,6 +151,14 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
             ),
           ]),
     );
+  }
+
+  void _onAuthorTap(BuildContext context) {
+    final String slug = _instantArticle.author.rousseauSlug;
+    if (slug == null || slug.isEmpty) {
+      return;
+    }
+    openProfile(context, slug);
   }
 
   Widget _articleLoadingWidget() {

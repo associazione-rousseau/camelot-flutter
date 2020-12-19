@@ -10,10 +10,12 @@ abstract class BlogInstantArticleRestClient {
   factory BlogInstantArticleRestClient(Dio dio) = _BlogInstantArticleRestClient;
 
   @GET('/wp-json/mobile_api/v1/ia_posts')
-  Future<List<BlogInstantArticle>> getPosts({@Query('offset') int offset = 0,
-    @Query('per_page') int perPage = DEFAULT_ARTICLES_PER_PAGE});
+  Future<List<BlogInstantArticle>> getPosts(
+      {@Query('offset') int offset = 0,
+      @Query('per_page') int perPage = DEFAULT_ARTICLES_PER_PAGE,
+      @Query('search') String search,
+      @Query('author_rousseau_slug') String authorRousseauSlug});
 
   @GET('/wp-json/mobile_api/v1/ia_post')
   Future<BlogInstantArticle> getPost(@Query('slug') String slug);
-
 }

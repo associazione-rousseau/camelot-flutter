@@ -12,8 +12,8 @@ class BlogInstantArticleNetworkHandler {
 
   final BlogInstantArticleRestClient _restClient;
 
-  Future<List<BlogInstantArticle>> getPosts(int offset) async {
-    final List<BlogInstantArticle> instantArticles = await _restClient.getPosts(offset: offset);
+  Future<List<BlogInstantArticle>> getPosts(int offset, {String search, String authorRousseauSlug}) async {
+    final List<BlogInstantArticle> instantArticles = await _restClient.getPosts(offset: offset, search: search, authorRousseauSlug: authorRousseauSlug);
     if (instantArticles == null) {
       throw BlogFetchingException();
     }
