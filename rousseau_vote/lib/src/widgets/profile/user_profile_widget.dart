@@ -10,6 +10,7 @@ import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/core/conditional_widget.dart';
 import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 import 'package:rousseau_vote/src/widgets/menu/web_menu_button.dart';
+import 'package:rousseau_vote/src/widgets/profile/blog_articles_section.dart';
 import 'package:rousseau_vote/src/widgets/profile/tirendiconto_section.dart';
 import 'package:rousseau_vote/src/widgets/profile/user_profile_section.dart';
 import 'package:rousseau_vote/src/widgets/rousseau_animated_screen.dart';
@@ -109,6 +110,7 @@ class UserProfileWidget extends StatelessWidget {
           SocialBadgesSection(userProfile),
           MiFidoSection(userProfile: userProfile, isCurrentUser: isCurrentUser(userProfile),),
           TirendicontoSection(userProfile: userProfile),
+          BlogArticlesSection(userProfile: userProfile),
           UserInfoSection(
               'profile-presentation', userProfile.profile?.presentation),
           UserInfoSection(
