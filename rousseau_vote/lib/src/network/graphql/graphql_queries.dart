@@ -26,6 +26,37 @@ query listPolls(\$after: String) {
 }
 ''';
 
+String userSubscriptions = '''
+query profileDetail(\$id: ID!, \$first: Int, \$after: String) {
+  user(id: \$id) {
+    id
+    isSubscripted
+    subscriptions(first: \$first, after: \$after) {
+      nodes {
+        id
+        user {
+          id
+          slug
+          fullName
+          profile {
+            picture {
+              originalUrl
+            }
+          }
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+        __typename
+      }
+      totalCount
+    }
+  }
+}
+
+''';
+
 String profileDetail = '''
 query profileDetail(\$id: ID!) {
     user(id: \$id) {
