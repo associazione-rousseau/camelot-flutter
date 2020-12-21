@@ -72,17 +72,17 @@ class RousseauDrawer extends StatelessWidget {
           DrawerItem(
             textKey: 'drawer-support',
             iconData: Icons.favorite,
-            onTap: openUrlExternalAction(context, SUPPORT_LINK),
+            onTap: openUrlAction(context, SUPPORT_LINK),
           ),
           DrawerItem(
             textKey: 'drawer-web-version',
             iconData: Icons.devices,
-            onTap: openUrlExternalAction(context, ROUSSEAU_WEB_LINK),
+            onTap: openUrlAction(context, ROUSSEAU_WEB_LINK),
           ),
           DrawerItem(
             textKey: 'drawer-privacy',
             iconData: Icons.security,
-            onTap: openUrlExternalAction(context, PRIVACY_LINK),
+            onTap: openUrlAction(context, PRIVACY_LINK),
           ),
           const Divider(height: 4),
           DrawerItem(

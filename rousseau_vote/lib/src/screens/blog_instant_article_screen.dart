@@ -105,7 +105,7 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
   }
 
   void _onError(Object error) {
-    openUrlExternal(context, widget.arguments.url);
+    openUrl(context, widget.arguments.url);
     goBack(context);
   }
 
@@ -147,7 +147,7 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-              child: Html(data: _instantArticle.text, onLinkTap: (url) => openUrlExternal(context, url),),
+              child: Html(data: _instantArticle.text, onLinkTap: (url) => openUrl(context, url),),
             ),
           ]),
     );

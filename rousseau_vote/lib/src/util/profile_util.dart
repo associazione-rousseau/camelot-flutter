@@ -150,7 +150,7 @@ bool isCurrentUser(UserProfile userProfile) {
 }
 
 void openEditProfileExternal(BuildContext context) {
-  openUrlExternal(context, ROUSSEAU_EDIT_PROFILE_URL);
+  openUrl(context, ROUSSEAU_EDIT_PROFILE_URL);
 }
 
 String formatMoney(int amount) => NumberFormat.simpleCurrency(decimalDigits: 0, locale: 'it_IT').format(amount);

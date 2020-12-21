@@ -46,7 +46,7 @@ class EventDetailsScreen extends StatelessWidget {
           label:
           Text(RousseauLocalizations.getText(context, 'event-partecipate-button')),
           icon: const Icon(MdiIcons.calendarPlus),
-          onPressed: openUrlExternalAction(context, arguments.event.signupUrl),
+          onPressed: openUrlAction(context, arguments.event.signupUrl),
         ));
   }
 
@@ -80,7 +80,7 @@ class EventDetailsScreen extends StatelessWidget {
               _infoRow(MdiIcons.mapMarkerOutline, Text(arguments.event.location)),
               _infoRow(MdiIcons.clockOutline, _timeSection(context)),
               const VerticalSpace(10),
-              Html(data: arguments.event.description, onLinkTap: (String url) => openUrlExternal(context, url),),
+              Html(data: arguments.event.description, onLinkTap: (String url) => openUrl(context, url),),
             ]),
       );
   }
