@@ -14,7 +14,7 @@ class PositionSearchHandler extends SearchHandler {
     final Positions positions = await userNetworkHandler.fetchAllPositions();
     final List<SuggestionType<Position>> positionSuggestions = <SuggestionType<Position>>[];
     for (Position position in positions.positions) {
-      if (position.name.contains(word)) {
+      if (position.name.toLowerCase().contains(word.toLowerCase())) {
         positionSuggestions.add(PositionSuggestion(position));
       }
     }
