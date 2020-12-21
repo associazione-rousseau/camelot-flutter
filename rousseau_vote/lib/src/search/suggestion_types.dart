@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -123,15 +124,27 @@ class BlogArticleSuggestion extends SuggestionType<BlogInstantArticle> {
   BlogArticleSuggestion(BlogInstantArticle suggestion) : super(suggestion);
 
   @override
-  Widget title(BuildContext context) => Text(suggestion.title);
+  Widget title(BuildContext context) => Text(
+        suggestion.title,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      );
 
   @override
   Widget subtitle(BuildContext context) => Text(suggestion.author.name);
 
   @override
-  Widget icon(BuildContext context) => ProfilePicture(
-        url: suggestion.image,
-        radius: 15,
+  Widget icon(BuildContext context) => FittedBox(
+        fit: BoxFit.contain,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: CachedNetworkImage(
+            fit: BoxFit.cover,
+            imageUrl: suggestion.image,
+            width: 40,
+            height: 40,
+          ),
+        ),
       );
 
   @override
