@@ -19,6 +19,8 @@ const String ROUSSEAU_PUBLIC_PROFILE_URL = 'https://rousseau.movimento5stelle.it
 
 const String EVENT_PORTAL_URL = 'https://partecipa.ilblogdellestelle.it';
 
+const String BLOG_COVER_IMAGE_PLACEHOLDER = 'https://s3-eu-west-3.amazonaws.com/ilblogdellestelle-img/wp-content/uploads/2018/05/27115011/placeholder-650x350.jpg';
+
 const String KEYCLOAK_URL_LOCAL = 'http://10.0.2.2:8081';
 const String KEYCLOAK_URL_PRODUCTION = 'https://sso.rousseau.movimento5stelle.it';
 const String KEYCLOAK_URL = KEYCLOAK_URL_PRODUCTION;
