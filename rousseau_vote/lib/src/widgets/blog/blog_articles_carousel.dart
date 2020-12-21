@@ -9,14 +9,17 @@ class BlogArticlesCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 270,
-      child: PageView.builder(
-        itemCount: _instantArticles.length,
-        controller: PageController(viewportFraction: 0.8),
-        itemBuilder: (_, int index) {
-          return BlogInstantArticlePreview(_instantArticles[index]);
-        },
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: SizedBox(
+        height: 240,
+        child: PageView.builder(
+          itemCount: _instantArticles.length,
+          controller: PageController(viewportFraction: 0.8),
+          itemBuilder: (_, int index) {
+            return BlogInstantArticlePreview(_instantArticles[index]);
+          },
+        ),
       ),
     );
   }

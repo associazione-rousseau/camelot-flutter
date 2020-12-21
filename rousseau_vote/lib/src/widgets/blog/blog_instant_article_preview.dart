@@ -29,6 +29,9 @@ class BlogInstantArticlePreview extends StatelessWidget {
                 borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(RADIUS)),
                 child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  height: 150,
+                  width: 1000,
                   imageUrl: _article.image,
                   placeholder: (BuildContext context, String url) =>
                       BlogInstantArticlePlaceholder(),
@@ -37,11 +40,13 @@ class BlogInstantArticlePreview extends StatelessWidget {
                       BlogInstantArticlePlaceholder(),
                 ),
               ),
-              const VerticalSpace(15),
+              const VerticalSpace(10),
               ListTile(
                 contentPadding: const EdgeInsets.only(left: 15.0, right: 15.0),
                 title: Text(
                   _article.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontSize: 15, fontFamily: 'Roboto '),
                 ),
               ),
