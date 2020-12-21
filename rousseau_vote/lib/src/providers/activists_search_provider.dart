@@ -17,7 +17,6 @@ import 'package:rousseau_vote/src/util/ui_util.dart';
 
 @injectable
 class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
-
   ActivistsSearchProvider() {
     onFetcherUpdated(buildFetcher());
   }
@@ -45,7 +44,8 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
     onFetcherUpdated(buildFetcher());
   }
 
-  void onSearchByGeographicalDivision(BuildContext context, ItalianGeographicalDivision geographicalDivision) {
+  void onSearchByGeographicalDivision(
+      BuildContext context, ItalianGeographicalDivision geographicalDivision) {
     resetState();
     geographicalFilter.geographicalDivision = geographicalDivision;
     notifyListeners();
@@ -69,7 +69,13 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
     openRoute(context, ActivistsScreen.ROUTE_NAME, replace: true);
   }
 
-  void resetState({ bool notify = false }) {
+  bool get filtersSet =>
+      fullNameSearchFilter.isSet ||
+      badgeFilter.hasActives ||
+      geographicalFilter.isSet ||
+      positionFilter.isSet;
+
+  void resetState({bool notify = false}) {
     fullNameSearchFilter.reset();
     badgeFilter.reset();
     geographicalFilter.reset();
@@ -93,8 +99,7 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
 
     if (geographicalFilter.isSet) {
       if (geographicalFilter.isCountry) {
-        variables['countryCode'] =
-            geographicalFilter.geographicalCode;
+        variables['countryCode'] = geographicalFilter.geographicalCode;
       } else {
         variables['italianGeographicalDivisionCode'] =
             geographicalFilter.geographicalCode;
@@ -110,5 +115,6 @@ class ActivistsSearchProvider extends GenericListProvider<ProfileSearch, User> {
     return variables;
   }
 
-  GraphqlFetcher<ProfileSearch> buildFetcher() => GraphqlFetcher<ProfileSearch>(query: profileSearch, variables: getQueryVariables());
+  GraphqlFetcher<ProfileSearch> buildFetcher() => GraphqlFetcher<ProfileSearch>(
+      query: profileSearch, variables: getQueryVariables());
 }
