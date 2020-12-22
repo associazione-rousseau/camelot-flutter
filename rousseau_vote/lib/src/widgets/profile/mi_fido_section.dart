@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/profile/user_profile.dart';
 import 'package:rousseau_vote/src/models/user/user_subscriptions_list.dart';
 import 'package:rousseau_vote/src/network/fetcher/graphql_fetcher.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
+import 'package:rousseau_vote/src/util/mi_fido_util.dart';
 import 'package:rousseau_vote/src/util/widget/vertical_space.dart';
 import 'package:rousseau_vote/src/widgets/core/conditional_widget.dart';
 import 'package:rousseau_vote/src/widgets/profile/mi_fido_icon_widget.dart';
@@ -31,29 +31,12 @@ class MiFidoSection extends StatelessWidget {
             ))),
         const VerticalSpace(10),
         InkResponse(
-          child: Text(_miFidoString(context)),
+          child: Text(subscriberString(context, userProfile)),
           onTap: () => _onUsersTapped(context),
         ),
         const VerticalSpace(10),
       ],
     ));
-  }
-
-  String _miFidoString(BuildContext context) {
-    if (userProfile.subscriptionCount == 0) {
-      return RousseauLocalizations.getText(context, 'mi-fido-count-zero');
-    }
-    if (userProfile.subscriptionCount == 1) {
-      return RousseauLocalizations.getTextFormatted(
-          context, 'mi-fido-count-one', <String>[
-        userProfile.firstSubscriber.fullName,
-      ]);
-    }
-    return RousseauLocalizations.getTextFormatted(
-        context, 'mi-fido-count-plural', <dynamic>[
-      userProfile.firstSubscriber.fullName,
-      userProfile.subscriptionCount
-    ]);
   }
 
   void _onUsersTapped(BuildContext context) {
