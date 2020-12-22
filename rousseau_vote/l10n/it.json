@@ -272,6 +272,7 @@
     "mi-fido-count-one": "Un Mi Fido da %s",
     "mi-fido-count-plural": "%s ed altri %d Mi Fido",
     "subscribed-title": "I miei \"Attivisti Riconosciuti\"",
+    "and-more": "Ed altri %d",
 
     "tirendiconto-header": "Ha restituito allo Stato",
     "tirendiconto-amount": "€ %s",

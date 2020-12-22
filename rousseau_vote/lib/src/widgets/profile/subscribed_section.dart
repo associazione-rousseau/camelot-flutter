@@ -12,6 +12,8 @@ class SubscribedSection extends StatelessWidget {
 
   final UserProfile userProfile;
 
+  static const int PROFILES_SHOWN = 3;
+
   @override
   Widget build(BuildContext context) {
     return ProfileSectionWidget(
@@ -45,9 +47,27 @@ class SubscribedSection extends StatelessWidget {
     return ListView.separated(
         primary: false,
         shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) =>
-            UserRow(user: userProfile.userPublicSubscriptions.nodes[index]),
+        itemBuilder: (BuildContext context, int index) {
+          if (index == _cachedProfilesCount()) {
+            return _seeMoreWidget(context);
+          }
+          return UserRow(user: userProfile.userPublicSubscriptions.nodes[index]);
+        },
         separatorBuilder: (BuildContext context, int index) => const VerticalSpace(10),
-        itemCount: userProfile.userPublicSubscriptions.nodes.length);
+        itemCount: _itemCount());
+  }
+
+  int _itemCount() {
+    return _totalProfilesCount() < PROFILES_SHOWN ? _cachedProfilesCount() : _cachedProfilesCount() + 1;
+  }
+
+  int _cachedProfilesCount() => userProfile.userPublicSubscriptions.nodes.length;
+
+  int _totalProfilesCount() => userProfile.userPublicSubscriptions.totalCount;
+
+  Widget _seeMoreWidget(BuildContext context) {
+    final int delta = _totalProfilesCount() - PROFILES_SHOWN;
+    final String text = RousseauLocalizations.getTextFormatted(context, 'and-more', <int>[delta]);
+    return Text(text);
   }
 }
