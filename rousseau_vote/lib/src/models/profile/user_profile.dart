@@ -49,6 +49,7 @@ class UserProfile {
 
   User get firstSubscriber => subscriptions?.nodes != null && subscriptions.nodes.isNotEmpty ? subscriptions.nodes[0].user : null;
   User get firstSubscribed => userPublicSubscriptions?.nodes != null && userPublicSubscriptions.nodes.isNotEmpty ? userPublicSubscriptions.nodes[0] : null;
+  int get subscribedCount => userPublicSubscriptions?.totalCount ?? 0;
 
   String get profilePictureUrl {
     if (profile == null || profile.picture == null) {

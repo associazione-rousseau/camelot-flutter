@@ -40,6 +40,9 @@ class MiFidoSection extends StatelessWidget {
   }
 
   void _onUsersTapped(BuildContext context) {
+    if (userProfile.subscriptionCount == 0) {
+      return;
+    }
     final GraphqlFetcher<UserSubscriptionsList> fetcher =
         GraphqlFetcher<UserSubscriptionsList>(
             query: userSubscriptions,
