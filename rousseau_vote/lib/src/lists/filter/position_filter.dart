@@ -6,6 +6,8 @@ class PositionFilter {
 
   bool get isSet => position != null;
 
+  String get positionName => position?.name;
+
   List<String> get positionCodes => <String>[position.code];
 
   void reset() => position = null;

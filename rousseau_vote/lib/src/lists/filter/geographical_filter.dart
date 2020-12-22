@@ -11,5 +11,7 @@ class GeographicalFilter {
 
   String get geographicalType => geographicalDivision?.getType();
 
+  String get geographicalName => geographicalDivision?.name;
+
   void reset() => geographicalDivision = null;
 }
