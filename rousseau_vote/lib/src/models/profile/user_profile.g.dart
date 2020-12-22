@@ -17,10 +17,20 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
     ..gender = json['gender'] as String
     ..isSubscripted = json['isSubscripted'] as bool
     ..subscriptionCount = json['subscriptionCount'] as int
+    ..subscriptions = json['subscriptions'] == null
+        ? null
+        : Paginated.fromJson(
+            json['subscriptions'] as Map<String, dynamic>,
+            (value) => value == null
+                ? null
+                : Subscription.fromJson(value as Map<String, dynamic>))
     ..userPublicSubscriptions = json['userPublicSubscriptions'] == null
         ? null
-        : UserPublicSubscriptions.fromJson(
-            json['userPublicSubscriptions'] as Map<String, dynamic>)
+        : Paginated.fromJson(
+            json['userPublicSubscriptions'] as Map<String, dynamic>,
+            (value) => value == null
+                ? null
+                : User.fromJson(value as Map<String, dynamic>))
     ..profile = json['profile'] == null
         ? null
         : Profile.fromJson(json['profile'] as Map<String, dynamic>)
@@ -66,7 +76,12 @@ Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
       'gender': instance.gender,
       'isSubscripted': instance.isSubscripted,
       'subscriptionCount': instance.subscriptionCount,
-      'userPublicSubscriptions': instance.userPublicSubscriptions,
+      'subscriptions': instance.subscriptions?.toJson(
+        (value) => value,
+      ),
+      'userPublicSubscriptions': instance.userPublicSubscriptions?.toJson(
+        (value) => value,
+      ),
       'profile': instance.profile,
       'participations': instance.participations?.toJson(
         (value) => value,

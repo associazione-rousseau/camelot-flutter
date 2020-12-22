@@ -17,10 +17,20 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..gender = json['gender'] as String
     ..isSubscripted = json['isSubscripted'] as bool
     ..subscriptionCount = json['subscriptionCount'] as int
+    ..subscriptions = json['subscriptions'] == null
+        ? null
+        : Paginated.fromJson(
+            json['subscriptions'] as Map<String, dynamic>,
+            (value) => value == null
+                ? null
+                : Subscription.fromJson(value as Map<String, dynamic>))
     ..userPublicSubscriptions = json['userPublicSubscriptions'] == null
         ? null
-        : UserPublicSubscriptions.fromJson(
-            json['userPublicSubscriptions'] as Map<String, dynamic>)
+        : Paginated.fromJson(
+            json['userPublicSubscriptions'] as Map<String, dynamic>,
+            (value) => value == null
+                ? null
+                : User.fromJson(value as Map<String, dynamic>))
     ..profile = json['profile'] == null
         ? null
         : Profile.fromJson(json['profile'] as Map<String, dynamic>)
@@ -59,8 +69,9 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..createdAt = json['createdAt'] == null
         ? null
         : DateTime.parse(json['createdAt'] as String)
-    ..voteRightStartingCountDate =
-        json['voteRightStartingCountDate'] == null ? null : DateTime.parse(json['voteRightStartingCountDate'] as String)
+    ..voteRightStartingCountDate = json['voteRightStartingCountDate'] == null
+        ? null
+        : DateTime.parse(json['voteRightStartingCountDate'] as String)
     ..codiceFiscale = json['codiceFiscale'] as String
     ..dateOfBirth = json['dateOfBirth'] as String
     ..placeOfBirth = json['placeOfBirth'] as String
@@ -71,12 +82,25 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..noRousseauEventsEmail = json['noRousseauEventsEmail'] as bool
     ..noVoteEmail = json['noVoteEmail'] as bool
     ..noSms = json['noSms'] as bool
-    ..country = json['country'] == null ? null : Country.fromJson(json['country'] as Map<String, dynamic>)
-    ..regione = json['regione'] == null ? null : Regione.fromJson(json['regione'] as Map<String, dynamic>)
-    ..provincia = json['provincia'] == null ? null : Provincia.fromJson(json['provincia'] as Map<String, dynamic>)
-    ..comune = json['comune'] == null ? null : Comune.fromJson(json['comune'] as Map<String, dynamic>)
-    ..municipio = json['municipio'] == null ? null : Municipio.fromJson(json['municipio'] as Map<String, dynamic>)
-    ..lastResidenceChangeRequest = json['lastResidenceChangeRequest'] == null ? null : ResidenceChangeRequest.fromJson(json['lastResidenceChangeRequest'] as Map<String, dynamic>)
+    ..country = json['country'] == null
+        ? null
+        : Country.fromJson(json['country'] as Map<String, dynamic>)
+    ..regione = json['regione'] == null
+        ? null
+        : Regione.fromJson(json['regione'] as Map<String, dynamic>)
+    ..provincia = json['provincia'] == null
+        ? null
+        : Provincia.fromJson(json['provincia'] as Map<String, dynamic>)
+    ..comune = json['comune'] == null
+        ? null
+        : Comune.fromJson(json['comune'] as Map<String, dynamic>)
+    ..municipio = json['municipio'] == null
+        ? null
+        : Municipio.fromJson(json['municipio'] as Map<String, dynamic>)
+    ..lastResidenceChangeRequest = json['lastResidenceChangeRequest'] == null
+        ? null
+        : ResidenceChangeRequest.fromJson(
+            json['lastResidenceChangeRequest'] as Map<String, dynamic>)
     ..overseaseCity = json['overseaseCity'] as String;
 }
 
@@ -91,7 +115,12 @@ Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
       'gender': instance.gender,
       'isSubscripted': instance.isSubscripted,
       'subscriptionCount': instance.subscriptionCount,
-      'userPublicSubscriptions': instance.userPublicSubscriptions,
+      'subscriptions': instance.subscriptions?.toJson(
+        (value) => value,
+      ),
+      'userPublicSubscriptions': instance.userPublicSubscriptions?.toJson(
+        (value) => value,
+      ),
       'profile': instance.profile,
       'participations': instance.participations?.toJson(
         (value) => value,

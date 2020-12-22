@@ -15,7 +15,8 @@ import 'package:rousseau_vote/src/models/profile/resume_document.dart';
 import 'package:rousseau_vote/src/models/profile/tag.dart';
 import 'package:rousseau_vote/src/models/profile/tirendiconto_data.dart';
 import 'package:rousseau_vote/src/models/profile/user_profile.dart';
-import 'package:rousseau_vote/src/models/profile/user_public_subscriptions.dart';
+import 'package:rousseau_vote/src/models/user.dart';
+import 'package:rousseau_vote/src/models/user/subscription.dart';
 
 part 'current_user.g.dart';
 

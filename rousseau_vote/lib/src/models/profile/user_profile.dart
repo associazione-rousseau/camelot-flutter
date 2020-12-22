@@ -10,6 +10,8 @@ import 'package:rousseau_vote/src/models/profile/tag.dart';
 import 'package:rousseau_vote/src/models/profile/tirendiconto_data.dart';
 import 'package:rousseau_vote/src/models/profile/user_position.dart';
 import 'package:rousseau_vote/src/models/profile/user_public_subscriptions.dart';
+import 'package:rousseau_vote/src/models/user.dart';
+import 'package:rousseau_vote/src/models/user/subscription.dart';
 
 part 'user_profile.g.dart';
 
@@ -29,7 +31,8 @@ class UserProfile {
   String gender;
   bool isSubscripted;
   int subscriptionCount;
-  UserPublicSubscriptions userPublicSubscriptions;
+  Paginated<Subscription> subscriptions;
+  Paginated<User> userPublicSubscriptions;
   Profile profile;
   Paginated<Participation> participations;
   ResumeDocument resumeDocument;
@@ -43,6 +46,9 @@ class UserProfile {
           profile?.placeOfResidence?.overseaseCity ??
               profile?.placeOfResidence?.comuneName ??
           '';
+
+  User get firstSubscriber => subscriptions?.nodes != null && subscriptions.nodes.isNotEmpty ? subscriptions.nodes[0].user : null;
+  User get firstSubscribed => userPublicSubscriptions?.nodes != null && userPublicSubscriptions.nodes.isNotEmpty ? userPublicSubscriptions.nodes[0] : null;
 
   String get profilePictureUrl {
     if (profile == null || profile.picture == null) {

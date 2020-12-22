@@ -67,6 +67,21 @@ query profileDetail(\$id: ID!) {
         gender
         isSubscripted
         subscriptionCount
+        subscriptions(first: 3) {
+          nodes {
+            id
+            user {
+              id
+              slug
+              fullName
+              profile {
+                picture {
+                  originalUrl
+                }
+              }
+            }
+          }
+        }
         userPublicSubscriptions(first: 3) {
             nodes {
                 id
@@ -474,6 +489,36 @@ String currentUserFull = '''
     country{
       code 
       name
+    }
+    subscriptionCount
+    subscriptions(first: 3) {
+      nodes {
+        id
+        user {
+          id
+          slug
+          fullName
+          profile {
+            picture {
+              originalUrl
+            }
+          }
+        }
+      }
+    }
+    userPublicSubscriptions(first: 3) {
+        nodes {
+            id
+            slug
+            fullName
+            profile {
+                picture {
+                    originalUrl
+                }
+            }
+        }
+        totalCount
+        
     }
     profile {
         $_profileFields

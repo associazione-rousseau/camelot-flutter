@@ -268,7 +268,9 @@
 
     "confirm-mi-fido-title": "Conferma il \"Mi Fido\"",
     "confirm-mi-fido-message": "Mettendo \"Mi Fido\" garantisci per questo attivista.\n\nSarai garante del fatto che questa persona rispetta le regole e i principi del MoVimento 5 Stelle, partecipa alle attività politiche e civiche e contribuisce attivamente alla crescita del nostro movimento.\n\nL’obiettivo di questo strumento è quello di far emergere gli attivisti che la comunità riconosce come tali.\n\nUna volta fatto, il tuo nome comparirà nell'elenco pubblico dei garanti di questo attivista che è visibile a tutti gli iscritti.",
-    "mi-fido-count": "%d Mi Fido",
+    "mi-fido-count-zero": "Nessun Mi Fido",
+    "mi-fido-count-one": "Un Mi Fido da %s",
+    "mi-fido-count-plural": "%s ed altri %d Mi Fido",
 
     "tirendiconto-header": "Ha restituito allo Stato",
     "tirendiconto-amount": "€ %s",

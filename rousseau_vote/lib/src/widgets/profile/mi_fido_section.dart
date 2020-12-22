@@ -19,8 +19,6 @@ class MiFidoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String text = RousseauLocalizations.getTextFormatted(
-        context, 'mi-fido-count', [userProfile.subscriptionCount ?? 0]);
     return ProfileSectionWidget(
         child: Column(
       children: <Widget>[
@@ -33,11 +31,29 @@ class MiFidoSection extends StatelessWidget {
             ))),
         const VerticalSpace(10),
         InkResponse(
-          child: Text(text),
+          child: Text(_miFidoString(context)),
           onTap: () => _onUsersTapped(context),
         ),
+        const VerticalSpace(10),
       ],
     ));
+  }
+
+  String _miFidoString(BuildContext context) {
+    if (userProfile.subscriptionCount == 0) {
+      return RousseauLocalizations.getText(context, 'mi-fido-count-zero');
+    }
+    if (userProfile.subscriptionCount == 1) {
+      return RousseauLocalizations.getTextFormatted(
+          context, 'mi-fido-count-one', <String>[
+        userProfile.firstSubscriber.fullName,
+      ]);
+    }
+    return RousseauLocalizations.getTextFormatted(
+        context, 'mi-fido-count-plural', <dynamic>[
+      userProfile.firstSubscriber.fullName,
+      userProfile.subscriptionCount
+    ]);
   }
 
   void _onUsersTapped(BuildContext context) {
