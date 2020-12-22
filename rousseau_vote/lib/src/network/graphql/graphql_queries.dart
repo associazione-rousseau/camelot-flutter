@@ -48,13 +48,36 @@ query profileDetail(\$id: ID!, \$first: Int, \$after: String) {
       pageInfo {
         endCursor
         hasNextPage
-        __typename
       }
       totalCount
     }
   }
 }
+''';
 
+String userSubscribedList = '''
+query profileDetail(\$id: ID!, \$first: Int, \$after: String) {
+  user(id: \$id) {
+    id
+    userPublicSubscriptions(first: \$first, after: \$after) {
+        nodes {
+            id
+            slug
+            fullName
+            profile {
+                picture {
+                    originalUrl
+                }
+            }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        totalCount
+    }
+  }
+}
 ''';
 
 String profileDetail = '''
