@@ -58,6 +58,8 @@ class UserProfile {
     return profile.picture.originalUrl;
   }
 
+  bool get isBlogAuthor => profile?.isBlogAuthor;
+
   String get resumeUrl {
     if (resumeDocument == null || resumeDocument.files == null || resumeDocument.files.isEmpty) {
       return null;

@@ -12,6 +12,9 @@ class BlogArticlesSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!userProfile.isBlogAuthor) {
+      return Container();
+    }
     return ChangeNotifierProvider<BlogSearchProvider>(
       create: (BuildContext context) {
         final BlogSearchProvider provider = BlogSearchProvider();
