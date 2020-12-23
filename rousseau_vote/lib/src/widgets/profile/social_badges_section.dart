@@ -7,6 +7,7 @@ import 'package:rousseau_vote/src/util/ui_util.dart';
 const String FACEBOOK_LOGO = 'assets/images/socials/fb_logo.png';
 const String TWITTER_LOGO = 'assets/images/socials/twitter_logo.png';
 const String LINKEDIN_LOGO = 'assets/images/socials/linkedin_logo.png';
+const String EMAIL_LOGO = 'assets/images/socials/email_logo.png';
 
 class SocialBadgesSection extends StatelessWidget {
   const SocialBadgesSection(this.userProfile);
@@ -23,6 +24,8 @@ class SocialBadgesSection extends StatelessWidget {
         context, badges, userProfile.profile?.twitterProfile, TWITTER_LOGO);
     _maybeAddBadgeWidget(
         context, badges, userProfile.profile?.linkedinProfile, LINKEDIN_LOGO);
+    _maybeAddBadgeWidget(
+        context, badges, userProfile.profile?.emailUrl, EMAIL_LOGO);
 
     if (badges.isEmpty) {
       return Container();

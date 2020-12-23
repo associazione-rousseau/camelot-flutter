@@ -32,6 +32,13 @@ class Profile {
   String get facebookProfile => getSocialLink('fb');
   String get twitterProfile => getSocialLink('tw');
   String get linkedinProfile => getSocialLink('ln');
+  String get emailUrl => email != null ? 'mailto:$email' : null;
+
+  String get email => getSocialLink('em');
+  String get blogAuthorLink => getSocialLink('bg');
+
+  bool get isBlogAuthor => blogAuthorLink != null;
+  String get blogAuthorSlug => blogAuthorLink?.split('/')?.last;
 
   String getSocialLink(String code) {
     if (socialLinks == null) {
