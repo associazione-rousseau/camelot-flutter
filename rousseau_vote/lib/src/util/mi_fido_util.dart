@@ -22,5 +22,5 @@ String miFidoString(BuildContext context, int count, User user) {
     ]);
   }
   return RousseauLocalizations.getTextFormatted(
-      context, 'mi-fido-count-plural', <dynamic>[user.fullName, count]);
+      context, 'mi-fido-count-plural', <dynamic>[user.fullName, count - 1]);
 }
