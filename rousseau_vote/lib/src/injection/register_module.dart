@@ -12,6 +12,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/config/remote/remote_config_manager.dart';
+import 'package:rousseau_vote/src/firebase/firebase_initializer.dart';
 import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/init/startup_prefetcher.dart';
@@ -43,6 +44,7 @@ abstract class RegisterModule {
     getIt<PackageInfoManager>(),
     getIt<TokenStore>(),
     StartupPrefetcher([listPolls, currentUserShort]),
+    getIt<FirebaseInitializer>(),
     getIt<PushNotificationManager>(),
     getIt<BlogInstantArticleProvider>(),
     getIt<RemoteConfigManager>(),

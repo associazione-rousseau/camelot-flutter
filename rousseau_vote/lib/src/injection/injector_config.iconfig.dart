@@ -14,6 +14,7 @@ import 'package:dio/dio.dart';
 import 'package:rousseau_vote/src/error_reporting/error_logger.dart';
 import 'package:rousseau_vote/src/network/handlers/events_network_handler.dart';
 import 'package:rousseau_vote/src/providers/external_preselection.dart';
+import 'package:rousseau_vote/src/firebase/firebase_initializer.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rousseau_vote/src/network/handlers/search/geographical_search_handler.dart';
@@ -88,6 +89,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerSingleton<EventsNetworkHandler>(EventsNetworkHandler(g<Dio>()));
   g.registerSingletonAsync<ExternalPreselection>(
       () => ExternalPreselection.create());
+  g.registerSingleton<FirebaseInitializer>(FirebaseInitializer());
   g.registerSingleton<FlutterSecureStorage>(
       registerModule.flutterSecureStorage);
   g.registerSingleton<GraphQLClient>(registerModule.getGraphQLClient());
