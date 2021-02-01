@@ -26,12 +26,22 @@ class PollList extends HasPagination<Poll> {
             ? null
             : Poll.fromJson(value as Map<String, dynamic>));
 
+    pollsConnection.nodes.sort((Poll poll1, Poll poll2) {
+      if (poll1 == null || poll2 == null || poll1.status == null || poll2.status == null) {
+        return 0;
+      }
+      if (poll1.status == poll2.status) {
+        if (poll1.createdAt == null) {
+          return -1;
+        }
+        if (poll2.createdAt == null) {
+          return 1;
+        }
+        return poll2.createdAt.compareTo(poll1.createdAt);
+      }
 
-    final List<Poll> sortedNodes = <Poll>[];
-    sortedNodes.addAll(pollsConnection.nodes.where((Poll p) => p.pollStatus == PollStatus.OPEN));
-    sortedNodes.addAll(pollsConnection.nodes.where((Poll p) => p.pollStatus == PollStatus.PUBLISHED));
-    sortedNodes.addAll(pollsConnection.nodes.where((Poll p) => p.pollStatus == PollStatus.CLOSED));
-    pollsConnection.nodes = sortedNodes;
+      return poll1.pollStatus.index - poll2.pollStatus.index;
+    });
 
     return pollsConnection;
   }

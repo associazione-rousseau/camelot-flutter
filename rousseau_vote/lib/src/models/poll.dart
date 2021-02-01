@@ -33,6 +33,7 @@ class Poll {
   DateTime showStartingDate;
   DateTime voteStartingDate;
   DateTime voteEndingDate;
+  DateTime createdAt;
   int maxSelectableOptionsNumber;
   List<Alert> alerts;
   OptionsConnection optionsConnection;
@@ -101,4 +102,4 @@ const List<PollType> SUPPORTED_TYPES = <PollType>[
 
 enum PollType { TEXT, USER, UNKNOWN }
 
-enum PollStatus { PUBLISHED, OPEN, CLOSED }
+enum PollStatus { OPEN, PUBLISHED, CLOSED }

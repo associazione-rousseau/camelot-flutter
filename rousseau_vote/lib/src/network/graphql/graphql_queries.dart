@@ -6,6 +6,7 @@ query listPolls(\$after: String) {
 		  slug
 		  title
 		  status
+		  createdAt
 		  pollEntityType
 		  alreadyVoted
 		  showStartingDate
