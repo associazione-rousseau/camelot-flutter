@@ -57,8 +57,76 @@ jobs:
       - name: 'Get Tag'
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
-      - name: Print Tag
-        run: echo $BUILD_NAME $BUILD_NUMBER
+      # - name: Print Tag
+      #   run: echo $BUILD_NAME $BUILD_NUMBER
+      #   env:
+      #     BUILD_NAME: ${{ steps.previoustag.outputs.tag }}
+      #     BUILD_NUMBER: ${{ needs.tags.outputs.build_number }}
+      - name: Select Xcode version
+        run: sudo xcode-select -s '/Applications/Xcode_11.3.app/Contents/Developer'
+      - name: Bundle install
+        working-directory: ./rousseau_vote
+        run: cd ./ios && bundle install
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+      - name: 'Get latest tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@master"
+      # - name: 'Print tag'
+      #   run: echo $BUILD_NUMBER
+      #   env:
+      #     BUILD_NUMBER: ${{ steps.previoustag.outputs.tag }}
+      #     BUILD_NAME: ${{ steps.previoustag.outputs.tag }}
+      - name: Setup flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+      - name: Install tools
+        working-directory: ./rousseau_vote
+        run: |
+          flutter pub get
+          cd ./ios && pod install
+      - name: Unlock secrets
+        run: brew install git-crypt && echo $GIT_CRYPT_KEY | base64 -d > $KEY_FILE && git-crypt unlock $KEY_FILE
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
+          KEY_FILE: /tmp/github-jobs.key
+      - name: Copying firebase config
+        run: cp rousseau_vote/ios/Runner/GoogleService-Info.plist.release rousseau_vote/ios/Runner/GoogleService-Info.plist
+      - name: Build iOS App Bundle
+        working-directory: ./rousseau_vote
         env:
           BUILD_NAME: ${{ steps.previoustag.outputs.tag }}
           BUILD_NUMBER: ${{ needs.tags.outputs.build_number }}
+        run: flutter build ios --build-name $BUILD_NAME --build-number $BUILD_NUMBER
+      - name: Setup SSH Keys and known_hosts for fastlane match
+        run: |
+          SSH_PATH="$HOME/.ssh"
+          mkdir -p "$SSH_PATH"
+          touch "$SSH_PATH/known_hosts"
+          echo "$PRIVATE_KEY" > "$SSH_PATH/id_rsa"
+          chmod 700 "$SSH_PATH"
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          chmod 600 "$SSH_PATH/known_hosts"
+          chmod 600 "$SSH_PATH/id_rsa"
+          eval $(ssh-agent)
+          ssh-add "$SSH_PATH/id_rsa"
+        env:
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Deploy to TestFlight
+        working-directory: ./rousseau_vote
+        run: |
+          cd ./ios && bundle exec fastlane beta
+        env:
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          ITC_TEAM_ID: ${{ secrets.ITC_TEAM_ID }}
+          FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+          FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+          FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+          MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+          DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS: ${{ secrets.DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS }}
