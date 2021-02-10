@@ -54,14 +54,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: '0'
-      - name: 'Get Tag'
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-      # - name: Print Tag
-      #   run: echo $BUILD_NAME $BUILD_NUMBER
-      #   env:
-      #     BUILD_NAME: ${{ steps.previoustag.outputs.tag }}
-      #     BUILD_NUMBER: ${{ needs.tags.outputs.build_number }}
       - name: Select Xcode version
         run: sudo xcode-select -s '/Applications/Xcode_11.3.app/Contents/Developer'
       - name: Bundle install
