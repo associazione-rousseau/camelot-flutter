@@ -9,5 +9,7 @@ class Category {
   factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
 
+  String id;
+  String name;
   String code;
 }

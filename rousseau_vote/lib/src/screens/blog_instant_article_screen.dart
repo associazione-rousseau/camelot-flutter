@@ -105,7 +105,7 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
   }
 
   void _onError(Object error) {
-    openUrlExternal(context, widget.arguments.url);
+    openUrl(context, widget.arguments.url);
     goBack(context);
   }
 
@@ -137,7 +137,9 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const VerticalSpace(5),
-                  Text('DI ' + _instantArticle.author.name.toUpperCase()),
+                  InkResponse(
+                    onTap: () => _onAuthorTap(context),
+                      child: Text('DI ' + _instantArticle.author.name.toUpperCase())),
                   const VerticalSpace(5),
                   Text(formatDateDayMonth(context, _instantArticle.date)),
                 ],
@@ -145,10 +147,18 @@ class _BlogInstantArticleScreenState extends State<BlogInstantArticleScreen> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-              child: Html(data: _instantArticle.text, onLinkTap: (url) => openUrlExternal(context, url),),
+              child: Html(data: _instantArticle.text, onLinkTap: (url) => openUrl(context, url),),
             ),
           ]),
     );
+  }
+
+  void _onAuthorTap(BuildContext context) {
+    final String slug = _instantArticle.author.rousseauSlug;
+    if (slug == null || slug.isEmpty) {
+      return;
+    }
+    openProfile(context, slug);
   }
 
   Widget _articleLoadingWidget() {

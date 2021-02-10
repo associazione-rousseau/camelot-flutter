@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'author.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Author {
   Author();
 
@@ -11,4 +11,5 @@ class Author {
 
   String name;
   String avatar;
+  String rousseauSlug;
 }

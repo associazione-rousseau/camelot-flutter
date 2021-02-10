@@ -8,17 +8,16 @@ part of 'italianGeographicalDivision.dart';
 
 ItalianGeographicalDivision _$ItalianGeographicalDivisionFromJson(
     Map<String, dynamic> json) {
-  return ItalianGeographicalDivision(
-    json['id'] as String,
-    json['name'] as String,
-    json['code'] as String,
-    json['type'] as String,
-    (json['descendants'] as List)
+  return ItalianGeographicalDivision()
+    ..id = json['id'] as String
+    ..name = json['name'] as String
+    ..code = json['code'] as String
+    ..type = json['type'] as String
+    ..descendants = (json['descendants'] as List)
         ?.map((e) => e == null
             ? null
             : ItalianGeographicalDivision.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  );
+        ?.toList();
 }
 
 Map<String, dynamic> _$ItalianGeographicalDivisionToJson(

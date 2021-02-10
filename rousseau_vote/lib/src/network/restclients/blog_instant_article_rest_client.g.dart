@@ -18,11 +18,16 @@ class _BlogInstantArticleRestClient implements BlogInstantArticleRestClient {
 
   @override
   Future<List<BlogInstantArticle>> getPosts(
-      {offset = 0, perPage = DEFAULT_ARTICLES_PER_PAGE}) async {
+      {offset = 0,
+      perPage = DEFAULT_ARTICLES_PER_PAGE,
+      search,
+      authorRousseauSlug}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'offset': offset,
-      r'per_page': perPage
+      r'per_page': perPage,
+      r'search': search,
+      r'author_rousseau_slug': authorRousseauSlug
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};

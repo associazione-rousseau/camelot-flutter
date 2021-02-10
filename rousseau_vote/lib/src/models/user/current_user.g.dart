@@ -11,13 +11,47 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..id = json['id'] as String
     ..slug = json['slug'] as String
     ..accountType = json['accountType'] as String
-    ..gender = json['gender'] as String
     ..fullName = json['fullName'] as String
     ..lastName = json['lastName'] as String
     ..firstName = json['firstName'] as String
+    ..gender = json['gender'] as String
+    ..isSubscripted = json['isSubscripted'] as bool
+    ..subscriptionCount = json['subscriptionCount'] as int
+    ..subscriptions = json['subscriptions'] == null
+        ? null
+        : Paginated.fromJson(
+            json['subscriptions'] as Map<String, dynamic>,
+            (value) => value == null
+                ? null
+                : Subscription.fromJson(value as Map<String, dynamic>))
+    ..userPublicSubscriptions = json['userPublicSubscriptions'] == null
+        ? null
+        : Paginated.fromJson(
+            json['userPublicSubscriptions'] as Map<String, dynamic>,
+            (value) => value == null
+                ? null
+                : User.fromJson(value as Map<String, dynamic>))
+    ..profile = json['profile'] == null
+        ? null
+        : Profile.fromJson(json['profile'] as Map<String, dynamic>)
+    ..participations = json['participations'] == null
+        ? null
+        : Paginated.fromJson(
+            json['participations'] as Map<String, dynamic>,
+            (value) => value == null
+                ? null
+                : Participation.fromJson(value as Map<String, dynamic>))
+    ..resumeDocument = json['resumeDocument'] == null
+        ? null
+        : ResumeDocument.fromJson(
+            json['resumeDocument'] as Map<String, dynamic>)
     ..badges = (json['badges'] as List)
         ?.map(
             (e) => e == null ? null : Badge.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..userPositions = (json['userPositions'] as List)
+        ?.map((e) =>
+            e == null ? null : UserPosition.fromJson(e as Map<String, dynamic>))
         ?.toList()
     ..category = json['category'] == null
         ? null
@@ -25,15 +59,10 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..tags = (json['tags'] as List)
         ?.map((e) => e == null ? null : Tag.fromJson(e as Map<String, dynamic>))
         ?.toList()
-    ..overseaseCity = json['overseaseCity'] as String
-    ..profile = json['profile'] == null
+    ..tirendiconto = json['tirendiconto'] == null
         ? null
-        : Profile.fromJson(json['profile'] as Map<String, dynamic>)
-    ..userPositions = (json['userPositions'] as List)
-        ?.map((e) => e == null
-            ? null
-            : UserPositions.fromJson(e as Map<String, dynamic>))
-        ?.toList()
+        : TirendicontoData.fromJson(
+            json['tirendiconto'] as Map<String, dynamic>)
     ..email = json['email'] as String
     ..statusColor = json['statusColor'] as String
     ..verified = json['verified'] as bool
@@ -55,28 +84,24 @@ CurrentUser _$CurrentUserFromJson(Map<String, dynamic> json) {
     ..noSms = json['noSms'] as bool
     ..country = json['country'] == null
         ? null
-        : ItalianGeographicalDivision.fromJson(
-            json['country'] as Map<String, dynamic>)
+        : Country.fromJson(json['country'] as Map<String, dynamic>)
     ..regione = json['regione'] == null
         ? null
-        : ItalianGeographicalDivision.fromJson(
-            json['regione'] as Map<String, dynamic>)
+        : Regione.fromJson(json['regione'] as Map<String, dynamic>)
     ..provincia = json['provincia'] == null
         ? null
-        : ItalianGeographicalDivision.fromJson(
-            json['provincia'] as Map<String, dynamic>)
+        : Provincia.fromJson(json['provincia'] as Map<String, dynamic>)
     ..comune = json['comune'] == null
         ? null
-        : ItalianGeographicalDivision.fromJson(
-            json['comune'] as Map<String, dynamic>)
+        : Comune.fromJson(json['comune'] as Map<String, dynamic>)
     ..municipio = json['municipio'] == null
         ? null
-        : ItalianGeographicalDivision.fromJson(
-            json['municipio'] as Map<String, dynamic>)
+        : Municipio.fromJson(json['municipio'] as Map<String, dynamic>)
     ..lastResidenceChangeRequest = json['lastResidenceChangeRequest'] == null
         ? null
         : ResidenceChangeRequest.fromJson(
-            json['lastResidenceChangeRequest'] as Map<String, dynamic>);
+            json['lastResidenceChangeRequest'] as Map<String, dynamic>)
+    ..overseaseCity = json['overseaseCity'] as String;
 }
 
 Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
@@ -84,16 +109,28 @@ Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
       'id': instance.id,
       'slug': instance.slug,
       'accountType': instance.accountType,
-      'gender': instance.gender,
       'fullName': instance.fullName,
       'lastName': instance.lastName,
       'firstName': instance.firstName,
+      'gender': instance.gender,
+      'isSubscripted': instance.isSubscripted,
+      'subscriptionCount': instance.subscriptionCount,
+      'subscriptions': instance.subscriptions?.toJson(
+        (value) => value,
+      ),
+      'userPublicSubscriptions': instance.userPublicSubscriptions?.toJson(
+        (value) => value,
+      ),
+      'profile': instance.profile,
+      'participations': instance.participations?.toJson(
+        (value) => value,
+      ),
+      'resumeDocument': instance.resumeDocument,
       'badges': instance.badges,
+      'userPositions': instance.userPositions,
       'category': instance.category,
       'tags': instance.tags,
-      'overseaseCity': instance.overseaseCity,
-      'profile': instance.profile,
-      'userPositions': instance.userPositions,
+      'tirendiconto': instance.tirendiconto,
       'email': instance.email,
       'statusColor': instance.statusColor,
       'verified': instance.verified,
@@ -116,4 +153,5 @@ Map<String, dynamic> _$CurrentUserToJson(CurrentUser instance) =>
       'comune': instance.comune,
       'municipio': instance.municipio,
       'lastResidenceChangeRequest': instance.lastResidenceChangeRequest,
+      'overseaseCity': instance.overseaseCity,
     };

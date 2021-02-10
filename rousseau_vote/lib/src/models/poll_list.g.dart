@@ -8,12 +8,12 @@ part of 'poll_list.dart';
 
 PollList _$PollListFromJson(Map<String, dynamic> json) {
   return PollList()
-    ..polls = (json['polls'] as List)
-        ?.map(
-            (e) => e == null ? null : Poll.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..pollsConnection =
+        PollList.sortPolls(json['pollsConnection'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$PollListToJson(PollList instance) => <String, dynamic>{
-      'polls': instance.polls,
+      'pollsConnection': instance.pollsConnection?.toJson(
+        (value) => value,
+      ),
     };

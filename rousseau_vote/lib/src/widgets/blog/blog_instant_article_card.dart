@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/models/blog/blog_instant_article.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
-import 'package:rousseau_vote/src/widgets/loading_indicator.dart';
 
 import 'blog_instant_article_placeholder.dart';
 

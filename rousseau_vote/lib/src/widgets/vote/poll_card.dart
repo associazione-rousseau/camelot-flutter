@@ -96,7 +96,7 @@ class PollCard extends StatelessWidget {
             final SnackBarAction action = createSnackBarAction(
                 context,
                 'poll-results',
-                openUrlInternalAction(context, _poll.resultsLink));
+                openUrlAction(context, _poll.resultsLink));
             showSimpleSnackbar(context, textKey: 'poll-closed', action: action);
           } else {
             showSimpleSnackbar(context, textKey: 'poll-closed-no-results');
@@ -115,7 +115,7 @@ class PollCard extends StatelessWidget {
         buttonAction1: () => Navigator.pop(context),
         buttonAction2: () {
           Navigator.pop(context);
-          openUrlExternal(context, _poll.url);
+          openUrl(context, _poll.url);
     });
   }
 
@@ -162,7 +162,7 @@ class PollCard extends StatelessWidget {
 
   Widget _linkButton(BuildContext context, String textKey, String url,
       {bool bold = false}) {
-    return _button(context, textKey, openUrlInternalAction(context, url),
+    return _button(context, textKey, openUrlAction(context, url),
         bold: bold);
   }
 
@@ -204,7 +204,7 @@ class PollCard extends StatelessWidget {
         buttonAction1: () => Navigator.pop(context),
         buttonAction2: () {
           Navigator.pop(context);
-          openUrlExternal(context, _poll.url);
+          openUrl(context, _poll.url);
         });
   }
 }

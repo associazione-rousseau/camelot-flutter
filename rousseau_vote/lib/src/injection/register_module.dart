@@ -12,12 +12,21 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/config/remote/remote_config_manager.dart';
+import 'package:rousseau_vote/src/firebase/firebase_initializer.dart';
 import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
 import 'package:rousseau_vote/src/init/startup_initializer.dart';
 import 'package:rousseau_vote/src/init/startup_prefetcher.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
+import 'package:rousseau_vote/src/network/handlers/search/blog_articles_search_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/search/countries_search_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/search/geographical_search_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/search/position_search_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/search/search_all_search_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/search/search_handler.dart';
+import 'package:rousseau_vote/src/network/handlers/search/user_search_handler.dart';
 import 'package:rousseau_vote/src/notifications/push_notifications_manager.dart';
 import 'package:rousseau_vote/src/providers/blog_instant_article_provider.dart';
+import 'package:rousseau_vote/src/providers/search_suggestions_provider.dart';
 import 'package:rousseau_vote/src/store/token_store.dart';
 import 'package:rousseau_vote/src/util/debug_util.dart';
 import 'package:rousseau_vote/src/util/package_info_manager.dart';
@@ -35,10 +44,21 @@ abstract class RegisterModule {
     getIt<PackageInfoManager>(),
     getIt<TokenStore>(),
     StartupPrefetcher([listPolls, currentUserShort]),
+    getIt<FirebaseInitializer>(),
     getIt<PushNotificationManager>(),
     getIt<BlogInstantArticleProvider>(),
     getIt<RemoteConfigManager>(),
   ], 3000);
+
+
+  SearchSuggestionsProvider get searchSuggestionsProvider => SearchSuggestionsProvider(<SearchHandler>[
+    getIt<CountriesSearchHandler>(),
+    getIt<GeographicalSearchHandler>(),
+    getIt<PositionSearchHandler>(),
+    getIt<UserSearchHandler>(),
+    getIt<BlogArticlesSearchHandler>(),
+    getIt<SearchAllSearchHandler>(),
+  ]);
 
   FirebaseMessaging get firebaseMessaging => FirebaseMessaging();
 

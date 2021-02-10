@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -10,6 +12,7 @@ import 'package:rousseau_vote/src/providers/login.dart';
 import 'package:rousseau_vote/src/screens/edit_account_screen.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/util/verify_identity_util.dart';
+import 'package:rousseau_vote/src/widgets/core/conditional_widget.dart';
 import 'package:rousseau_vote/src/widgets/dialog/loading_dialog.dart';
 import 'package:rousseau_vote/src/widgets/drawer/drawer_item.dart';
 import 'package:rousseau_vote/src/widgets/drawer/rousseau_drawer_header.dart';
@@ -70,19 +73,22 @@ class RousseauDrawer extends StatelessWidget {
           ),
           const Divider(height: 4),
           DrawerItem(
-            textKey: 'drawer-support',
-            iconData: Icons.favorite,
-            onTap: openUrlExternalAction(context, SUPPORT_LINK),
-          ),
-          DrawerItem(
             textKey: 'drawer-web-version',
             iconData: Icons.devices,
-            onTap: openUrlExternalAction(context, ROUSSEAU_WEB_LINK),
+            onTap: openUrlAction(context, ROUSSEAU_WEB_LINK),
+          ),
+          ConditionalWidget(
+            condition: Platform.isAndroid,
+            child: DrawerItem(
+                textKey: 'drawer-support',
+                iconData: Icons.favorite,
+                onTap: openUrlAction(context, SUPPORT_LINK),
+            ),
           ),
           DrawerItem(
             textKey: 'drawer-privacy',
             iconData: Icons.security,
-            onTap: openUrlExternalAction(context, PRIVACY_LINK),
+            onTap: openUrlAction(context, PRIVACY_LINK),
           ),
           const Divider(height: 4),
           DrawerItem(

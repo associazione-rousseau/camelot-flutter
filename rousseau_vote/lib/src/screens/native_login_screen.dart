@@ -66,7 +66,7 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
               RousseauLocalizations.getText(context, 'password-forgot'),
               style: const TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
             ),
-            onTap: openUrlExternalAction(context, RESET_PASSWORD),
+            onTap: openUrlAction(context, RESET_PASSWORD),
           ),
           const SizedBox(height: 25.0),
           Row(children: <Widget>[
@@ -93,7 +93,7 @@ class _NativeLoginScreenState extends State<NativeLoginScreen> {
                 color: Theme.of(context).primaryColor,
               ),
             ),
-            onPressed: openUrlExternalAction(context, generateRegisterUrl()),
+            onPressed: openUrlAction(context, generateRegisterUrl()),
           )
         ],
       ),

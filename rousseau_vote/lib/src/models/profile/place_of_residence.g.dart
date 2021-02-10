@@ -7,10 +7,17 @@ part of 'place_of_residence.dart';
 // **************************************************************************
 
 PlaceOfResidence _$PlaceOfResidenceFromJson(Map<String, dynamic> json) {
-  return PlaceOfResidence()..comuneName = json['comuneName'] as String;
+  return PlaceOfResidence()
+    ..comuneName = json['comuneName'] as String
+    ..countryName = json['countryName'] as String
+    ..countryCode = json['countryCode'] as String
+    ..overseaseCity = json['overseaseCity'] as String;
 }
 
 Map<String, dynamic> _$PlaceOfResidenceToJson(PlaceOfResidence instance) =>
     <String, dynamic>{
       'comuneName': instance.comuneName,
+      'countryName': instance.countryName,
+      'countryCode': instance.countryCode,
+      'overseaseCity': instance.overseaseCity,
     };

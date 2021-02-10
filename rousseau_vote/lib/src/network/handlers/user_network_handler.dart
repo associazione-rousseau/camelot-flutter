@@ -1,5 +1,7 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rousseau_vote/src/models/profile/position.dart';
+import 'package:rousseau_vote/src/models/profile/positions.dart';
 import 'package:rousseau_vote/src/models/residence_change_request.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_mutations.dart';
@@ -27,6 +29,33 @@ class UserNetworkHandler {
 		}
 		currentUser = getParser<CurrentUser>().parse(result);
 		return currentUser;
+	}
+
+	Future<Positions> fetchAllPositions({ FetchPolicy fetchPolicy = FetchPolicy.cacheFirst }) async {
+		final QueryOptions queryOptions = QueryOptions(documentNode: gql(positions), fetchPolicy: fetchPolicy);
+		final QueryResult result = await _graphQLClient.query(queryOptions);
+		if (result.hasException) {
+			throw result.exception;
+		}
+		return getParser<Positions>().parse(result);
+	}
+
+	Future<Positions> searchGeographicalDivision(String word, { FetchPolicy fetchPolicy = FetchPolicy.cacheFirst }) async {
+		final QueryOptions queryOptions = QueryOptions(documentNode: gql(positions), fetchPolicy: fetchPolicy);
+		final QueryResult result = await _graphQLClient.query(queryOptions);
+		if (result.hasException) {
+			throw result.exception;
+		}
+		return getParser<Positions>().parse(result);
+	}
+
+	Future<Positions> searchCountry(String word, { FetchPolicy fetchPolicy = FetchPolicy.cacheFirst }) async {
+		final QueryOptions queryOptions = QueryOptions(documentNode: gql(countrySearch), fetchPolicy: fetchPolicy);
+		final QueryResult result = await _graphQLClient.query(queryOptions);
+		if (result.hasException) {
+			throw result.exception;
+		}
+		return getParser<Positions>().parse(result);
 	}
 
 	Future<CurrentUser> updateCurrentUser(CurrentUser currentUser) async {

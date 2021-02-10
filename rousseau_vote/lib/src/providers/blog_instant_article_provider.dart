@@ -4,17 +4,18 @@ import 'dart:collection';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/init/initialize_on_startup.dart';
 import 'package:rousseau_vote/src/models/blog/blog_instant_article.dart';
+import 'package:rousseau_vote/src/network/cache/blog_instant_articles_cache.dart';
 import 'package:rousseau_vote/src/network/handlers/blog_instant_article_network_handler.dart';
 
 import 'network_change_notifier.dart';
 
 @singleton
 class BlogInstantArticleProvider extends NetworkChangeNotifier with InitializeOnStartup {
-  BlogInstantArticleProvider(this._networkHandler);
+  BlogInstantArticleProvider(this._networkHandler, this._cache);
 
   final BlogInstantArticleNetworkHandler _networkHandler;
+  final BlogInstantArticlesCache _cache;
   final List<BlogInstantArticle> _instantArticles = <BlogInstantArticle>[];
-  final HashMap<String, BlogInstantArticle> _instantArticleCache = HashMap<String, BlogInstantArticle>();
 
   List<BlogInstantArticle> getInstantArticles() {
     return _instantArticles;
@@ -39,7 +40,7 @@ class BlogInstantArticleProvider extends NetworkChangeNotifier with InitializeOn
       _instantArticles.clear();
     }
     _instantArticles.addAll(newArticles);
-    addInstantArticlesToCache(newArticles);
+    _cache.addInstantArticles(newArticles);
     doneLoading();
     return newArticles;
   }
@@ -48,7 +49,7 @@ class BlogInstantArticleProvider extends NetworkChangeNotifier with InitializeOn
     startLoading();
 
     // checking the cache first
-    final BlogInstantArticle cachedArticle = getCachedInstantArticle(slug);
+    final BlogInstantArticle cachedArticle = _cache.getInstantArticle(slug);
     if (cachedArticle != null) {
       return cachedArticle;
     }
@@ -58,25 +59,13 @@ class BlogInstantArticleProvider extends NetworkChangeNotifier with InitializeOn
       setError();
       return null;
     }
-    addInstantArticleToCache(newArticle);
+    _cache.addInstantArticle(newArticle);
     doneLoading();
 
     return newArticle;
   }
 
-  BlogInstantArticle getCachedInstantArticle(String slug) {
-    return _instantArticleCache[slug];
-  }
-
-  void addInstantArticlesToCache(List<BlogInstantArticle> instantArticles) {
-    _instantArticles.forEach((BlogInstantArticle element) {
-      addInstantArticleToCache(element);
-    });
-  }
-
-  void addInstantArticleToCache(BlogInstantArticle instantArticle) {
-    _instantArticleCache[instantArticle.slug] = instantArticle;
-  }
+  BlogInstantArticle getCachedInstantArticle(String slug) => _cache.getInstantArticle(slug);
 
   @override
   Future<void> doInitialize() async {

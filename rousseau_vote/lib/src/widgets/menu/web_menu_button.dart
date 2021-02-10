@@ -58,7 +58,7 @@ class WebMenuButton extends StatelessWidget {
         showSimpleSnackbar(context, duration: 3, textKey: 'link-copied');
         break;
       case RousseauMenuItemType.OPEN_IN_BROWSER:
-        openUrlExternal(context, url);
+        openUrl(context, url);
         break;
     }
   }

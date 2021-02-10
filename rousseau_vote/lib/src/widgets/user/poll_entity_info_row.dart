@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
-import 'package:rousseau_vote/src/config/links.dart';
-import 'package:rousseau_vote/src/models/entity.dart';
+import 'package:rousseau_vote/src/models/user.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
-import 'package:rousseau_vote/src/util/ui_util.dart';
 import 'package:rousseau_vote/src/screens/user_profile_screen.dart';
 
 class PollEntityInfoRow extends StatelessWidget {
@@ -14,7 +12,7 @@ class PollEntityInfoRow extends StatelessWidget {
     this._entity
   );
 
-  final Entity _entity;
+  final User _entity;
   final bool _active;
 
   @override

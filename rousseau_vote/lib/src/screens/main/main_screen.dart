@@ -52,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
         child: Consumer<NotificationBadgeProvider>(
           builder: (BuildContext context, NotificationBadgeProvider provider, Widget child) =>
             Scaffold(
-              appBar: mainPage.hasToolbar ? RousseauAppBar(white: true, hasBadge: provider.shouldShowDrawerBadge(),) : null,
+              appBar: mainPage.hasToolbar ? RousseauAppBar(white: true, hasBadge: provider.shouldShowDrawerBadge(), hasSearch: true,) : null,
               body: Center(
                 child: mainPage.page,
               ),
@@ -70,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
       final String title = RousseauLocalizations.of(context).text(mainPage.titleKey);
       items.add(BottomNavigationBarItem(
         icon: Badge(child: Icon(mainPage.iconData), showBadge: provider.shouldShowBadge(mainPage.type), position: BadgePosition.topEnd(top: -3, end: -3),),
-        title: Text(title),
+        label: RousseauLocalizations.of(context).text(mainPage.titleKey),
         activeIcon: Icon(mainPage.selectedIconData),
       ));
     }

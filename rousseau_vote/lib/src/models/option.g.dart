@@ -12,7 +12,7 @@ Option _$OptionFromJson(Map<String, dynamic> json) {
     ..text = json['text'] as String
     ..entity = json['entity'] == null
         ? null
-        : Entity.fromJson(json['entity'] as Map<String, dynamic>)
+        : User.fromJson(json['entity'] as Map<String, dynamic>)
     ..type = json['__typename'] as String;
 }
 

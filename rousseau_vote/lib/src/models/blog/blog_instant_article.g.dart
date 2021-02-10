@@ -10,7 +10,7 @@ BlogInstantArticle _$BlogInstantArticleFromJson(Map<String, dynamic> json) {
   return BlogInstantArticle()
     ..id = json['id'] as int
     ..title = json['title'] as String
-    ..image = json['image'] as String
+    ..image = BlogInstantArticle.parseImage(json['image'])
     ..date =
         json['date'] == null ? null : DateTime.parse(json['date'] as String)
     ..text = json['text'] as String

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/arguments/blog_instant_article_arguments.dart';
@@ -75,7 +76,26 @@ String formatDateDayMonth(BuildContext context, DateTime dateTime) {
       .format(dateTime);
 }
 
-Future<void> openUrlExternal(BuildContext context, String url) async {
+Function openUrlAction(BuildContext context, String url) {
+  return () {
+    openUrl(context, url);
+  };
+}
+
+Future<void> openUrl(BuildContext context, String url) async {
+  url = await resolveUrl(url);
+  if (isBlogArticle(url)) {
+    final String slug = getArticleSlug(url);
+    openBlogInstantArticle(context, url, slug);
+    return;
+  }
+
+  if (isProfile(url)) {
+    final String slug = getProfileSlug(url);
+    openProfile(context, slug);
+    return;
+  }
+
   if (await canLaunch(url)) {
     await launch(url);
   } else {
@@ -83,27 +103,6 @@ Future<void> openUrlExternal(BuildContext context, String url) async {
   }
 }
 
-Function openUrlExternalAction(BuildContext context, String url) {
-  return () {
-    openUrlExternal(context, url);
-  };
-}
-
-Future<void> openUrlInternal(BuildContext context, String url) async {
-  url = await resolveUrl(url);
-  if (isBlogArticle(url)) {
-    final String slug = getArticleSlug(url);
-    openBlogInstantArticle(context, url, slug);
-  } else {
-    openLink(context, BrowserArguments(url: url));
-  }
-}
-
-Function openUrlInternalAction(BuildContext context, String url) {
-  return () {
-    openUrlInternal(context, url);
-  };
-}
 Function openEventDetailsAction(BuildContext context, Event event) {
   return () {
     openEventDetails(context, event);
@@ -132,17 +131,6 @@ void openBlogInstantArticle(BuildContext context, String url, String slug) {
 
 void goBack(BuildContext context) {
   Navigator.of(context).pop();
-}
-
-void openLink(BuildContext context, BrowserArguments arguments) {
-  Navigator.of(context)
-      .pushNamed(InAppBrowser.ROUTE_NAME, arguments: arguments);
-}
-
-Function openLinkAction(BuildContext context, BrowserArguments arguments) {
-  return () {
-    openLink(context, arguments);
-  };
 }
 
 void openCurrentUserProfile(BuildContext context, CurrentUser currentUser) {
@@ -215,8 +203,19 @@ String getArticleSlug(String url) {
   return url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
 }
 
+String getProfileSlug(String url) {
+  if (!isProfile(url)) {
+    return null;
+  }
+  return url.substring(url.lastIndexOf('/') + 1);
+}
+
 bool isBlogArticle(String url) {
   return url.startsWith('https://www.ilblogdellestelle.it/');
+}
+
+bool isProfile(String url) {
+  return url.startsWith(ROUSSEAU_PUBLIC_PROFILE_URL);
 }
 
 /// If it's a shorted url it resolve the actual url (e.g.: bit.ly)

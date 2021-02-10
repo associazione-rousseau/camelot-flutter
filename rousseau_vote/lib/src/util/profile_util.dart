@@ -1,9 +1,12 @@
+import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
 import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/profile/badge.dart';
+import 'package:rousseau_vote/src/models/profile/user_profile.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/network/handlers/user_network_handler.dart';
 import 'package:rousseau_vote/src/util/ui_util.dart';
@@ -138,6 +141,16 @@ void showCompileProfileDialog(BuildContext context) {
       });
 }
 
-void openEditProfileExternal(BuildContext context) {
-  openUrlExternal(context, ROUSSEAU_EDIT_PROFILE_URL);
+bool isCurrentUser(UserProfile userProfile) {
+  if (userProfile == null) {
+    return false;
+  }
+  final CurrentUser currentUser = getIt<UserNetworkHandler>().currentUser;
+  return currentUser != null && currentUser.slug != null && currentUser.slug == userProfile.slug;
 }
+
+void openEditProfileExternal(BuildContext context) {
+  openUrl(context, ROUSSEAU_EDIT_PROFILE_URL);
+}
+
+String formatMoney(int amount) => NumberFormat.simpleCurrency(decimalDigits: 0, locale: 'it_IT').format(amount);

@@ -154,7 +154,7 @@
     "blog": "Blog",
     "vote": "Vota",
     "profile": "Profilo",
-    "elected": "Eletti",
+    "activists": "Attivisti",
     "events": "Eventi",
 
     "elected-coming-soon": "Work in progress...",
@@ -180,6 +180,9 @@
     "profile-location-same-female": "nata e residente a %s",
     "profile-location-same-male": "nato e residente a %s",
 
+    "activist-search-by-name": "Cerca per nome e cognome",
+    "activist-search-by-name-hint": "Inserisci il nome",
+
     "overseas-city": "Città di residenza estera",
     "last-italian-residence": "Ultima residenza in Italia",
     "residence-pending": "Richiesta in attesa di approvazione",
@@ -199,8 +202,6 @@
     "user-cannot-vote": "Non puoi votare",
     "user-cannot-vote-yet": "Non puoi ancora votare",
     "user-will-vote": "Potrai votare da %s",
-
-    "profile-section-not-available": "Non disponibile",
 
     "profile-not-compiled": "Profilo non compilato",
     "profile-not-compiled-alert-message": "Non hai ancora compilato il Profilo Attivista. Puoi compilarlo dalla pagina web.",
@@ -253,7 +254,34 @@
     "share-text": "Leggi: %s",
     "share-subject":  "Articolo dal Blog Delle Stelle",
 
+    "recent": "Recenti",
+    "near-you": "Vicino a te",
+    "no-activists-found": "Nessun attivista trovato",
+
+    "country-full": "%s",
+    "regione-full": "Regione %s",
+    "provincia-full": "Provincia di %s",
+    "comune-full": "Comune di %s",
+    "municipio-full": "%s",
+
+    "roles": "Ruoli",
+
+    "confirm-mi-fido-title": "Conferma il \"Mi Fido\"",
+    "confirm-mi-fido-message": "Mettendo \"Mi Fido\" garantisci per questo attivista.\n\nSarai garante del fatto che questa persona rispetta le regole e i principi del MoVimento 5 Stelle, partecipa alle attività politiche e civiche e contribuisce attivamente alla crescita del nostro movimento.\n\nL’obiettivo di questo strumento è quello di far emergere gli attivisti che la comunità riconosce come tali.\n\nUna volta fatto, il tuo nome comparirà nell'elenco pubblico dei garanti di questo attivista che è visibile a tutti gli iscritti.",
+    "mi-fido-count-zero": "Nessun Mi Fido",
+    "mi-fido-count-one": "Un Mi Fido da %s",
+    "mi-fido-count-plural": "%s ed altri %d Mi Fido",
+    "subscribed-title": "I miei \"Attivisti Riconosciuti\"",
+    "and-more": "Ed altri %d",
+
+    "tirendiconto-header": "Ha restituito allo Stato",
+    "tirendiconto-amount": "€ %s",
+    "tirendiconto-ok": "È in regola",
+    "tirendiconto-ko": "Non è in regola",
+    "tirendiconto-last-report": "Ultima rendicontazione a %s",
+
     "link-copied": "Link copiato",
 
-    "back-home": "Torna alla home"
+    "back-home": "Torna alla home",
+    "back-polls": "Torna ai quesiti"
 }

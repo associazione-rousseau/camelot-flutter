@@ -1,117 +1,341 @@
 String listPolls = '''
-  query listPolls {
-    polls(orderAttribute: show_starting_date, orderDirection: DESC) {
-      id
-      slug
-      title
-      status
-      pollEntityType
-      alreadyVoted
-      showStartingDate
-      voteStartingDate
-      voteEndingDate
-      announcementLink
+query listPolls(\$after: String) {
+	pollsConnection(orderAttribute: show_starting_date, orderDirection: DESC, first: 20, after: \$after) {
+		nodes {
+		  id
+		  slug
+		  title
+		  status
+		  createdAt
+		  pollEntityType
+		  alreadyVoted
+		  showStartingDate
+		  voteStartingDate
+		  voteEndingDate
+		  announcementLink
       resultsLink
       alerts {
         message
         path
       }
+		}
+		pageInfo {
+            hasNextPage
+            endCursor
+        }
+	}
+}
+''';
+
+String userSubscriptions = '''
+query profileDetail(\$id: ID!, \$first: Int, \$after: String) {
+  user(id: \$id) {
+    id
+    isSubscripted
+    subscriptions(first: \$first, after: \$after) {
+      nodes {
+        id
+        user {
+          id
+          slug
+          fullName
+          profile {
+            picture {
+              originalUrl
+            }
+          }
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      totalCount
     }
   }
+}
+''';
+
+String userSubscribedList = '''
+query profileDetail(\$id: ID!, \$first: Int, \$after: String) {
+  user(id: \$id) {
+    id
+    userPublicSubscriptions(first: \$first, after: \$after) {
+        nodes {
+            id
+            slug
+            fullName
+            profile {
+                picture {
+                    originalUrl
+                }
+            }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        totalCount
+    }
+  }
+}
 ''';
 
 String profileDetail = '''
 query profileDetail(\$id: ID!) {
     user(id: \$id) {
         id
-        overseaseCity
         slug
         accountType
+        fullName
+        gender
+        isSubscripted
+        subscriptionCount
+        subscriptions(first: 3) {
+          nodes {
+            id
+            user {
+              id
+              slug
+              fullName
+              profile {
+                picture {
+                  originalUrl
+                }
+              }
+            }
+          }
+        }
+        userPublicSubscriptions(first: 3) {
+            nodes {
+                id
+                slug
+                fullName
+                profile {
+                    picture {
+                        originalUrl
+                    }
+                }
+            }
+            totalCount
+            
+        }
+        profile {
+          $_profileFields
+        }
+        participations {
+            nodes {
+                event {
+                    title
+                    typology
+                    startsAt
+                    endsAt
+                }
+                geographicalScope {
+                    name
+                }
+                staff
+            }
+        }
+        resumeDocument {
+            files {
+                originalUrl
+            }
+        }
         badges {
             code
             active
         }
-        category {
-            code
-        }
-        tags {
-            code
-        }
-        gender
-        firstName
-        fullName
-        lastName
         userPositions {
             description
-            geographicalScope {
+            position {
+                code
                 name
                 type
             }
-            position {
-                code
-                type
+            geographicalScope {
                 name
             }
             startsAt
             endsAt
         }
-        profile {
-            $_profileFields
+        tirendiconto {
+            value
+            isOk
+            lastMonth
+        }
+        category {
+            id
+            name
+            code
+        }
+        tags {
+            id
+            code
+            name
+            parent {
+                code
+            }
         }
     }
 }
 ''';
 
+String positions = '''
+query positions {
+  positions {
+    code
+    name
+    type
+    __typename
+  }
+}
+''';
+
+String profileSearch = '''
+query profileSearch(
+    \$fullName: String,
+    \$badges: [[String!]!],
+    \$tagCodes: [String!],
+    \$categoryCodes: [String!],
+    \$positionCodes: [String!],
+    \$countryCode: String,
+    \$italianGeographicalDivisionCode: String,
+    \$italianGeographicalDivisionType: ItalianGeographicalDivisionTypes,
+    \$after: String
+) {
+    profiles(
+        first: 24,
+        fullName: \$fullName,
+        badges: \$badges,
+        tagCodes: \$tagCodes,
+        categoryCodes: \$categoryCodes,
+        positionCodes: \$positionCodes,
+        italianGeographicalDivisionCode: \$italianGeographicalDivisionCode,
+        italianGeographicalDivisionType: \$italianGeographicalDivisionType,
+        countryCode: \$countryCode
+        after: \$after
+    ) {
+        nodes {
+            id
+            slug
+            fullName
+            gender
+            profile {
+                age
+                placeOfBirth
+                placeOfResidence {
+                    comuneName
+                    countryName
+                    countryCode
+                    overseaseCity
+                }
+                picture {
+                    originalUrl
+                }
+            }
+            badges {
+                active
+                code
+            }
+        }
+        pageInfo {
+            hasNextPage
+            endCursor
+        }
+    }
+}
+''';
+
+String profileSearchShort = '''
+query profileSearch(
+    \$fullName: String,
+    \$first: Int,
+    \$badges: [[String!]!],
+    \$tagCodes: [String!],
+    \$categoryCodes: [String!],
+    \$positionCodes: [String!],
+    \$countryCode: String,
+    \$italianGeographicalDivisionCode: String,
+    \$italianGeographicalDivisionType: ItalianGeographicalDivisionTypes,
+    \$after: String
+) {
+    profiles(
+        first: \$first,
+        fullName: \$fullName,
+        badges: \$badges,
+        tagCodes: \$tagCodes,
+        categoryCodes: \$categoryCodes,
+        positionCodes: \$positionCodes,
+        italianGeographicalDivisionCode: \$italianGeographicalDivisionCode,
+        italianGeographicalDivisionType: \$italianGeographicalDivisionType,
+        countryCode: \$countryCode
+        after: \$after
+    ) {
+        nodes {
+            id
+            slug
+            fullName
+            profile {
+                placeOfResidence {
+                    comuneName
+                    countryName
+                    countryCode
+                    overseaseCity
+                }
+                picture {
+                    originalUrl
+                }
+            }
+        }
+    }
+}
+''';
+
+String countrySearch = '''
+query countries(\$search: String) {
+  countriesConnection(search: \$search) {
+    nodes {
+      id
+      name
+      code
+    }
+  }
+}
+''';
+
 String _profileFields = '''
-  presentation
-  curriculumActivist
-  curriculumVitae
-  yearOfGraduation
-  educationalInstitute
-  studyCourse
-  englishLevel
-  frenchLevel
-  germanLevel
-  spanishLevel
-  qualification
-  politicalExperiences
-  facebookProfile
-  twitterProfile
-  linkedinProfile
   age
   placeOfBirth
   placeOfResidence {
       comuneName
+      countryName
+      countryCode
+      overseaseCity
   }
   picture {
       originalUrl
   }
-  curriculumVitaeDocument {
-      originalUrl
-  }
-  italiaCinqueStelleVolunteerFlag
-  italiaCinqueStelleVolunteer
-  listRepresentativeFlag
-  listRepresentativeYear
-  listRepresentativeComune
-  opendayParticipantFlag
-  opendayParticipant
-  spokesmanM5sFlag
-  spokesmanM5sYear
-  spokesmanM5sInstitution
-  villaggioRousseauParticipantFlag
-  villaggioRousseauParticipant
-  villaggioRousseauVolunteerFlag
-  villaggioRousseauVolunteer
-  approvedCandidatures {
-      availableForFrontRunning
-      poll {
-          title
-          features {
-              frontRunners
-              frontRunnersLabel
-          }
+  presentation
+  curriculumVitae
+  curriculumActivist
+  politicalExperiences
+  studyCourse
+  qualification
+  yearOfGraduation
+  educationalInstitute
+  languageLevels {
+      language {
+          code
+          name
       }
+      level
+  }
+  socialLinks {
+      social {
+          code
+      }
+      url
   }
 ''';
 
@@ -153,12 +377,12 @@ String pollDetail = '''
                 id
                 slug
                 fullName
-                overseaseCity
                 profile {
                   age
                   placeOfResidence {
                     comuneName
                     provinciaName
+                    overseaseCity
                   }
                   picture {
                     originalUrl
@@ -184,6 +408,7 @@ String currentUserShort = '''
     id 
     slug
     fullName
+    subscriptionCount
     voteRightStartingCountDate
     verified
     createdAt
@@ -195,14 +420,31 @@ String currentUserShort = '''
         }
         placeOfResidence {
             comuneName
+            overseaseCity
         }
     }
     badges {
         code
         active
     }
+    municipio{
+      code
+      name
+    }
+    comune{
+      code
+      name
+    }
+    provincia{
+      code
+      name
+    }
     regione{
       code
+      name
+    }
+    country{
+      code 
       name
     }
   }
@@ -217,6 +459,8 @@ String currentUserFull = '''
     firstName
     fullName
     lastName
+    subscriptionCount
+    overseaseCity
     gender
     placeOfBirth
     dateOfBirth
@@ -270,7 +514,36 @@ String currentUserFull = '''
       code 
       name
     }
-    overseaseCity
+    subscriptionCount
+    subscriptions(first: 3) {
+      nodes {
+        id
+        user {
+          id
+          slug
+          fullName
+          profile {
+            picture {
+              originalUrl
+            }
+          }
+        }
+      }
+    }
+    userPublicSubscriptions(first: 3) {
+        nodes {
+            id
+            slug
+            fullName
+            profile {
+                picture {
+                    originalUrl
+                }
+            }
+        }
+        totalCount
+        
+    }
     profile {
         $_profileFields
     }
@@ -294,6 +567,7 @@ String currentUserResidence = '''
 query currentUser {
   currentUser {
     slug
+    overseaseCity
     comune{
       code
       name
@@ -314,7 +588,6 @@ query currentUser {
       code 
       name
     }
-    overseaseCity
     lastResidenceChangeRequest{
       comune{
           code
@@ -328,7 +601,6 @@ query currentUser {
           code
           name
       }
-      overseaseCity
       provincia{
           code
           name
@@ -341,6 +613,26 @@ query currentUser {
       status
     }
   }
+}
+''';
+
+String subscriptionAdd = '''
+mutation subscriptionAdd(\$subscriptionableId: ID!) {
+    user {
+        subscriptionAdd(subscriptionableId: \$subscriptionableId) {
+            errors
+        }
+    }
+}
+''';
+
+String subscriptionDelete = '''
+mutation subscriptionDelete(\$subscriptionableId: ID!) {
+    user {
+        subscriptionDelete(subscriptionableId: \$subscriptionableId) {
+            errors
+        }
+    }
 }
 ''';
 
@@ -382,6 +674,45 @@ query italianGeographicalDivisions(
         name
         code
       }
+    }
+  }
+}
+''';
+
+String italianGeographicalDivisionsSearch = '''
+query italianGeographicalDivisions(
+    \$after:String,
+    \$before:String,
+    \$first:Int,
+    \$last:Int,
+    \$orderAttribute:ItalianGeographicalDivisionOrderAttributes,
+    \$orderDirection:OrderDirection,
+    \$search:String,
+    \$name:String,
+    \$code:String,
+    \$type:ItalianGeographicalDivisionTypes,
+    \$parentType: ItalianGeographicalDivisionTypes,
+    \$parentCode: String
+){
+ italianGeographicalDivisions(
+     after: \$after,
+     before: \$before
+     first:\$first,
+     last:\$last,
+     orderAttribute:\$orderAttribute,
+     orderDirection: \$orderDirection,
+     search:\$search,
+     name:\$name,
+     code:\$code,
+     type:\$type,
+     parentType: \$parentType,
+     parentCode: \$parentCode
+ ){
+    nodes{
+      id
+      name
+      code
+      type
     }
   }
 }

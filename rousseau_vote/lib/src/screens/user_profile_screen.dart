@@ -32,7 +32,7 @@ class UserProfileScreen extends StatelessWidget {
       fetchPolicy: FetchPolicy.cacheFirst,
       builderSuccess: (UserProfile userProfile) {
         if (_arguments.currentUser) {
-          return AskForProfileWidget(child: UserProfileWidget(userProfile: userProfile, canEdit: true,));
+          return AskForProfileWidget(child: UserProfileWidget(userProfile: userProfile,));
         }
         return UserProfileWidget(userProfile: userProfile);
       },
