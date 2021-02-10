@@ -94,7 +94,6 @@ class PollDetailsScreen extends StatelessWidget {
               )),
           Text(
             poll.description,
-            maxLines: 10,
             style: const TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
             textAlign: TextAlign.center,
