@@ -188,7 +188,7 @@ class PollDetailsScreen extends StatelessWidget {
     final List<FlatButton> buttons = <FlatButton>[
       FlatButton(
         child: Text(
-          RousseauLocalizations.getText(context, 'back-home'),
+          RousseauLocalizations.getText(context, 'back-polls'),
         ),
         onPressed:
             openRouteAction(context, PollsScreen.ROUTE_NAME, replace: true),
@@ -223,6 +223,7 @@ class PollDetailsScreen extends StatelessWidget {
   void _showDialog(BuildContext context, Widget dialog) {
     showDialog<void>(
         context: context,
+        barrierColor: Colors.red,
         barrierDismissible: false,
         builder: (BuildContext dialogContext) => dialog);
   }
