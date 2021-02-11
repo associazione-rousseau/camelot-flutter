@@ -75,13 +75,12 @@ jobs:
         uses: subosito/flutter-action@v1
         with:
           channel: "stable"
+          flutter-version: "1.17.0"
       - name: Install tools
         working-directory: ./rousseau_vote
         run: |
           flutter pub get
-          gem install cocoapods
-          cd ./ios
-          pod install
+          cd ./ios && pod install
       - name: Unlock secrets
         run: brew install git-crypt && echo $GIT_CRYPT_KEY | base64 -d > $KEY_FILE && git-crypt unlock $KEY_FILE
         env:
