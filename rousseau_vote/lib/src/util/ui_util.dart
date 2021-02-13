@@ -61,7 +61,9 @@ void showRousseauSnackbar(BuildContext context,
       duration: const Duration(seconds: 5),
       behavior: SnackBarBehavior.floating);
 
-  scaffoldState.currentState.showSnackBar(snackBar);
+  if (scaffoldState.currentState != null) {
+    scaffoldState.currentState.showSnackBar(snackBar);
+  }
 }
 
 String formatDate(BuildContext context, DateTime dateTime) {
