@@ -223,7 +223,7 @@ class PollDetailsScreen extends StatelessWidget {
   void _showDialog(BuildContext context, Widget dialog) {
     showDialog<void>(
         context: context,
-        barrierColor: Colors.red,
+        barrierColor: Colors.grey,
         barrierDismissible: false,
         builder: (BuildContext dialogContext) => dialog);
   }
