@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rousseau_vote/src/config/app_constants.dart';
+import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/network/exceptions/login_exception.dart';
 import 'package:rousseau_vote/src/network/exceptions/no_session_exception.dart';
 import 'package:rousseau_vote/src/network/exceptions/session_expired_exception.dart';
@@ -13,6 +14,7 @@ import 'package:rousseau_vote/src/network/response/token_response.dart';
 import 'package:rousseau_vote/src/network/restclients/login_rest_client.dart';
 import 'package:rousseau_vote/src/network/result/credentials_login_result.dart';
 import 'package:rousseau_vote/src/network/util/open_id_util.dart';
+import 'package:rousseau_vote/src/providers/login.dart';
 
 @singleton
 class LoginNetworkHandler {
@@ -94,7 +96,7 @@ class LoginNetworkHandler {
       return await _refreshToken(refreshToken);
     } catch (e) {
       if (e.response.data['error'] == 'invalid_grant') {
-        throw SessionExpiredException();
+        getIt<Login>().sessionExpired();
       }
       rethrow;
     }
