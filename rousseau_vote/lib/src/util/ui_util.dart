@@ -180,7 +180,7 @@ void openRouteNoContext(String route,
 void openRoute(BuildContext context, String route,
     {Object arguments, bool replace = false}) {
   if (replace) {
-    Navigator.of(context).pushReplacementNamed(route, arguments: arguments);
+    Navigator.of(context).pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false, arguments: arguments);
   } else {
     Navigator.of(context).pushNamed(route, arguments: arguments);
   }
