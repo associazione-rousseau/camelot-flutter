@@ -7,6 +7,7 @@ import 'package:rousseau_vote/src/models/poll_detail.dart';
 import 'package:rousseau_vote/src/models/poll_list.dart';
 import 'package:rousseau_vote/src/models/profile/positions.dart';
 import 'package:rousseau_vote/src/models/profile/user_profile.dart';
+import 'package:rousseau_vote/src/models/responses/poll_answer_submit_response.dart';
 import 'package:rousseau_vote/src/models/user/current_user.dart';
 import 'package:rousseau_vote/src/models/user/profile_search.dart';
 import 'package:rousseau_vote/src/models/user/subscribed_list.dart';
@@ -14,6 +15,7 @@ import 'package:rousseau_vote/src/models/user/user_subscriptions_list.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/countries_parser.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/country_list_parser.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/ita_geo_divisions_parser.dart';
+import 'package:rousseau_vote/src/network/graphql/parser/poll_answer_submit_response_parser.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/poll_detail_parser.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/positions_parser.dart';
 import 'package:rousseau_vote/src/network/graphql/parser/profile_search_parser.dart';
@@ -39,6 +41,7 @@ Map<Type, QueryResponseParser<dynamic>> map = <Type, QueryResponseParser<dynamic
   Countries: CountriesParser(),
   UserSubscriptionsList: UserSubscriptionsListParser(),
   SubscribedList: SubscribedListParser(),
+  PollAnswerSubmitResponse: PollAnswerSubmitResponseParser()
 };
 
 QueryResponseParser<T> getParser<T>() {
