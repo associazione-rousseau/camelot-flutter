@@ -78,6 +78,7 @@ jobs:
       - name: Install tools
         working-directory: ./rousseau_vote
         run: |
+          flutter precache
           flutter pub get
           cd ./ios && pod install
       - name: Unlock secrets
