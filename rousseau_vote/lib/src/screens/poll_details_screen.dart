@@ -9,6 +9,7 @@ import 'package:rousseau_vote/src/injection/injector_config.dart';
 import 'package:rousseau_vote/src/l10n/rousseau_localizations.dart';
 import 'package:rousseau_vote/src/models/poll.dart';
 import 'package:rousseau_vote/src/models/poll_detail_arguments.dart';
+import 'package:rousseau_vote/src/models/responses/poll_answer_submit_response.dart';
 import 'package:rousseau_vote/src/network/graphql/graphql_queries.dart';
 import 'package:rousseau_vote/src/network/handlers/vote_network_handler.dart';
 import 'package:rousseau_vote/src/providers/vote_options_provider.dart';
@@ -151,13 +152,19 @@ class PollDetailsScreen extends StatelessWidget {
     _onVoteConfirmLoading(context);
     voteNetworkHandler
         .submitVote(arguments.pollId, provider.getSelectedOptions())
-        .then((QueryResult result) {
-      if (result.success) {
+        .then((PollAnswerSubmitResponse response) {
+      if (response.success) {
         _onVoteConfirmSuccess(context);
       } else {
-        _onVoteConfirmError(context);
+        final String errorMessage = response.alreadyVoted ?
+          RousseauLocalizations.getText(context, 'vote-already')
+            : response.errorMessage;
+        _onVoteConfirmError(context, errorMessage);
       }
-    }).catchError((dynamic object) => _onVoteConfirmError(context));
+    }).catchError((dynamic object) {
+      final String errorMessage = RousseauLocalizations.getText(context, 'error-network');
+      _onVoteConfirmError(context, errorMessage);
+    });
   }
 
   void _onVoteConfirmLoading(BuildContext context) {
@@ -203,7 +210,7 @@ class PollDetailsScreen extends StatelessWidget {
     _showDialog(context, dialog);
   }
 
-  void _onVoteConfirmError(BuildContext context) {
+  void _onVoteConfirmError(BuildContext context, String errorMessage) {
     Navigator.of(context).pop();
     final Widget body = Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -211,10 +218,7 @@ class PollDetailsScreen extends StatelessWidget {
       children: <Widget>[
         const VerticalSpace(30),
         const Icon(Icons.cloud_off),
-        Text(
-          RousseauLocalizations.getText(context, 'error-network'),
-          textAlign: TextAlign.center,
-        )
+        Text(errorMessage, textAlign: TextAlign.center,)
       ],
     );
     _showDialog(context, DismissableDialog(body: body));
