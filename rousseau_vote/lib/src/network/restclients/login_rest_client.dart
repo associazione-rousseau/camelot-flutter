@@ -7,9 +7,9 @@ import 'package:rousseau_vote/src/network/response/token_response.dart';
 
 part 'login_rest_client.g.dart';
 
-@RestApi(baseUrl: '$KEYCLOAK_URL/auth/realms/rousseau')
+@RestApi()
 abstract class LoginRestClient {
-  factory LoginRestClient(Dio dio) = _LoginRestClient;
+  factory LoginRestClient(Dio dio, {String baseUrl}) = _LoginRestClient;
 
   @GET('/protocol/openid-connect/auth')
   Future<InitLoginResponse> initLogin(

@@ -6,6 +6,8 @@ const String APP_NAME = 'Rousseau X';
 const String TOOLBAR_TITLE = APP_NAME;
 const bool USE_NATIVE_LOGIN = true;
 
+const bool LOCAL_ENV = bool.fromEnvironment('LOCAL_ENV', defaultValue: false);
+
 // Login configuration
 const String KEYCLOAK_CLIENT_ID = 'camelot-flutter';
 const String KEYCLOAK_REDIRECT_URI = 'http://localhost';
@@ -21,9 +23,11 @@ const String EVENT_PORTAL_URL = 'https://partecipa.ilblogdellestelle.it';
 
 const String BLOG_COVER_IMAGE_PLACEHOLDER = 'https://s3-eu-west-3.amazonaws.com/ilblogdellestelle-img/wp-content/uploads/2018/05/27115011/placeholder-650x350.jpg';
 
-const String KEYCLOAK_URL_LOCAL = 'http://10.0.2.2:8081';
+const String KEYCLOAK_URL_LOCAL = 'http://localhost:8081';
 const String KEYCLOAK_URL_PRODUCTION = 'https://sso.rousseau.movimento5stelle.it';
-const String KEYCLOAK_URL = KEYCLOAK_URL_PRODUCTION;
+const String KEYCLOAK_URL = LOCAL_ENV ? KEYCLOAK_URL_LOCAL : KEYCLOAK_URL_PRODUCTION;
+
+const String KEYCLOAK_LOGIN_URL = '$KEYCLOAK_URL/auth/realms/rousseau';
 const String KEYCLOAK_REGISTRATION_URL =
     '$KEYCLOAK_URL/auth/realms/rousseau/protocol/openid-connect/registrations?'
     'client_id=camelot-frontend&'
@@ -32,12 +36,14 @@ const String KEYCLOAK_REGISTRATION_URL =
     'response_type=code&'
     'scope=openid';
 
-const String API_URL_LOCAL = 'http://10.0.2.2:3000';
+const String RESET_PASSWORD = '$KEYCLOAK_URL/auth/realms/rousseau/login-actions/reset-credentials?client_id=$KEYCLOAK_CLIENT_ID';
+
+const String API_URL_LOCAL = 'http://localhost:3000';
 const String API_URL_PRODUCTION = 'https://api.rousseau.movimento5stelle.it';
-const String GRAPHQL_URL = '$API_URL_PRODUCTION/graphql';
+const String API_URL = LOCAL_ENV ? API_URL_LOCAL : API_URL_PRODUCTION;
+const String GRAPHQL_URL = '$API_URL/graphql';
 
 const String FILE_UPLOAD_URL_PRODUCTION = 'https://api.rousseau.movimento5stelle.it/files/direct_uploads';
-
 
 const String IN_APP_BROWSER_USER_AGENT = 'camelot-flutter';
 

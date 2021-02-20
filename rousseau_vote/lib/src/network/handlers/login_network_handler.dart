@@ -19,7 +19,7 @@ import 'package:rousseau_vote/src/providers/login.dart';
 @singleton
 class LoginNetworkHandler {
 
-  LoginNetworkHandler(Dio dio) : _loginRestClient = LoginRestClient(dio);
+  LoginNetworkHandler(Dio dio) : _loginRestClient = LoginRestClient(dio, baseUrl: KEYCLOAK_LOGIN_URL);
 
   final LoginRestClient _loginRestClient;
   LoginSession _loginSession;

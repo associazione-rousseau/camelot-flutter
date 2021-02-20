@@ -9,7 +9,6 @@ part of 'login_rest_client.dart';
 class _LoginRestClient implements LoginRestClient {
   _LoginRestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'https://sso.rousseau.movimento5stelle.it/auth/realms/rousseau';
   }
 
   final Dio _dio;
